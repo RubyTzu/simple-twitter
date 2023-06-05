@@ -1,12 +1,19 @@
 .authContainer {
+  margin: auto;
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   margin-top: 50px;
+  background-color: #ffffff;
+  width: 356px;
 }
-
+.inputContainer {
+  width: 356px;
+  margin-top: 30px;
+  position: relative;
+}
 .loginButton {
   width: 356px;
   height: 46px;
@@ -20,13 +27,14 @@
   font-weight: bold;
   padding: 6px 0;
   margin: 2rem 0;
+}
 
-  &.hover {
-    cursor: pointer;
-  }
+.loginButton:hover {
+  cursor: pointer;
 }
 
 .linkText {
+  margin: auto 0px auto auto;
   color: #0062ff;
   font-size: 16px;
   font-weight: 400;
