@@ -1,6 +1,7 @@
 import { AuthInput } from "components/AuthInput";
 import { ReactComponent as LogoSVG } from "assets/Icon.svg";
 import "pages/LoginRegister.scss";
+import { Link } from "react-router-dom";
 
 export const LoginPage = () => {
   return (
@@ -20,7 +21,8 @@ export const LoginPage = () => {
         登入
       </button>
       <div className="linkText">
-        <a href="#">註冊</a> ・ <a href="#">後台登入</a>
+        <Link to="/register">註冊</Link> ・{" "}
+        <Link to="/adminlogin">後台登入</Link>
       </div>
     </div>
   );

@@ -1,5 +1,6 @@
 import { AuthInput } from "components/AuthInput";
 import { ReactComponent as LogoSVG } from "assets/Icon.svg";
+import { Link } from "react-router-dom";
 import "pages/LoginRegister.scss";
 
 export const Register = () => {
@@ -33,7 +34,7 @@ export const Register = () => {
         註冊
       </button>
       <div className="linkTextCancel">
-        <a href="#">取消</a>
+        <Link to="/login">取消</Link>
       </div>
     </div>
   );
