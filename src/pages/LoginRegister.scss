@@ -8,6 +8,7 @@
   margin-top: 50px;
   background-color: #ffffff;
   width: 356px;
+  height: 1200px;
 }
 .inputContainer {
   width: 356px;
@@ -34,7 +35,14 @@
 }
 
 .linkText {
-  margin: auto 0px auto auto;
+  margin: 0px 0px auto auto;
+  color: #0062ff;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.linkTextCancel {
+  margin: 0px auto auto;
   color: #0062ff;
   font-size: 16px;
   font-weight: 400;

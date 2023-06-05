@@ -1,6 +1,6 @@
 import { AuthInput } from "components/AuthInput";
 import { ReactComponent as LogoSVG } from "assets/Icon.svg";
-import "pages/LoginPage.scss";
+import "pages/LoginRegister.scss";
 
 export const LoginPage = () => {
   return (
