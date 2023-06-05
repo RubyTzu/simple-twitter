@@ -4,6 +4,10 @@
 :root {
   --major: #ff6600;
   --gray: #767678;
+  --lightGrayOne: #E6ECF0;
+  --lightGrayTwo: #FAFAFB;
+  --darkGray: #44444F;
+  --white: #ffffff;
 }
 
 html,
@@ -47,4 +51,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
   cursor: pointer;
   outline: 0;
+}
+
+.cursorPointer {
+    cursor: pointer;
 }

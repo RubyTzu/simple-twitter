@@ -1,0 +1,45 @@
+.navbarContainer {
+  width: 178px;
+  height: 100%;
+  margin-right: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.logo {
+  height: 65px;
+  display: flex;
+}
+
+.navbarTopPart {
+  height: 300px;
+}
+
+.tweetButton {
+  width: 178px;
+  height: 46px;
+  border-radius: 30px;
+  background-color: var(--major);
+  border: none;
+  color: var(--white);
+  font-size: 20px;
+}
+
+.navbarButton {
+  display: flex;
+  align-items: center;
+  width: 178px;
+  height: 46px;
+  margin: 10px 0;
+  border: none;
+  background-color: var(--white);
+  color: var(--darkGray);
+  font-family: "Lato", "Noto Sans TC", sans-serif;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.navbarIcon {
+  margin: 0 16px;
+}
