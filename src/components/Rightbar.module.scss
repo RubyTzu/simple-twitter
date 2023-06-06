@@ -1,0 +1,93 @@
+.rightbarContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  height: 100%;
+}
+.popularbarContainer {
+  background-color: var(--lightGrayTwo);
+  width: 273px;
+  height: 740px;
+  border-radius: 16px;
+  margin: 16px 25px;
+}
+
+.RightbarTitle {
+  display: flex;
+  padding: 24px 0px 24px 24px;
+  margin: 0;
+  font-family: "Lato", "Noto Sans TC", sans-serif;
+  font-weight: bold;
+  font-size: 24px;
+  border-bottom: 1px solid #e6ecf0;
+}
+
+.popularUser {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  flex: 50px auto 50px;
+  width: 273px;
+  height: 82px;
+  margin-right: 10px;
+}
+
+.popularUserAvatar {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  margin: 15px 0 15px 15px;
+  padding: 0;
+}
+.userInfos {
+  position: absolute;
+  top: 18px;
+  left: 72px;
+  min-width: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: flex-start;
+  align-items: flex-start;
+}
+
+.popularUserName {
+  margin: 0 0 5px 0;
+  padding: 0;
+  font-size: 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.popularUserNickName {
+  line-height: 1;
+  font-family: "Noto Sans TC", sans-serif;
+  font-size: 14px;
+  color: #92929d;
+  padding: 0 0 5px 0;
+}
+
+.toNotFollowButton {
+  width: 96px;
+  height: 40px;
+  margin: auto 15px;
+  border-radius: 50px;
+  background-color: var(--major);
+  border: none;
+  color: var(--white);
+  font-size: 16px;
+  cursor: pointer;
+}
+.toFollowButton {
+  width: 64px;
+  height: 40px;
+  margin: auto 15px auto 10px;
+  border-radius: 50px;
+  background-color: var(--white);
+  border: 1px solid var(--major);
+  color: var(--major);
+  font-size: 16px;
+  cursor: pointer;
+}

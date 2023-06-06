@@ -1,0 +1,27 @@
+.adminMainPageContainer {
+  /* Display */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* Box Model */
+  width: 1140px;
+  height: 100vh;
+  margin: 0 auto;
+}
+
+.adminMainbarContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  min-width: 937px;
+  height: 100%;
+  border: 1px solid var(--lightGrayOne);
+}
+
+.adminMainPageTitle {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 12px 0 12px 20px;
+}

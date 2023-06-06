@@ -1,0 +1,36 @@
+.settingPageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1140px;
+  height: 100vh;
+  margin: 0 auto;
+}
+
+.mainbarContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  min-width: 641px;
+  height: 100%;
+  border: 1px solid var(--lightGrayOne);
+}
+
+.settingPageHeader {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  border-bottom: 1px solid var(--lightGrayOne);
+}
+
+.settingPageTitle {
+    font-size: 24px;
+    font-weight: bold;
+     margin: 12px 0 12px 20px;
+}
+
+.rightbarContainer {
+  width: 273px;
+  margin: 16px 25px;
+}

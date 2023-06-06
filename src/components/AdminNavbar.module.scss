@@ -1,0 +1,63 @@
+.navbarContainer {
+  width: 178px;
+  height: 100%;
+  margin: 0 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.logo {
+  height: 65px;
+  display: flex;
+  margin-left: 13px;
+  color: var(--major);
+}
+
+.navbarTopPart {
+  height: 300px;
+}
+
+.tweetButton {
+  width: 178px;
+  height: 46px;
+  border-radius: 30px;
+  background-color: var(--major);
+  border: none;
+  color: var(--white);
+  font-size: 20px;
+}
+
+.homeUserSettingbar {
+  height: 124px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.navbarButton {
+  display: flex;
+  align-items: center;
+  width: 178px;
+  height: 58px;
+  margin-bottom: 8px;
+  border: none;
+  background-color: var(--white);
+  color: var(--darkGray);
+  font-family: "Lato", "Noto Sans TC", sans-serif;
+  font-weight: bold;
+  font-size: 18px;
+  .navbarIcon {
+    margin: 0 16px;
+    color: var(--darkGray);
+  }
+}
+
+.chooseButton {
+  color: var(--major);
+  .navbarIcon {
+    margin: 0 16px;
+    color: var(--major);
+  }
+}
