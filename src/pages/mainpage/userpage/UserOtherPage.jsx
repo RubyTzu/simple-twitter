@@ -4,6 +4,8 @@ import { Rightbar } from "components/Rightbar";
 import styles from "./UserPage.module.scss";
 import { ReactComponent as LetterIcon } from "assets/letterIcon.svg";
 import { ReactComponent as NotifIcon } from "assets/notifIcon.svg";
+import userotherBcg from "assets/userotherBcg.svg";
+import userotherAvatar from "assets/userotherAvatar.svg";
 export const UserOtherPage = () => {
   return (
     <div className={styles.mainPageContainer}>
@@ -17,16 +19,8 @@ export const UserOtherPage = () => {
           </div>
         </header>
         <div className={styles.userinfoContainer}>
-          <img
-            className={styles.userBcgImage}
-            src="https://cdn.pixabay.com/photo/2015/02/24/15/41/wolf-647528_1280.jpg"
-            alt=""
-          />
-          <img
-            className={styles.userAvatar}
-            src="https://www.drelseys.com/wp-content/uploads/2018/09/cat-meme-blog-001-1200x0-c-default.jpg"
-            alt=""
-          />
+          <img className={styles.userBcgImage} src={userotherBcg} alt="" />
+          <img className={styles.userAvatar} src={userotherAvatar} alt="" />
           <div className={styles.userinfoBtnContainer}>
             <div className={styles.userinfoBtn}>
               <LetterIcon className={styles.icon} />
