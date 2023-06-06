@@ -13,6 +13,10 @@ export const HomePage = () => {
         <div className={styles.tweetsCollection}>
           <Tweet />
           <Tweet />
+          <Tweet />
+          <Tweet />
+          <Tweet />
+          <Tweet />
         </div>
       </div>
       <Rightbar />
