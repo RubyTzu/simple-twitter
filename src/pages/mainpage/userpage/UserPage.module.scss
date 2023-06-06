@@ -131,18 +131,18 @@
 
 .follow {
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
 }
 
 .followerInfoBtn {
-  width: 75px;
+  min-width: 75px;
   height: 22px;
   color: #6c757d;
   font-size: 14px;
   cursor: pointer;
 }
 .followingInfoBtn {
-  width: 75px;
+  min-width: 75px;
   height: 22px;
   color: #6c757d;
   font-size: 14px;
