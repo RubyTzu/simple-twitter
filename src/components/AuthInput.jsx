@@ -1,8 +1,7 @@
-import "components/AuthInput.scss";
-
+import styles from "components/AuthInput.module.scss";
 export const AuthInput = ({ type, label, placeholder, value, onChange }) => {
   return (
-    <div className="input">
+    <div className={styles.input}>
       <label>{label}</label>
       <input
         type={type}

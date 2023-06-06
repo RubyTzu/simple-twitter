@@ -1,0 +1,154 @@
+.mainPageContainer {
+  /* Display */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* Box Model */
+  width: 1140px;
+  height: 100vh;
+  margin: 0 auto;
+}
+
+.mainbarContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  min-width: 641px;
+  height: 100%;
+  border: 1px solid var(--lightGrayOne);
+  position: relative;
+}
+
+.userPageHeader {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  border-bottom: 1px solid var(--lightGrayOne);
+}
+
+.userPageHeaderText {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: flex-start;
+  height: 60px;
+  margin-left: 20px;
+}
+
+.userPageTitle {
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.userPageTweetCounts {
+  margin: 0;
+  font-family: "Noto Sans TC", sans-serif;
+  font-size: 13px;
+  color: #6c757d;
+}
+
+.logo {
+  display: flex;
+  margin-left: 25px;
+}
+
+.userBcgImage {
+  width: 639px;
+  height: 200px;
+  object-fit: cover;
+}
+.userAvatar {
+  width: 140px;
+  height: 140px;
+  border: 4px solid var(--white);
+  border-radius: 50%;
+  object-fit: cover;
+  position: absolute;
+  left: 16.13px; //要再調
+  top: 175px;
+}
+
+//在userOther用
+.userinfoBtnContainer {
+  margin: 16px 16px auto auto;
+  width: 208px;
+  display: flex;
+  justify-content: space-around;
+}
+//在userOther用
+.userinfoBtn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50px;
+  background-color: var(--white);
+  border: 1px solid var(--major);
+  color: var(--major);
+  font-size: 16px;
+  cursor: pointer;
+  line-height: 40px;
+
+  .icon {
+    width: 20px;
+    height: 18px;
+  }
+}
+
+.editUserinfoBtn {
+  margin: 16px 16px auto auto;
+
+  width: 128px;
+  height: 40px;
+  border-radius: 50px;
+  background-color: var(--white);
+  border: 1px solid var(--major);
+  color: var(--major);
+  font-size: 16px;
+  line-height: 40px;
+  cursor: pointer;
+}
+
+.isFollowingBtn {
+  //在userOther用
+  width: 96px;
+  height: 40px;
+  border-radius: 50px;
+  background-color: var(--major);
+  border: 1px solid var(--major);
+  color: var(--white);
+  font-size: 16px;
+  line-height: 40px;
+  cursor: pointer;
+}
+.userinfo {
+  text-align: left;
+  margin-top: 30px;
+  margin-left: 20px;
+}
+
+.follow {
+  display: flex;
+  justify-content: start;
+}
+
+.followerInfoBtn {
+  width: 75px;
+  height: 22px;
+  color: #6c757d;
+  font-size: 14px;
+  cursor: pointer;
+}
+.followingInfoBtn {
+  width: 75px;
+  height: 22px;
+  color: #6c757d;
+  font-size: 14px;
+  cursor: pointer;
+  margin-left: 20px;
+}
+.followNum {
+  color: #171725;
+}
