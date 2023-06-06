@@ -5,30 +5,29 @@ import styles from "./Tweet.module.scss";
 
 export const Tweet = () => {
   return (
-    <>
-      <GreyIconSVG className={`${styles.userAvatar}${styles.cursorPointer}`} />
-      <div className={styles.tweetContainer}>
+    <div className={styles.tweetContainer}>
+      <GreyIconSVG className={`${styles.userAvatar} ${styles.cursorPointer}`} />
+      <div className={styles.tweetTextContainer}>
         <header className={styles.tweetHeader}>
           <p className={styles.userName}>Apple</p>
-          <p className={styles.userNickName}>@apple</p>
-          <p>・3小時</p>
+          <p className={styles.userNickName}>@apple・3小時</p>
         </header>
         <p className={styles.comment}>
           Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco
           cillum dolor. Voluptate exercitation incididunt aliquip deserunt
-          reprehenderit elit laborum.
+          reprehenderit elitlaborum.
         </p>
         <footer className={styles.tweetFooter}>
-          <button clasName={styles.replyButton}>
-            <CommentSVG />
-            13
-          </button>
-          <button clasName={styles.likeButton}>
+          <div className={styles.replyButton}>
+            <CommentSVG className={styles.commentIcon} />
+            <p className={styles.commentCounts}>13</p>
+          </div>
+          <div className={styles.likeButton}>
             <LikeSVG />
             76
-          </button>
+          </div>
         </footer>
       </div>
-    </>
+    </div>
   );
 };
