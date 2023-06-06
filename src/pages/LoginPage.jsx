@@ -2,8 +2,31 @@ import { AuthInput } from "components/AuthInput";
 import { ReactComponent as LogoSVG } from "assets/Icon.svg";
 import "pages/LoginRegister.scss";
 import { Link } from "react-router-dom";
-
+import { useState } from "react";
+import axios from "axios";
 export const LoginPage = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleClick = async () => {
+    if (username.length === 0) return;
+    if (password.length === 0) return;
+    const { data } = await axios.post(
+      "https://todo-list.alphacamp.io/api/auth/login",
+      {
+        username: username,
+        password: password,
+      }
+    );
+    console.log(data);
+    // const success = login({ username, password });
+    // if (success) {
+    //   console.log("success!!!");
+    // } else {
+    //   console.log("failed!!!");
+    // }
+  };
+
   return (
     <div className="authContainer">
       <div>
@@ -11,13 +34,25 @@ export const LoginPage = () => {
       </div>
       <h1>登入 Alphitter</h1>
       <div className="inputContainer">
-        <AuthInput type="text" label="帳號" placeholder="請輸入帳號" />
+        <AuthInput
+          type="text"
+          value={username}
+          label="帳號"
+          placeholder="請輸入帳號"
+          onChange={setUsername}
+        />
       </div>
       <div className="inputContainer">
-        <AuthInput type="password" label="密碼" placeholder="請輸入密碼" />
+        <AuthInput
+          type="password"
+          label="密碼"
+          value={password}
+          placeholder="請輸入密碼"
+          onChange={setPassword}
+        />
       </div>
 
-      <button className="loginButton" onClick={() => console.log("ok!")}>
+      <button className="loginButton" onClick={handleClick}>
         登入
       </button>
       <div className="linkText">
