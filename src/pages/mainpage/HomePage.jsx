@@ -1,12 +1,12 @@
 import { Navbar } from "components/Navbar";
 import { Rightbar } from "components/Rightbar";
-import "../mainpage/mainpage.scss"
+import styles from "./mainpage.module.scss"
 
 export const HomePage = () => {
   return (
-    <div className="mainPageContainer">
+    <div className={styles.mainPageContainer}>
       <Navbar />
-      <div className="mainbarContainer">mainbar container</div>
+      <div className={styles.mainbarContainer}></div>
       <Rightbar />
     </div>
   );

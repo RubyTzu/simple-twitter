@@ -1,0 +1,16 @@
+.adminMainPageContainer {
+    /* Display */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    /* Box Model */
+    width: 1140px;
+    height: 100vh;
+    margin: 0 auto;
+}
+
+.adminMainbarContainer {
+    min-width: 937px;
+    height: 100%;
+}

@@ -3,32 +3,35 @@ import { ReactComponent as HomeSVG } from "assets/Home.svg";
 import { ReactComponent as UserSVG } from "assets/User.svg";
 import { ReactComponent as SettingSVG } from "assets/Setting.svg";
 import { ReactComponent as LogOutSVG } from "assets/LogOut.svg";
-import "components/Navbar.scss";
+import styles from "./Navbar.module.scss"
 
 export const Navbar = () => {
   return (
-    <div className="navbarContainer">
-      <div className="navbarTopPart">
-        <LogoSVG className="logo" />
-        <button className="navbarButton">
-          <HomeSVG className="navbarIcon" />
+    <div className={styles.navbarContainer}>
+      <div className={styles.navbarTopPart}>
+        <LogoSVG className={styles.logo} />
+        <button className={styles.navbarButton}>
+          <HomeSVG className={styles.navbarIcon} />
           首頁
         </button>
-        <button className="navbarButton">
-          <UserSVG className="navbarIcon" />
+        <button className={styles.navbarButton}>
+          <UserSVG className={styles.navbarIcon} />
           個人資料
         </button>
-        <button className="navbarButton">
-          <SettingSVG className="navbarIcon" />
+        <button className={styles.navbarButton}>
+          <SettingSVG className={styles.navbarIcon} />
           設定
         </button>
-        <button className="tweetButton" onClick={() => console.log("ok!")}>
+        <button
+          className={styles.tweetButton}
+          onClick={() => console.log("ok!")}
+        >
           推文
         </button>
       </div>
 
-      <button className="navbarButton">
-        <LogOutSVG className="navbarIcon" />
+      <button className={styles.navbarButton}>
+        <LogOutSVG className={styles.navbarIcon} />
         登出
       </button>
     </div>
