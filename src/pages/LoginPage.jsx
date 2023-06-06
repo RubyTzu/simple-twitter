@@ -1,6 +1,6 @@
 import { AuthInput } from "components/AuthInput";
 import { ReactComponent as LogoSVG } from "assets/Icon.svg";
-import "pages/LoginRegister.scss";
+import styles from "pages/LoginRegister.module.scss";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
@@ -28,12 +28,12 @@ export const LoginPage = () => {
   };
 
   return (
-    <div className="authContainer">
+    <div className={styles.authContainer}>
       <div>
         <LogoSVG />
       </div>
       <h1>登入 Alphitter</h1>
-      <div className="inputContainer">
+      <div className={styles.inputContainer}>
         <AuthInput
           type="text"
           value={username}
@@ -42,7 +42,7 @@ export const LoginPage = () => {
           onChange={setUsername}
         />
       </div>
-      <div className="inputContainer">
+      <div className={styles.inputContainer}>
         <AuthInput
           type="password"
           label="密碼"
@@ -52,10 +52,10 @@ export const LoginPage = () => {
         />
       </div>
 
-      <button className="loginButton" onClick={handleClick}>
+      <button className={styles.loginButton} onClick={handleClick}>
         登入
       </button>
-      <div className="linkText">
+      <div className={styles.linkText}>
         <Link to="/register">註冊</Link> ・{" "}
         <Link to="/adminlogin">後台登入</Link>
       </div>
