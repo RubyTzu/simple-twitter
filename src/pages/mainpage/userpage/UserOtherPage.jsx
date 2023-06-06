@@ -32,21 +32,21 @@ export const UserOtherPage = () => {
           </div>
           <div className={styles.userinfo}>
             <span>
-              <b>John Doe</b>
+              <b>Jane Cathy</b>
             </span>
             <br />
-            <span>@heyjogn</span>
+            <span>@iamjane1999</span>
             <p>
               Amet minim mollit non deserunt ullamco est sit aliqua dolor do
               amet sint.{" "}
             </p>
             <div className={styles.follow}>
               <div className={styles.followerInfoBtn}>
-                <span className={styles.followNum}>34個</span>
+                <span className={styles.followNum}>231個</span>
                 <span>跟隨中</span>
               </div>
               <div className={styles.followingInfoBtn}>
-                <span className={styles.followNum}>59位</span>
+                <span className={styles.followNum}>45位</span>
                 <span>跟隨者</span>
               </div>
             </div>
