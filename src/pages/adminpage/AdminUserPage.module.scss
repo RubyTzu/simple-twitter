@@ -1,10 +1,8 @@
-.adminMainPageContainer {
-  /* Display */
+.adminUserPageContainer {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-
-  /* Box Model */
   width: 1140px;
   height: 100vh;
   margin: 0 auto;
@@ -17,11 +15,20 @@
   align-items: flex-start;
   min-width: 937px;
   height: 100%;
-  border: 1px solid var(--lightGrayOne);
+  border-left: 1px solid var(--lightGrayOne);
 }
 
-.adminMainPageTitle {
+.adminUserPageTitle {
   font-size: 24px;
   font-weight: bold;
   margin: 12px 0 12px 20px;
+}
+
+.titleLine {
+  position: absolute;
+  top: 60px;
+  left: 214px;
+  width: 100vw;
+  height: 1px;
+  background-color: var(--lightGrayOne);
 }
