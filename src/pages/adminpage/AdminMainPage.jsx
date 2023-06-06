@@ -5,7 +5,9 @@ export const AdminMainPage = () => {
   return (
     <div className={styles.adminMainPageContainer}>
       <AdminNavbar />
-      <div className={styles.adminMainbarContainer}></div>
+      <div className={styles.adminMainbarContainer}>
+        <h1 className={styles.adminMainPageTitle}>推文清單</h1>
+      </div>
     </div>
   );
 };

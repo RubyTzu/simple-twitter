@@ -10,18 +10,21 @@ export const Navbar = () => {
     <div className={styles.navbarContainer}>
       <div className={styles.navbarTopPart}>
         <LogoSVG className={styles.logo} />
-        <button className={styles.navbarButton}>
-          <HomeSVG className={styles.navbarIcon} />
-          首頁
-        </button>
-        <button className={styles.navbarButton}>
-          <UserSVG className={styles.navbarIcon} />
-          個人資料
-        </button>
-        <button className={styles.navbarButton}>
-          <SettingSVG className={styles.navbarIcon} />
-          設定
-        </button>
+        <div className={styles.homeUserSettingbar}>
+          <button className={`${styles.navbarButton} ${styles.chooseButton}`}>
+            <HomeSVG className={styles.navbarIcon} />
+            首頁
+          </button>
+          <button className={styles.navbarButton}>
+            <UserSVG className={styles.navbarIcon} />
+            個人資料
+          </button>
+          <button className={styles.navbarButton}>
+            <SettingSVG className={styles.navbarIcon} />
+            設定
+          </button>
+        </div>
+
         <button
           className={styles.tweetButton}
           onClick={() => console.log("ok!")}

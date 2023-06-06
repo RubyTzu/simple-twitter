@@ -1,0 +1,31 @@
+.homePageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1140px;
+  height: 100vh;
+  margin: 0 auto;
+}
+
+.mainbarContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  min-width: 641px;
+  height: 100%;
+  border: 1px solid var(--lightGrayOne);
+}
+
+.homePageTitle {
+    font-size: 24px;
+    font-weight: bold;
+     margin: 12px 0 12px 20px;
+}
+
+.addTweetSection {
+    height: 130px;
+    width: 100%;
+    border-top: 1px solid var(--lightGrayOne);
+    border-bottom: 10px solid var(--lightGrayOne);
+}
