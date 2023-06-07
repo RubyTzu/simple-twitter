@@ -12,9 +12,10 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  min-width: 641px;
-  height: 100%;
-  border: 1px solid var(--lightGrayOne);
+  min-width: 639px;
+  height: 100vh;
+  border-right: 1px solid var(--lightGrayOne);
+  border-left: 1px solid var(--lightGrayOne);
 }
 
 .settingPageHeader {

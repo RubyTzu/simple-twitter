@@ -1,18 +1,22 @@
 import { ReactComponent as BackSVG } from "assets/Back.svg";
 import { Navbar } from "components/Navbar";
 import { Rightbar } from "components/Rightbar";
-import styles from "./UserPage.module.scss";
+import styles from "./UserOtherPage.module.scss";
 import { ReactComponent as LetterIcon } from "assets/letterIcon.svg";
 import { ReactComponent as NotifIcon } from "assets/notifIcon.svg";
 import userotherBcg from "assets/userotherBcg.svg";
 import userotherAvatar from "assets/userotherAvatar.svg";
+import { Link } from "react-router-dom";
+
 export const UserOtherPage = () => {
   return (
     <div className={styles.mainPageContainer}>
       <Navbar />
       <div className={styles.mainbarContainer}>
         <header className={styles.userPageHeader}>
-          <BackSVG className={styles.logo} />
+          <Link className={styles.link} to="/home">
+            <BackSVG className={styles.logo} />
+          </Link>
           <div className={styles.userPageHeaderText}>
             <p className={styles.userPageTitle}>Other User</p>
             <p className={styles.userPageTweetCounts}>25 推文</p>
@@ -35,8 +39,8 @@ export const UserOtherPage = () => {
               <b>Jane Cathy</b>
             </span>
             <br />
-            <span>@iamjane1999</span>
-            <p>
+            <span className={styles.nickName}>@iamjane1999</span>
+            <p className={styles.description}>
               Amet minim mollit non deserunt ullamco est sit aliqua dolor do
               amet sint.{" "}
             </p>

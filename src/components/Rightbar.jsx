@@ -10,7 +10,7 @@ export const Rightbar = () => {
         <div className={styles.popularUserCollection}>
           <div className={styles.popularUser}>
             <GreyIconSVG
-              className={`${styles.popularUserAvatar} ${styles.cursorPointer}`}
+              className={`${styles.popularUserAvatar} cursorPointer`}
             />
             <div className={styles.userInfos}>
               <p className={styles.popularUserName}>Pizza Hut</p>
@@ -23,7 +23,7 @@ export const Rightbar = () => {
 
           <div className={styles.popularUser}>
             <GreyIconSVG
-              className={`${styles.popularUserAvatar} ${styles.cursorPointer}`}
+              className={`${styles.popularUserAvatar} cursorPointer`}
             />
 
             <div className={styles.userInfos}>
@@ -37,7 +37,7 @@ export const Rightbar = () => {
 
           <div className={styles.popularUser}>
             <GreyIconSVG
-              className={`${styles.popularUserAvatar} ${styles.cursorPointer}`}
+              className={`${styles.popularUserAvatar} cursorPointer`}
             />
 
             <div className={styles.userInfos}>
@@ -51,7 +51,7 @@ export const Rightbar = () => {
 
           <div className={styles.popularUser}>
             <GreyIconSVG
-              className={`${styles.popularUserAvatar} ${styles.cursorPointer}`}
+              className={`${styles.popularUserAvatar} cursorPointer`}
             />
 
             <div className={styles.userInfos}>
@@ -65,7 +65,7 @@ export const Rightbar = () => {
 
           <div className={styles.popularUser}>
             <GreyIconSVG
-              className={`${styles.popularUserAvatar} ${styles.cursorPointer}`}
+              className={`${styles.popularUserAvatar} cursorPointer`}
             />
 
             <div className={styles.userInfos}>
@@ -79,7 +79,7 @@ export const Rightbar = () => {
 
           <div className={styles.popularUser}>
             <GreyIconSVG
-              className={`${styles.popularUserAvatar} ${styles.cursorPointer}`}
+              className={`${styles.popularUserAvatar} cursorPointer`}
             />
 
             <div className={styles.userInfos}>
@@ -93,7 +93,7 @@ export const Rightbar = () => {
 
           <div className={styles.popularUser}>
             <GreyIconSVG
-              className={`${styles.popularUserAvatar} ${styles.cursorPointer}`}
+              className={`${styles.popularUserAvatar} cursorPointer`}
             />
 
             <div className={styles.userInfos}>
@@ -107,7 +107,7 @@ export const Rightbar = () => {
 
           <div className={styles.popularUser}>
             <GreyIconSVG
-              className={`${styles.popularUserAvatar} ${styles.cursorPointer}`}
+              className={`${styles.popularUserAvatar} cursorPointer`}
             />
 
             <div className={styles.userInfos}>

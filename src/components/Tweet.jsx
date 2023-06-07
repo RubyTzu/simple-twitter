@@ -2,11 +2,12 @@ import { ReactComponent as GreyIconSVG } from "assets/GreyIcon.svg";
 import { ReactComponent as CommentSVG } from "assets/Comment.svg";
 import { ReactComponent as LikeSVG } from "assets/Like.svg";
 import styles from "./Tweet.module.scss";
+import { Link } from "react-router-dom";
 
 export const Tweet = () => {
   return (
     <div className={styles.tweetContainer}>
-      <GreyIconSVG className={`${styles.userAvatar} ${styles.cursorPointer}`} />
+      <GreyIconSVG className={`${styles.userAvatar} cursorPointer`} />
       <div className={styles.tweetTextContainer}>
         <header className={styles.tweetHeader}>
           <p className={styles.userName}>Apple</p>
@@ -18,14 +19,14 @@ export const Tweet = () => {
           reprehenderit elitlaborum.
         </p>
         <footer className={styles.tweetFooter}>
-          <div className={styles.replyButton}>
+          <Link className={styles.replyButton} href="/">
             <CommentSVG className={styles.commentIcon} />
-            <p className={styles.commentCounts}>13</p>
-          </div>
-          <div className={styles.likeButton}>
-            <LikeSVG />
-            76
-          </div>
+            <p className={styles.counts}>13</p>
+          </Link>
+          <Link className={styles.likeButton} href="/">
+            <LikeSVG className={styles.likeIcon} />
+            <p className={styles.counts}>76</p>
+          </Link>
         </footer>
       </div>
     </div>

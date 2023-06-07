@@ -1,7 +1,3 @@
-.cursorPointer {
-  cursor: pointer;
-}
-
 .tweetContainer {
   display: flex;
   justify-content: flex-start;
@@ -34,12 +30,14 @@
 .userName {
   height: 80%;
   margin: 0;
+  font-family: "Noto Sans TC", sans-serif;
+  font-weight: 800;
   font-size: 16px;
   white-space: nowrap;
 }
 
 .userNickName {
-  height: 80%;
+  height: 75%;
   margin: 0 0 0 8px;
   font-family: "Noto Sans TC", sans-serif;
   font-size: 14px;
@@ -66,13 +64,14 @@
   margin: 0;
 }
 
-.replyButton {
+.replyButton, .likeButton {
   position: relative;
   display: flex;
   justify-content: space-between;
   width: 38px;
   height: 16px;
   border: none;
+  text-decoration: none;
   font-family: "Montserrat", sans-serif;
   font-weight: 600;
   font-size: 14px;
@@ -80,27 +79,14 @@
   .commentIcon {
     margin: 0;
   }
-  .commentCounts {
+  .counts {
     margin: 0;
   }
 }
 
 
 .likeButton {
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  width: 38px;
-  height: 16px;
-  border: none;
-  font-family: "Montserrat", sans-serif;
-  font-weight: 600;
-  font-size: 14px;
-  color: #6c757d;
-  .commentIcon {
-    margin: 0;
-  }
-  .commentCounts {
+  .likeIcon {
     margin: 0;
   }
 }

@@ -1,3 +1,7 @@
+.link {
+  color: black;
+}
+
 .mainPageContainer {
   /* Display */
   display: flex;
@@ -11,14 +15,15 @@
 }
 
 .mainbarContainer {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  min-width: 641px;
-  height: 100%;
-  border: 1px solid var(--lightGrayOne);
-  position: relative;
+  min-width: 639px;
+  height: 100vh;
+  border-right: 1px solid var(--lightGrayOne);
+  border-left: 1px solid var(--lightGrayOne);
 }
 
 .userPageHeader {
@@ -64,11 +69,11 @@
 .userAvatar {
   width: 140px;
   height: 140px;
-  border: 4px solid var(--white);
+  border: 1px solid var(--white);
   border-radius: 50%;
   object-fit: cover;
   position: absolute;
-  left: 16.13px; //要再調
+  left: 18px; //要再調
   top: 175px;
 }
 
@@ -124,9 +129,26 @@
   cursor: pointer;
 }
 .userinfo {
+  font-family: "Noto Sans TC", sans-serif;
   text-align: left;
   margin-top: 30px;
   margin-left: 20px;
+}
+
+.userinfo > span > b {
+  font-weight: 800;
+  font-size: 18px;
+}
+
+.nickName {
+  font-weight: 400;
+  font-size: 14px;
+  color: #6c757d;
+}
+
+.description {
+  font-weight: 400;
+  font-size: 14px;
 }
 
 .follow {
@@ -152,3 +174,4 @@
 .followNum {
   color: #171725;
 }
+
