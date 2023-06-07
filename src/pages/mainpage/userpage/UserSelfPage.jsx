@@ -1,16 +1,20 @@
 import { ReactComponent as BackSVG } from "assets/Back.svg";
 import { Navbar } from "components/Navbar";
 import { Rightbar } from "components/Rightbar";
-import styles from "./UserPage.module.scss";
 import userselfAvatar from "assets/userselfAvatar.svg";
 import userselfBcg from "assets/userselfBcg.svg";
+import styles from "./UserSelfPage.module.scss"
+import { Link } from "react-router-dom";
+
 export const UserSelfPage = () => {
   return (
     <div className={styles.mainPageContainer}>
       <Navbar />
       <div className={styles.mainbarContainer}>
         <header className={styles.userPageHeader}>
-          <BackSVG className={styles.logo} />
+          <Link className={styles.link} to="/home">
+            <BackSVG className={styles.logo} />
+          </Link>
           <div className={styles.userPageHeaderText}>
             <p className={styles.userPageTitle}>mySelf</p>
             <p className={styles.userPageTweetCounts}>25 推文</p>
@@ -25,8 +29,8 @@ export const UserSelfPage = () => {
               <b>John Doe</b>
             </span>
             <br />
-            <span>@heyjogn</span>
-            <p>
+            <span className={styles.nickName}>@heyjogn</span>
+            <p className={styles.description}>
               Amet minim mollit non deserunt ullamco est sit aliqua dolor do
               amet sint.{" "}
             </p>

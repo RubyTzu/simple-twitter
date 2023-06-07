@@ -13,50 +13,77 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  min-width: 641px;
+  min-width: 639px;
   height: 100vh;
   border-right: 1px solid var(--lightGrayOne);
   border-left: 1px solid var(--lightGrayOne);
 }
 
 .homePageTitle {
-  position: fixed;
+  position: relative;
   font-size: 24px;
-  font-weight: bold;
+  font-weight: 800;
   margin: 12px 0 12px 20px;
 }
 
 .addTweetSection {
-  position: fixed;
-  top: 60px;
-  height: 130px;
-  width: 641px;
+  position: relative;
+  display: flex;
+  width: 639px;
   border-top: 1px solid var(--lightGrayOne);
 }
 
+.addTweetAvatar {
+  width: 50px;
+  height: 50px;
+  margin: 16px 8px 0 25px;
+}
+
+.addTweetSpace {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 526px;
+  margin: 15px 0px 15px 8px;
+}
+
+.addTweetTextarea {
+  position: relative;
+  top: 0px;
+  left: 0px;
+  padding: 0;
+  margin-top: 12px;
+  width: 526px;
+  min-height: 50px;
+  max-height: 150px;
+  border: none;
+  outline: none;
+  resize: none;
+  font-family: "Noto Sans TC", sans-serif;
+  font-weight: 800;
+  font-size: 18px;
+}
+
+.tweetButton {
+  width: 64.5px;
+  height: 40px;
+  margin-top: 15px;
+  border-radius: 30px;
+  border: none;
+  font-size: 16px;
+  color: var(--white);
+  background-color: var(--major);
+}
+
 .tweetsCollection {
-  position: fixed;
-  top: 190px;
+  position: relative;
   width: 639px;
-  overflow: hidden;
+  overflow: scroll;
   height: 100vh;
   border-top: 10px solid var(--lightGrayOne);
-  &:hover {
-    overflow: scroll;
-  }
-
   &::-webkit-scrollbar {
-    width: 8px;
-    background-color: #f5f5f5;
-  }
-
-  &::-webkit-scrollbar-track {
-    border-radius: 10px;
-    background-color: #f5f5f5;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    border-radius: 40px;
-    background-color: #c1c1c1;
+    display: none;
   }
 }
