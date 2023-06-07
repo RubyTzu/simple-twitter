@@ -9,8 +9,8 @@ const defaultAuthContext = {
   logout: null,
 };
 
-const AuthContext = createContext(defaultAuthContext);
-export const useAuth = () => useContext(AuthContext);
+export const AuthContext = createContext(defaultAuthContext);
+// export const useAuth = () => useContext(AuthContext);
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [payload, setPayload] = useState(null);
@@ -27,7 +27,6 @@ export const AuthProvider = ({ children }) => {
         setIsAuthenticated(true);
         setPayload(result.data.user);
         localStorage.setItem("authToken", result.token);
-        console.log(`歡迎你${result.data.user.name}`);
       }
       return result.success;
     },

@@ -5,11 +5,14 @@ import styles from "pages/LoginRegister.module.scss";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "context/authContext";
 export const LoginPage = () => {
   const [account, setAccount] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const { login } = useAuth();
+  // const { login } = useAuth();
+  const { login } = useContext(AuthContext);
 
   const handleClick = async () => {
     if (account.length === 0) return;

@@ -10,26 +10,28 @@ import { UserSelfPage } from "pages/mainpage/userpage/UserSelfPage";
 import { UserOtherPage } from "pages/mainpage/userpage/UserOtherPage";
 import { SettingPage } from "pages/mainpage/SettingPage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
+import { AuthProvider } from "context/authContext";
 const basename = process.env.PUBLIC_URL;
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter basename={basename}>
-        <Routes>
-          <Route path="/admin/login" element={<AdminLoginPage />} />
-          <Route path="/admin/tweetslist" element={<AdminMainPage />} />
-          <Route path="/admin/userslist" element={<AdminUserPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/home" element={<HomePage />} />
-          <Route path="/replylist" element={<ReplyListPage />} />
-          <Route path="/userself" element={<UserSelfPage />} />
-          <Route path="/userother" element={<UserOtherPage />} />
-          <Route path="/setting" element={<SettingPage />} />
-          <Route path="*" element={<LoginPage />} /> {/* 暫定 */}
-        </Routes>
+        <AuthProvider>
+          <Routes>
+            <Route path="/admin/login" element={<AdminLoginPage />} />
+            <Route path="/admin/tweetslist" element={<AdminMainPage />} />
+            <Route path="/admin/userslist" element={<AdminUserPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/home" element={<HomePage />} />
+            <Route path="/replylist" element={<ReplyListPage />} />
+            <Route path="/userself" element={<UserSelfPage />} />
+            <Route path="/userother" element={<UserOtherPage />} />
+            <Route path="/setting" element={<SettingPage />} />
+            <Route path="*" element={<LoginPage />} /> {/* 暫定 */}
+          </Routes>
+        </AuthProvider>
       </BrowserRouter>
     </div>
   );
