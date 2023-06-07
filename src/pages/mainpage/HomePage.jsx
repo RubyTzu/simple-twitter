@@ -1,7 +1,7 @@
 import { Navbar } from "components/Navbar";
 import { Rightbar } from "components/Rightbar";
 import { Tweet } from "components/Tweet";
-import styles from "./HomePage.module.scss"
+import styles from "./HomePage.module.scss";
 
 export const HomePage = () => {
   return (

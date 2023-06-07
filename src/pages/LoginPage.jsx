@@ -5,20 +5,20 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 export const LoginPage = () => {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleClick = async () => {
-    if (username.length === 0) return;
+    if (email.length === 0) return;
     if (password.length === 0) return;
     const { data } = await axios.post(
-      "https://todo-list.alphacamp.io/api/auth/login",
+      "https://twitter-2023.herokuapp.com/api/signin",
       {
-        username: username,
+        email: email,
         password: password,
       }
     );
-    console.log(data);
+    console.log(data.data.token);
     // const success = login({ username, password });
     // if (success) {
     //   console.log("success!!!");
@@ -36,10 +36,10 @@ export const LoginPage = () => {
       <div className={styles.inputContainer}>
         <AuthInput
           type="text"
-          value={username}
+          value={email}
           label="帳號"
           placeholder="請輸入帳號"
-          onChange={setUsername}
+          onChange={setEmail}
         />
       </div>
       <div className={styles.inputContainer}>
