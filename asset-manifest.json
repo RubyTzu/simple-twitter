@@ -1,10 +1,11 @@
 {
   "files": {
-    "main.css": "/simple-twitter/static/css/main.fb5fe1b6.css",
-    "main.js": "/simple-twitter/static/js/main.a8895810.js",
+    "main.css": "/simple-twitter/static/css/main.8cf33264.css",
+    "main.js": "/simple-twitter/static/js/main.8c68d14b.js",
     "static/js/787.aa94361f.chunk.js": "/simple-twitter/static/js/787.aa94361f.chunk.js",
     "static/media/userotherBcg.svg": "/simple-twitter/static/media/userotherBcg.418618d5513261fc708d91fcf91c2d67.svg",
     "static/media/userselfBcg.svg": "/simple-twitter/static/media/userselfBcg.519eed098df46c4ac5639252f84f309d.svg",
+    "static/media/Photo.png": "/simple-twitter/static/media/Photo.c9d0d6dc8c4dc9a0a85c.png",
     "static/media/userotherAvatar.svg": "/simple-twitter/static/media/userotherAvatar.e9eadcb484475cd0cd115ae0b25c3dc0.svg",
     "static/media/userselfAvatar.svg": "/simple-twitter/static/media/userselfAvatar.0506db9ba9407fa565ecb2862f77708c.svg",
     "static/media/Setting.svg": "/simple-twitter/static/media/Setting.3bd1d5f77431b33b367ebdaa1d243d91.svg",
@@ -20,12 +21,12 @@
     "static/media/letterIcon.svg": "/simple-twitter/static/media/letterIcon.9e0fef7790b66730eb780b81e66c9b7a.svg",
     "static/media/DeleteIcon.svg": "/simple-twitter/static/media/DeleteIcon.c2283cfb082ce00efe5a08a17c9825e6.svg",
     "static/media/Back.svg": "/simple-twitter/static/media/Back.771ebd02da6e753f690f79affb328692.svg",
-    "main.fb5fe1b6.css.map": "/simple-twitter/static/css/main.fb5fe1b6.css.map",
-    "main.a8895810.js.map": "/simple-twitter/static/js/main.a8895810.js.map",
+    "main.8cf33264.css.map": "/simple-twitter/static/css/main.8cf33264.css.map",
+    "main.8c68d14b.js.map": "/simple-twitter/static/js/main.8c68d14b.js.map",
     "787.aa94361f.chunk.js.map": "/simple-twitter/static/js/787.aa94361f.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.fb5fe1b6.css",
-    "static/js/main.a8895810.js"
+    "static/css/main.8cf33264.css",
+    "static/js/main.8c68d14b.js"
   ]
 }
