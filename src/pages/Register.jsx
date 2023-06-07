@@ -9,7 +9,7 @@ export const Register = () => {
       <div>
         <LogoSVG />
       </div>
-      <h1>建立你的帳號1</h1>
+      <h1>建立你的帳號</h1>
       <div className={styles.inputContainer}>
         <AuthInput type="text" label="帳號" placeholder="請輸入帳號" />
       </div>
