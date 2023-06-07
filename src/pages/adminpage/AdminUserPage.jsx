@@ -12,6 +12,21 @@ export const AdminUserPage = () => {
         <h1 className={styles.adminUserPageTitle}>使用者列表</h1>
         <div className={styles.userCardContainer}>
           <UserCard />
+          <UserCard />
+          <UserCard />
+          <UserCard />
+          <UserCard />
+          <UserCard />
+          <UserCard />
+          <UserCard />
+          <UserCard />
+          <UserCard />
+          <UserCard />
+          <UserCard />
+          <UserCard />
+          <UserCard />
+          <UserCard />
+          <UserCard />
         </div>
       </div>
     </div>
