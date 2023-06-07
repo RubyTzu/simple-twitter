@@ -1,12 +1,14 @@
 import { ReactComponent as BackSVG } from "assets/Back.svg";
-import { Navbar } from "components/Navbar";
-import { Rightbar } from "components/Rightbar";
-import styles from "./UserOtherPage.module.scss";
 import { ReactComponent as LetterIcon } from "assets/letterIcon.svg";
 import { ReactComponent as NotifIcon } from "assets/notifIcon.svg";
 import userotherBcg from "assets/userotherBcg.svg";
 import userotherAvatar from "assets/userotherAvatar.svg";
+import { Navbar } from "components/Navbar";
+import { Rightbar } from "components/Rightbar";
+import { UserTweetsCollection } from "components/UserTweetsCollection";
+import styles from "./UserOtherPage.module.scss";
 import { Link } from "react-router-dom";
+
 
 export const UserOtherPage = () => {
   return (
@@ -14,11 +16,11 @@ export const UserOtherPage = () => {
       <Navbar />
       <div className={styles.mainbarContainer}>
         <header className={styles.userPageHeader}>
-          <Link className={styles.link} to="/home">
+          <Link to="/home">
             <BackSVG className={styles.logo} />
           </Link>
           <div className={styles.userPageHeaderText}>
-            <p className={styles.userPageTitle}>Other User</p>
+            <p className={styles.userPageTitle}>Jane Cathy</p>
             <p className={styles.userPageTweetCounts}>25 推文</p>
           </div>
         </header>
@@ -38,13 +40,12 @@ export const UserOtherPage = () => {
             <span>
               <b>Jane Cathy</b>
             </span>
-            <br />
             <span className={styles.nickName}>@iamjane1999</span>
-            <p className={styles.description}>
+            <span className={styles.description}>
               Amet minim mollit non deserunt ullamco est sit aliqua dolor do
               amet sint.{" "}
-            </p>
-            <div className={styles.follow}>
+            </span>
+            <span className={styles.follow}>
               <div className={styles.followerInfoBtn}>
                 <span className={styles.followNum}>231個</span>
                 <span>跟隨中</span>
@@ -53,9 +54,10 @@ export const UserOtherPage = () => {
                 <span className={styles.followNum}>45位</span>
                 <span>跟隨者</span>
               </div>
-            </div>
+            </span>
           </div>
         </div>
+          <UserTweetsCollection />
       </div>
       <Rightbar />
     </div>

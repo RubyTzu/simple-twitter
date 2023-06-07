@@ -1,11 +1,10 @@
 import avatar from "assets/Photo.png";
 import { Navbar } from "components/Navbar";
 import { Rightbar } from "components/Rightbar";
-import { Tweet } from "components/Tweet";
+import { Tweets } from "components/Tweets";
 import styles from "./HomePage.module.scss";
 
 export const HomePage = () => {
-  
   const handleAddTweetHeight = (e) => {
     e.target.style.height = "inherit";
     e.target.style.height = `${e.target.scrollHeight}px`;
@@ -36,14 +35,7 @@ export const HomePage = () => {
             </button>
           </div>
         </div>
-        <div className={styles.tweetsCollection}>
-          <Tweet />
-          <Tweet />
-          <Tweet />
-          <Tweet />
-          <Tweet />
-          <Tweet />
-        </div>
+        <Tweets />
       </div>
       <Rightbar />
     </div>

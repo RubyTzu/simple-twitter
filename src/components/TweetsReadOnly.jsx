@@ -1,6 +1,6 @@
 
 import { ReactComponent as GreyIconSVG } from "assets/GreyIcon.svg";
-import styles from "./TweetReadOnly.module.scss";
+import styles from "./TweetsReadOnly.module.scss";
 import { Link } from "react-router-dom";
 
 export const TweetReadOnly = () => {
@@ -22,6 +22,32 @@ export const TweetReadOnly = () => {
           mask
         </p>
       </div>
+    </div>
+  );
+};
+
+export const TweetsReadOnly = () => {
+  return (
+    <div className={styles.replyTweetsCollection}>
+      <TweetReadOnly />
+      <TweetReadOnly />
+      <TweetReadOnly />
+      <TweetReadOnly />
+      <TweetReadOnly />
+      <TweetReadOnly />
+    </div>
+  );
+};
+
+export const UserReplyTweets = () => {
+  return (
+    <div className={styles.tweetsCollection}>
+      <TweetReadOnly />
+      <TweetReadOnly />
+      <TweetReadOnly />
+      <TweetReadOnly />
+      <TweetReadOnly />
+      <TweetReadOnly />
     </div>
   );
 };
