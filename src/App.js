@@ -18,15 +18,15 @@ function App() {
     <div className="App">
       <BrowserRouter basename={basename}>
         <Routes>
-          <Route path="/adminlogin" element={<AdminLoginPage />} />
-          <Route path="/admin/tweetsList" element={<AdminMainPage />} />
-          <Route path="/admin/usersList" element={<AdminUserPage />} />
+          <Route path="/admin/login" element={<AdminLoginPage />} />
+          <Route path="/admin/tweetslist" element={<AdminMainPage />} />
+          <Route path="/admin/userslist" element={<AdminUserPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<Register />} />
           <Route path="/home" element={<HomePage />} />
-          <Route path="/replyList" element={<ReplyListPage />} />
-          <Route path="/userSelf" element={<UserSelfPage />} />
-          <Route path="/userOther" element={<UserOtherPage />} />
+          <Route path="/replylist" element={<ReplyListPage />} />
+          <Route path="/userself" element={<UserSelfPage />} />
+          <Route path="/userother" element={<UserOtherPage />} />
           <Route path="/setting" element={<SettingPage />} />
           <Route path="*" element={<LoginPage />} /> {/* 暫定 */}
         </Routes>
