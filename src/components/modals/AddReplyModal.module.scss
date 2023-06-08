@@ -1,0 +1,158 @@
+.modalContainer {
+  top: 25px;
+  right: 116px;
+  width: 634px;
+  min-height: 500px;
+  margin: 0 auto;
+  border-radius: 14px;
+}
+
+.modalHeader {
+  height: 57px;
+}
+
+.closeButton {
+  top: 16px;
+  left: 16px;
+  width: 24px;
+  height: 24px;
+  color: var(--major);
+}
+
+.modalBody {
+  position: relative;
+}
+
+.othersTweet {
+  display: flex;
+  height: 168px;
+}
+.yourReply {
+  display: flex;
+}
+
+.tweetAvatar {
+  width: 50px;
+  height: 50px;
+  margin-top: 0px;
+  margin-left: 8px;
+}
+
+.tweetTextContainer {
+  display: flex;
+  flex-direction: column;
+  width: 528px;
+  min-height: 129px;
+  margin: 0px 0px 20px 8px;
+}
+
+.tweetHeader {
+  display: flex;
+  align-items: flex-end;
+  height: 26px;
+}
+
+.userName {
+  margin: 0;
+  font-family: "Noto Sans TC", sans-serif;
+  font-weight: 800;
+  font-size: 16px;
+  white-space: nowrap;
+}
+
+.nickNameTime {
+  margin: 0 0 1px 8px;
+  font-family: "Noto Sans TC", sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  color: #657786;
+}
+
+.userNickName {
+  text-decoration: none;
+  color: #657786;
+}
+
+.comment {
+  margin: 8px 0 5px 0;
+  min-height: 78px;
+  text-align: start;
+  font-family: "Noto Sans TC", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+}
+
+.replyTo {
+  margin: 0;
+  font-family: "Noto Sans TC", sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  text-align: start;
+  color: #92929d;
+}
+
+.replyNickName {
+  text-decoration: none;
+  color: var(--major);
+}
+
+.avatarLine {
+  position: absolute;
+  top: 82px;
+  left: 48px;
+  z-index: 1;
+  width: 2px;
+  height: 86px;
+  background-color: #B5B5BE;
+}
+
+.replyTweetAvatar {
+  width: 50px;
+  height: 50px;
+  margin-top: 0px;
+  margin-left: 8px;
+}
+
+.replyTweetTextarea {
+  position: relative;
+  top: 0px;
+  left: 0px;
+  padding: 0;
+  margin-top: 12px;
+  margin-left: 8px;
+  width: 528px;
+  min-height: 50px;
+  max-height: 300px;
+  border: none;
+  outline: none;
+  resize: none;
+  font-family: "Noto Sans TC", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  &::placeholder {
+    color: #6C757D;
+  }
+}
+
+.modalFooter {
+  border: none;
+  height: 72px;
+}
+
+.wordLimitHint {
+  margin-right: 16px;
+  font-family: "Noto Sans TC", sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  color: red;
+}
+
+.tweetButton {
+  width: 64px;
+  height: 40px;
+  border-radius: 30px;
+  border: none;
+  font-size: 16px;
+  color: var(--white);
+  background-color: var(--major);
+}

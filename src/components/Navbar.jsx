@@ -3,10 +3,12 @@ import { ReactComponent as HomeSVG } from "assets/Home.svg";
 import { ReactComponent as UserSVG } from "assets/User.svg";
 import { ReactComponent as SettingSVG } from "assets/Setting.svg";
 import { ReactComponent as LogOutSVG } from "assets/LogOut.svg";
+
 import styles from "./Navbar.module.scss";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useAuth } from "context/authContext";
+import { AddTweetModal } from "./modals/AddTweetModal";
 export const Navbar = () => {
   const { logout } = useAuth();
   const navigate = useNavigate();
@@ -48,13 +50,15 @@ export const Navbar = () => {
             設定
           </Link>
         </div>
-
         <button
-          className={styles.tweetButton}
-          onClick={() => console.log("ok!")}
+          type="button"
+          className={`${styles.tweetButton}`}
+          data-bs-toggle="modal"
+          data-bs-target="#addTweetModal"
         >
           推文
         </button>
+        <AddTweetModal />
       </div>
 
       <button className={styles.navbarButton} onClick={handleLogout}>

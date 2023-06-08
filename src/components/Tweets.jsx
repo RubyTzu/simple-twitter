@@ -3,6 +3,7 @@ import { ReactComponent as CommentSVG } from "assets/Comment.svg";
 import { ReactComponent as LikeSVG } from "assets/Like.svg";
 import styles from "./Tweets.module.scss";
 import { Link } from "react-router-dom";
+import { AddReplyModal } from "./modals/AddReplyModal";
 
 export const Tweet = () => {
   return (
@@ -19,10 +20,16 @@ export const Tweet = () => {
           reprehenderit elitlaborum.
         </p>
         <footer className={styles.tweetFooter}>
-          <Link className={styles.replyButton} href="/">
+          <Link
+            type="Link"
+            className={`${styles.replyButton}`}
+            data-bs-toggle="modal"
+            data-bs-target="#addReplyModal"
+          >
             <CommentSVG className={styles.commentIcon} />
             <p className={styles.counts}>13</p>
           </Link>
+          <AddReplyModal />
           <Link className={styles.likeButton} href="/">
             <LikeSVG className={styles.likeIcon} />
             <p className={styles.counts}>76</p>

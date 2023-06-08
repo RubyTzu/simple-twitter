@@ -1,4 +1,3 @@
-
 import { ReactComponent as GreyIconSVG } from "assets/GreyIcon.svg";
 import styles from "./TweetsReadOnly.module.scss";
 import { Link } from "react-router-dom";
