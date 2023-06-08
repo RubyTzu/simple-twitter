@@ -9,8 +9,8 @@ const defaultAuthContext = {
   logout: null,
 };
 
-export const AuthContext = createContext(defaultAuthContext);
-// export const useAuth = () => useContext(AuthContext);
+const AuthContext = createContext(defaultAuthContext);
+export const useAuth = () => useContext(AuthContext);
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [payload, setPayload] = useState(null);
@@ -29,6 +29,12 @@ export const AuthProvider = ({ children }) => {
         localStorage.setItem("authToken", result.token);
       }
       return result.success;
+    },
+    logout: () => {
+      setIsAuthenticated(false);
+      setPayload(null);
+      localStorage.removeItem("authToken");
+      return;
     },
   };
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
