@@ -3,13 +3,19 @@ import { AuthInput } from "components/AuthInput";
 import { ReactComponent as LogoSVG } from "assets/Icon.svg";
 import styles from "pages/LoginRegister.module.scss";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 export const LoginPage = () => {
   const [account, setAccount] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { login, isAuthenticated } = useAuth();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/home");
+    } else return;
+  }, [navigate, isAuthenticated]);
 
   const handleClick = async () => {
     if (account.length === 0) return;
@@ -24,7 +30,6 @@ export const LoginPage = () => {
       return;
     }
   };
-
   return (
     <div className={styles.authContainer}>
       <div>

@@ -2,8 +2,29 @@ import { AuthInput } from "components/AuthInput";
 import { ReactComponent as LogoSVG } from "assets/Icon.svg";
 import { Link } from "react-router-dom";
 import styles from "pages/LoginRegister.module.scss";
-
+import { register } from "api/auth";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 export const Register = () => {
+  const [account, setAccount] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordCheck, setPasswordCheck] = useState("");
+  const navigate = useNavigate();
+  const handleRegister = async () => {
+    const success = await register({
+      account,
+      name,
+      email,
+      password,
+      passwordCheck,
+    });
+    console.log(success);
+    if (success) {
+      navigate("/login");
+    }
+  };
   return (
     <div className={styles.authContainer}>
       <div>
@@ -11,26 +32,52 @@ export const Register = () => {
       </div>
       <h1>建立你的帳號</h1>
       <div className={styles.inputContainer}>
-        <AuthInput type="text" label="帳號" placeholder="請輸入帳號" />
+        <AuthInput
+          type="text"
+          value={account}
+          onChange={setAccount}
+          label="帳號"
+          placeholder="請輸入帳號"
+        />
       </div>
       <div className={styles.inputContainer}>
-        <AuthInput type="text" label="名稱" placeholder="請輸入使用者名稱" />
+        <AuthInput
+          type="text"
+          value={name}
+          onChange={setName}
+          label="名稱"
+          placeholder="請輸入使用者名稱"
+        />
       </div>
       <div className={styles.inputContainer}>
-        <AuthInput type="text" label="Email" placeholder="請輸入Email" />
-      </div>
-      <div className={styles.inputContainer}>
-        <AuthInput type="password" label="密碼" placeholder="請設定密碼" />
+        <AuthInput
+          type="text"
+          value={email}
+          onChange={setEmail}
+          label="Email"
+          placeholder="請輸入Email"
+        />
       </div>
       <div className={styles.inputContainer}>
         <AuthInput
           type="password"
+          value={password}
+          onChange={setPassword}
+          label="密碼"
+          placeholder="請設定密碼"
+        />
+      </div>
+      <div className={styles.inputContainer}>
+        <AuthInput
+          type="password"
+          value={passwordCheck}
+          onChange={setPasswordCheck}
           label="密碼確認"
           placeholder="請再次輸入密碼"
         />
       </div>
 
-      <button className={styles.loginButton} onClick={() => console.log("ok!")}>
+      <button className={styles.loginButton} onClick={handleRegister}>
         註冊
       </button>
       <div className={styles.linkTextCancel}>

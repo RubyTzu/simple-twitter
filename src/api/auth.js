@@ -14,4 +14,24 @@ export const login = async ({ account, password }) => {
   }
 };
 
-export const register = () => {};
+export const register = async ({
+  account,
+  name,
+  email,
+  password,
+  passwordCheck,
+}) => {
+  const { data } = await axios.post(`${baseUrl}/api/signup`, {
+    account,
+    name,
+    email,
+    password,
+    passwordCheck,
+  });
+  const status = data.status;
+  if (status === "success") {
+    return { success: true, ...data };
+  } else {
+    return { success: false, ...data };
+  }
+};
