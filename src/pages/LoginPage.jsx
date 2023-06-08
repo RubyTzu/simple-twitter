@@ -55,7 +55,7 @@ export const LoginPage = () => {
       </button>
       <div className={styles.linkText}>
         <Link to="/register">註冊</Link> ・{" "}
-        <Link to="/adminlogin">後台登入</Link>
+        <Link to="/admin/login">後台登入</Link>
       </div>
     </div>
   );

@@ -5,7 +5,7 @@ import styles from "pages/LoginRegister.module.scss";
 
 export const Register = () => {
   return (
-    <div className="authContainer">
+    <div className={styles.authContainer}>
       <div>
         <LogoSVG />
       </div>
