@@ -5,6 +5,7 @@ import userselfAvatar from "assets/userselfAvatar.svg";
 import userselfBcg from "assets/userselfBcg.svg";
 import styles from "./UserSelfPage.module.scss"
 import { Link } from "react-router-dom";
+import { UserTweetsCollection } from "components/UserTweetsCollection";
 
 export const UserSelfPage = () => {
   return (
@@ -12,11 +13,11 @@ export const UserSelfPage = () => {
       <Navbar />
       <div className={styles.mainbarContainer}>
         <header className={styles.userPageHeader}>
-          <Link className={styles.link} to="/home">
+          <Link to="/home">
             <BackSVG className={styles.logo} />
           </Link>
           <div className={styles.userPageHeaderText}>
-            <p className={styles.userPageTitle}>mySelf</p>
+            <p className={styles.userPageTitle}>John Doe</p>
             <p className={styles.userPageTweetCounts}>25 推文</p>
           </div>
         </header>
@@ -28,13 +29,12 @@ export const UserSelfPage = () => {
             <span>
               <b>John Doe</b>
             </span>
-            <br />
             <span className={styles.nickName}>@heyjogn</span>
-            <p className={styles.description}>
+            <span className={styles.description}>
               Amet minim mollit non deserunt ullamco est sit aliqua dolor do
               amet sint.{" "}
-            </p>
-            <div className={styles.follow}>
+            </span>
+            <span className={styles.follow}>
               <div className={styles.followerInfoBtn}>
                 <span className={styles.followNum}>34個</span>
                 <span>跟隨中</span>
@@ -43,9 +43,10 @@ export const UserSelfPage = () => {
                 <span className={styles.followNum}>59位</span>
                 <span>跟隨者</span>
               </div>
-            </div>
+            </span>
           </div>
         </div>
+        <UserTweetsCollection />
       </div>
       <Rightbar />
     </div>

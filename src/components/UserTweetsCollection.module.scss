@@ -1,0 +1,54 @@
+//tweetLists navbar
+.tweetListsNavbar {
+  display: flex;
+  justify-content: flex-start;
+  width: 638px;
+  // height: 53px;
+  margin: 16px 0 0 0;
+  border-bottom: 1px solid var(--lightGrayOne);
+  list-style: none;
+}
+
+.tweetListButton {
+  position: relative;
+  left: -40px;
+  display: block;
+  width: 90px;
+  height: 52px;
+  // margin-left: 0;
+  // margin-right: 16px;
+  font-family: "Noto Sans TC", sans-serif;
+  font-weight: bold;
+  font-size: 15px;
+  line-height: 52px;
+  text-decoration: none;
+  color: #657786;
+  &.active {
+    color: var(--major);
+    &:after {
+      content: "";
+      display: block;
+      position: relative;
+      top: -2px;
+      width: 80px;
+      margin: 0 5px;
+      border-bottom: 2px solid var(--major);
+      border-radius: 5px;
+    }
+  }
+}
+
+.tweetListContainer {
+    position: relative;
+      height: 100vh;
+}
+
+// $type-map: (1:'tweets', 2:'reply-tweets', 3:'like-tweets');
+// @for $index from 1 to 4 {
+//     section.tweetListsContainer[data-type="#{$index}"] {
+//  // tweetListsNavbar
+//  .tweetListsNavbar {
+//     // &[data]
+//  }
+//     }
+// }

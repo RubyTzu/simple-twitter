@@ -1,7 +1,13 @@
+.tweetsCollection {
+  position: relative;
+  width: 639px;
+  height: 100vh;
+}
+
 .tweetContainer {
   display: flex;
   justify-content: flex-start;
-  width: 639px;
+  width: 638px;
   padding-top: 16px;
   border-bottom: 1px solid var(--lightGrayOne);
 }

@@ -17,6 +17,10 @@
   height: 100vh;
   border-right: 1px solid var(--lightGrayOne);
   border-left: 1px solid var(--lightGrayOne);
+  overflow: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .homePageTitle {
@@ -29,8 +33,9 @@
 .addTweetSection {
   position: relative;
   display: flex;
-  width: 639px;
+  width: 638px;
   border-top: 1px solid var(--lightGrayOne);
+  border-bottom: 10px solid var(--lightGrayOne);
 }
 
 .addTweetAvatar {
@@ -79,11 +84,7 @@
 
 .tweetsCollection {
   position: relative;
-  width: 639px;
-  overflow: scroll;
+  width: 638px;
   height: 100vh;
   border-top: 10px solid var(--lightGrayOne);
-  &::-webkit-scrollbar {
-    display: none;
-  }
 }
