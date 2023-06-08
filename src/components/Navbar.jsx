@@ -11,7 +11,19 @@ export const Navbar = () => {
   const { logout } = useAuth();
   const navigate = useNavigate();
 
-  const handleClick = () => {
+  const styleChange = (e) => {
+    const prevClicked = document.querySelector(`.${styles.chooseButton}`);
+    console.log(prevClicked);
+    console.log(e.target);
+    if (prevClicked && prevClicked === e.target) {
+      return;
+    } else {
+      e.target.classList.add(styles["chooseButton"]);
+      prevClicked.classList.remove(styles["chooseButton"]);
+    }
+  };
+
+  const handleLogout = () => {
     logout();
     navigate("/login");
     alert("已登出");
@@ -23,17 +35,27 @@ export const Navbar = () => {
         <LogoSVG className={styles.logo} />
         <div className={styles.homeUserSettingbar}>
           <Link
+            // data-btn="home"
             to="/home"
             className={`${styles.navbarButton} ${styles.chooseButton}`}
+            onClick={styleChange}
           >
             <HomeSVG className={styles.navbarIcon} />
             首頁
           </Link>
-          <Link to="/userself" className={styles.navbarButton}>
+          <Link
+            to="/userself"
+            className={styles.navbarButton}
+            onClick={styleChange}
+          >
             <UserSVG className={styles.navbarIcon} />
             個人資料
           </Link>
-          <Link to="/setting" className={styles.navbarButton}>
+          <Link
+            to="/setting"
+            className={styles.navbarButton}
+            onClick={styleChange}
+          >
             <SettingSVG className={styles.navbarIcon} />
             設定
           </Link>
@@ -47,7 +69,7 @@ export const Navbar = () => {
         </button>
       </div>
 
-      <button className={styles.navbarButton} onClick={handleClick}>
+      <button className={styles.navbarButton} onClick={handleLogout}>
         <LogOutSVG className={styles.navbarIcon} />
         登出
       </button>
