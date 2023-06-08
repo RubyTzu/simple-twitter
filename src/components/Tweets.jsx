@@ -1,7 +1,7 @@
 import { ReactComponent as GreyIconSVG } from "assets/GreyIcon.svg";
 import { ReactComponent as CommentSVG } from "assets/Comment.svg";
 import { ReactComponent as LikeSVG } from "assets/Like.svg";
-import styles from "./Tweet.module.scss";
+import styles from "./Tweets.module.scss";
 import { Link } from "react-router-dom";
 
 export const Tweet = () => {
@@ -29,6 +29,45 @@ export const Tweet = () => {
           </Link>
         </footer>
       </div>
+    </div>
+  );
+}
+
+export const Tweets = () => {
+  return (
+    <div className={styles.tweetsCollection}>
+      <Tweet />
+      <Tweet />
+      <Tweet />
+      <Tweet />
+      <Tweet />
+      <Tweet />
+    </div>
+  );
+}
+
+export const UserTweets = () => {
+  return (
+    <div className={styles.tweetsCollection}>
+      <Tweet />
+      <Tweet />
+      <Tweet />
+      <Tweet />
+      <Tweet />
+      <Tweet />
+    </div>
+  );
+};
+
+export const UserLikeTweets = () => {
+  return (
+    <div className={styles.tweetsCollection}>
+      <Tweet />
+      <Tweet />
+      <Tweet />
+      <Tweet />
+      <Tweet />
+      <Tweet />
     </div>
   );
 };
