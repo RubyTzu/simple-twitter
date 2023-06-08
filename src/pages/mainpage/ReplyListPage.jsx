@@ -7,6 +7,7 @@ import { Navbar } from "components/Navbar";
 import { Rightbar } from "components/Rightbar";
 import { TweetsReadOnly } from "components/TweetsReadOnly";
 import styles from "./ReplyListPage.module.scss";
+import { AddReplyModal } from "components/modals/AddReplyModal";
 
 export const ReplyListPage = () => {
   return (
@@ -45,9 +46,16 @@ export const ReplyListPage = () => {
               </span>
             </p>
             <div className={styles.feedbackButtons}>
-              <Link href="/">
+              <Link
+                type="Link"
+                className={`${styles.replyButton}`}
+                data-bs-toggle="modal"
+                data-bs-target="#addReplyModal"
+              >
                 <CommentSVG className={styles.feedbackButton} />
               </Link>
+              <AddReplyModal />
+
               <Link href="/">
                 <LikeSVG className={styles.feedbackButton} />
               </Link>

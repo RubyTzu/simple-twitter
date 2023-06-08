@@ -3,9 +3,10 @@ import { Navbar } from "components/Navbar";
 import { Rightbar } from "components/Rightbar";
 import userselfAvatar from "assets/userselfAvatar.svg";
 import userselfBcg from "assets/userselfBcg.svg";
-import styles from "./UserSelfPage.module.scss"
+import styles from "./UserSelfPage.module.scss";
 import { Link } from "react-router-dom";
 import { UserTweetsCollection } from "components/UserTweetsCollection";
+import { InfoEditModal } from "components/modals/InfoEditModal";
 
 export const UserSelfPage = () => {
   return (
@@ -24,7 +25,15 @@ export const UserSelfPage = () => {
         <div className={styles.userinfoContainer}>
           <img className={styles.userBcgImage} src={userselfBcg} alt="" />
           <img className={styles.userAvatar} src={userselfAvatar} alt="" />
-          <div className={styles.editUserinfoBtn}>編輯個人資料</div>
+          <button
+            type="button"
+            className={`${styles.editUserinfoBtn}`}
+            data-bs-toggle="modal"
+            data-bs-target="#infoEditModal"
+          >
+            編輯個人資料
+          </button>
+          <InfoEditModal />
           <div className={styles.userinfo}>
             <span>
               <b>John Doe</b>

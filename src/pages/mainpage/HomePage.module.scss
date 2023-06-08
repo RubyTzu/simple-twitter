@@ -62,13 +62,16 @@
   margin-top: 12px;
   width: 526px;
   min-height: 50px;
-  max-height: 150px;
+  max-height: 300px;
   border: none;
   outline: none;
   resize: none;
   font-family: "Noto Sans TC", sans-serif;
   font-weight: 800;
   font-size: 18px;
+  &::placeholder {
+    color: #6C757D;
+  }
 }
 
 .tweetButton {
