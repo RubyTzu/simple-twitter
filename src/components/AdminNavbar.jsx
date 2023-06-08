@@ -2,9 +2,19 @@ import { ReactComponent as LogoSVG } from "assets/Icon.svg";
 import { ReactComponent as HomeSVG } from "assets/Home.svg";
 import { ReactComponent as UserSVG } from "assets/User.svg";
 import { ReactComponent as LogOutSVG } from "assets/LogOut.svg";
-import styles from "./AdminNavbar.module.scss"
+import styles from "./AdminNavbar.module.scss";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "context/authContext";
 
 export const AdminNavbar = () => {
+  const navigate = useNavigate();
+  const { logout } = useAuth();
+
+  const handleClick = () => {
+    logout();
+    navigate("/admin/login");
+  };
+
   return (
     <div className={styles.navbarContainer}>
       <div className={styles.navbarTopPart}>
@@ -21,7 +31,7 @@ export const AdminNavbar = () => {
         </div>
       </div>
 
-      <button className={styles.navbarButton}>
+      <button onClick={handleClick} className={styles.navbarButton}>
         <LogOutSVG className={styles.navbarIcon} />
         登出
       </button>

@@ -10,18 +10,7 @@ import { useAuth } from "context/authContext";
 export const Navbar = () => {
   const { logout } = useAuth();
   const navigate = useNavigate();
-
-  const styleChange = (e) => {
-    const prevClicked = document.querySelector(`.${styles.chooseButton}`);
-    console.log(prevClicked);
-    console.log(e.target);
-    if (prevClicked && prevClicked === e.target) {
-      return;
-    } else {
-      e.target.classList.add(styles["chooseButton"]);
-      prevClicked.classList.remove(styles["chooseButton"]);
-    }
-  };
+  const styleChange = (e) => {};
 
   const handleLogout = () => {
     logout();
@@ -35,7 +24,6 @@ export const Navbar = () => {
         <LogoSVG className={styles.logo} />
         <div className={styles.homeUserSettingbar}>
           <Link
-            // data-btn="home"
             to="/home"
             className={`${styles.navbarButton} ${styles.chooseButton}`}
             onClick={styleChange}

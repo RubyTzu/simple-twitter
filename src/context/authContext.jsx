@@ -1,6 +1,5 @@
-import { login } from "api/auth";
-import { createContext, useContext, useState } from "react";
-
+import { login, register } from "api/auth";
+import { createContext, useContext, useEffect, useState } from "react";
 const defaultAuthContext = {
   isAuthenticated: null,
   currentUser: null,
@@ -14,6 +13,20 @@ export const useAuth = () => useContext(AuthContext);
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [payload, setPayload] = useState(null);
+
+  useEffect(() => {
+    const checkTokenExist = () => {
+      const token = localStorage.getItem("authToken");
+      if (!token) {
+        setIsAuthenticated(false);
+        setPayload(null);
+        return;
+      } else {
+        setIsAuthenticated(true);
+      }
+    };
+    checkTokenExist();
+  }, []);
 
   const value = {
     isAuthenticated: isAuthenticated,
@@ -29,6 +42,19 @@ export const AuthProvider = ({ children }) => {
         localStorage.setItem("authToken", result.token);
       }
       return result.success;
+    },
+    register: async (data) => {
+      const result = await register({
+        account: data.account,
+        name: data.name,
+        email: data.email,
+        password: data.password,
+        passwordCheck: data.passwordCheck,
+      });
+      if (result.success === "success") {
+        console.log("success in authContext");
+        return { success: true };
+      }
     },
     logout: () => {
       setIsAuthenticated(false);
