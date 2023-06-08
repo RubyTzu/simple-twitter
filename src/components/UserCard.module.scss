@@ -1,0 +1,88 @@
+.usercard {
+  width: 210px;
+  height: 314px;
+  border-radius: 10px;
+  background-color: #f6f7f8;
+  position: relative;
+}
+
+.bcgImage {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 10px 10px 0 0;
+}
+.avatar {
+  width: 100px;
+  height: 100px;
+  border: 4px solid var(--white);
+  border-radius: 50%;
+  object-fit: cover;
+  position: absolute;
+  left: 55px;
+  top: 64px;
+}
+.userinfo {
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.username {
+  font-size: 16px;
+  color: #171725;
+  font-weight: 700;
+}
+.userNickname {
+  font-size: 14px;
+  color: #6c757d;
+}
+
+.userActivity {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 26px;
+  margin: 16px 36px 8px;
+  font-size: 16px;
+  .review {
+    display: flex;
+    align-items: center;
+    margin-right: 8px;
+  }
+  .heart {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-left: 8px;
+  }
+  .icon {
+    width: 23.87px;
+    height: 21.6px;
+    margin-right: 8px;
+  }
+}
+
+.follow {
+  display: flex;
+  justify-content: center;
+}
+
+.followerInfoBtn {
+  min-width: 75px;
+  height: 22px;
+  color: #6c757d;
+  font-size: 14px;
+  cursor: pointer;
+}
+.followingInfoBtn {
+  min-width: 75px;
+  height: 22px;
+  color: #6c757d;
+  font-size: 14px;
+  cursor: pointer;
+  margin-left: 8px;
+}
+.followNum {
+  color: #171725;
+}

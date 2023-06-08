@@ -1,30 +1,28 @@
+import { useAuth } from "context/authContext";
 import { AuthInput } from "components/AuthInput";
 import { ReactComponent as LogoSVG } from "assets/Icon.svg";
 import styles from "pages/LoginRegister.module.scss";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
 export const LoginPage = () => {
-  const [email, setEmail] = useState("");
+  const [account, setAccount] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleClick = async () => {
-    if (email.length === 0) return;
+    if (account.length === 0) return;
     if (password.length === 0) return;
-    const { data } = await axios.post(
-      "https://twitter-2023.herokuapp.com/api/signin",
-      {
-        email: email,
-        password: password,
-      }
-    );
-    console.log(data.data.token);
-    // const success = login({ username, password });
-    // if (success) {
-    //   console.log("success!!!");
-    // } else {
-    //   console.log("failed!!!");
-    // }
+    const success = await login({ account, password });
+    if (success) {
+      alert("登入成功");
+      navigate("/home");
+      return;
+    } else {
+      alert("登入失敗");
+      return;
+    }
   };
 
   return (
@@ -36,10 +34,10 @@ export const LoginPage = () => {
       <div className={styles.inputContainer}>
         <AuthInput
           type="text"
-          value={email}
+          value={account}
           label="帳號"
           placeholder="請輸入帳號"
-          onChange={setEmail}
+          onChange={setAccount}
         />
       </div>
       <div className={styles.inputContainer}>
