@@ -8,7 +8,7 @@ export const AdminMainPage = () => {
     try {
       console.log("OK");
       const token = localStorage.getItem("authToken");
-      const data = await axios.get(`${baseUrl}/api/admin/tweets`, {
+      const data = await axios.get(`${baseUrl}/api/admin/users`, {
         headers: {
           Authorization: "Bearer " + token,
         },

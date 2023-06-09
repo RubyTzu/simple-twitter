@@ -3,6 +3,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 // import * as jwt from "jsonwebtoken";
 const defaultAuthContext = {
   isAuthenticated: null,
+  currentUserId: "",
   currentUser: null,
   register: null,
   login: null,
@@ -14,7 +15,7 @@ export const useAuth = () => useContext(AuthContext);
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [payload, setPayload] = useState(null);
-
+  const [currentUserId, setCurrentUserId] = useState("");
   useEffect(() => {
     const checkTokenExist = () => {
       const token = localStorage.getItem("authToken");
@@ -40,6 +41,7 @@ export const AuthProvider = ({ children }) => {
   const value = {
     isAuthenticated: isAuthenticated,
     payload: payload,
+    currentUserId: currentUserId,
     login: async (data) => {
       const result = await login({
         account: data.account,
@@ -48,6 +50,8 @@ export const AuthProvider = ({ children }) => {
       if (result.success) {
         setIsAuthenticated(true);
         setPayload(result.data.user);
+        setCurrentUserId(result.data.user.id);
+        localStorage.setItem("id", result.data.user.id);
         localStorage.setItem("authToken", result.token);
       }
       return result.success;

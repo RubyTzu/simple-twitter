@@ -5,7 +5,7 @@ import styles from "./Tweets.module.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { AddReplyModal } from "./modals/AddReplyModal";
 
-export const Tweet = () => {
+export const Tweet = ({ value }) => {
   let navigate = useNavigate();
 
   const handleTweetClick = () => {
@@ -18,14 +18,12 @@ export const Tweet = () => {
         <GreyIconSVG className={`${styles.userAvatar} cursorPointer`} />
         <div className={styles.tweetTextContainer}>
           <header className={styles.tweetHeader}>
-            <p className={styles.userName}>Apple</p>
-            <p className={styles.userNickName}>@apple・3小時</p>
+            <p className={styles.userName}>{value.User.name}</p>
+            <p
+              className={styles.userNickName}
+            >{`@${value.User.name}・3小時`}</p>
           </header>
-          <p className={styles.comment}>
-            Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco
-            cillum dolor. Voluptate exercitation incididunt aliquip deserunt
-            reprehenderit elitlaborum.
-          </p>
+          <p className={styles.comment}>{value.description}</p>
           <footer className={styles.tweetFooter}>
             <Link
               type="Link"
@@ -37,7 +35,7 @@ export const Tweet = () => {
               }}
             >
               <CommentSVG className={styles.commentIcon} />
-              <p className={styles.counts}>13</p>
+              <p className={styles.counts}>{value.likesCount}</p>
             </Link>
             <AddReplyModal />
             <Link
@@ -48,7 +46,7 @@ export const Tweet = () => {
               }}
             >
               <LikeSVG className={styles.likeIcon} />
-              <p className={styles.counts}>76</p>
+              <p className={styles.counts}>{value.repliesCount}</p>
             </Link>
           </footer>
         </div>
@@ -57,15 +55,15 @@ export const Tweet = () => {
   );
 };
 
-export const Tweets = () => {
+export const Tweets = ({ value }) => {
   return (
     <div className={styles.tweetsCollection}>
+      <Tweet value={value} />
+      {/* <Tweet />
       <Tweet />
       <Tweet />
       <Tweet />
-      <Tweet />
-      <Tweet />
-      <Tweet />
+      <Tweet /> */}
     </div>
   );
 };
