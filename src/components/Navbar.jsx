@@ -9,15 +9,44 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useAuth } from "context/authContext";
 import { AddTweetModal } from "./modals/AddTweetModal";
+// import { useEffect, useRef } from "react";
+import { useRef } from "react";
+
+const types = [
+  {
+    dataType: "home",
+    name: "首頁",
+    route: "/home",
+  },
+  {
+    dataType: "user-info",
+    name: "個人資料",
+    route: "/userself",
+  },
+  {
+    dataType: "account-setting",
+    name: "設定",
+    route: "/setting",
+  },
+];
+
 export const Navbar = () => {
   const { logout } = useAuth();
   const navigate = useNavigate();
-  const styleChange = (e) => {};
-
+  let typeInfos = types;
+  const activePage = useRef("首頁");
+  //{ current: "首頁" }
   const handleLogout = () => {
     logout();
     navigate("/login");
     alert("已登出");
+  };
+
+
+
+  const handleStyleChange = (e) => {
+    activePage.current = e.target.innerText;
+    console.log(`handleStyleChange裡的 ${activePage.current}`);
   };
 
   return (
@@ -25,36 +54,42 @@ export const Navbar = () => {
       <div className={styles.navbarTopPart}>
         <LogoSVG className={styles.logo} />
         <div className={styles.homeUserSettingbar}>
-          <Link
-            to="/home"
-            className={`${styles.navbarButton} ${styles.chooseButton}`}
-            onClick={styleChange}
-          >
-            <HomeSVG className={styles.navbarIcon} />
-            首頁
-          </Link>
-          <Link
-            to="/userself"
-            className={styles.navbarButton}
-            onClick={styleChange}
-          >
-            <UserSVG className={styles.navbarIcon} />
-            個人資料
-          </Link>
-          <Link
-            to="/setting"
-            className={styles.navbarButton}
-            onClick={styleChange}
-          >
-            <SettingSVG className={styles.navbarIcon} />
-            設定
-          </Link>
+          {typeInfos.map((info) => {
+            const linkClassName = `${styles.navbarButton} ${
+              activePage.current === info.name ? styles.chooseButton : ""
+            }`;
+
+            const linkIcon = () => {
+              if (info.name === "首頁") {
+                return <HomeSVG className={styles.navbarIcon} />;
+              } else if (info.name === "個人資料") {
+                return <UserSVG className={styles.navbarIcon} />;
+              } else if (info.name === "設定") {
+                return <SettingSVG className={styles.navbarIcon} />;
+              }
+            };
+
+            return (
+              <Link
+                key={info.dataType}
+                to={info.route}
+                className={linkClassName}
+                onClick={handleStyleChange}
+              >
+                {linkIcon()}
+                {info.name}
+              </Link>
+            );
+          })}
         </div>
         <button
           type="button"
           className={`${styles.tweetButton}`}
           data-bs-toggle="modal"
           data-bs-target="#addTweetModal"
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
         >
           推文
         </button>
@@ -68,3 +103,4 @@ export const Navbar = () => {
     </div>
   );
 };
+

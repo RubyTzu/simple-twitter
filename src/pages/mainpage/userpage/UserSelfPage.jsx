@@ -1,6 +1,4 @@
 import { ReactComponent as BackSVG } from "assets/Back.svg";
-import { Navbar } from "components/Navbar";
-import { Rightbar } from "components/Rightbar";
 import userselfAvatar from "assets/userselfAvatar.svg";
 import userselfBcg from "assets/userselfBcg.svg";
 import styles from "./UserSelfPage.module.scss";
@@ -10,8 +8,7 @@ import { InfoEditModal } from "components/modals/InfoEditModal";
 
 export const UserSelfPage = () => {
   return (
-    <div className={styles.mainPageContainer}>
-      <Navbar />
+    <>
       <div className={styles.mainbarContainer}>
         <header className={styles.userPageHeader}>
           <Link to="/home">
@@ -30,6 +27,9 @@ export const UserSelfPage = () => {
             className={`${styles.editUserinfoBtn}`}
             data-bs-toggle="modal"
             data-bs-target="#infoEditModal"
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
           >
             編輯個人資料
           </button>
@@ -57,7 +57,6 @@ export const UserSelfPage = () => {
         </div>
         <UserTweetsCollection />
       </div>
-      <Rightbar />
-    </div>
+    </>
   );
 };
