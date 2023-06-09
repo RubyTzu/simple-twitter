@@ -16,6 +16,9 @@ export const AddTweetModal = () => {
         tabIndex="-1"
         aria-labelledby="addTweetModalLabel"
         aria-hidden="true"
+        onClick={(e) => {
+          e.stopPropagation();
+        }}
       >
         <div className="modal-dialog">
           <div className={`modal-content ${styles.modalContainer}`}>

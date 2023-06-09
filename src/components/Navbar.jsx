@@ -46,7 +46,7 @@ export const Navbar = () => {
 
   const handleStyleChange = (e) => {
     activePage.current = e.target.innerText;
-    // console.log(`handleStyleChange裡的 ${activePage.current}`);
+    console.log(`handleStyleChange裡的 ${activePage.current}`);
   };
 
   return (
@@ -57,7 +57,7 @@ export const Navbar = () => {
           {typeInfos.map((info) => {
             const linkClassName = `${styles.navbarButton} ${
               activePage.current === info.name ? styles.chooseButton : ""
-            }`
+            }`;
 
             const linkIcon = () => {
               if (info.name === "首頁") {
@@ -81,14 +81,15 @@ export const Navbar = () => {
               </Link>
             );
           })}
-
-        
         </div>
         <button
           type="button"
           className={`${styles.tweetButton}`}
           data-bs-toggle="modal"
           data-bs-target="#addTweetModal"
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
         >
           推文
         </button>

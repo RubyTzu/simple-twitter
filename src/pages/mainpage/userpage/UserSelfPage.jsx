@@ -27,6 +27,9 @@ export const UserSelfPage = () => {
             className={`${styles.editUserinfoBtn}`}
             data-bs-toggle="modal"
             data-bs-target="#infoEditModal"
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
           >
             編輯個人資料
           </button>

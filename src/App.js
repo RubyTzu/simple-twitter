@@ -32,26 +32,24 @@ function App() {
             <Route
               path="/replylist"
               element={
-                <MainPage middleContent={<ReplyListPage />} page="推特文頁" />
+                <MainPage middleContent={<ReplyListPage />} page="推特文" />
               }
             />
             <Route
               path="/userself"
               element={
-                <MainPage middleContent={<UserSelfPage />} page="個人使用頁" />
+                <MainPage middleContent={<UserSelfPage />} page="個人資料" />
               }
             />
             <Route
               path="/userother"
               element={
-                <MainPage middleContent={<UserOtherPage />} page="他人使用頁" />
+                <MainPage middleContent={<UserOtherPage />} page="他人資料" />
               }
             />
             <Route
               path="/setting"
-              element={
-                <MainPage middleContent={<SettingPage />} page="設定頁" />
-              }
+              element={<MainPage middleContent={<SettingPage />} page="設定" />}
             />
             <Route path="*" element={<LoginPage />} /> {/* 暫定 */}
           </Routes>

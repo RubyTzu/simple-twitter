@@ -8,8 +8,7 @@ export const MainPage = ({ middleContent, page }) => {
     <div className={styles.mainPageContainer}>
       <Navbar />
       {middleContent}
-      {console.log(middleContent)}
-      {page !== "設定頁" ? (
+      {page !== "設定" ? (
         <Rightbar />
       ) : (
         <SettingPageRightbar />

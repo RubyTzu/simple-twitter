@@ -4,6 +4,10 @@
   height: 100vh;
 }
 
+.openReplyList {
+  cursor: pointer;
+}
+
 .tweetContainer {
   display: flex;
   justify-content: flex-start;
@@ -40,6 +44,7 @@
   font-weight: 800;
   font-size: 16px;
   white-space: nowrap;
+  color: #000;
 }
 
 .userNickName {
@@ -60,6 +65,7 @@
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  color: #000;
 }
 
 .tweetFooter {
@@ -70,7 +76,8 @@
   margin: 0;
 }
 
-.replyButton, .likeButton {
+.replyButton,
+.likeButton {
   position: relative;
   display: flex;
   justify-content: space-between;
@@ -89,7 +96,6 @@
     margin: 0;
   }
 }
-
 
 .likeButton {
   .likeIcon {
