@@ -17,6 +17,9 @@ export const AddReplyModal = () => {
       tabIndex="-1"
       aria-labelledby="addReplyModalLabel"
       aria-hidden="true"
+      onClick={(e) => {
+        e.stopPropagation()
+      }}
     >
       <div className={`modal-dialog `}>
         <div className={`modal-content ${styles.modalContainer}`}>
@@ -49,7 +52,8 @@ export const AddReplyModal = () => {
                   aliquip deserunt reprehenderit elit laborum.
                 </p>
                 <p className={styles.replyTo}>
-                  回覆給 <Link className={styles.replyNickName}>@Mitsubishi</Link>
+                  回覆給{" "}
+                  <Link className={styles.replyNickName}>@Mitsubishi</Link>
                 </p>
               </div>
             </div>

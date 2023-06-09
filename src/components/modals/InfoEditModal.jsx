@@ -11,6 +11,9 @@ export const InfoEditModal = () => {
       tabIndex="-1"
       aria-labelledby="infoEditModalLabel"
       aria-hidden="true"
+      onClick={(e) => {
+        e.stopPropagation();
+      }}
     >
       <div className="modal-dialog">
         <div className={`modal-content ${styles.modalContainer}`}>
