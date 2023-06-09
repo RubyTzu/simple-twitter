@@ -1,6 +1,7 @@
 import avatar from "assets/Photo.png";
 import { Tweets } from "components/Tweets";
 import styles from "./HomePage.module.scss";
+import { useEffect } from "react";
 
 export const HomePage = () => {
   const handleAddTweetHeight = (e) => {
@@ -35,5 +36,5 @@ export const HomePage = () => {
         <Tweets />
       </div>
     </>
-  )
+  );
 };
