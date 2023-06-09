@@ -1,5 +1,6 @@
 import { login, register } from "api/auth";
 import { createContext, useContext, useEffect, useState } from "react";
+// import * as jwt from "jsonwebtoken";
 const defaultAuthContext = {
   isAuthenticated: null,
   currentUser: null,
@@ -21,9 +22,17 @@ export const AuthProvider = ({ children }) => {
         setIsAuthenticated(false);
         setPayload(null);
         return;
-      } else {
-        setIsAuthenticated(true);
       }
+      // else {
+      //   const tempPayload = jwt.decode(token);
+      //   if (tempPayload) {
+      //     setIsAuthenticated(true);
+      //     setPayload(tempPayload);
+      //   } else {
+      //     setIsAuthenticated(false);
+      //     setPayload(null);
+      //   }
+      // }
     };
     checkTokenExist();
   }, []);

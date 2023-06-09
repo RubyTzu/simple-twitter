@@ -21,7 +21,7 @@ export const register = async ({
   password,
   passwordCheck,
 }) => {
-  const { data } = await axios.post(`${baseUrl}/api/signup`, {
+  const { data } = await axios.post(`${baseUrl}/api/users`, {
     account,
     name,
     email,
