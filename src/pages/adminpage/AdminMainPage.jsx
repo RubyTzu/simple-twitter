@@ -8,12 +8,12 @@ export const AdminMainPage = () => {
     try {
       console.log("OK");
       const token = localStorage.getItem("authToken");
-      const data = await axios.get(`${baseUrl}/api/admin/users`, {
+      const data = await axios.get(`${baseUrl}/api/admin/tweets`, {
         headers: {
           Authorization: "Bearer " + token,
         },
       });
-      console.log(data);
+      // console.log(data);
     } catch (error) {
       console.log(error);
     }
