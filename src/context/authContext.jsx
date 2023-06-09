@@ -1,6 +1,6 @@
 import { login, register } from "api/auth";
 import { createContext, useContext, useEffect, useState } from "react";
-import * as jwt from "jsonwebtoken";
+// import * as jwt from "jsonwebtoken";
 const defaultAuthContext = {
   isAuthenticated: null,
   currentUser: null,

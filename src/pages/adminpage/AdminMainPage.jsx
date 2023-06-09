@@ -13,7 +13,7 @@ export const AdminMainPage = () => {
           Authorization: "Bearer " + token,
         },
       });
-      // console.log(data);
+      console.log(data);
     } catch (error) {
       console.log(error);
     }
