@@ -9,6 +9,7 @@ import { ReplyListPage } from "pages/mainpage/ReplyListPage";
 import { UserSelfPage } from "pages/mainpage/userpage/UserSelfPage";
 import { UserOtherPage } from "pages/mainpage/userpage/UserOtherPage";
 import { SettingPage } from "pages/mainpage/SettingPage";
+import { MainPage } from "pages/mainpage/MainPage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "context/authContext";
 const basename = process.env.PUBLIC_URL;
@@ -24,11 +25,34 @@ function App() {
             <Route path="/admin/userslist" element={<AdminUserPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/home" element={<HomePage />} />
-            <Route path="/replylist" element={<ReplyListPage />} />
-            <Route path="/userself" element={<UserSelfPage />} />
-            <Route path="/userother" element={<UserOtherPage />} />
-            <Route path="/setting" element={<SettingPage />} />
+            <Route
+              path="/home"
+              element={<MainPage middleContent={<HomePage />} page="首頁" />}
+            />
+            <Route
+              path="/replylist"
+              element={
+                <MainPage middleContent={<ReplyListPage />} page="推特文頁" />
+              }
+            />
+            <Route
+              path="/userself"
+              element={
+                <MainPage middleContent={<UserSelfPage />} page="個人使用頁" />
+              }
+            />
+            <Route
+              path="/userother"
+              element={
+                <MainPage middleContent={<UserOtherPage />} page="他人使用頁" />
+              }
+            />
+            <Route
+              path="/setting"
+              element={
+                <MainPage middleContent={<SettingPage />} page="設定頁" />
+              }
+            />
             <Route path="*" element={<LoginPage />} /> {/* 暫定 */}
           </Routes>
         </AuthProvider>

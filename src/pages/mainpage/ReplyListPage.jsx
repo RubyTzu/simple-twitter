@@ -3,16 +3,13 @@ import { ReactComponent as BackSVG } from "assets/Back.svg";
 import { ReactComponent as CommentSVG } from "assets/Comment.svg";
 import { ReactComponent as LikeSVG } from "assets/Like.svg";
 import { Link } from "react-router-dom";
-import { Navbar } from "components/Navbar";
-import { Rightbar } from "components/Rightbar";
 import { TweetsReadOnly } from "components/TweetsReadOnly";
 import styles from "./ReplyListPage.module.scss";
 import { AddReplyModal } from "components/modals/AddReplyModal";
 
 export const ReplyListPage = () => {
   return (
-    <div className={styles.replyPageContainer}>
-      <Navbar />
+<>
       <div className={styles.mainbarContainer}>
         <header className={styles.replyListHeader}>
           <Link className={styles.link} to="/home">
@@ -64,7 +61,6 @@ export const ReplyListPage = () => {
         </div>
         <TweetsReadOnly />
       </div>
-      <Rightbar />
-    </div>
+    </>
   );
 };

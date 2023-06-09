@@ -3,8 +3,6 @@ import { ReactComponent as LetterIcon } from "assets/letterIcon.svg";
 import { ReactComponent as NotifIcon } from "assets/notifIcon.svg";
 import userotherBcg from "assets/userotherBcg.svg";
 import userotherAvatar from "assets/userotherAvatar.svg";
-import { Navbar } from "components/Navbar";
-import { Rightbar } from "components/Rightbar";
 import { UserTweetsCollection } from "components/UserTweetsCollection";
 import styles from "./UserOtherPage.module.scss";
 import { Link } from "react-router-dom";
@@ -12,8 +10,7 @@ import { Link } from "react-router-dom";
 
 export const UserOtherPage = () => {
   return (
-    <div className={styles.mainPageContainer}>
-      <Navbar />
+    <>
       <div className={styles.mainbarContainer}>
         <header className={styles.userPageHeader}>
           <Link to="/home">
@@ -57,9 +54,8 @@ export const UserOtherPage = () => {
             </span>
           </div>
         </div>
-          <UserTweetsCollection />
+        <UserTweetsCollection />
       </div>
-      <Rightbar />
-    </div>
+    </>
   );
 };

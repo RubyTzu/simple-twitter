@@ -39,11 +39,11 @@ export const UserTweetsCollection = () => {
         {
         typeInfos.map((info) => {
         if (info.name === "推文" && activeLink === info.name) {
-          return <UserTweets />;
+          return <UserTweets key={info.dataType} />;
         } else if ( activeLink === "回覆") {
-          return <UserReplyTweets />;
+          return <UserReplyTweets key={info.dataType} />;
         }  else if (activeLink === "喜歡的內容") {
-          return <UserLikeTweets />;
+          return <UserLikeTweets key={info.dataType} />;
         } return null
         })}
       </section>
