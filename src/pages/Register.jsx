@@ -12,19 +12,35 @@ export const Register = () => {
   const [password, setPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("");
   const navigate = useNavigate();
+  
   const handleRegister = async () => {
-    const success = await register({
-      account,
-      name,
-      email,
-      password,
-      passwordCheck,
-    });
-    console.log(success);
-    if (success) {
-      navigate("/login");
+    if (account.length === 0) return;
+    if (name.length === 0) return;
+    if (email.length === 0) return;
+    if (password.length === 0) return;
+    if (passwordCheck.length === 0) return;
+    
+    try {
+      const success = await register({
+        account,
+        name,
+        email,
+        password,
+        passwordCheck,
+      });
+      console.log(success);
+      if (success) {
+        alert("註冊成功");
+        navigate("/login");
+        return;
+      }
+    } catch (error) {
+      alert("註冊失敗");
+      return;
     }
-  };
+
+  }
+
   return (
     <div className={styles.authContainer}>
       <div>
@@ -38,6 +54,7 @@ export const Register = () => {
           onChange={setAccount}
           label="帳號"
           placeholder="請輸入帳號"
+          onKeyDown={handleRegister}
         />
       </div>
       <div className={styles.inputContainer}>
@@ -47,6 +64,7 @@ export const Register = () => {
           onChange={setName}
           label="名稱"
           placeholder="請輸入使用者名稱"
+          onKeyDown={handleRegister}
         />
       </div>
       <div className={styles.inputContainer}>
@@ -56,6 +74,7 @@ export const Register = () => {
           onChange={setEmail}
           label="Email"
           placeholder="請輸入Email"
+          onKeyDown={handleRegister}
         />
       </div>
       <div className={styles.inputContainer}>
@@ -65,6 +84,7 @@ export const Register = () => {
           onChange={setPassword}
           label="密碼"
           placeholder="請設定密碼"
+          onKeyDown={handleRegister}
         />
       </div>
       <div className={styles.inputContainer}>
@@ -74,6 +94,7 @@ export const Register = () => {
           onChange={setPasswordCheck}
           label="密碼確認"
           placeholder="請再次輸入密碼"
+          onKeyDown={handleRegister}
         />
       </div>
 

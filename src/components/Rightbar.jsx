@@ -1,5 +1,6 @@
 import { ReactComponent as GreyIconSVG } from "assets/GreyIcon.svg";
 import styles from "./Rightbar.module.scss";
+import { Link } from "react-router-dom";
 
 export const Rightbar = () => {
   return (
@@ -14,9 +15,9 @@ export const Rightbar = () => {
             />
             <div className={styles.userInfos}>
               <p className={styles.popularUserName}>Pizza Hut</p>
-              <a className={styles.popularUserNickName} href="/">
+              <Link className={styles.popularUserNickName} to="#">
                 @pizzahut
-              </a>
+              </Link>
             </div>
             <button className={styles.toNotFollowButton}>正在跟隨</button>
           </div>
@@ -28,9 +29,9 @@ export const Rightbar = () => {
 
             <div className={styles.userInfos}>
               <p className={styles.popularUserName}>McDonald</p>
-              <a className={styles.popularUserNickName} href="/">
+              <Link className={styles.popularUserNickName} to="#">
                 @McDonald
-              </a>
+              </Link>
             </div>
             <button className={styles.toNotFollowButton}>正在跟隨</button>
           </div>
@@ -42,9 +43,9 @@ export const Rightbar = () => {
 
             <div className={styles.userInfos}>
               <p className={styles.popularUserName}>Bank</p>
-              <a className={styles.popularUserNickName} href="/">
+              <Link className={styles.popularUserNickName} to="#">
                 @Bank
-              </a>
+              </Link>
             </div>
             <button className={styles.toFollowButton}>跟隨</button>
           </div>
@@ -56,9 +57,9 @@ export const Rightbar = () => {
 
             <div className={styles.userInfos}>
               <p className={styles.popularUserName}>L'Oréal</p>
-              <a className={styles.popularUserNickName} href="/">
+              <Link className={styles.popularUserNickName} to="#">
                 @Loreal
-              </a>
+              </Link>
             </div>
             <button className={styles.toFollowButton}>跟隨</button>
           </div>
@@ -70,9 +71,9 @@ export const Rightbar = () => {
 
             <div className={styles.userInfos}>
               <p className={styles.popularUserName}>Nintendo</p>
-              <a className={styles.popularUserNickName} href="/">
+              <Link className={styles.popularUserNickName} to="#">
                 @Nintendo
-              </a>
+              </Link>
             </div>
             <button className={styles.toFollowButton}>跟隨</button>
           </div>
@@ -84,9 +85,9 @@ export const Rightbar = () => {
 
             <div className={styles.userInfos}>
               <p className={styles.popularUserName}>MasterCard</p>
-              <a className={styles.popularUserNickName} href="/">
+              <Link className={styles.popularUserNickName} to="#">
                 @MasterCard
-              </a>
+              </Link>
             </div>
             <button className={styles.toFollowButton}>跟隨</button>
           </div>
@@ -98,9 +99,9 @@ export const Rightbar = () => {
 
             <div className={styles.userInfos}>
               <p className={styles.popularUserName}>Nike</p>
-              <a className={styles.popularUserNickName} href="/">
+              <Link className={styles.popularUserNickName} to="#">
                 @Nike
-              </a>
+              </Link>
             </div>
             <button className={styles.toFollowButton}>跟隨</button>
           </div>
@@ -112,9 +113,9 @@ export const Rightbar = () => {
 
             <div className={styles.userInfos}>
               <p className={styles.popularUserName}>Adidas</p>
-              <a className={styles.popularUserNickName} href="/">
+              <Link className={styles.popularUserNickName} to="#">
                 @Nike
-              </a>
+              </Link>
             </div>
             <button className={styles.toFollowButton}>跟隨</button>
           </div>
