@@ -3,7 +3,7 @@ import { AdminTweet } from "components/AdminTweet";
 import axios from "axios";
 const baseUrl = "https://twitter-2023.herokuapp.com";
 export const AdminHomePage = () => {
-  const showUsers = async () => {
+  const showUsersTweet = async () => {
     try {
       console.log("OK");
       const token = localStorage.getItem("authToken");
@@ -20,7 +20,7 @@ export const AdminHomePage = () => {
   return (
     <>
       <div className={styles.adminMainbarContainer}>
-        <h1 className={styles.adminHomePageTitle} onClick={showUsers}>
+        <h1 className={styles.adminHomePageTitle} onClick={showUsersTweet}>
           推文清單
         </h1>
         <div className={styles.titleLine}></div>

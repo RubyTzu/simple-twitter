@@ -6,10 +6,9 @@ import { ReactComponent as LogOutSVG } from "assets/LogOut.svg";
 import { AddTweetModal } from "./modals/AddTweetModal";
 
 import styles from "./Navbar.module.scss";
-import { useNavigate, Link } from "react-router-dom";
-import { useRef } from "react";
+import { useNavigate, Link, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { useAuth } from "context/authContext";
-
 
 const types = [
   {
@@ -32,19 +31,22 @@ const types = [
 export const Navbar = () => {
   const { logout } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  const [activePage, setActivePage] = useState(location.pathname);
   let typeInfos = types;
-  const activePage = useRef("首頁");
-  //{ current: "首頁" }
+
   const handleLogout = () => {
     logout();
     navigate("/login");
     alert("已登出");
-  };
+  }
+  
+  useEffect(() => {
+    setActivePage(location.pathname);
+  }, [location]);
 
-
-
-  const handleStyleChange = (e) => {
-    activePage.current = e.target.innerText;
+  const handleStyleChange = () => {
+    setActivePage(location.pathname);
   };
 
   return (
@@ -54,7 +56,7 @@ export const Navbar = () => {
         <div className={styles.homeUserSettingbar}>
           {typeInfos.map((info) => {
             const linkClassName = `${styles.navbarButton} ${
-              activePage.current === info.name ? styles.chooseButton : ""
+              activePage === info.route ? styles.chooseButton : ""
             }`;
 
             const linkIcon = () => {
@@ -101,4 +103,3 @@ export const Navbar = () => {
     </div>
   );
 };
-

@@ -1,4 +1,5 @@
-import avatar from "assets/Photo.png";
+// import avatar from "assets/Photo.png";
+import initialAvatar from "assets/GreyIcon.svg"
 import { Tweet } from "components/Tweets";
 import styles from "./HomePage.module.scss";
 // import { useAuth } from "context/authContext";
@@ -7,7 +8,8 @@ import { useEffect, useRef, useState } from "react";
 const baseUrl = "https://twitter-2023.herokuapp.com";
 
 export const HomePage = () => {
-  // const [user, setUser] = useState();
+  // const [user, setUser] = useState("");
+  const userAvatar = useRef("");
   const user = useRef("");
   const [tweets, setTweets] = useState([]);
   // const tweets = useRef([]);
@@ -24,8 +26,12 @@ export const HomePage = () => {
           },
         });
         // setUser(data.data);
-        user.current = data.data;
-        // console.log(user.current);
+        // user.current = data.data;
+
+        userAvatar.current = data.data.avatar
+        if (userAvatar.current === null) {
+           return (userAvatar.current = initialAvatar);
+        } 
       } catch (error) {}
     };
     const getTweets = async () => {
@@ -34,13 +40,13 @@ export const HomePage = () => {
           Authorization: "Bearer " + token,
         },
       });
-      console.log(data.data);
+      // console.log(data.data);
       setTweets(data.data);
       // tweets.current = data.data;
     };
     showUserProfile();
     getTweets();
-  }, [id, token, user]);
+  }, [id, token, user, userAvatar]);
 
   const handleAddTweetHeight = (e) => {
     e.target.style.height = "inherit";
@@ -54,7 +60,7 @@ export const HomePage = () => {
         <div className={styles.addTweetSection}>
           <img
             className={styles.addTweetAvatar}
-            src={avatar}
+            src={userAvatar.current}
             alt="avatar"
           ></img>
           <div className={styles.addTweetSpace}>

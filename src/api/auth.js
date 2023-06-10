@@ -7,7 +7,7 @@ export const login = async ({ account, password }) => {
     password,
   });
   const authToken = data.token;
-  console.log(data);
+  console.log(data.data.user.role);
   if (authToken) {
     return { success: true, ...data };
   } else {
