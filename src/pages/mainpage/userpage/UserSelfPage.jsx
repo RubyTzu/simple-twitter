@@ -5,30 +5,31 @@ import styles from "./UserSelfPage.module.scss";
 import { Link } from "react-router-dom";
 import { UserTweetsCollection } from "components/UserTweetsCollection";
 import { InfoEditModal } from "components/modals/InfoEditModal";
-import axios from "axios";
 import { useEffect, useState } from "react";
-// import { useRef } from "react";
-const baseUrl = "https://twitter-2023.herokuapp.com";
+import { getUserReplies, getUserTweets } from "api/tweet";
 
 export const UserSelfPage = () => {
-  const token = localStorage.getItem("authToken");
-  const id = localStorage.getItem("id");
   const [tweets, setTweets] = useState([]);
-  // const tweets = useRef([]);
-
+  const [replies, setReplies] = useState([]);
+  // const [likedTweets, setLikedTweets] = useState([])
   useEffect(() => {
-    const getUserTweets = async () => {
-      const { data } = await axios.get(`${baseUrl}/api/users/${id}/tweets`, {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      });
-      console.log(data.data);
-      // tweets.current = data.data;
-      setTweets(data.data);
+    //推文tab
+    const showUserTweets = async () => {
+      setTweets(await getUserTweets());
     };
-    getUserTweets();
-  }, [id, token]);
+
+    //回覆tab
+    const showUserReplies = async () => {
+      setReplies(await getUserReplies());
+    };
+    //等拿的到"喜歡的內容"時, 打這支api
+    // const likedTweets = async ()=>{
+    //   setLikedTweets(await getUserLikedTweets())
+    // }
+    showUserTweets();
+    showUserReplies();
+    // likedTweets()
+  }, []);
 
   return (
     <>
@@ -78,7 +79,9 @@ export const UserSelfPage = () => {
             </span>
           </div>
         </div>
-        <UserTweetsCollection tweetsList={tweets} />
+        <UserTweetsCollection
+          tweetsCollection={{ tweets: tweets, replies: replies }}
+        />
       </div>
     </>
   );
