@@ -80,7 +80,8 @@ export const UserSelfPage = () => {
           </div>
         </div>
         <UserTweetsCollection
-          tweetsCollection={{ tweets: tweets, replies: replies }}
+          tweetsCollection={{ tweets: tweets, replies: replies, liked: tweets }}
+          //目前還是liked: tweets, 之後拿到likedTweets要改
         />
       </div>
     </>

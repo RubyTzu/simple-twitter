@@ -5,7 +5,7 @@ import styles from "./Tweets.module.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { AddReplyModal } from "./modals/AddReplyModal";
 
-export const Tweet = ({ tweet }) => {
+export const Tweet = ({ value }) => {
   let navigate = useNavigate();
   // console.log(tweet);
   const handleTweetClick = () => {
@@ -18,12 +18,12 @@ export const Tweet = ({ tweet }) => {
         <GreyIconSVG className={`${styles.userAvatar} cursorPointer`} />
         <div className={styles.tweetTextContainer}>
           <header className={styles.tweetHeader}>
-            <p className={styles.userName}>{tweet.User.name}</p>
+            <p className={styles.userName}>{value.User.name}</p>
             <p
               className={styles.userNickName}
-            >{`@${tweet.User.name}・3小時`}</p>
+            >{`@${value.User.name}・3小時`}</p>
           </header>
-          <p className={styles.comment}>{tweet.description}</p>
+          <p className={styles.comment}>{value.description}</p>
           <footer className={styles.tweetFooter}>
             <Link
               type="Link"
@@ -35,7 +35,7 @@ export const Tweet = ({ tweet }) => {
               }}
             >
               <CommentSVG className={styles.commentIcon} />
-              <p className={styles.counts}>{tweet.likesCount}</p>
+              <p className={styles.counts}>{value.likesCount}</p>
             </Link>
             <AddReplyModal />
             <Link
@@ -46,7 +46,7 @@ export const Tweet = ({ tweet }) => {
               }}
             >
               <LikeSVG className={styles.likeIcon} />
-              <p className={styles.counts}>{tweet.repliesCount}</p>
+              <p className={styles.counts}>{value.repliesCount}</p>
             </Link>
           </footer>
         </div>
@@ -55,20 +55,21 @@ export const Tweet = ({ tweet }) => {
   );
 };
 
-export const Tweets = ({ value }) => {
-  console.log(value);
-  return (
-    <div className={styles.tweetsCollection}>
-      <Tweet value={value} />
-    </div>
-  );
-};
+// 這個好像都沒用到?
+// export const Tweets = ({ value }) => {
+//   console.log(value);
+//   return (
+//     <div className={styles.tweetsCollection}>
+//       <Tweet value={value} />
+//     </div>
+//   );
+// };
 
 export const UserTweets = ({ value }) => {
   return (
     <div className={styles.tweetsCollection}>
       {value.map((tweet) => {
-        return <Tweet key={tweet.id} tweet={tweet} />;
+        return <Tweet key={tweet.id} value={tweet} />;
       })}
     </div>
   );
@@ -78,7 +79,7 @@ export const UserLikeTweets = ({ value }) => {
   return (
     <div className={styles.tweetsCollection}>
       {value.map((tweet) => {
-        return <Tweet key={tweet.id} tweet={tweet} />;
+        return <Tweet value={tweet} />;
       })}
     </div>
   );

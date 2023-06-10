@@ -40,7 +40,7 @@ export const UserReplyTweets = ({ value }) => {
   return (
     <div className={styles.tweetsCollection}>
       {value.map((tweet) => {
-        return <TweetReadOnly key={tweet.id} value={tweet} />;
+        return <TweetReadOnly value={tweet} />;
       })}
     </div>
   );
