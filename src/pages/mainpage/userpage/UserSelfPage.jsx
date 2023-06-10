@@ -26,7 +26,7 @@ export const UserSelfPage = () => {
       setTweets(data.data);
     };
     getUserTweets();
-  }, []);
+  }, [id, token]);
 
   return (
     <>

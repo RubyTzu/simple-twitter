@@ -1,7 +1,7 @@
 import { ReactComponent as GreyIconSVG } from "assets/GreyIcon.svg";
 import styles from "./Rightbar.module.scss";
 import axios from "axios";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 const baseUrl = "https://twitter-2023.herokuapp.com";
 
 export const Rightbar = () => {
@@ -19,7 +19,7 @@ export const Rightbar = () => {
       // popularList.current = await data.data;
     };
     showPopular();
-  }, []);
+  }, [token]);
   return (
     <div className={styles.rightbarContainer}>
       <div className={styles.popularbarContainer}>

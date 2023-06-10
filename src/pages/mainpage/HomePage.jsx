@@ -1,9 +1,9 @@
 import avatar from "assets/Photo.png";
-import { Tweet, Tweets } from "components/Tweets";
+import { Tweet } from "components/Tweets";
 import styles from "./HomePage.module.scss";
 // import { useAuth } from "context/authContext";
 import axios from "axios";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 const baseUrl = "https://twitter-2023.herokuapp.com";
 
 export const HomePage = () => {
@@ -22,6 +22,7 @@ export const HomePage = () => {
           },
         });
         setUser(data.data);
+        console.log(user);
       } catch (error) {}
     };
     const getTweets = async () => {
@@ -36,7 +37,7 @@ export const HomePage = () => {
     };
     showUserProfile();
     getTweets();
-  }, []);
+  }, [id, token, user]);
 
   const handleAddTweetHeight = (e) => {
     e.target.style.height = "inherit";
@@ -46,7 +47,7 @@ export const HomePage = () => {
   return (
     <>
       <div className={styles.mainbarContainer}>
-        <h1 className={styles.homePageTitle}>首頁</h1>
+        <h1 className={styles.homePageTitle}>首頁{user.name}</h1>
         <div className={styles.addTweetSection}>
           <img
             className={styles.addTweetAvatar}
