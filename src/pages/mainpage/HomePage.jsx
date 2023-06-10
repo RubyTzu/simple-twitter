@@ -47,7 +47,7 @@ export const HomePage = () => {
   return (
     <>
       <div className={styles.mainbarContainer}>
-        <h1 className={styles.homePageTitle}>首頁{user.name}</h1>
+        <h1 className={styles.homePageTitle}>首頁</h1>
         <div className={styles.addTweetSection}>
           <img
             className={styles.addTweetAvatar}
