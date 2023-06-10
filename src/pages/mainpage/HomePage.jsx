@@ -1,9 +1,47 @@
 import avatar from "assets/Photo.png";
-import { Tweets } from "components/Tweets";
+import { Tweet } from "components/Tweets";
 import styles from "./HomePage.module.scss";
-// import { useEffect } from "react";
+// import { useAuth } from "context/authContext";
+import axios from "axios";
+import { useEffect, useRef, useState } from "react";
+const baseUrl = "https://twitter-2023.herokuapp.com";
 
 export const HomePage = () => {
+  // const [user, setUser] = useState();
+  const user = useRef("");
+  const [tweets, setTweets] = useState([]);
+  // const tweets = useRef([]);
+  const token = localStorage.getItem("authToken");
+  const id = localStorage.getItem("id");
+
+  useEffect(() => {
+    const showUserProfile = async () => {
+      try {
+        const id = localStorage.getItem("id");
+        const { data } = await axios.get(`${baseUrl}/api/users/${id}`, {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        });
+        // setUser(data.data);
+        user.current = data.data;
+        // console.log(user.current);
+      } catch (error) {}
+    };
+    const getTweets = async () => {
+      const { data } = await axios.get(`${baseUrl}/api/users/${id}/tweets`, {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      });
+      console.log(data.data);
+      setTweets(data.data);
+      // tweets.current = data.data;
+    };
+    showUserProfile();
+    getTweets();
+  }, [id, token, user]);
+
   const handleAddTweetHeight = (e) => {
     e.target.style.height = "inherit";
     e.target.style.height = `${e.target.scrollHeight}px`;
@@ -33,7 +71,9 @@ export const HomePage = () => {
             </button>
           </div>
         </div>
-        <Tweets />
+        {tweets.map((tweet) => {
+          return <Tweet key={tweet.id} tweet={tweet} />;
+        })}
       </div>
     </>
   );
