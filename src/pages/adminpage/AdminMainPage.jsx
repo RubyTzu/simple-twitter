@@ -1,9 +1,9 @@
-import { AdminNavbar } from "components/AdminNavbar";
-import styles from "./AdminMainPage.module.scss";
+import { AdminNavbar } from "components/AdminNavbar"
+import styles from "./AdminMainPage.module.scss"
 import { AdminTweet } from "components/AdminTweet";
 import axios from "axios";
 const baseUrl = "https://twitter-2023.herokuapp.com";
-export const AdminMainPage = () => {
+export const AdminMainPage = ({ rightContent }) => {
   const showUsers = async () => {
     try {
       console.log("OK");
@@ -18,25 +18,11 @@ export const AdminMainPage = () => {
       console.log(error);
     }
   };
+
   return (
     <div className={styles.adminMainPageContainer}>
       <AdminNavbar />
-      <div className={styles.adminMainbarContainer}>
-        <h1 className={styles.adminMainPageTitle} onClick={showUsers}>
-          推文清單
-        </h1>
-        <div className={styles.adminTweetCollection}>
-          <AdminTweet />
-          <AdminTweet />
-          <AdminTweet />
-          <AdminTweet />
-          <AdminTweet />
-          <AdminTweet />
-          <AdminTweet />
-          <AdminTweet />
-          <AdminTweet />
-        </div>
-      </div>
+      {rightContent}
     </div>
   );
 };

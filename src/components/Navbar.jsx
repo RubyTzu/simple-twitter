@@ -3,14 +3,13 @@ import { ReactComponent as HomeSVG } from "assets/Home.svg";
 import { ReactComponent as UserSVG } from "assets/User.svg";
 import { ReactComponent as SettingSVG } from "assets/Setting.svg";
 import { ReactComponent as LogOutSVG } from "assets/LogOut.svg";
+import { AddTweetModal } from "./modals/AddTweetModal";
 
 import styles from "./Navbar.module.scss";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
-import { useAuth } from "context/authContext";
-import { AddTweetModal } from "./modals/AddTweetModal";
-// import { useEffect, useRef } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import { useRef } from "react";
+import { useAuth } from "context/authContext";
+
 
 const types = [
   {
@@ -46,7 +45,6 @@ export const Navbar = () => {
 
   const handleStyleChange = (e) => {
     activePage.current = e.target.innerText;
-    console.log(`handleStyleChange裡的 ${activePage.current}`);
   };
 
   return (
