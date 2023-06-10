@@ -2,7 +2,8 @@ import { ReactComponent as GreyIconSVG } from "assets/GreyIcon.svg";
 import styles from "./Rightbar.module.scss";
 import axios from "axios";
 import { useEffect, useState } from "react";
-// import { useRef } from "react";
+import { Link } from "react-router-dom";
+
 const baseUrl = "https://twitter-2023.herokuapp.com";
 
 export const Rightbar = () => {
@@ -36,9 +37,9 @@ export const Rightbar = () => {
                 />
                 <div className={styles.userInfos}>
                   <p className={styles.popularUserName}>{popular.name}</p>
-                  <a className={styles.popularUserNickName} href="/">
+                  <Link className={styles.popularUserNickName} to="#">
                     {`@${popular.name}`}
-                  </a>
+                  </Link>
                 </div>
                 <button
                   className={
