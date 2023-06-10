@@ -27,11 +27,14 @@ export const getUserReplies = async () => {
 };
 
 //喜歡的內容tab, endpoint後端還沒做好"
-// export const getUserLikedTweets = async () => {
-//     const { data } = await axios.get(`${baseUrl}/api/users/${id}/tweets`, {
-//       headers: {
-//         Authorization: "Bearer " + token,
-//       },
-//     });
-//     return data.data;
-//   };
+export const getUserLikedTweets = async () => {
+  const { data } = await axios.get(
+    `${baseUrl}/api/users/${id}/tweets?liked=true`,
+    {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    }
+  );
+  return data.data;
+};

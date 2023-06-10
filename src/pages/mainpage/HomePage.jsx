@@ -72,7 +72,7 @@ export const HomePage = () => {
           </div>
         </div>
         {tweets.map((tweet) => {
-          return <Tweet key={tweet.id} tweet={tweet} />;
+          return <Tweet key={tweet.id} value={tweet} />;
         })}
       </div>
     </>

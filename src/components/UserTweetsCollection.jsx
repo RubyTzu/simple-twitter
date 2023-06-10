@@ -51,8 +51,7 @@ export const UserTweetsCollection = ({ tweetsCollection }) => {
             return (
               <UserLikeTweets
                 key={info.dataType}
-                value={tweetsCollection.tweets}
-                //目前還是取tweets, 之後拿到likedTweets要改
+                value={tweetsCollection.liked}
               />
             );
           }

@@ -6,12 +6,12 @@ import { Link } from "react-router-dom";
 import { UserTweetsCollection } from "components/UserTweetsCollection";
 import { InfoEditModal } from "components/modals/InfoEditModal";
 import { useEffect, useState } from "react";
-import { getUserReplies, getUserTweets } from "api/tweet";
+import { getUserLikedTweets, getUserReplies, getUserTweets } from "api/tweet";
 
 export const UserSelfPage = () => {
   const [tweets, setTweets] = useState([]);
   const [replies, setReplies] = useState([]);
-  // const [likedTweets, setLikedTweets] = useState([])
+  const [likedTweets, setLikedTweets] = useState([]);
   useEffect(() => {
     //推文tab
     const showUserTweets = async () => {
@@ -22,13 +22,13 @@ export const UserSelfPage = () => {
     const showUserReplies = async () => {
       setReplies(await getUserReplies());
     };
-    //等拿的到"喜歡的內容"時, 打這支api
-    // const likedTweets = async ()=>{
-    //   setLikedTweets(await getUserLikedTweets())
-    // }
+    //喜歡的內容tab
+    const likedTweets = async () => {
+      setLikedTweets(await getUserLikedTweets());
+    };
     showUserTweets();
     showUserReplies();
-    // likedTweets()
+    likedTweets();
   }, []);
 
   return (
@@ -80,8 +80,11 @@ export const UserSelfPage = () => {
           </div>
         </div>
         <UserTweetsCollection
-          tweetsCollection={{ tweets: tweets, replies: replies, liked: tweets }}
-          //目前還是liked: tweets, 之後拿到likedTweets要改
+          tweetsCollection={{
+            tweets: tweets,
+            replies: replies,
+            liked: likedTweets,
+          }}
         />
       </div>
     </>
