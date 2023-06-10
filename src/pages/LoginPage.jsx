@@ -17,19 +17,24 @@ export const LoginPage = () => {
     } else return;
   }, [navigate, isAuthenticated]);
 
-  const handleClick = async () => {
+  const handleLogin = async () => {
     if (account.length === 0) return;
     if (password.length === 0) return;
-    const success = await login({ account, password });
-    if (success) {
-      alert("登入成功");
-      navigate("/home");
-      return;
-    } else {
+
+    try {
+      const success = await login({ account, password });
+      if (success) {
+        alert("登入成功");
+        navigate("/home");
+        return;
+      }
+    } catch (eeror) {
       alert("登入失敗");
       return;
     }
-  };
+
+  }
+  
   return (
     <div className={styles.authContainer}>
       <div>
@@ -43,6 +48,7 @@ export const LoginPage = () => {
           label="帳號"
           placeholder="請輸入帳號"
           onChange={setAccount}
+          onKeyDown={handleLogin}
         />
       </div>
       <div className={styles.inputContainer}>
@@ -52,10 +58,11 @@ export const LoginPage = () => {
           value={password}
           placeholder="請輸入密碼"
           onChange={setPassword}
+          onKeyDown={handleLogin}
         />
       </div>
 
-      <button className={styles.loginButton} onClick={handleClick}>
+      <button className={styles.loginButton} onClick={handleLogin}>
         登入
       </button>
       <div className={styles.linkText}>

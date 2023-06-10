@@ -1,15 +1,18 @@
 import "./App.scss";
+
 import { LoginPage } from "pages/LoginPage";
 import { Register } from "pages/Register";
 import { AdminLoginPage } from "pages/adminpage/AdminLoginPage";
 import { AdminMainPage } from "pages/adminpage/AdminMainPage";
+import { AdminHomePage } from "pages/adminpage/AdminHomePage";
 import { AdminUserPage } from "pages/adminpage/AdminUserPage";
+import { MainPage } from "pages/mainpage/MainPage";
 import { HomePage } from "pages/mainpage/HomePage";
 import { ReplyListPage } from "pages/mainpage/ReplyListPage";
 import { UserSelfPage } from "pages/mainpage/userpage/UserSelfPage";
 import { UserOtherPage } from "pages/mainpage/userpage/UserOtherPage";
 import { SettingPage } from "pages/mainpage/SettingPage";
-import { MainPage } from "pages/mainpage/MainPage";
+
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "context/authContext";
 const basename = process.env.PUBLIC_URL;
@@ -21,8 +24,24 @@ function App() {
         <AuthProvider>
           <Routes>
             <Route path="/admin/login" element={<AdminLoginPage />} />
-            <Route path="/admin/tweetslist" element={<AdminMainPage />} />
-            <Route path="/admin/userslist" element={<AdminUserPage />} />
+            <Route
+              path="/admin/tweetslist"
+              element={
+                <AdminMainPage
+                  rightContent={<AdminHomePage />}
+                  page="推文清單"
+                />
+              }
+            />
+            <Route
+              path="/admin/userslist"
+              element={
+                <AdminMainPage
+                  rightContent={<AdminUserPage />}
+                  page="使用者列表"
+                />
+              }
+            />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<Register />} />
             <Route
