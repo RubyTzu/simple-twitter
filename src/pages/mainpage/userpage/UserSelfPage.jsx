@@ -6,14 +6,15 @@ import { Link } from "react-router-dom";
 import { UserTweetsCollection } from "components/UserTweetsCollection";
 import { InfoEditModal } from "components/modals/InfoEditModal";
 import axios from "axios";
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+// import { useRef } from "react";
 const baseUrl = "https://twitter-2023.herokuapp.com";
 
 export const UserSelfPage = () => {
   const token = localStorage.getItem("authToken");
   const id = localStorage.getItem("id");
   const [tweets, setTweets] = useState([]);
+  // const tweets = useRef([]);
 
   useEffect(() => {
     const getUserTweets = async () => {
@@ -23,6 +24,7 @@ export const UserSelfPage = () => {
         },
       });
       console.log(data.data);
+      // tweets.current = data.data;
       setTweets(data.data);
     };
     getUserTweets();

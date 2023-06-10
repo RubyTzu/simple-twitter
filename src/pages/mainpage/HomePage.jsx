@@ -3,12 +3,14 @@ import { Tweet } from "components/Tweets";
 import styles from "./HomePage.module.scss";
 // import { useAuth } from "context/authContext";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 const baseUrl = "https://twitter-2023.herokuapp.com";
 
 export const HomePage = () => {
-  const [user, setUser] = useState();
+  // const [user, setUser] = useState();
+  const user = useRef("");
   const [tweets, setTweets] = useState([]);
+  // const tweets = useRef([]);
   const token = localStorage.getItem("authToken");
   const id = localStorage.getItem("id");
 
@@ -21,8 +23,9 @@ export const HomePage = () => {
             Authorization: "Bearer " + token,
           },
         });
-        setUser(data.data);
-        console.log(user);
+        // setUser(data.data);
+        user.current = data.data;
+        // console.log(user.current);
       } catch (error) {}
     };
     const getTweets = async () => {
@@ -33,7 +36,7 @@ export const HomePage = () => {
       });
       console.log(data.data);
       setTweets(data.data);
-      console.log(data.data);
+      // tweets.current = data.data;
     };
     showUserProfile();
     getTweets();
