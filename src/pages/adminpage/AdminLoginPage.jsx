@@ -17,15 +17,17 @@ export const AdminLoginPage = () => {
     } else return;
   }, [navigate, isAuthenticated]);
 
-  const handleClick = async () => {
+  const handleAdminLogin = async () => {
     if (account.length === 0) return;
     if (password.length === 0) return;
-    const success = await login({ account, password });
-    if (success) {
-      alert("登入成功");
-      navigate("/admin/tweetslist");
-      return;
-    } else {
+    try {
+      const success = await login({ account, password });
+      if (success) {
+        alert("登入成功");
+        navigate("/admin/tweetslist");
+        return;
+      }
+    } catch (error) {
       alert("登入失敗");
       return;
     }
@@ -43,6 +45,7 @@ export const AdminLoginPage = () => {
           onChange={setAccount}
           label="帳號"
           placeholder="請輸入帳號"
+          onKeyDown={handleAdminLogin}
         />
       </div>
       <div className={styles.inputContainer}>
@@ -52,10 +55,11 @@ export const AdminLoginPage = () => {
           onChange={setPassword}
           label="密碼"
           placeholder="請輸入密碼"
+          onKeyDown={handleAdminLogin}
         />
       </div>
 
-      <button className={styles.loginButton} onClick={handleClick}>
+      <button className={styles.loginButton} onClick={handleAdminLogin}>
         登入
       </button>
       <div className={styles.linkText}>
