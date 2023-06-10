@@ -1,5 +1,5 @@
 import avatar from "assets/Photo.png";
-import { Tweets } from "components/Tweets";
+import { Tweet, Tweets } from "components/Tweets";
 import styles from "./HomePage.module.scss";
 // import { useAuth } from "context/authContext";
 import axios from "axios";
@@ -8,7 +8,7 @@ const baseUrl = "https://twitter-2023.herokuapp.com";
 
 export const HomePage = () => {
   const [user, setUser] = useState();
-  const tweets = useRef([]);
+  const [tweets, setTweets] = useState([]);
   const token = localStorage.getItem("authToken");
   const id = localStorage.getItem("id");
 
@@ -22,7 +22,6 @@ export const HomePage = () => {
           },
         });
         setUser(data.data);
-        console.log(user);
       } catch (error) {}
     };
     const getTweets = async () => {
@@ -32,7 +31,8 @@ export const HomePage = () => {
         },
       });
       console.log(data.data);
-      tweets.current = await data.data;
+      setTweets(data.data);
+      console.log(data.data);
     };
     showUserProfile();
     getTweets();
@@ -67,8 +67,8 @@ export const HomePage = () => {
             </button>
           </div>
         </div>
-        {tweets.current.map((tweet) => {
-          return <Tweets key={tweet.id} value={tweet} />;
+        {tweets.map((tweet) => {
+          return <Tweet key={tweet.id} tweet={tweet} />;
         })}
       </div>
     </>

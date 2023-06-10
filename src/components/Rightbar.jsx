@@ -1,11 +1,12 @@
 import { ReactComponent as GreyIconSVG } from "assets/GreyIcon.svg";
 import styles from "./Rightbar.module.scss";
 import axios from "axios";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 const baseUrl = "https://twitter-2023.herokuapp.com";
 
 export const Rightbar = () => {
-  const popularList = useRef([]);
+  // const popularList = useRef([]);
+  const [popularList, setPopularList] = useState([]);
   const token = localStorage.getItem("authToken");
   useEffect(() => {
     const showPopular = async () => {
@@ -14,7 +15,8 @@ export const Rightbar = () => {
           Authorization: "Bearer " + token,
         },
       });
-      popularList.current = await data.data;
+      setPopularList(data.data);
+      // popularList.current = await data.data;
     };
     showPopular();
   }, []);
@@ -24,7 +26,7 @@ export const Rightbar = () => {
         <h1 className={styles.RightbarTitle}>推薦跟隨</h1>
 
         <div className={styles.popularUserCollection}>
-          {popularList.current.map((popular) => {
+          {popularList.map((popular) => {
             return (
               <div className={styles.popularUser} key={popular.id}>
                 <GreyIconSVG

@@ -10,7 +10,7 @@ const types = [
   { dataType: "like-tweets", name: "喜歡的內容" },
 ];
 
-export const UserTweetsCollection = () => {
+export const UserTweetsCollection = ({ tweetsList }) => {
   let typeInfos = types;
   const [activeLink, setActiveLink] = useState("推文");
 
@@ -36,15 +36,15 @@ export const UserTweetsCollection = () => {
         })}
       </ul>
       <section className={styles.tweetListContainer}>
-        {
-        typeInfos.map((info) => {
-        if (info.name === "推文" && activeLink === info.name) {
-          return <UserTweets key={info.dataType} />;
-        } else if ( activeLink === "回覆") {
-          return <UserReplyTweets key={info.dataType} />;
-        }  else if (activeLink === "喜歡的內容") {
-          return <UserLikeTweets key={info.dataType} />;
-        } return null
+        {typeInfos.map((info) => {
+          if (info.name === "推文" && activeLink === info.name) {
+            return <UserTweets key={info.dataType} value={tweetsList} />;
+          } else if (activeLink === "回覆") {
+            return <UserReplyTweets key={info.dataType} value={tweetsList} />;
+          } else if (activeLink === "喜歡的內容") {
+            return <UserLikeTweets key={info.dataType} value={tweetsList} />;
+          }
+          return null;
         })}
       </section>
     </section>

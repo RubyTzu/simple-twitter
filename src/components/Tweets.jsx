@@ -5,9 +5,9 @@ import styles from "./Tweets.module.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { AddReplyModal } from "./modals/AddReplyModal";
 
-export const Tweet = ({ value }) => {
+export const Tweet = ({ tweet }) => {
   let navigate = useNavigate();
-
+  // console.log(tweet);
   const handleTweetClick = () => {
     navigate("/replylist");
   };
@@ -18,12 +18,12 @@ export const Tweet = ({ value }) => {
         <GreyIconSVG className={`${styles.userAvatar} cursorPointer`} />
         <div className={styles.tweetTextContainer}>
           <header className={styles.tweetHeader}>
-            <p className={styles.userName}>{value.User.name}</p>
+            <p className={styles.userName}>{tweet.User.name}</p>
             <p
               className={styles.userNickName}
-            >{`@${value.User.name}・3小時`}</p>
+            >{`@${tweet.User.name}・3小時`}</p>
           </header>
-          <p className={styles.comment}>{value.description}</p>
+          <p className={styles.comment}>{tweet.description}</p>
           <footer className={styles.tweetFooter}>
             <Link
               type="Link"
@@ -35,7 +35,7 @@ export const Tweet = ({ value }) => {
               }}
             >
               <CommentSVG className={styles.commentIcon} />
-              <p className={styles.counts}>{value.likesCount}</p>
+              <p className={styles.counts}>{tweet.likesCount}</p>
             </Link>
             <AddReplyModal />
             <Link
@@ -46,7 +46,7 @@ export const Tweet = ({ value }) => {
               }}
             >
               <LikeSVG className={styles.likeIcon} />
-              <p className={styles.counts}>{value.repliesCount}</p>
+              <p className={styles.counts}>{tweet.repliesCount}</p>
             </Link>
           </footer>
         </div>
@@ -56,40 +56,30 @@ export const Tweet = ({ value }) => {
 };
 
 export const Tweets = ({ value }) => {
+  console.log(value);
   return (
     <div className={styles.tweetsCollection}>
       <Tweet value={value} />
-      {/* <Tweet />
-      <Tweet />
-      <Tweet />
-      <Tweet />
-      <Tweet /> */}
     </div>
   );
 };
 
-export const UserTweets = () => {
+export const UserTweets = ({ value }) => {
   return (
     <div className={styles.tweetsCollection}>
-      <Tweet />
-      <Tweet />
-      <Tweet />
-      <Tweet />
-      <Tweet />
-      <Tweet />
+      {value.map((tweet) => {
+        return <Tweet key={tweet.id} tweet={tweet} />;
+      })}
     </div>
   );
 };
 
-export const UserLikeTweets = () => {
+export const UserLikeTweets = ({ value }) => {
   return (
     <div className={styles.tweetsCollection}>
-      <Tweet />
-      <Tweet />
-      <Tweet />
-      <Tweet />
-      <Tweet />
-      <Tweet />
+      {value.map((tweet) => {
+        return <Tweet key={tweet.id} tweet={tweet} />;
+      })}
     </div>
   );
 };
