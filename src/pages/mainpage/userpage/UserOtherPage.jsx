@@ -3,7 +3,7 @@ import { ReactComponent as LetterIcon } from "assets/letterIcon.svg";
 import { ReactComponent as NotifIcon } from "assets/notifIcon.svg";
 import userotherBcg from "assets/userotherBcg.svg";
 import userotherAvatar from "assets/userotherAvatar.svg";
-import { UserTweetsCollection } from "components/UserTweetsCollection";
+// import { UserTweetsCollection } from "components/UserTweetsCollection";
 import styles from "./UserOtherPage.module.scss";
 import { Link } from "react-router-dom";
 
@@ -54,7 +54,7 @@ export const UserOtherPage = () => {
             </span>
           </div>
         </div>
-        <UserTweetsCollection />
+        {/* <UserTweetsCollection /> */}
       </div>
     </>
   );

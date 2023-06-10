@@ -1,5 +1,6 @@
-import { ReactComponent as GreyIconSVG } from "assets/GreyIcon.svg";
+import initialAvatar from "assets/GreyIcon.svg";
 import styles from "./Rightbar.module.scss";
+// import { followUser } from "../api/popular";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -10,6 +11,27 @@ export const Rightbar = () => {
   // const popularList = useRef([]);
   const [popularList, setPopularList] = useState([]);
   const token = localStorage.getItem("authToken");
+
+  const handleFollowing = async (userId) => {
+  console.log(userId)
+    try {
+      const res = await axios.post(
+        `${baseUrl}/api/followships`,
+        {
+          id: userId,
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
+      console.log(res);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     const showPopular = async () => {
       const { data } = await axios.get(`${baseUrl}/api/users/top`, {
@@ -18,11 +40,13 @@ export const Rightbar = () => {
         },
       });
       setPopularList(data.data);
-      console.log(data.data);
+      // console.log(data.data);
       // popularList.current = data.data;
     };
     showPopular();
+  
   }, [token]);
+
   return (
     <div className={styles.rightbarContainer}>
       <div className={styles.popularbarContainer}>
@@ -32,9 +56,18 @@ export const Rightbar = () => {
           {popularList.map((popular) => {
             return (
               <div className={styles.popularUser} key={popular.id}>
-                <GreyIconSVG
+                <Link
                   className={`${styles.popularUserAvatar} cursorPointer`}
-                />
+                  to="/userother"
+                >
+                  <img
+                    src={
+                      popular.avatar !== null ? popular.avatar : initialAvatar
+                    }
+                    alt="avatar"
+                  ></img>
+                </Link>
+
                 <div className={styles.userInfos}>
                   <p className={styles.popularUserName}>{popular.name}</p>
                   <Link className={styles.popularUserNickName} to="#">
@@ -47,6 +80,9 @@ export const Rightbar = () => {
                       ? styles.toNotFollowButton
                       : styles.toFollowButton
                   }
+                  onClick={() => {
+                    handleFollowing(popular.id);
+                  }}
                 >
                   {popular.isFollowing ? "正在跟隨" : "跟隨"}
                 </button>
