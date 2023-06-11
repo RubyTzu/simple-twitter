@@ -1,6 +1,5 @@
 import initialAvatar from "assets/GreyIcon.svg";
 import styles from "./Rightbar.module.scss";
-// import { followUser } from "../api/popular";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -8,12 +7,12 @@ import { Link } from "react-router-dom";
 const baseUrl = "https://twitter-2023.herokuapp.com";
 
 export const Rightbar = () => {
-  // const popularList = useRef([]);
+  // const [ idFromButtonClick, setIdFromButtonClick] = useState(null)
   const [popularList, setPopularList] = useState([]);
   const token = localStorage.getItem("authToken");
 
-  const handleFollowing = async (userId) => {
-  console.log(userId)
+  const handleAddFollowing = async (userId) => {
+    console.log(`add following ${userId}`);
     try {
       const res = await axios.post(
         `${baseUrl}/api/followships`,
@@ -32,19 +31,43 @@ export const Rightbar = () => {
     }
   };
 
-  useEffect(() => {
-    const showPopular = async () => {
-      const { data } = await axios.get(`${baseUrl}/api/users/top`, {
+  const handleCancelFollowing = async (userId) => {
+    console.log(`cancel following ${userId}`);
+    try {
+      const res = await axios.delete(`${baseUrl}/api/followships/${userId}`, {
         headers: {
           Authorization: "Bearer " + token,
         },
       });
-      setPopularList(data.data);
-      // console.log(data.data);
-      // popularList.current = data.data;
+      console.log(res);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // const handleClick = async (id) => {
+  //   setIdFromButtonClick(id);
+  //   console.log(`inside handleClick ${idFromButtonClick}`);
+  // };
+
+  useEffect(() => {
+    const showPopular = async () => {
+      try {
+        const { data } = await axios.get(`${baseUrl}/api/users/top`, {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        });
+        setPopularList(data.data);
+
+        console.log(data.data);
+      } catch (error) {
+        console.error(error);
+      }
     };
+
     showPopular();
-  
+    // console.log(`inseide useEffect ${idFromButtonClick}`)
   }, [token]);
 
   return (
@@ -81,7 +104,12 @@ export const Rightbar = () => {
                       : styles.toFollowButton
                   }
                   onClick={() => {
-                    handleFollowing(popular.id);
+                    if (!popular.isFollowing) {
+                      handleAddFollowing(popular.id);
+                    } else {
+                      handleCancelFollowing(popular.id);
+                    }
+                    // handleClick(popular.id);
                   }}
                 >
                   {popular.isFollowing ? "正在跟隨" : "跟隨"}
