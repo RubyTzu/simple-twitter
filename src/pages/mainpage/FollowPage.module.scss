@@ -1,0 +1,52 @@
+.mainbarContainer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  min-width: 639px;
+  height: 100vh;
+  border-right: 1px solid var(--lightGrayOne);
+  border-left: 1px solid var(--lightGrayOne);
+   overflow: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.followPageHeader {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  border-bottom: 1px solid var(--lightGrayOne);
+}
+
+.followPageHeaderText {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: flex-start;
+  height: 60px;
+  margin-left: 20px;
+}
+
+.followPageTitle {
+  margin: 0;
+  font-family: "Noto Sans TC", sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.followPageTweetCounts {
+  margin: 0;
+  font-family: "Noto Sans TC", sans-serif;
+  font-size: 13px;
+  color: #6c757d;
+}
+
+.logo {
+  display: flex;
+  margin-left: 25px;
+  color: black;
+}

@@ -43,18 +43,18 @@ export const UserOtherPage = () => {
               amet sint.{" "}
             </span>
             <span className={styles.follow}>
-              <div className={styles.followerInfoBtn}>
+              <Link to="/followlist" className={styles.followerInfoBtn}>
                 <span className={styles.followNum}>231個</span>
                 <span>跟隨中</span>
-              </div>
-              <div className={styles.followingInfoBtn}>
+              </Link>
+              <Link to="/followlist" className={styles.followingInfoBtn}>
                 <span className={styles.followNum}>45位</span>
                 <span>跟隨者</span>
-              </div>
+              </Link>
             </span>
           </div>
         </div>
-        {/* <UserTweetsCollection /> */}
+        {/* <UserTweetsCollection/> */}
       </div>
     </>
   );

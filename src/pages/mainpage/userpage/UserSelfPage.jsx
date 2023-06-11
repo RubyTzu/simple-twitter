@@ -82,18 +82,18 @@ export const UserSelfPage = () => {
                 : profile.introduction}
             </span>
             <span className={styles.follow}>
-              <div className={styles.followerInfoBtn}>
+              <Link to="/followlist" className={styles.followerInfoBtn}>
                 <span className={styles.followNum}>
                   {followCounts.followingCount}個
                 </span>
                 <span>跟隨中</span>
-              </div>
-              <div className={styles.followingInfoBtn}>
+              </Link>
+              <Link to="/followlist" className={styles.followingInfoBtn}>
                 <span className={styles.followNum}>
                   {followCounts.followerCount}位
                 </span>
                 <span>跟隨者</span>
-              </div>
+              </Link>
             </span>
           </div>
         </div>
