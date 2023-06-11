@@ -2,10 +2,9 @@
 import initialAvatar from "assets/GreyIcon.svg";
 import { Tweet } from "components/Tweets";
 import styles from "./HomePage.module.scss";
-// import { useAuth } from "context/authContext";
 import { useEffect, useRef, useState } from "react";
 import { getTweets } from "api/tweet";
-import { getUserProfile } from "api/userinfo";
+import { getProfile } from "api/userinfo";
 
 export const HomePage = () => {
   const userAvatar = useRef("");
@@ -13,11 +12,8 @@ export const HomePage = () => {
 
   useEffect(() => {
     const showUserAvatar = async () => {
-      const user = await getUserProfile();
-      userAvatar.current = user.avatar;
-      if (userAvatar.current === null) {
-        return (userAvatar.current = initialAvatar);
-      }
+      const { avatar } = await getProfile();
+      userAvatar.current = avatar;
     };
     const showTweets = async () => setTweets(await getTweets());
     showUserAvatar();
@@ -36,7 +32,9 @@ export const HomePage = () => {
         <div className={styles.addTweetSection}>
           <img
             className={styles.addTweetAvatar}
-            src={userAvatar.current}
+            src={
+              userAvatar.current === null ? initialAvatar : userAvatar.current
+            }
             alt="avatar"
           ></img>
           <div className={styles.addTweetSpace}>
