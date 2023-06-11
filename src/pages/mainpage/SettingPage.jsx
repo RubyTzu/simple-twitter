@@ -1,7 +1,15 @@
+import { useEffect, useState } from "react";
 import styles from "./SettingPage.module.scss";
 import { AuthInput } from "components/AuthInput";
+import { getProfile } from "api/userinfo";
 
 export const SettingPage = () => {
+  const [user, setUser] = useState([]);
+  useEffect(() => {
+    const showUserAvatar = async () => setUser(await getProfile());
+    showUserAvatar();
+  }, []);
+
   return (
     <>
       <div className={styles.mainbarContainer}>
@@ -10,13 +18,13 @@ export const SettingPage = () => {
         </header>
 
         <div className={styles.inputContainer}>
-          <AuthInput type="text" label="帳號" value="從後端拿" />
+          <AuthInput type="text" label="帳號" value={user.account} />
         </div>
         <div className={styles.inputContainer}>
-          <AuthInput type="text" label="名稱" value="從後端拿" />
+          <AuthInput type="text" label="名稱" value={user.name} />
         </div>
         <div className={styles.inputContainer}>
-          <AuthInput type="text" label="Email" value="從後端拿" />
+          <AuthInput type="text" label="Email" value={user.email} />
         </div>
         <div className={styles.inputContainer}>
           <AuthInput
@@ -39,5 +47,3 @@ export const SettingPage = () => {
     </>
   );
 };
-
-
