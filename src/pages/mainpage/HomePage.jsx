@@ -1,52 +1,28 @@
 // import avatar from "assets/Photo.png";
-import initialAvatar from "assets/GreyIcon.svg"
+import initialAvatar from "assets/GreyIcon.svg";
 import { Tweet } from "components/Tweets";
 import styles from "./HomePage.module.scss";
 // import { useAuth } from "context/authContext";
-import axios from "axios";
 import { useEffect, useRef, useState } from "react";
-const baseUrl = "https://twitter-2023.herokuapp.com";
+import { getTweets } from "api/tweet";
+import { getUserProfile } from "api/userinfo";
 
 export const HomePage = () => {
-  // const [user, setUser] = useState("");
   const userAvatar = useRef("");
-  const user = useRef("");
   const [tweets, setTweets] = useState([]);
-  // const tweets = useRef([]);
-  const token = localStorage.getItem("authToken");
-  const id = localStorage.getItem("id");
 
   useEffect(() => {
-    const showUserProfile = async () => {
-      try {
-        const id = localStorage.getItem("id");
-        const { data } = await axios.get(`${baseUrl}/api/users/${id}`, {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        });
-        // setUser(data.data);
-        // user.current = data.data;
-
-        userAvatar.current = data.data.avatar
-        if (userAvatar.current === null) {
-           return (userAvatar.current = initialAvatar);
-        } 
-      } catch (error) {}
+    const showUserAvatar = async () => {
+      const user = await getUserProfile();
+      userAvatar.current = user.avatar;
+      if (userAvatar.current === null) {
+        return (userAvatar.current = initialAvatar);
+      }
     };
-    const getTweets = async () => {
-      const { data } = await axios.get(`${baseUrl}/api/users/${id}/tweets`, {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      });
-      // console.log(data.data);
-      setTweets(data.data);
-      // tweets.current = data.data;
-    };
-    showUserProfile();
-    getTweets();
-  }, [id, token, user, userAvatar]);
+    const showTweets = async () => setTweets(await getTweets());
+    showUserAvatar();
+    showTweets();
+  }, [userAvatar]);
 
   const handleAddTweetHeight = (e) => {
     e.target.style.height = "inherit";

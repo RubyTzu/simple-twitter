@@ -3,6 +3,16 @@ const baseUrl = "https://twitter-2023.herokuapp.com";
 const token = localStorage.getItem("authToken");
 const id = localStorage.getItem("id");
 
+//homepage tweets
+export const getTweets = async () => {
+  const { data } = await axios.get(`${baseUrl}/api/users/${id}/tweets`, {
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  });
+  return data.data;
+};
+
 //推文tab
 export const getUserTweets = async () => {
   const { data } = await axios.get(`${baseUrl}/api/users/${id}/tweets`, {
