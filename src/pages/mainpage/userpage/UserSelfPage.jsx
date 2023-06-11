@@ -7,27 +7,30 @@ import { UserTweetsCollection } from "components/UserTweetsCollection";
 import { InfoEditModal } from "components/modals/InfoEditModal";
 import { useEffect, useState } from "react";
 import { getUserLikedTweets, getUserReplies, getUserTweets } from "api/tweet";
+import { getFollowCounts, getProfile } from "api/userinfo";
 
 export const UserSelfPage = () => {
+  const [profile, setProfile] = useState([]);
+  const [followCounts, setFollowCounts] = useState([]);
   const [tweets, setTweets] = useState([]);
   const [replies, setReplies] = useState([]);
   const [likedTweets, setLikedTweets] = useState([]);
   useEffect(() => {
+    //UserInfo
+    const showProfile = async () => setProfile(await getProfile());
+    //UserFollowCount
+    const showFollowCounts = async () =>
+      setFollowCounts(await getFollowCounts());
     //推文tab
-    const showUserTweets = async () => {
-      setTweets(await getUserTweets());
-    };
-
+    const showTweets = async () => setTweets(await getUserTweets());
     //回覆tab
-    const showUserReplies = async () => {
-      setReplies(await getUserReplies());
-    };
+    const showReplies = async () => setReplies(await getUserReplies());
     //喜歡的內容tab
-    const likedTweets = async () => {
-      setLikedTweets(await getUserLikedTweets());
-    };
-    showUserTweets();
-    showUserReplies();
+    const likedTweets = async () => setLikedTweets(await getUserLikedTweets());
+    showProfile();
+    showFollowCounts();
+    showTweets();
+    showReplies();
     likedTweets();
   }, []);
 
@@ -39,13 +42,23 @@ export const UserSelfPage = () => {
             <BackSVG className={styles.logo} />
           </Link>
           <div className={styles.userPageHeaderText}>
-            <p className={styles.userPageTitle}>John Doe</p>
-            <p className={styles.userPageTweetCounts}>25 推文</p>
+            <p className={styles.userPageTitle}>{profile.name}</p>
+            <p className={styles.userPageTweetCounts}>
+              {profile.tweetsCounts} 推文
+            </p>
           </div>
         </header>
         <div className={styles.userinfoContainer}>
-          <img className={styles.userBcgImage} src={userselfBcg} alt="" />
-          <img className={styles.userAvatar} src={userselfAvatar} alt="" />
+          <img
+            className={styles.userBcgImage}
+            src={profile.coverPhoto === null ? userselfBcg : profile.coverPhoto}
+            alt=""
+          />
+          <img
+            className={styles.userAvatar}
+            src={profile.avatar === null ? userselfAvatar : profile.avatar}
+            alt=""
+          />
           <button
             type="button"
             className={`${styles.editUserinfoBtn}`}
@@ -60,20 +73,25 @@ export const UserSelfPage = () => {
           <InfoEditModal />
           <div className={styles.userinfo}>
             <span>
-              <b>John Doe</b>
+              <b>{profile.name}</b>
             </span>
-            <span className={styles.nickName}>@heyjogn</span>
+            <span className={styles.nickName}>@{profile.name}</span>
             <span className={styles.description}>
-              Amet minim mollit non deserunt ullamco est sit aliqua dolor do
-              amet sint.{" "}
+              {profile.introduction === null
+                ? "沒內容欸"
+                : profile.introduction}
             </span>
             <span className={styles.follow}>
               <div className={styles.followerInfoBtn}>
-                <span className={styles.followNum}>34個</span>
+                <span className={styles.followNum}>
+                  {followCounts.followingCount}個
+                </span>
                 <span>跟隨中</span>
               </div>
               <div className={styles.followingInfoBtn}>
-                <span className={styles.followNum}>59位</span>
+                <span className={styles.followNum}>
+                  {followCounts.followerCount}位
+                </span>
                 <span>跟隨者</span>
               </div>
             </span>

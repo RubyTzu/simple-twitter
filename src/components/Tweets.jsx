@@ -79,7 +79,7 @@ export const UserLikeTweets = ({ value }) => {
   return (
     <div className={styles.tweetsCollection}>
       {value.map((tweet) => {
-        return <Tweet value={tweet} />;
+        return <Tweet key={tweet.id} value={tweet} />;
       })}
     </div>
   );
