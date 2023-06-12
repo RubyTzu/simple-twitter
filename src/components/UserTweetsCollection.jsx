@@ -40,14 +40,14 @@ export const UserTweetsCollection = ({ tweetsCollection }) => {
             return (
               <UserTweets key={info.dataType} value={tweetsCollection.tweets} />
             );
-          } else if (activeLink === "回覆") {
+          } else if (activeLink === "回覆" && activeLink === info.name) {
             return (
               <UserReplyTweets
                 key={info.dataType}
                 value={tweetsCollection.replies}
               />
             );
-          } else if (activeLink === "喜歡的內容") {
+          } else if (activeLink === "喜歡的內容" && activeLink === info.name) {
             return (
               <UserLikeTweets
                 key={info.dataType}

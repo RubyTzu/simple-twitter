@@ -11,10 +11,12 @@ import { HomePage } from "pages/mainpage/HomePage";
 import { ReplyListPage } from "pages/mainpage/ReplyListPage";
 import { UserSelfPage } from "pages/mainpage/userpage/UserSelfPage";
 import { UserOtherPage } from "pages/mainpage/userpage/UserOtherPage";
+import { FollowPage } from "pages/mainpage/FollowPage";
 import { SettingPage } from "pages/mainpage/SettingPage";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "context/authContext";
+
 const basename = process.env.PUBLIC_URL;
 
 function App() {
@@ -64,6 +66,12 @@ function App() {
               path="/userother"
               element={
                 <MainPage middleContent={<UserOtherPage />} page="他人資料" />
+              }
+            />
+            <Route
+              path="/followlist"
+              element={
+                <MainPage middleContent={<FollowPage />} page="追蹤清單" />
               }
             />
             <Route

@@ -1,0 +1,91 @@
+.followsCollection {
+  position: relative;
+  width: 638px;
+  height: 100vh;
+}
+
+.followContainer {
+  display: flex;
+  justify-content: flex-start;
+  width: 638px;
+  height: 143px;
+  margin-top: 16px;
+  border-bottom: 1px solid var(--lightGrayOne);
+}
+
+.userAvatar {
+  width: 50px;
+  height: 50px;
+  margin: 0 0 0 25px;
+}
+
+.followTextContainer {
+   display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 528px;
+  height: 126px;
+  margin: 0px 30px 16px 7px;
+  padding: 0;
+}
+
+.followHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  height: 40px;
+}
+
+.userName {
+  height: 80%;
+  margin: 0;
+  font-family: "Noto Sans TC", sans-serif;
+  font-weight: 800;
+  font-size: 16px;
+  white-space: nowrap;
+  color: #000;
+}
+
+
+.comment {
+  height: 78px;
+  text-align: start;
+  font-family: "Noto Sans TC", sans-serif;
+  font-size: 16px;
+  max-width: 528px;
+  margin-top: 16px;
+  color: #000;
+}
+
+.followFooter {
+  height: 16px;
+  width: 120px;
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+}
+
+
+.toNotFollowButton {
+  width: 96px;
+  height: 40px;
+  margin: auto 0px;
+  border-radius: 50px;
+  background-color: var(--major);
+  border: none;
+  color: var(--white);
+  font-size: 16px;
+  cursor: pointer;
+}
+.toFollowButton {
+  width: 64px;
+  height: 40px;
+  margin: auto 0;
+  border-radius: 50px;
+  background-color: var(--white);
+  border: 1px solid var(--major);
+  color: var(--major);
+  font-size: 16px;
+  cursor: pointer;
+}
+

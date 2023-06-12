@@ -1,0 +1,41 @@
+//followLists navbar
+.followListsNavbar {
+  display: flex;
+  justify-content: flex-start;
+  width: 638px;
+  height: 53px;
+  border-bottom: 1px solid var(--lightGrayOne);
+  list-style: none;
+}
+
+.followListButton {
+  position: relative;
+  left: -40px;
+  display: block;
+  width: 130px;
+  height: 52px;
+  font-family: "Noto Sans TC", sans-serif;
+  font-weight: bold;
+  font-size: 15px;
+  line-height: 52px;
+  text-decoration: none;
+  color: #657786;
+  &.active {
+    color: var(--major);
+    &:after {
+      content: "";
+      display: block;
+      position: relative;
+      top: -2px;
+      width: 120px;
+      margin: 0 5px;
+      border-bottom: 2px solid var(--major);
+      border-radius: 5px;
+    }
+  }
+}
+
+.followListContainer {
+    position: relative;
+      height: 100vh;
+}
