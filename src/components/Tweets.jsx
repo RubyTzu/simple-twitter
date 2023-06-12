@@ -5,6 +5,11 @@ import styles from "./Tweets.module.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { AddReplyModal } from "./modals/AddReplyModal";
 
+const getId = () => {
+  const id = localStorage.getItem("id");
+  return Number(id);
+};
+
 export const Tweet = ({ value }) => {
   let navigate = useNavigate();
 
@@ -14,17 +19,31 @@ export const Tweet = ({ value }) => {
       onClick={() => navigate(`/replylist/${value.id}`)}
     >
       <div className={styles.tweetContainer}>
-        <Link to={`/userother/${value.UserId}`}>
-          <img
-            data-id={value.UserId}
-            className={`${styles.userAvatar} cursorPointer`}
-            src={GreyIcon}
-            alt="GreyIcon"
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
-          />
-        </Link>
+        {getId() === value.UserId ? (
+          <Link to={`/userself/${value.UserId}`}>
+            <img
+              data-id={value.UserId}
+              className={`${styles.userAvatar} cursorPointer`}
+              src={GreyIcon}
+              alt="GreyIcon"
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
+            />
+          </Link>
+        ) : (
+          <Link to={`/userother/${value.UserId}`}>
+            <img
+              data-id={value.UserId}
+              className={`${styles.userAvatar} cursorPointer`}
+              src={GreyIcon}
+              alt="GreyIcon"
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
+            />
+          </Link>
+        )}
         <div className={styles.tweetTextContainer}>
           <header className={styles.tweetHeader}>
             <p className={styles.userName}>{value.name}</p>

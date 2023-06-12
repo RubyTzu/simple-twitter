@@ -6,6 +6,11 @@ import { Link } from "react-router-dom";
 
 const baseUrl = "https://twitter-2023.herokuapp.com";
 
+const getId = () => {
+  const id = localStorage.getItem("id");
+  return Number(id);
+};
+
 export const Rightbar = () => {
   const [idFromButtonClick, setIdFromButtonClick] = useState(null);
   const [popularList, setPopularList] = useState([]);
@@ -80,15 +85,27 @@ export const Rightbar = () => {
           {popularList.map((popular) => {
             return (
               <div className={styles.popularUser} key={popular.id}>
-                <Link to={`/userother/${popular.id}`}>
-                  <img
-                    className={`${styles.popularUserAvatar} cursorPointer`}
-                    src={
-                      popular.avatar !== null ? popular.avatar : initialAvatar
-                    }
-                    alt="avatar"
-                  ></img>
-                </Link>
+                {getId() === popular.id ? (
+                  <Link to={`/userself/${popular.id}`}>
+                    <img
+                      className={`${styles.popularUserAvatar} cursorPointer`}
+                      src={
+                        popular.avatar !== null ? popular.avatar : initialAvatar
+                      }
+                      alt="avatar"
+                    ></img>
+                  </Link>
+                ) : (
+                  <Link to={`/userother/${popular.id}`}>
+                    <img
+                      className={`${styles.popularUserAvatar} cursorPointer`}
+                      src={
+                        popular.avatar !== null ? popular.avatar : initialAvatar
+                      }
+                      alt="avatar"
+                    ></img>
+                  </Link>
+                )}
 
                 <div className={styles.userInfos}>
                   <p className={styles.popularUserName}>{popular.name}</p>
