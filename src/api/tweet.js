@@ -6,11 +6,14 @@ const id = localStorage.getItem("id");
 //homepage tweets
 export const getTweets = async () => {
   //!!!!!要再加follow=true!!!!!
-  const { data } = await axios.get(`${baseUrl}/api/users/${id}/tweets`, {
-    headers: {
-      Authorization: "Bearer " + token,
-    },
-  });
+  const { data } = await axios.get(
+    `${baseUrl}/api/users/${id}/tweets?follows=true`,
+    {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    }
+  );
   console.log(data);
   return data;
 };
