@@ -8,14 +8,14 @@ export const TweetReadOnly = ({ value }) => {
       <GreyIconSVG className={`${styles.userAvatar} cursorPointer`} />
       <div className={styles.tweetTextContainer}>
         <header className={styles.tweetHeader}>
-          <p className={styles.userName}>{value.User.name}</p>
+          <p className={styles.userName}>{value.name}</p>
           <p className={styles.nickNameTime}>
-            <Link className={styles.userNickName}>@{value.User.name}</Link>
+            <Link className={styles.userNickName}>@{value.name}</Link>
             ・12小時
           </p>
         </header>
         <p className={styles.replyTo}>
-          回覆 <Link className={styles.replyNickName}>@{value.tweetUser}</Link>
+          回覆 <Link className={styles.replyNickName}>@{value.name}</Link>
         </p>
         <p className={styles.comment}>{value.comment}</p>
       </div>

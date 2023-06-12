@@ -8,6 +8,7 @@ import styles from "./ReplyListPage.module.scss";
 import { AddReplyModal } from "components/modals/AddReplyModal";
 import { getSingleTweet, getSingleTweetReplies } from "api/tweet";
 import { useEffect, useState } from "react";
+// import { TweetsReadOnly } from "components/TweetsReadOnly";
 // import moment from "moment/moment";
 
 export const ReplyListPage = () => {
@@ -19,8 +20,10 @@ export const ReplyListPage = () => {
       setReplies(await getSingleTweetReplies());
     };
     showPage();
+    setTimeout(() => {
+      console.log(replies);
+    }, 1000);
   }, []);
-  console.log(replies);
 
   return (
     <>

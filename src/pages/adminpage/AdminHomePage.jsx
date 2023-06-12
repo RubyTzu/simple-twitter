@@ -1,4 +1,4 @@
-import { getAdminTweets } from "api/tweet";
+// import { getAdminTweets } from "api/tweet";
 import styles from "./AdminHomePage.module.scss";
 import { AdminTweet } from "components/AdminTweet";
 import axios from "axios";

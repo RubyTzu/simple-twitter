@@ -28,13 +28,12 @@ export const LoginPage = () => {
         navigate("/home");
         return;
       }
-    } catch (eeror) {
+    } catch (error) {
       alert("登入失敗");
       return;
     }
+  };
 
-  }
-  
   return (
     <div className={styles.authContainer}>
       <div>
