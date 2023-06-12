@@ -18,10 +18,8 @@ export const Tweet = ({ value }) => {
         <GreyIconSVG className={`${styles.userAvatar} cursorPointer`} />
         <div className={styles.tweetTextContainer}>
           <header className={styles.tweetHeader}>
-            <p className={styles.userName}>{value.User.name}</p>
-            <p
-              className={styles.userNickName}
-            >{`@${value.User.name}・3小時`}</p>
+            <p className={styles.userName}>{value.name}</p>
+            <p className={styles.userNickName}>{`@${value.name}・3小時`}</p>
           </header>
           <p className={styles.comment}>{value.description}</p>
           <footer className={styles.tweetFooter}>

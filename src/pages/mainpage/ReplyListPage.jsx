@@ -3,13 +3,28 @@ import { ReactComponent as BackSVG } from "assets/Back.svg";
 import { ReactComponent as CommentSVG } from "assets/Comment.svg";
 import { ReactComponent as LikeSVG } from "assets/Like.svg";
 import { Link } from "react-router-dom";
-import { TweetsReadOnly } from "components/TweetsReadOnly";
+// import { TweetReadOnly, TweetsReadOnly } from "components/TweetsReadOnly";
 import styles from "./ReplyListPage.module.scss";
 import { AddReplyModal } from "components/modals/AddReplyModal";
+import { getSingleTweet, getSingleTweetReplies } from "api/tweet";
+import { useEffect, useState } from "react";
+// import { TweetsReadOnly } from "components/TweetsReadOnly";
+// import moment from "moment/moment";
 
 export const ReplyListPage = () => {
+  const [singleTweet, setSingleTweet] = useState({});
+  const [replies, setReplies] = useState({});
+  useEffect(() => {
+    const showPage = async () => {
+      setSingleTweet(await getSingleTweet());
+      setReplies(await getSingleTweetReplies());
+    };
+    showPage();
+    // console.log(replies);
+  }, []);
+
   return (
-<>
+    <>
       <div className={styles.mainbarContainer}>
         <header className={styles.replyListHeader}>
           <Link className={styles.link} to="/home">
@@ -21,25 +36,26 @@ export const ReplyListPage = () => {
           <div className={styles.tweetHeader}>
             <GreyIconSVG className={`${styles.tweetAvatar} cursorPointer`} />
             <div className={styles.userInfos}>
-              <p className={styles.userName}>Apple</p>
-              <p className={styles.userNickName}>@apple</p>
+              <p className={styles.userName}>{singleTweet.id}</p>
+              <p className={styles.userNickName}>@{singleTweet.id}</p>
             </div>
           </div>
-          <p className={styles.tweetMain}>
-            Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco
-            cillum dolor. Voluptate exercitation incididunt aliquip deserunt.
-          </p>
+          <p className={styles.tweetMain}>{singleTweet.description}</p>
           <div className={styles.tweetFooter}>
             <p className={styles.time}>
-              <span>上午 10:05</span>
-              <span>・2021年11月10日</span>
+              <span>上午 10:05(時間還要改)</span>
+              <span>・2021年11月10日(時間還要改)</span>
             </p>
             <p className={styles.feedbackCounts}>
               <span>
-                <b className={styles.commentCounts}>34</b> 回覆
+                <b className={styles.commentCounts}>
+                  {singleTweet.repliesCount}
+                </b>{" "}
+                回覆
               </span>
               <span>
-                <b className={styles.likeCounts}>808</b> 喜歡次數
+                <b className={styles.likeCounts}>{singleTweet.likesCount}</b>{" "}
+                喜歡次數
               </span>
             </p>
             <div className={styles.feedbackButtons}>
@@ -59,7 +75,8 @@ export const ReplyListPage = () => {
             </div>
           </div>
         </div>
-        <TweetsReadOnly />
+        {/* <TweetsReadOnly value={replies} /> */}
+        {console.log(replies)}
       </div>
     </>
   );

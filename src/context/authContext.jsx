@@ -49,9 +49,9 @@ export const AuthProvider = ({ children }) => {
       });
       if (result.success) {
         setIsAuthenticated(true);
-        setPayload(result.data.user);
-        setCurrentUserId(result.data.user.id);
-        localStorage.setItem("id", result.data.user.id);
+        setPayload(result.userData);
+        setCurrentUserId(result.userData.id);
+        localStorage.setItem("id", result.userData.id);
         localStorage.setItem("authToken", result.token);
       }
       return result.success;

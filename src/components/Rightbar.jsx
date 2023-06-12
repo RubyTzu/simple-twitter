@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 const baseUrl = "https://twitter-2023.herokuapp.com";
 
 export const Rightbar = () => {
-  const [ idFromButtonClick, setIdFromButtonClick] = useState(null)
+  const [idFromButtonClick, setIdFromButtonClick] = useState(null);
   const [popularList, setPopularList] = useState([]);
   const token = localStorage.getItem("authToken");
 
@@ -25,7 +25,7 @@ export const Rightbar = () => {
           },
         }
       );
-       setIdFromButtonClick(userId);
+      setIdFromButtonClick(userId);
     } catch (error) {
       console.error(error);
     }
@@ -39,7 +39,7 @@ export const Rightbar = () => {
           Authorization: "Bearer " + token,
         },
       });
-       setIdFromButtonClick(userId);
+      setIdFromButtonClick(userId);
     } catch (error) {
       console.error(error);
     }
@@ -59,7 +59,7 @@ export const Rightbar = () => {
             Authorization: "Bearer " + token,
           },
         });
-        setPopularList(data.data);
+        setPopularList(data);
 
         // console.log(data.data);
       } catch (error) {

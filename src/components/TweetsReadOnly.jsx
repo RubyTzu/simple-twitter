@@ -8,14 +8,14 @@ export const TweetReadOnly = ({ value }) => {
       <GreyIconSVG className={`${styles.userAvatar} cursorPointer`} />
       <div className={styles.tweetTextContainer}>
         <header className={styles.tweetHeader}>
-          <p className={styles.userName}>{value.User.name}</p>
+          <p className={styles.userName}>{value.name}</p>
           <p className={styles.nickNameTime}>
-            <Link className={styles.userNickName}>@{value.User.name}</Link>
+            <Link className={styles.userNickName}>@{value.name}</Link>
             ・12小時
           </p>
         </header>
         <p className={styles.replyTo}>
-          回覆 <Link className={styles.replyNickName}>@{value.tweetUser}</Link>
+          回覆 <Link className={styles.replyNickName}>@{value.name}</Link>
         </p>
         <p className={styles.comment}>{value.comment}</p>
       </div>
@@ -23,15 +23,12 @@ export const TweetReadOnly = ({ value }) => {
   );
 };
 
-export const TweetsReadOnly = () => {
+export const TweetsReadOnly = ({ value }) => {
   return (
     <div className={styles.replyTweetsCollection}>
-      <TweetReadOnly />
-      <TweetReadOnly />
-      <TweetReadOnly />
-      <TweetReadOnly />
-      <TweetReadOnly />
-      <TweetReadOnly />
+      {value.map((reply) => {
+        return <TweetReadOnly key={reply.TweetId} value={reply} />;
+      })}
     </div>
   );
 };
@@ -39,8 +36,8 @@ export const TweetsReadOnly = () => {
 export const UserReplyTweets = ({ value }) => {
   return (
     <div className={styles.tweetsCollection}>
-      {value.map((tweet,i) => {
-        return <TweetReadOnly value={tweet} key={i}/>;
+      {value.map((tweet, i) => {
+        return <TweetReadOnly value={tweet} key={i} />;
       })}
     </div>
   );

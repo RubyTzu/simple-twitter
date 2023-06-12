@@ -5,12 +5,14 @@ const id = localStorage.getItem("id");
 
 //homepage tweets
 export const getTweets = async () => {
+  //!!!!!要再加follow=true!!!!!
   const { data } = await axios.get(`${baseUrl}/api/users/${id}/tweets`, {
     headers: {
       Authorization: "Bearer " + token,
     },
   });
-  return data.data;
+  console.log(data);
+  return data;
 };
 
 //推文tab
@@ -20,7 +22,7 @@ export const getUserTweets = async () => {
       Authorization: "Bearer " + token,
     },
   });
-  return data.data;
+  return data;
 };
 
 // 回覆tab
@@ -33,10 +35,10 @@ export const getUserReplies = async () => {
       },
     }
   );
-  return data.data;
+  return data;
 };
 
-//喜歡的內容tab, endpoint後端還沒做好"
+//喜歡的內容tab"
 export const getUserLikedTweets = async () => {
   const { data } = await axios.get(
     `${baseUrl}/api/users/${id}/tweets?liked=true`,
@@ -46,5 +48,33 @@ export const getUserLikedTweets = async () => {
       },
     }
   );
-  return data.data;
+  return data;
 };
+
+//replylist裡單則貼文
+export const getSingleTweet = async () => {
+  const { data } = await axios.get(`${baseUrl}/api/tweets/294`, {
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  });
+  return data;
+};
+
+//replylist 單則貼文的回覆
+export const getSingleTweetReplies = async () => {
+  const { data } = await axios.get(`${baseUrl}/api/tweets/294/replies`, {
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  });
+  return data;
+};
+// export const getAdminTweets = async () => {
+//   const { data } = await axios.get(`${baseUrl}/api/admin/tweets`, {
+//     headers: {
+//       Authorization: "Bearer " + token,
+//     },
+//   });
+//   return data.data;
+// };

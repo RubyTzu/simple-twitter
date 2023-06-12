@@ -10,8 +10,10 @@ export const getProfile = async () => {
         Authorization: "Bearer " + token,
       },
     });
-    return data.data;
-  } catch (error) {}
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export const getFollowCounts = async () => {
@@ -24,6 +26,8 @@ export const getFollowCounts = async () => {
         },
       }
     );
-    return data.data;
-  } catch (error) {}
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
 };
