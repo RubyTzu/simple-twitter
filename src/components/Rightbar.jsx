@@ -80,7 +80,7 @@ export const Rightbar = () => {
           {popularList.map((popular) => {
             return (
               <div className={styles.popularUser} key={popular.id}>
-                <Link to="/userother">
+                <Link to={`/userother/${popular.id}`}>
                   <img
                     className={`${styles.popularUserAvatar} cursorPointer`}
                     src={

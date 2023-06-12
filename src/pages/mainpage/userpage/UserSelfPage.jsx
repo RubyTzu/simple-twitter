@@ -1,13 +1,14 @@
 import { ReactComponent as BackSVG } from "assets/Back.svg";
-import userselfAvatar from "assets/userselfAvatar.svg";
+import userselfAvatar from "assets/GreyIcon.svg";
 import userselfBcg from "assets/userselfBcg.svg";
 import styles from "./UserSelfPage.module.scss";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { UserTweetsCollection } from "components/UserTweetsCollection";
 import { InfoEditModal } from "components/modals/InfoEditModal";
 import { useEffect, useState } from "react";
 import { getUserLikedTweets, getUserReplies, getUserTweets } from "api/tweet";
 import { getFollowCounts, getProfile } from "api/userinfo";
+
 
 export const UserSelfPage = () => {
   const [profile, setProfile] = useState([]);
@@ -15,16 +16,18 @@ export const UserSelfPage = () => {
   const [tweets, setTweets] = useState([]);
   const [replies, setReplies] = useState([]);
   const [likedTweets, setLikedTweets] = useState([]);
+ const { userId } = useParams();
+
   useEffect(() => {
     const showPage = async () => {
-      setProfile(await getProfile());
-      setFollowCounts(await getFollowCounts());
-      setTweets(await getUserTweets());
-      setReplies(await getUserReplies());
-      setLikedTweets(await getUserLikedTweets());
+      setProfile(await getProfile(userId));
+      setFollowCounts(await getFollowCounts(userId));
+      setTweets(await getUserTweets(userId));
+      setReplies(await getUserReplies(userId));
+      setLikedTweets(await getUserLikedTweets(userId));
     };
     showPage();
-  }, []);
+  }, [userId]);
 
   return (
     <>

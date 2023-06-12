@@ -57,13 +57,13 @@ function App() {
               }
             />
             <Route
-              path="/userself"
+              path="/userself/:userId"
               element={
                 <MainPage middleContent={<UserSelfPage />} page="個人資料" />
               }
             />
             <Route
-              path="/userother"
+              path={`/userother/:userId`}
               element={
                 <MainPage middleContent={<UserOtherPage />} page="他人資料" />
               }

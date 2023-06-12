@@ -10,6 +10,11 @@ import { useNavigate, Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useAuth } from "context/authContext";
 
+const getId = () => {
+const id = localStorage.getItem("id");
+return id
+}
+
 const types = [
   {
     dataType: "home",
@@ -19,7 +24,7 @@ const types = [
   {
     dataType: "user-info",
     name: "個人資料",
-    route: "/userself",
+    route: `/userself/${getId()}`,
   },
   {
     dataType: "account-setting",
