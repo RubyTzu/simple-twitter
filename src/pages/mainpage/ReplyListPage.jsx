@@ -3,7 +3,7 @@ import { ReactComponent as BackSVG } from "assets/Back.svg";
 import { ReactComponent as CommentSVG } from "assets/Comment.svg";
 import { ReactComponent as LikeSVG } from "assets/Like.svg";
 import { Link, useParams } from "react-router-dom";
-// import { TweetReadOnly } from "components/TweetsReadOnly";
+import { TweetReadOnly } from "components/TweetsReadOnly";
 import styles from "./ReplyListPage.module.scss";
 import { AddReplyModal } from "components/modals/AddReplyModal";
 import { getSingleTweet, getSingleTweetReplies } from "api/tweet";
@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
 
 export const ReplyListPage = () => {
   const [singleTweet, setSingleTweet] = useState({});
-  const [replies, setReplies] = useState({});
+  const [replies, setReplies] = useState([]);
   const { tweetId } = useParams();
 
   useEffect(() => {
@@ -78,9 +78,9 @@ export const ReplyListPage = () => {
         </div>
         {console.log(replies)}
         {/* <TweetsReadOnly value={replies} /> */}
-        {/* {replies.map((reply) => {
+        {replies.map((reply) => {
           return <TweetReadOnly key={reply.id} value={reply} />;
-        })} */}
+        })}
         {/* {replies.current.map((reply) => {
           return <TweetReadOnly key={reply.id} value={reply} />;
         })} */}

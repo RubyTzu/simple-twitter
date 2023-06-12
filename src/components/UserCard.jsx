@@ -5,15 +5,23 @@ import { Link } from "react-router-dom";
 import { ReactComponent as LikeSVG } from "assets/Like.svg";
 import { ReactComponent as ReviewIcon } from "assets/ReviewIcon.svg";
 
-export const UserCard = () => {
+export const UserCard = ({ value }) => {
   return (
     <div className={styles.usercard}>
-      <img className={styles.bcgImage} src={userselfBcg} alt="userbcg" />
-      <img className={styles.avatar} src={userselfAvatar} alt="avatar" />
+      <img
+        className={styles.bcgImage}
+        src={value.coverPhoto !== null ? value.coverPhoto : userselfBcg}
+        alt="userbcg"
+      />
+      <img
+        className={styles.avatar}
+        src={value.avatar !== null ? value.avatar : userselfAvatar}
+        alt="avatar"
+      />
 
       <div className={styles.userinfo}>
-        <span className={styles.username}>John Doe</span>
-        <span className={styles.userNickname}>@heyjohn</span>
+        <span className={styles.username}>{value.name}</span>
+        <span className={styles.userNickname}>@{value.name}</span>
         <div className={styles.userActivity}>
           <Link className={styles.review} to="/">
             <ReviewIcon className={styles.icon} />
@@ -27,11 +35,11 @@ export const UserCard = () => {
 
         <div className={styles.follow}>
           <div className={styles.followerInfoBtn}>
-            <span className={styles.followNum}>34個</span>
+            <span className={styles.followNum}>{value.followingCount}個</span>
             <span>跟隨中</span>
           </div>
           <div className={styles.followingInfoBtn}>
-            <span className={styles.followNum}>59位</span>
+            <span className={styles.followNum}>{value.followersCount}位</span>
             <span>跟隨者</span>
           </div>
         </div>

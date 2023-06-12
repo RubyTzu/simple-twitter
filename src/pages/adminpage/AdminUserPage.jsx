@@ -1,29 +1,37 @@
+import { useEffect, useState } from "react";
 import styles from "./AdminUserPage.module.scss";
 import { UserCard } from "components/UserCard";
+import axios from "axios";
+const baseUrl = "https://twitter-2023.herokuapp.com";
 
 export const AdminUserPage = () => {
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    const showUsersTweet = async () => {
+      try {
+        const token = localStorage.getItem("authToken");
+        const { data } = await axios.get(`${baseUrl}/api/admin/users`, {
+          headers: {
+            Authorization: "Bearer " + token,
+          },
+        });
+        setUsers(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    showUsersTweet();
+  }, []);
   return (
     <>
       <div className={styles.titleLine}></div>
       <div className={styles.adminMainbarContainer}>
         <h1 className={styles.adminUserPageTitle}>使用者列表</h1>
         <div className={styles.userCardContainer}>
-          <UserCard />
-          <UserCard />
-          <UserCard />
-          <UserCard />
-          <UserCard />
-          <UserCard />
-          <UserCard />
-          <UserCard />
-          <UserCard />
-          <UserCard />
-          <UserCard />
-          <UserCard />
-          <UserCard />
-          <UserCard />
-          <UserCard />
-          <UserCard />
+          {users.map((user) => {
+            return <UserCard value={user} />;
+          })}
         </div>
       </div>
     </>
