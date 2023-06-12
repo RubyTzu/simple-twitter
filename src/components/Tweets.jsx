@@ -7,13 +7,12 @@ import { AddReplyModal } from "./modals/AddReplyModal";
 
 export const Tweet = ({ value }) => {
   let navigate = useNavigate();
-  // console.log(tweet);
-  const handleTweetClick = () => {
-    navigate("/replylist");
-  };
 
   return (
-    <div className={styles.openReplyList} onClick={handleTweetClick}>
+    <div
+      className={styles.openReplyList}
+      onClick={() => navigate(`/replylist/${value.id}`)}
+    >
       <div className={styles.tweetContainer}>
         <Link to={`/userother/${value.UserId}`}>
           <img

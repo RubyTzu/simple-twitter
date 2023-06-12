@@ -11,30 +11,29 @@ import { useEffect, useState } from "react";
 import { useAuth } from "context/authContext";
 
 const getId = () => {
-const id = localStorage.getItem("id");
-return id
-}
-
-const types = [
-  {
-    dataType: "home",
-    name: "首頁",
-    route: "/home",
-  },
-  {
-    dataType: "user-info",
-    name: "個人資料",
-    route: `/userself/${getId()}`,
-  },
-  {
-    dataType: "account-setting",
-    name: "設定",
-    route: "/setting",
-  },
-];
+  const id = localStorage.getItem("id");
+  return id;
+};
 
 export const Navbar = () => {
   const { logout } = useAuth();
+  const types = [
+    {
+      dataType: "home",
+      name: "首頁",
+      route: "/home",
+    },
+    {
+      dataType: "user-info",
+      name: "個人資料",
+      route: `/userself/${getId()}`,
+    },
+    {
+      dataType: "account-setting",
+      name: "設定",
+      route: "/setting",
+    },
+  ];
   const navigate = useNavigate();
   const location = useLocation();
   const [activePage, setActivePage] = useState(location.pathname);
@@ -44,8 +43,8 @@ export const Navbar = () => {
     logout();
     navigate("/login");
     alert("已登出");
-  }
-  
+  };
+
   useEffect(() => {
     setActivePage(location.pathname);
   }, [location]);

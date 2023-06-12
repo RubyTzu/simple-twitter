@@ -2,8 +2,8 @@ import { ReactComponent as GreyIconSVG } from "assets/GreyIcon.svg";
 import { ReactComponent as BackSVG } from "assets/Back.svg";
 import { ReactComponent as CommentSVG } from "assets/Comment.svg";
 import { ReactComponent as LikeSVG } from "assets/Like.svg";
-import { Link } from "react-router-dom";
-// import { TweetReadOnly, TweetsReadOnly } from "components/TweetsReadOnly";
+import { Link, useParams } from "react-router-dom";
+import { TweetReadOnly } from "components/TweetsReadOnly";
 import styles from "./ReplyListPage.module.scss";
 import { AddReplyModal } from "components/modals/AddReplyModal";
 import { getSingleTweet, getSingleTweetReplies } from "api/tweet";
@@ -13,15 +13,16 @@ import { useEffect, useState } from "react";
 
 export const ReplyListPage = () => {
   const [singleTweet, setSingleTweet] = useState({});
-  const [replies, setReplies] = useState({});
+  const [replies, setReplies] = useState([]);
+  const { tweetId } = useParams();
+
   useEffect(() => {
     const showPage = async () => {
-      setSingleTweet(await getSingleTweet());
-      setReplies(await getSingleTweetReplies());
+      setSingleTweet(await getSingleTweet(tweetId));
+      setReplies(await getSingleTweetReplies(tweetId));
     };
     showPage();
-    // console.log(replies);
-  }, []);
+  }, [tweetId]);
 
   return (
     <>
@@ -36,8 +37,8 @@ export const ReplyListPage = () => {
           <div className={styles.tweetHeader}>
             <GreyIconSVG className={`${styles.tweetAvatar} cursorPointer`} />
             <div className={styles.userInfos}>
-              <p className={styles.userName}>{singleTweet.id}</p>
-              <p className={styles.userNickName}>@{singleTweet.id}</p>
+              <p className={styles.userName}>{singleTweet.name}</p>
+              <p className={styles.userNickName}>@{singleTweet.name}</p>
             </div>
           </div>
           <p className={styles.tweetMain}>{singleTweet.description}</p>
@@ -75,8 +76,14 @@ export const ReplyListPage = () => {
             </div>
           </div>
         </div>
-        {/* <TweetsReadOnly value={replies} /> */}
         {console.log(replies)}
+        {/* <TweetsReadOnly value={replies} /> */}
+        {replies.map((reply) => {
+          return <TweetReadOnly key={reply.id} value={reply} />;
+        })}
+        {/* {replies.current.map((reply) => {
+          return <TweetReadOnly key={reply.id} value={reply} />;
+        })} */}
       </div>
     </>
   );

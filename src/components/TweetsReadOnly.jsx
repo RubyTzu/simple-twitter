@@ -27,7 +27,7 @@ export const TweetsReadOnly = ({ value }) => {
   return (
     <div className={styles.replyTweetsCollection}>
       {value.map((reply) => {
-        return <TweetReadOnly key={reply.TweetId} value={reply} />;
+        return <TweetReadOnly key={reply.id} value={reply} />;
       })}
     </div>
   );

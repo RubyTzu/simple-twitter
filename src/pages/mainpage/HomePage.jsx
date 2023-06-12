@@ -5,11 +5,21 @@ import styles from "./HomePage.module.scss";
 import { useEffect, useRef, useState } from "react";
 import { getTweets } from "api/tweet";
 import { getProfile } from "api/userinfo";
+import { useAuth } from "context/authContext";
+import { useNavigate } from "react-router-dom";
 const id = localStorage.getItem("id");
 
 export const HomePage = () => {
   const userAvatar = useRef("");
   const [tweets, setTweets] = useState([]);
+  const { isAuthenticated } = useAuth();
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate("/login");
+      return;
+    } else return;
+  }, [isAuthenticated, navigate]);
 
   useEffect(() => {
     const showUserAvatar = async () => {
