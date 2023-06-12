@@ -20,9 +20,7 @@ export const ReplyListPage = () => {
       setReplies(await getSingleTweetReplies());
     };
     showPage();
-    setTimeout(() => {
-      console.log(replies);
-    }, 1000);
+    // console.log(replies);
   }, []);
 
   return (
@@ -78,6 +76,7 @@ export const ReplyListPage = () => {
           </div>
         </div>
         {/* <TweetsReadOnly value={replies} /> */}
+        {console.log(replies)}
       </div>
     </>
   );
