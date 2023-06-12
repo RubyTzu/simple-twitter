@@ -51,7 +51,7 @@ function App() {
               element={<MainPage middleContent={<HomePage />} page="首頁" />}
             />
             <Route
-              path="/replylist"
+              path="/replylist/:tweetId"
               element={
                 <MainPage middleContent={<ReplyListPage />} page="推特文" />
               }
@@ -63,7 +63,7 @@ function App() {
               }
             />
             <Route
-              path={`/userother/:userId`}
+              path="/userother/:userId"
               element={
                 <MainPage middleContent={<UserOtherPage />} page="他人資料" />
               }

@@ -30,9 +30,9 @@ export const AdminHomePage = () => {
         <h1 className={styles.adminHomePageTitle}>推文清單</h1>
         <div className={styles.titleLine}></div>
         <div className={styles.adminTweetCollection}>
-          {tweets.map((tweet) => {
+          {/* {tweets.map((tweet) => {
             return <AdminTweet key={tweet.id} value={tweet} />;
-          })}
+          })} */}
         </div>
       </div>
     </>

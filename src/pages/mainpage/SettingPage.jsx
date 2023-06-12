@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import styles from "./SettingPage.module.scss";
 import { AuthInput } from "components/AuthInput";
 import { getProfile } from "api/userinfo";
+const id = localStorage.getItem("id");
 
 export const SettingPage = () => {
   const [user, setUser] = useState([]);
   useEffect(() => {
-    const showUserAvatar = async () => setUser(await getProfile());
-    showUserAvatar();
+    const data = async () => setUser(await getProfile(id));
+    setUser(data);
   }, []);
 
   return (

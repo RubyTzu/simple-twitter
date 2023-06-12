@@ -4,7 +4,6 @@ const token = localStorage.getItem("authToken");
 
 //homepage tweets
 export const getTweets = async (id) => {
-  //!!!!!要再加follow=true!!!!!
   const { data } = await axios.get(
     `${baseUrl}/api/users/${id}/tweets?follows=true`,
     {
@@ -54,8 +53,8 @@ export const getUserLikedTweets = async (id) => {
 };
 
 //replylist裡單則貼文
-export const getSingleTweet = async () => {
-  const { data } = await axios.get(`${baseUrl}/api/tweets/294`, {
+export const getSingleTweet = async (id) => {
+  const { data } = await axios.get(`${baseUrl}/api/tweets/${id}`, {
     headers: {
       Authorization: "Bearer " + token,
     },
@@ -64,8 +63,8 @@ export const getSingleTweet = async () => {
 };
 
 //replylist 單則貼文的回覆
-export const getSingleTweetReplies = async () => {
-  const { data } = await axios.get(`${baseUrl}/api/tweets/294/replies`, {
+export const getSingleTweetReplies = async (id) => {
+  const { data } = await axios.get(`${baseUrl}/api/tweets/${id}/replies`, {
     headers: {
       Authorization: "Bearer " + token,
     },

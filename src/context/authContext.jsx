@@ -23,6 +23,8 @@ export const AuthProvider = ({ children }) => {
         setIsAuthenticated(false);
         setPayload(null);
         return;
+      } else {
+        setIsAuthenticated(true);
       }
       // else {
       //   const tempPayload = jwt.decode(token);
@@ -42,6 +44,28 @@ export const AuthProvider = ({ children }) => {
     isAuthenticated: isAuthenticated,
     payload: payload,
     currentUserId: currentUserId,
+    // login: async (data) => {
+    //   const result = await login({
+    //     account: data.account,
+    //     password: data.password,
+    //   });
+    //   const tempPayload = jwt.decode(result.token);
+
+    //   console.log(tempPayload);
+    //   if (tempPayload) {
+    //     setIsAuthenticated(true);
+    //     setPayload(tempPayload);
+    //     setCurrentUserId(tempPayload.id);
+    //     localStorage.setItem("authToken", result.token);
+    //     localStorage.setItem("id", result.id);
+    //   } else {
+    //     setPayload(null);
+    //     setIsAuthenticated(false);
+    //     setCurrentUserId("");
+    //   }
+    //   return result.success;
+    // },
+
     login: async (data) => {
       const result = await login({
         account: data.account,
@@ -56,6 +80,7 @@ export const AuthProvider = ({ children }) => {
       }
       return result.success;
     },
+
     register: async (data) => {
       const result = await register({
         account: data.account,
@@ -73,6 +98,7 @@ export const AuthProvider = ({ children }) => {
       setIsAuthenticated(false);
       setPayload(null);
       localStorage.removeItem("authToken");
+      localStorage.removeItem("id");
       return;
     },
   };
