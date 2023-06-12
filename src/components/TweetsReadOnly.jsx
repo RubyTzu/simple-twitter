@@ -23,15 +23,12 @@ export const TweetReadOnly = ({ value }) => {
   );
 };
 
-export const TweetsReadOnly = () => {
+export const TweetsReadOnly = ({ value }) => {
   return (
     <div className={styles.replyTweetsCollection}>
-      <TweetReadOnly />
-      <TweetReadOnly />
-      <TweetReadOnly />
-      <TweetReadOnly />
-      <TweetReadOnly />
-      <TweetReadOnly />
+      {value.map((reply) => {
+        return <TweetReadOnly key={reply.TweetId} value={reply} />;
+      })}
     </div>
   );
 };
@@ -39,8 +36,8 @@ export const TweetsReadOnly = () => {
 export const UserReplyTweets = ({ value }) => {
   return (
     <div className={styles.tweetsCollection}>
-      {value.map((tweet,i) => {
-        return <TweetReadOnly value={tweet} key={i}/>;
+      {value.map((tweet, i) => {
+        return <TweetReadOnly value={tweet} key={i} />;
       })}
     </div>
   );

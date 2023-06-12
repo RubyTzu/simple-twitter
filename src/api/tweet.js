@@ -48,3 +48,31 @@ export const getUserLikedTweets = async () => {
   );
   return data.data;
 };
+
+//replylist裡單則貼文
+export const getSingleTweet = async () => {
+  const { data } = await axios.get(`${baseUrl}/api/tweets/294`, {
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  });
+  return data.data;
+};
+
+//replylist 單則貼文的回覆
+export const getSingleTweetReplies = async () => {
+  const { data } = await axios.get(`${baseUrl}/api/tweets/294/replies`, {
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  });
+  return data.data;
+};
+// export const getAdminTweets = async () => {
+//   const { data } = await axios.get(`${baseUrl}/api/admin/tweets`, {
+//     headers: {
+//       Authorization: "Bearer " + token,
+//     },
+//   });
+//   return data.data;
+// };

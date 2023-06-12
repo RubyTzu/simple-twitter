@@ -16,22 +16,14 @@ export const UserSelfPage = () => {
   const [replies, setReplies] = useState([]);
   const [likedTweets, setLikedTweets] = useState([]);
   useEffect(() => {
-    //UserInfo
-    const showProfile = async () => setProfile(await getProfile());
-    //UserFollowCount
-    const showFollowCounts = async () =>
+    const showPage = async () => {
+      setProfile(await getProfile());
       setFollowCounts(await getFollowCounts());
-    //推文tab
-    const showTweets = async () => setTweets(await getUserTweets());
-    //回覆tab
-    const showReplies = async () => setReplies(await getUserReplies());
-    //喜歡的內容tab
-    const likedTweets = async () => setLikedTweets(await getUserLikedTweets());
-    showProfile();
-    showFollowCounts();
-    showTweets();
-    showReplies();
-    likedTweets();
+      setTweets(await getUserTweets());
+      setReplies(await getUserReplies());
+      setLikedTweets(await getUserLikedTweets());
+    };
+    showPage();
   }, []);
 
   return (
