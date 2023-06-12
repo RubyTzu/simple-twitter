@@ -1,6 +1,6 @@
 // import { getAdminTweets } from "api/tweet";
 import styles from "./AdminHomePage.module.scss";
-import { AdminTweet } from "components/AdminTweet";
+// import { AdminTweet } from "components/AdminTweet";
 import axios from "axios";
 import { useEffect, useState } from "react";
 const baseUrl = "https://twitter-2023.herokuapp.com";
@@ -30,6 +30,7 @@ export const AdminHomePage = () => {
         <h1 className={styles.adminHomePageTitle}>推文清單</h1>
         <div className={styles.titleLine}></div>
         <div className={styles.adminTweetCollection}>
+          {console.log(tweets)}
           {/* {tweets.map((tweet) => {
             return <AdminTweet key={tweet.id} value={tweet} />;
           })} */}
