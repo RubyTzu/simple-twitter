@@ -1,4 +1,4 @@
-import { ReactComponent as GreyIconSVG } from "assets/GreyIcon.svg";
+import GreyIcon from "assets/GreyIcon.svg";
 import { ReactComponent as CommentSVG } from "assets/Comment.svg";
 import { ReactComponent as LikeSVG } from "assets/Like.svg";
 import styles from "./Tweets.module.scss";
@@ -15,7 +15,17 @@ export const Tweet = ({ value }) => {
   return (
     <div className={styles.openReplyList} onClick={handleTweetClick}>
       <div className={styles.tweetContainer}>
-        <GreyIconSVG className={`${styles.userAvatar} cursorPointer`} />
+        <Link to={`/userother/${value.UserId}`}>
+          <img
+            data-id={value.UserId}
+            className={`${styles.userAvatar} cursorPointer`}
+            src={GreyIcon}
+            alt="GreyIcon"
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+          />
+        </Link>
         <div className={styles.tweetTextContainer}>
           <header className={styles.tweetHeader}>
             <p className={styles.userName}>{value.name}</p>

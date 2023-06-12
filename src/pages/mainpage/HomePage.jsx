@@ -5,6 +5,7 @@ import styles from "./HomePage.module.scss";
 import { useEffect, useRef, useState } from "react";
 import { getTweets } from "api/tweet";
 import { getProfile } from "api/userinfo";
+const id = localStorage.getItem("id");
 
 export const HomePage = () => {
   const userAvatar = useRef("");
@@ -12,10 +13,10 @@ export const HomePage = () => {
 
   useEffect(() => {
     const showUserAvatar = async () => {
-      const { avatar } = await getProfile();
+      const { avatar } = await getProfile(id);
       userAvatar.current = avatar;
     };
-    const showTweets = async () => setTweets(await getTweets());
+    const showTweets = async () => setTweets(await getTweets(id));
     showUserAvatar();
     showTweets();
   }, [userAvatar]);

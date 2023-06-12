@@ -1,9 +1,8 @@
 import axios from "axios";
 const token = localStorage.getItem("authToken");
-const id = localStorage.getItem("id");
 const baseUrl = "https://twitter-2023.herokuapp.com";
 
-export const getProfile = async () => {
+export const getProfile = async (id) => {
   try {
     const { data } = await axios.get(`${baseUrl}/api/users/${id}`, {
       headers: {
@@ -16,7 +15,7 @@ export const getProfile = async () => {
   }
 };
 
-export const getFollowCounts = async () => {
+export const getFollowCounts = async (id) => {
   try {
     const { data } = await axios.get(
       `${baseUrl}/api/users/${id}/follow_counts`,
