@@ -3,12 +3,12 @@ import { ReactComponent as BackSVG } from "assets/Back.svg";
 import { ReactComponent as CommentSVG } from "assets/Comment.svg";
 import { ReactComponent as LikeSVG } from "assets/Like.svg";
 import { Link } from "react-router-dom";
-import { TweetReadOnly, TweetsReadOnly } from "components/TweetsReadOnly";
+// import { TweetReadOnly, TweetsReadOnly } from "components/TweetsReadOnly";
 import styles from "./ReplyListPage.module.scss";
 import { AddReplyModal } from "components/modals/AddReplyModal";
 import { getSingleTweet, getSingleTweetReplies } from "api/tweet";
 import { useEffect, useState } from "react";
-import moment from "moment/moment";
+// import moment from "moment/moment";
 
 export const ReplyListPage = () => {
   const [singleTweet, setSingleTweet] = useState({});
