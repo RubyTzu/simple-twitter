@@ -8,6 +8,7 @@ import { InfoEditModal } from "components/modals/InfoEditModal";
 import { useEffect, useState } from "react";
 import { getUserLikedTweets, getUserReplies, getUserTweets } from "api/tweet";
 import { getFollowCounts, getProfile } from "api/userinfo";
+const id = localStorage.getItem("id");
 
 export const UserSelfPage = () => {
   const [profile, setProfile] = useState([]);
@@ -17,11 +18,11 @@ export const UserSelfPage = () => {
   const [likedTweets, setLikedTweets] = useState([]);
   useEffect(() => {
     const showPage = async () => {
-      setProfile(await getProfile());
-      setFollowCounts(await getFollowCounts());
-      setTweets(await getUserTweets());
-      setReplies(await getUserReplies());
-      setLikedTweets(await getUserLikedTweets());
+      setProfile(await getProfile(id));
+      setFollowCounts(await getFollowCounts(id));
+      setTweets(await getUserTweets(id));
+      setReplies(await getUserReplies(id));
+      setLikedTweets(await getUserLikedTweets(id));
     };
     showPage();
   }, []);

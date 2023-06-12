@@ -63,7 +63,7 @@ function App() {
               }
             />
             <Route
-              path="/userother"
+              path={`/userother/:userId`}
               element={
                 <MainPage middleContent={<UserOtherPage />} page="他人資料" />
               }
