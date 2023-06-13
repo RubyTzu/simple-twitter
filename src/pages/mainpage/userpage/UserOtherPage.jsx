@@ -1,8 +1,8 @@
 import { ReactComponent as BackSVG } from "assets/Back.svg";
 import { ReactComponent as LetterIcon } from "assets/letterIcon.svg";
 import { ReactComponent as NotifIcon } from "assets/notifIcon.svg";
-import userotherBcg from "assets/userotherBcg.svg";
-import userotherAvatar from "assets/userotherAvatar.svg";
+import userotherAvatar from "assets/GreyIcon.svg";
+import userotherBcg from "assets/userselfBcg.svg";
 import styles from "./UserOtherPage.module.scss";
 import { Link, useParams } from "react-router-dom";
 import { UserTweetsCollection } from "components/UserTweetsCollection";
