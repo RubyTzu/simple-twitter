@@ -5,8 +5,12 @@ import { ReactComponent as LikeSVG } from "assets/Like.svg";
 import { Link, useParams } from "react-router-dom";
 import { TweetReadOnly } from "components/TweetsReadOnly";
 import styles from "./ReplyListPage.module.scss";
-import { AddReplyModal } from "components/modals/AddReplyModal";
-import { getSingleTweet, getSingleTweetReplies } from "api/tweet";
+import { AddReplyModalinReplyList } from "components/modals/AddReplyModalinReplyList";
+import {
+  getSingleTweet,
+  getSingleTweetReplies,
+  createReplyTweet,
+} from "api/tweet";
 import { useEffect, useState } from "react";
 // import { TweetsReadOnly } from "components/TweetsReadOnly";
 // import moment from "moment/moment";
@@ -15,6 +19,7 @@ export const ReplyListPage = () => {
   const [singleTweet, setSingleTweet] = useState({});
   const [replies, setReplies] = useState([]);
   const { tweetId } = useParams();
+    const [inputValue, setInputValue] = useState("");
 
   useEffect(() => {
     const showPage = async () => {
@@ -23,6 +28,21 @@ export const ReplyListPage = () => {
     };
     showPage();
   }, [tweetId]);
+
+
+ const handleAddTweet = async () => {
+   if (inputValue.length === 0 || inputValue.length > 140) {
+     return;
+   } else {
+     await createReplyTweet({
+       comment: inputValue,
+       id: tweetId,
+     });
+
+     const reload = () => window.location.reload();
+     reload();
+   }
+ };
 
   return (
     <>
@@ -64,11 +84,17 @@ export const ReplyListPage = () => {
                 type="Link"
                 className={`${styles.replyButton}`}
                 data-bs-toggle="modal"
-                data-bs-target="#addReplyModal"
+                data-bs-target="#addReplyModalinReplyList"
               >
                 <CommentSVG className={styles.feedbackButton} />
               </Link>
-              <AddReplyModal />
+              <AddReplyModalinReplyList
+                onClick={handleAddTweet}
+                onChange={(value) => {
+                  setInputValue(value);
+                }}
+                inputValue={inputValue}
+              />
 
               <Link href="/">
                 <LikeSVG className={styles.feedbackButton} />
@@ -76,7 +102,7 @@ export const ReplyListPage = () => {
             </div>
           </div>
         </div>
-        {console.log(replies)}
+        {/* {console.log(replies)} */}
         {/* <TweetsReadOnly value={replies} /> */}
         {replies.map((reply) => {
           return <TweetReadOnly key={reply.id} value={reply} />;
