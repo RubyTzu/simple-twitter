@@ -5,7 +5,7 @@
 .tweetContainer {
   display: flex;
   justify-content: flex-start;
-  width: 100%;
+  min-width: 937px;
   min-height: 103px;
   margin-top: 0px;
   border-top: 1px solid var(--lightGrayOne);
@@ -36,6 +36,7 @@
   position: absolute;
   top: 5px;
   right: 5px;
+  cursor: pointer;
 }
 
 .userName {
