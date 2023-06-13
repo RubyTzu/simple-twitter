@@ -2,21 +2,7 @@ import axios from "axios";
 const baseUrl = "https://twitter-2023.herokuapp.com";
 const token = localStorage.getItem("authToken");
 
-// // export const adminLogin = async ({ account, password }) => {
-// //   const { data } = await axios.post(`${baseUrl}/api/signin`, {
-// //     account,
-// //     password,
-// //   });
-// //   const authToken = data.token;
-// //   console.log(data.data.user.role);
-// //   if (authToken) {
-// //     return { success: true, ...data };
-// //   } else {
-// //     return { success: false, ...data };
-// //   }
-// // };
-
-export const login = async ({ account, password }) => {
+export const adminLogin = async ({ account, password }) => {
   const { data } = await axios.post(`${baseUrl}/api/signin?from=back`, {
     account,
     password,
