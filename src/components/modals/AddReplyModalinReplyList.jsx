@@ -1,21 +1,15 @@
-import styles from "./AddReplyModal.module.scss";
+import styles from "./AddReplyModalinReplyList.module.scss";
 import { ReactComponent as CloseSVG } from "assets/Close.svg";
 import initialAvatar from "assets/GreyIcon.svg";
 import avatar from "assets/Photo.png";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import {
-  getSingleTweet,
-} from "api/tweet";
+import { getSingleTweet } from "api/tweet";
 
-export const AddReplyModal = ({
-  tweetId,
-  onClick,
-  onChange,
-  inputValue,
-}) => {
+export const AddReplyModalinReplyList = ({ onClick, onChange, inputValue }) => {
   const [showAlert, setShowAlert] = useState(false);
   const [singleTweet, setSingleTweet] = useState({});
+  const { tweetId } = useParams();
 
   const handleAddTweetHeight = (e) => {
     e.target.style.height = "inherit";
@@ -24,22 +18,21 @@ export const AddReplyModal = ({
 
   useEffect(() => {
     const showPage = async () => {
-      await tweetId;
       setSingleTweet(await getSingleTweet(tweetId));
     };
     showPage();
   }, [tweetId]);
 
   useEffect(() => {
-    // console.log(showAlert);
+    console.log(showAlert);
   }, [showAlert]);
 
   return (
     <div
       className="modal fade"
-      id={`addReplyModal${tweetId}`}
+      id="addReplyModalinReplyList"
       tabIndex="-1"
-      aria-labelledby={`addReplyModal${tweetId}Label`}
+      aria-labelledby="addReplyModalinReplyListLabel"
       aria-hidden="true"
       onClick={(e) => {
         e.stopPropagation();
@@ -75,7 +68,7 @@ export const AddReplyModal = ({
                   <p className={styles.userName}>{singleTweet.name}</p>
                   <p className={styles.nickNameTime}>
                     <Link className={styles.userNickName}>
-                      @{singleTweet.account}
+                      @{singleTweet.name}
                     </Link>
                     ・3 小時(時間還要改)
                   </p>
@@ -84,7 +77,7 @@ export const AddReplyModal = ({
                 <p className={styles.replyTo}>
                   回覆給
                   <Link className={styles.replyNickName}>
-                    @{singleTweet.account}
+                    @{singleTweet.name}
                   </Link>
                 </p>
               </div>

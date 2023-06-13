@@ -3,7 +3,9 @@ import CommentSVG from "assets/Comment.svg";
 import LikeSVG from "assets/Like.svg";
 import styles from "./Tweets.module.scss";
 import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
 import { AddReplyModal } from "./modals/AddReplyModal";
+import { createReplyTweet } from "../api/tweet";
 
 const getId = () => {
   const id = localStorage.getItem("id");
@@ -12,6 +14,23 @@ const getId = () => {
 
 export const Tweet = ({ value, onClick }) => {
   let navigate = useNavigate();
+  const [inputValue, setInputValue] = useState("");
+  const [selectTweetId, setSelectTweetId] = useState(104);
+
+  const handleAddTweet = async () => {
+    if (inputValue.length === 0 || inputValue.length > 140) {
+      return;
+    } else {
+      await createReplyTweet({
+        comment: inputValue,
+        id: selectTweetId,
+      });
+
+      const reload = () => window.location.reload();
+      reload();
+    }
+  };
+
   return (
     <div
       className={styles.openReplyList}
@@ -54,9 +73,12 @@ export const Tweet = ({ value, onClick }) => {
               type="Link"
               className={`${styles.replyButton}`}
               data-bs-toggle="modal"
-              data-bs-target="#addReplyModal"
+              data-bs-target={`#addReplyModal${value.id}`}
               onClick={(e) => {
                 e.stopPropagation();
+                setSelectTweetId(value.id);
+                console.log(value.id);
+                console.log(`comment button :${selectTweetId}`);
               }}
             >
               <img
@@ -66,7 +88,14 @@ export const Tweet = ({ value, onClick }) => {
               />
               <p className={styles.counts}>{value.repliesCount}</p>
             </Link>
-            <AddReplyModal />
+            <AddReplyModal
+              onClick={handleAddTweet}
+              onChange={(value) => {
+                setInputValue(value);
+              }}
+              inputValue={inputValue}
+              tweetId={value.id}
+            />
             <Link
               className={styles.likeButton}
               href="/"
