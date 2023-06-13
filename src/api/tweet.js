@@ -12,7 +12,7 @@ export const getTweets = async (id) => {
       },
     }
   );
-  console.log(data);
+  // console.log(data);
   return data;
 };
 
@@ -71,11 +71,39 @@ export const getSingleTweetReplies = async (id) => {
   });
   return data;
 };
-// export const getAdminTweets = async () => {
-//   const { data } = await axios.get(`${baseUrl}/api/admin/tweets`, {
-//     headers: {
-//       Authorization: "Bearer " + token,
-//     },
-//   });
-//   return data.data;
-// };
+
+
+//add tweet 新增推文
+export const createTweet = async (payload) => {
+  const { description, likable, commendable } = payload;
+
+   const res = await axios.post(
+     `${baseUrl}/api/tweets`,
+     { description, likable, commendable},
+     {
+       headers: {
+         Authorization: "Bearer " + token,
+       },
+     }
+   );
+
+   return res
+} 
+
+
+//add reply tweet
+export const createReplyTweet = async (payload) => {
+  const { comment, id } = payload;
+
+  const res = await axios.post(
+    `${baseUrl}/api/tweets/${id}/replies`,
+    { comment },
+    {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    }
+  );
+
+  return res;
+}; 
