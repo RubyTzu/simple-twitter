@@ -3,6 +3,7 @@ import initialAvatar from "assets/GreyIcon.svg";
 import { Tweet } from "components/Tweets";
 import styles from "./HomePage.module.scss";
 import { useEffect, useRef, useState } from "react";
+
 import { getTweets, tweetLike, tweetUnLike, createTweet } from "api/tweet";
 import { getProfile } from "api/userinfo";
 import { useAuth } from "context/authContext";
@@ -38,6 +39,7 @@ export const HomePage = () => {
     isLiked ? await tweetUnLike(tweetId) : await tweetLike(tweetId);
     setTweets(await getTweets(id));
   };
+
   useEffect(() => {
     // console.log(showAlert);
   }, [showAlert]);
