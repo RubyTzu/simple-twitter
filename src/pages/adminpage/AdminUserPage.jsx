@@ -1,26 +1,12 @@
 import { useEffect, useState } from "react";
 import styles from "./AdminUserPage.module.scss";
 import { UserCard } from "components/UserCard";
-import axios from "axios";
-const baseUrl = "https://twitter-2023.herokuapp.com";
+import { getUsers } from "api/admin";
 
 export const AdminUserPage = () => {
   const [users, setUsers] = useState([]);
-
   useEffect(() => {
-    const showUsersTweet = async () => {
-      try {
-        const token = localStorage.getItem("authToken");
-        const { data } = await axios.get(`${baseUrl}/api/admin/users`, {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        });
-        setUsers(data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
+    const showUsersTweet = async () => setUsers(await getUsers());
     showUsersTweet();
   }, []);
   return (
@@ -30,7 +16,7 @@ export const AdminUserPage = () => {
         <h1 className={styles.adminUserPageTitle}>使用者列表</h1>
         <div className={styles.userCardContainer}>
           {users.map((user) => {
-            return <UserCard value={user} />;
+            return <UserCard key={user.id} value={user} />;
           })}
         </div>
       </div>

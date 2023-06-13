@@ -1,6 +1,6 @@
 import styles from "./UserCard.module.scss";
 import userselfBcg from "assets/userselfBcg.svg";
-import userselfAvatar from "assets/userselfAvatar.svg";
+import AClogo from "assets/GreyIcon.svg";
 import { Link } from "react-router-dom";
 import { ReactComponent as LikeSVG } from "assets/Like.svg";
 import { ReactComponent as ReviewIcon } from "assets/ReviewIcon.svg";
@@ -15,7 +15,7 @@ export const UserCard = ({ value }) => {
       />
       <img
         className={styles.avatar}
-        src={value.avatar !== null ? value.avatar : userselfAvatar}
+        src={value.avatar !== null ? value.avatar : AClogo}
         alt="avatar"
       />
 
@@ -35,7 +35,7 @@ export const UserCard = ({ value }) => {
 
         <div className={styles.follow}>
           <div className={styles.followerInfoBtn}>
-            <span className={styles.followNum}>{value.followingCount}個</span>
+            <span className={styles.followNum}>{value.followingsCount}個</span>
             <span>跟隨中</span>
           </div>
           <div className={styles.followingInfoBtn}>
