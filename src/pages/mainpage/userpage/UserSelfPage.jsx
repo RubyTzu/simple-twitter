@@ -79,13 +79,13 @@ export const UserSelfPage = () => {
             <span className={styles.follow}>
               <Link to="/followlist" className={styles.followerInfoBtn}>
                 <span className={styles.followNum}>
-                  {followCounts.followingCount}個
+                  {followCounts.followingCount} 個
                 </span>
                 <span>跟隨中</span>
               </Link>
               <Link to="/followlist" className={styles.followingInfoBtn}>
                 <span className={styles.followNum}>
-                  {followCounts.followerCount}位
+                  {followCounts.followerCount} 位
                 </span>
                 <span>跟隨者</span>
               </Link>

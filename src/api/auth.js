@@ -2,7 +2,7 @@ import axios from "axios";
 const baseUrl = "https://twitter-2023.herokuapp.com";
 
 export const login = async ({ account, password }) => {
-  const { data } = await axios.post(`${baseUrl}/api/signin`, {
+  const { data } = await axios.post(`${baseUrl}/api/signin?from=front`, {
     account,
     password,
   });
