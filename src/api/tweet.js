@@ -12,7 +12,6 @@ export const getTweets = async (id) => {
       },
     }
   );
-  console.log(data);
   return data;
 };
 
@@ -71,11 +70,34 @@ export const getSingleTweetReplies = async (id) => {
   });
   return data;
 };
-// export const getAdminTweets = async () => {
-//   const { data } = await axios.get(`${baseUrl}/api/admin/tweets`, {
-//     headers: {
-//       Authorization: "Bearer " + token,
-//     },
-//   });
-//   return data.data;
-// };
+
+//tweet like
+export const tweetLike = async (tweetId) => {
+  const { data } = await axios.post(
+    `${baseUrl}/api/tweets/${tweetId}/like`,
+    {
+      id: tweetId,
+    },
+    {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    }
+  );
+  return data;
+};
+//tweet unlike
+export const tweetUnLike = async (tweetId) => {
+  const { data } = await axios.post(
+    `${baseUrl}/api/tweets/${tweetId}/unlike`,
+    {
+      id: tweetId,
+    },
+    {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    }
+  );
+  return data;
+};

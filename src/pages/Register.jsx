@@ -12,14 +12,14 @@ export const Register = () => {
   const [password, setPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("");
   const navigate = useNavigate();
-  
+
   const handleRegister = async () => {
     if (account.length === 0) return;
     if (name.length === 0) return;
     if (email.length === 0) return;
     if (password.length === 0) return;
     if (passwordCheck.length === 0) return;
-    
+
     try {
       const success = await register({
         account,
@@ -38,8 +38,7 @@ export const Register = () => {
       alert("註冊失敗");
       return;
     }
-
-  }
+  };
 
   return (
     <div className={styles.authContainer}>
@@ -51,7 +50,7 @@ export const Register = () => {
         <AuthInput
           type="text"
           value={account}
-          onChange={setAccount}
+          onChange={(e) => setAccount(e.target.value)}
           label="帳號"
           placeholder="請輸入帳號"
           onKeyDown={handleRegister}
@@ -61,7 +60,7 @@ export const Register = () => {
         <AuthInput
           type="text"
           value={name}
-          onChange={setName}
+          onChange={(e) => setName(e.target.value)}
           label="名稱"
           placeholder="請輸入使用者名稱"
           onKeyDown={handleRegister}
@@ -71,7 +70,7 @@ export const Register = () => {
         <AuthInput
           type="text"
           value={email}
-          onChange={setEmail}
+          onChange={(e) => setEmail(e.target.value)}
           label="Email"
           placeholder="請輸入Email"
           onKeyDown={handleRegister}
@@ -81,7 +80,7 @@ export const Register = () => {
         <AuthInput
           type="password"
           value={password}
-          onChange={setPassword}
+          onChange={(e) => setPassword(e.target.value)}
           label="密碼"
           placeholder="請設定密碼"
           onKeyDown={handleRegister}
@@ -91,7 +90,7 @@ export const Register = () => {
         <AuthInput
           type="password"
           value={passwordCheck}
-          onChange={setPasswordCheck}
+          onChange={(e) => setPasswordCheck(e.target.value)}
           label="密碼確認"
           placeholder="請再次輸入密碼"
           onKeyDown={handleRegister}

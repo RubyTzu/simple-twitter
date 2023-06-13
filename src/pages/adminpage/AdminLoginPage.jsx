@@ -46,7 +46,7 @@ export const AdminLoginPage = () => {
         <AuthInput
           type="text"
           value={account}
-          onChange={setAccount}
+          onChange={(e) => setAccount(e.target.value)}
           label="帳號"
           placeholder="請輸入帳號"
           onKeyDown={handleAdminLogin}
@@ -56,7 +56,7 @@ export const AdminLoginPage = () => {
         <AuthInput
           type="password"
           value={password}
-          onChange={setPassword}
+          onChange={(e) => setPassword(e.target.value)}
           label="密碼"
           placeholder="請輸入密碼"
           onKeyDown={handleAdminLogin}

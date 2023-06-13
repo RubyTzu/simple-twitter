@@ -30,3 +30,32 @@ export const getFollowCounts = async (id) => {
     console.error(error);
   }
 };
+
+export const updateProfile = async (user) => {
+  const id = localStorage.getItem("id");
+  console.log(user);
+  try {
+    const data = axios.put(
+      `${baseUrl}/api/users/${id}`,
+      {
+        account: user.account,
+        name: user.name,
+        email: user.email,
+        password: "12345678",
+        passwordCheck: "12345678",
+        introduction: user.introduction,
+        avatar: null,
+      },
+      {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      }
+    );
+
+    return data;
+  } catch (error) {
+    console.error(error);
+    return error;
+  }
+};

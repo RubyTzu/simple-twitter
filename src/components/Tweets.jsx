@@ -1,6 +1,6 @@
 import GreyIcon from "assets/GreyIcon.svg";
-import { ReactComponent as CommentSVG } from "assets/Comment.svg";
-import { ReactComponent as LikeSVG } from "assets/Like.svg";
+import CommentSVG from "assets/Comment.svg";
+import LikeSVG from "assets/Like.svg";
 import styles from "./Tweets.module.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { AddReplyModal } from "./modals/AddReplyModal";
@@ -10,9 +10,8 @@ const getId = () => {
   return Number(id);
 };
 
-export const Tweet = ({ value }) => {
+export const Tweet = ({ value, onClick }) => {
   let navigate = useNavigate();
-
   return (
     <div
       className={styles.openReplyList}
@@ -60,8 +59,12 @@ export const Tweet = ({ value }) => {
                 e.stopPropagation();
               }}
             >
-              <CommentSVG className={styles.commentIcon} />
-              <p className={styles.counts}>{value.likesCount}</p>
+              <img
+                src={CommentSVG}
+                alt="CommentSVG"
+                className={styles.commentIcon}
+              />
+              <p className={styles.counts}>{value.repliesCount}</p>
             </Link>
             <AddReplyModal />
             <Link
@@ -71,8 +74,15 @@ export const Tweet = ({ value }) => {
                 e.stopPropagation();
               }}
             >
-              <LikeSVG className={styles.likeIcon} />
-              <p className={styles.counts}>{value.repliesCount}</p>
+              <img
+                src={LikeSVG}
+                alt="LikeSVG"
+                className={styles.likeIcon}
+                data-id={value.id}
+                onClick={(e) => onClick(e, value.isLiked)}
+              />
+
+              <p className={styles.counts}>{value.likesCount}</p>
             </Link>
           </footer>
         </div>
