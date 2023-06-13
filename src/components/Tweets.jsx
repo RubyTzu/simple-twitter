@@ -1,6 +1,6 @@
 import GreyIcon from "assets/GreyIcon.svg";
-import { ReactComponent as CommentSVG } from "assets/Comment.svg";
-import { ReactComponent as LikeSVG } from "assets/Like.svg";
+import CommentSVG from "assets/Comment.svg";
+import LikeSVG from "assets/Like.svg";
 import styles from "./Tweets.module.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
@@ -12,25 +12,24 @@ const getId = () => {
   return Number(id);
 };
 
-export const Tweet = ({ value }) => {
+export const Tweet = ({ value, onClick }) => {
   let navigate = useNavigate();
   const [inputValue, setInputValue] = useState("");
-const [selectTweetId, setSelectTweetId] = useState(104);
+  const [selectTweetId, setSelectTweetId] = useState(104);
 
- const handleAddTweet = async () => {
-   if (inputValue.length === 0 || inputValue.length > 140) {
-     return;
-   } else {
-     await createReplyTweet({
-       comment: inputValue,
-       id: selectTweetId,
-     });
+  const handleAddTweet = async () => {
+    if (inputValue.length === 0 || inputValue.length > 140) {
+      return;
+    } else {
+      await createReplyTweet({
+        comment: inputValue,
+        id: selectTweetId,
+      });
 
-     const reload = () => window.location.reload();
-     reload();
-   }
- };  
-
+      const reload = () => window.location.reload();
+      reload();
+    }
+  };
 
   return (
     <div
@@ -82,8 +81,12 @@ const [selectTweetId, setSelectTweetId] = useState(104);
                 console.log(`comment button :${selectTweetId}`);
               }}
             >
-              <CommentSVG className={styles.commentIcon} />
-              <p className={styles.counts}>{value.likesCount}</p>
+              <img
+                src={CommentSVG}
+                alt="CommentSVG"
+                className={styles.commentIcon}
+              />
+              <p className={styles.counts}>{value.repliesCount}</p>
             </Link>
             <AddReplyModal
               onClick={handleAddTweet}
@@ -100,8 +103,15 @@ const [selectTweetId, setSelectTweetId] = useState(104);
                 e.stopPropagation();
               }}
             >
-              <LikeSVG className={styles.likeIcon} />
-              <p className={styles.counts}>{value.repliesCount}</p>
+              <img
+                src={LikeSVG}
+                alt="LikeSVG"
+                className={styles.likeIcon}
+                data-id={value.id}
+                onClick={(e) => onClick(e, value.isLiked)}
+              />
+
+              <p className={styles.counts}>{value.likesCount}</p>
             </Link>
           </footer>
         </div>

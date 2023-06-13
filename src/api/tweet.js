@@ -12,7 +12,6 @@ export const getTweets = async (id) => {
       },
     }
   );
-  // console.log(data);
   return data;
 };
 
@@ -72,29 +71,56 @@ export const getSingleTweetReplies = async (id) => {
   return data;
 };
 
+//tweet like
+export const tweetLike = async (tweetId) => {
+  const { data } = await axios.post(
+    `${baseUrl}/api/tweets/${tweetId}/like`,
+    {
+      id: tweetId,
+    },
+    {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    }
+  );
+  return data;
+};
+//tweet unlike
+export const tweetUnLike = async (tweetId) => {
+  const { data } = await axios.post(
+    `${baseUrl}/api/tweets/${tweetId}/unlike`,
+    {
+      id: tweetId,
+    },
+    {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    }
+  );
+  return data;
+};
 
 //add tweet 新增推文
 export const createTweet = async (payload) => {
   const { description, likable, commendable } = payload;
 
-   const res = await axios.post(
-     `${baseUrl}/api/tweets`,
-     { description, likable, commendable},
-     {
-       headers: {
-         Authorization: "Bearer " + token,
-       },
-     }
-   );
-
-   return res
-} 
-
+  const res = await axios.post(
+    `${baseUrl}/api/tweets`,
+    { description, likable, commendable },
+    {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    }
+  );
+  return res;
+};
 
 //add reply tweet
 export const createReplyTweet = async (payload) => {
   const { comment, id } = payload;
-
   const res = await axios.post(
     `${baseUrl}/api/tweets/${id}/replies`,
     { comment },
@@ -104,6 +130,5 @@ export const createReplyTweet = async (payload) => {
       },
     }
   );
-
   return res;
-}; 
+};

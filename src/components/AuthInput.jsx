@@ -13,8 +13,10 @@ export const AuthInput = ({
       <input
         type={type}
         defaultValue={value}
+        label={label}
         placeholder={placeholder}
-        onChange={(e) => onChange(e.target.value)}
+        // onChange={(e) => onChange(e.target.value)}
+        onChange={onChange}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
             onKeyDown?.();

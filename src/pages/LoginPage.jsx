@@ -46,7 +46,7 @@ export const LoginPage = () => {
           value={account}
           label="帳號"
           placeholder="請輸入帳號"
-          onChange={setAccount}
+          onChange={(e) => setAccount(e.target.value)}
           onKeyDown={handleLogin}
         />
       </div>
@@ -56,7 +56,7 @@ export const LoginPage = () => {
           label="密碼"
           value={password}
           placeholder="請輸入密碼"
-          onChange={setPassword}
+          onChange={(e) => setPassword(e.target.value)}
           onKeyDown={handleLogin}
         />
       </div>

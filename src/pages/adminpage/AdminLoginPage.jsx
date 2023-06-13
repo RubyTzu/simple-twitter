@@ -4,12 +4,14 @@ import { Link, useNavigate } from "react-router-dom";
 import styles from "pages/LoginRegister.module.scss";
 import { useEffect, useState } from "react";
 import { useAuth } from "context/authContext";
+import { adminLogin } from "api/admin";
 
 export const AdminLoginPage = () => {
   const [account, setAccount] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const { login, isAuthenticated } = useAuth();
+  // const { login, isAuthenticated } = useAuth();
+  const { isAuthenticated } = useAuth();
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -21,8 +23,10 @@ export const AdminLoginPage = () => {
     if (account.length === 0) return;
     if (password.length === 0) return;
     try {
-      const success = await login({ account, password });
-      if (success) {
+      const res = await adminLogin({ account, password });
+      if (res.token) {
+        localStorage.setItem("authToken", res.token);
+        localStorage.setItem("id", res.userData.id);
         alert("登入成功");
         navigate("/admin/tweetslist");
         return;
@@ -42,7 +46,7 @@ export const AdminLoginPage = () => {
         <AuthInput
           type="text"
           value={account}
-          onChange={setAccount}
+          onChange={(e) => setAccount(e.target.value)}
           label="帳號"
           placeholder="請輸入帳號"
           onKeyDown={handleAdminLogin}
@@ -52,7 +56,7 @@ export const AdminLoginPage = () => {
         <AuthInput
           type="password"
           value={password}
-          onChange={setPassword}
+          onChange={(e) => setPassword(e.target.value)}
           label="密碼"
           placeholder="請輸入密碼"
           onKeyDown={handleAdminLogin}
