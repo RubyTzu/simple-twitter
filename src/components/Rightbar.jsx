@@ -3,6 +3,7 @@ import styles from "./Rightbar.module.scss";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { addFollow, deleteFollow } from "api/follow";
 
 const baseUrl = "https://twitter-2023.herokuapp.com";
 
@@ -19,17 +20,7 @@ export const Rightbar = () => {
   const handleAddFollowing = async (userId) => {
     console.log(`add following ${userId}`);
     try {
-      await axios.post(
-        `${baseUrl}/api/followships`,
-        {
-          id: userId,
-        },
-        {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        }
-      );
+      await addFollow(userId);
       setIdFromButtonClick(userId);
     } catch (error) {
       console.error(error);
@@ -39,11 +30,7 @@ export const Rightbar = () => {
   const handleCancelFollowing = async (userId) => {
     console.log(`cancel following ${userId}`);
     try {
-      await axios.delete(`${baseUrl}/api/followships/${userId}`, {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      });
+      await deleteFollow(userId);
       setIdFromButtonClick(userId);
     } catch (error) {
       console.error(error);

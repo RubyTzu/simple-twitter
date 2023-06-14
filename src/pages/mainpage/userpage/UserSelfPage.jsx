@@ -2,7 +2,7 @@ import { ReactComponent as BackSVG } from "assets/Back.svg";
 import userselfAvatar from "assets/GreyIcon.svg";
 import userselfBcg from "assets/userselfBcg.svg";
 import styles from "./UserSelfPage.module.scss";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { UserTweetsCollection } from "components/UserTweetsCollection";
 import { InfoEditModal } from "components/modals/InfoEditModal";
 import { useEffect, useState } from "react";
@@ -16,6 +16,8 @@ export const UserSelfPage = () => {
   const [replies, setReplies] = useState([]);
   const [likedTweets, setLikedTweets] = useState([]);
   const { userId } = useParams();
+  const navigate = useNavigate();
+
 
   useEffect(() => {
     const showPage = async () => {
@@ -32,7 +34,7 @@ export const UserSelfPage = () => {
     <>
       <div className={styles.mainbarContainer}>
         <header className={styles.userPageHeader}>
-          <Link to="/home">
+          <Link onClick={() => navigate(-1)}>
             <BackSVG className={styles.logo} />
           </Link>
           <div className={styles.userPageHeaderText}>

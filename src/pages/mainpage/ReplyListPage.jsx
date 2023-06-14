@@ -2,7 +2,7 @@ import { ReactComponent as GreyIconSVG } from "assets/GreyIcon.svg";
 import { ReactComponent as BackSVG } from "assets/Back.svg";
 import { ReactComponent as CommentSVG } from "assets/Comment.svg";
 import { ReactComponent as LikeSVG } from "assets/Like.svg";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { TweetReadOnly } from "components/TweetsReadOnly";
 import styles from "./ReplyListPage.module.scss";
 import { AddReplyModalinReplyList } from "components/modals/AddReplyModalinReplyList";
@@ -19,7 +19,8 @@ export const ReplyListPage = () => {
   const [singleTweet, setSingleTweet] = useState({});
   const [replies, setReplies] = useState([]);
   const { tweetId } = useParams();
-    const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const showPage = async () => {
@@ -29,26 +30,40 @@ export const ReplyListPage = () => {
     showPage();
   }, [tweetId]);
 
+  const handleAddTweet = async () => {
+    if (inputValue.length === 0 || inputValue.length > 140) {
+      return;
+    } else {
+      await createReplyTweet({
+        comment: inputValue,
+        id: tweetId,
+      });
 
- const handleAddTweet = async () => {
-   if (inputValue.length === 0 || inputValue.length > 140) {
-     return;
-   } else {
-     await createReplyTweet({
-       comment: inputValue,
-       id: tweetId,
-     });
+      const reload = () => window.location.reload();
+      reload();
+    }
+  };
+  const formatTimestamp = (timestamp) => {
+    const timestampDate = new Date(timestamp);
+    const formattedDate = timestampDate.toLocaleDateString("zh-TW", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
 
-     const reload = () => window.location.reload();
-     reload();
-   }
- };
+    const formattedTime = timestampDate.toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+    
+    return `${formattedTime}・${formattedDate}`;
+  };
 
   return (
     <>
       <div className={styles.mainbarContainer}>
         <header className={styles.replyListHeader}>
-          <Link className={styles.link} to="/home">
+          <Link className={styles.link} onClick={() => navigate(-1)}>
             <BackSVG className={styles.logo} />
           </Link>
           <h1 className={styles.replyListPageTitle}>推文</h1>
@@ -64,8 +79,9 @@ export const ReplyListPage = () => {
           <p className={styles.tweetMain}>{singleTweet.description}</p>
           <div className={styles.tweetFooter}>
             <p className={styles.time}>
-              <span>上午 10:05(時間還要改)</span>
-              <span>・2021年11月10日(時間還要改)</span>
+              {/* <span>上午 10:05(時間還要改)</span> */}
+              <span>{formatTimestamp(singleTweet.createdAt)}</span>
+              {/* <span>・2021年11月10日(時間還要改)</span> */}
             </p>
             <p className={styles.feedbackCounts}>
               <span>
