@@ -9,14 +9,13 @@ import { useEffect, useState } from "react";
 import { getUserLikedTweets, getUserReplies, getUserTweets } from "api/tweet";
 import { getFollowCounts, getProfile } from "api/userinfo";
 
-
 export const UserSelfPage = () => {
   const [profile, setProfile] = useState([]);
   const [followCounts, setFollowCounts] = useState([]);
   const [tweets, setTweets] = useState([]);
   const [replies, setReplies] = useState([]);
   const [likedTweets, setLikedTweets] = useState([]);
- const { userId } = useParams();
+  const { userId } = useParams();
 
   useEffect(() => {
     const showPage = async () => {
@@ -73,17 +72,25 @@ export const UserSelfPage = () => {
             <span className={styles.nickName}>@{profile.name}</span>
             <span className={styles.description}>
               {profile.introduction === null
-                ? "沒內容欸"
+                ? "*使用者無簡介*"
                 : profile.introduction}
             </span>
             <span className={styles.follow}>
-              <Link to="/followlist" className={styles.followerInfoBtn}>
+              <Link
+                to="/followlist"
+                state={"正在追隨"}
+                className={styles.followerInfoBtn}
+              >
                 <span className={styles.followNum}>
                   {followCounts.followingCount} 個
                 </span>
                 <span>跟隨中</span>
               </Link>
-              <Link to="/followlist" className={styles.followingInfoBtn}>
+              <Link
+                to="/followlist"
+                state={"追隨者"}
+                className={styles.followingInfoBtn}
+              >
                 <span className={styles.followNum}>
                   {followCounts.followerCount} 位
                 </span>
