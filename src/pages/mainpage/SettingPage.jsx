@@ -7,15 +7,15 @@ const id = localStorage.getItem("id");
 export const SettingPage = () => {
   const [user, setUser] = useState({});
   useEffect(() => {
-    const data = async () => setUser(await getProfile(id));
-    setUser(data);
+    const showPage = async () => setUser(await getProfile(id));
+    showPage();
   }, []);
 
   const handleSave = async () => {
-    const res = await updateProfile(user);
-    console.log(res);
+    await updateProfile(user);
+    const refresh = () => window.location.reload(true);
+    refresh();
   };
-
   return (
     <>
       <div className={styles.mainbarContainer}>

@@ -1,33 +1,27 @@
 import { ReactComponent as GreyIconSVG } from "assets/GreyIcon.svg";
 import styles from "./Followers.module.scss";
 
-export const Follower = () => {
+export const Follower = ({ value }) => {
   return (
     <div className={styles.followContainer}>
       <GreyIconSVG className={`${styles.userAvatar} cursorPointer`} />
       <div className={styles.followTextContainer}>
         <header className={styles.followHeader}>
-          <p className={styles.userName}>Apple</p>
+          <p className={styles.userName}>{value.name}</p>
           <button className={styles.toFollowButton}>跟隨</button>
         </header>
-        <p className={styles.comment}>
-          Nulla Lorem mollit cupidatat irure. Laborum magna nulla duis ullamco
-          cillum dolor. Voluptate exercitation incididunt aliquip deserunt
-          reprehenderit elit laborum.
-        </p>
+        <p className={styles.comment}>{value.introduction}</p>
       </div>
     </div>
   );
 };
 
-export const Followers = () => {
+export const Followers = ({ followers }) => {
   return (
     <div className={styles.followsCollection}>
-      <Follower />
-      <Follower />
-      <Follower />
-      <Follower />
-      <Follower />
+      {followers.map((follower) => {
+        return <Follower key={follower.id} value={follower} />;
+      })}
     </div>
   );
 };
