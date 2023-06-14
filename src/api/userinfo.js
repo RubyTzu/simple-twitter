@@ -1,7 +1,6 @@
 import axios from "axios";
 const token = localStorage.getItem("authToken");
 const baseUrl = "https://twitter-2023.herokuapp.com";
-// const id = localStorage.getItem("id");
 export const getProfile = async (id) => {
   try {
     const { data } = await axios.get(`${baseUrl}/api/users/${id}`, {
@@ -36,7 +35,7 @@ export const updateProfile = async (user) => {
   console.log(user);
   try {
     const data = axios.put(
-      `${baseUrl}/api/users/${id}`,
+      `${baseUrl}/api/users/${id}?setting=account`,
       {
         account: user.account,
         name: user.name,

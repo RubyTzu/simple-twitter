@@ -25,11 +25,11 @@ export const UserCard = ({ value }) => {
         <div className={styles.userActivity}>
           <Link className={styles.review} to="/">
             <ReviewIcon className={styles.icon} />
-            <p> 1.5k</p>
+            <p>{value.tweetsCount}</p>
           </Link>
           <Link className={styles.heart} to="/">
             <LikeSVG className={styles.icon} />
-            <p> 20k</p>
+            <p>{value.likesCount}</p>
           </Link>
         </div>
 
