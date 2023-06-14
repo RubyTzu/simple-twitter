@@ -3,9 +3,10 @@ import CommentSVG from "assets/Comment.svg";
 import LikeSVG from "assets/Like.svg";
 import styles from "./Tweets.module.scss";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
-import { AddReplyModal } from "./modals/AddReplyModal";
-import { createReplyTweet } from "../api/tweet";
+//TODO:要處理AddReplyModal時將下面三個comment打開
+// import { useState } from "react";
+// import { AddReplyModal } from "./modals/AddReplyModal";
+// import { createReplyTweet } from "../api/tweet";
 
 const getId = () => {
   const id = localStorage.getItem("id");
@@ -14,22 +15,24 @@ const getId = () => {
 
 export const Tweet = ({ value, onClick }) => {
   let navigate = useNavigate();
-  const [inputValue, setInputValue] = useState("");
-  const [selectTweetId, setSelectTweetId] = useState(104);
+  //TODO:要處理AddReplyModal時將下面四個comment打開
+  // const [selectTweetId, setSelectTweetId] = useState(104);
+  // const [inputValue, setInputValue] = useState("");
+  // const [isOpen, setIsOpen] = useState(false);
 
-  const handleAddTweet = async () => {
-    if (inputValue.length === 0 || inputValue.length > 140) {
-      return;
-    } else {
-      await createReplyTweet({
-        comment: inputValue,
-        id: selectTweetId,
-      });
+  // const handleAddTweet = async () => {
+  //   if (inputValue.length === 0 || inputValue.length > 140) {
+  //     return;
+  //   } else {
+  //     await createReplyTweet({
+  //       comment: inputValue,
+  //       id: selectTweetId,
+  //     });
 
-      const reload = () => window.location.reload();
-      reload();
-    }
-  };
+  //     const reload = () => window.location.reload();
+  //     reload();
+  //   }
+  // };
 
   const formatTimestamp = (timestamp) => {
     const now = new Date();
@@ -96,22 +99,25 @@ export const Tweet = ({ value, onClick }) => {
         <div className={styles.tweetTextContainer}>
           <header className={styles.tweetHeader}>
             <p className={styles.userName}>{value.name}</p>
-            <p
-              className={styles.userNickName}
-            >{`@${value.name}・${formatTimestamp(value.createdAt)}`}</p>
+            <p className={styles.userNickName}>{`@${
+              value.name
+            }・${formatTimestamp(value.createdAt)}`}</p>
           </header>
           <p className={styles.comment}>{value.description}</p>
           <footer className={styles.tweetFooter}>
             <Link
               type="Link"
               className={`${styles.replyButton}`}
-              data-bs-toggle="modal"
-              data-bs-target={`#addReplyModal${value.id}`}
+              //TODO:要處理AddReplyModal時將下面兩個comment打開
+              // data-bs-toggle="modal"
+              // data-bs-target={`#addReplyModal${value.id}`}
               onClick={(e) => {
                 e.stopPropagation();
-                setSelectTweetId(value.id);
                 console.log(value.id);
-                console.log(`comment button :${selectTweetId}`);
+                //TODO:要處理AddReplyModal時將下面三個comment打開
+                // setSelectTweetId(value.id);
+                // setIsOpen(true);
+                // console.log(`comment button :${selectTweetId}`);
               }}
             >
               <img
@@ -121,14 +127,17 @@ export const Tweet = ({ value, onClick }) => {
               />
               <p className={styles.counts}>{value.repliesCount}</p>
             </Link>
-            <AddReplyModal
-              onClick={handleAddTweet}
-              onChange={(value) => {
-                setInputValue(value);
-              }}
-              inputValue={inputValue}
-              tweetId={value.id}
-            />
+            {/* TODO:要處理AddReplyModal時將下面一個comment打開 */}
+            {/* {isOpen && (
+              <AddReplyModal
+                onClick={handleAddTweet}
+                onChange={(value) => {
+                  setInputValue(value);
+                }}
+                inputValue={inputValue}
+                tweetId={value.id}
+              />
+            )} */}
             <Link
               className={styles.likeButton}
               href="/"
@@ -153,15 +162,6 @@ export const Tweet = ({ value, onClick }) => {
   );
 };
 
-// 這個好像都沒用到?
-// export const Tweets = ({ value }) => {
-//   console.log(value);
-//   return (
-//     <div className={styles.tweetsCollection}>
-//       <Tweet value={value} />
-//     </div>
-//   );
-// };
 
 export const UserTweets = ({ value }) => {
   return (

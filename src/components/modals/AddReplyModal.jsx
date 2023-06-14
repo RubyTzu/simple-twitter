@@ -27,11 +27,13 @@ export const AddReplyModal = ({
       await tweetId;
       setSingleTweet(await getSingleTweet(tweetId));
     };
+    console.log(`AddReplyModal useEffect 的showAlert ${tweetId}`);
     showPage();
   }, [tweetId]);
 
   useEffect(() => {
     // console.log(showAlert);
+    console.log(`AddReplyModal useEffect 的showAlert ${showAlert}`);
   }, [showAlert]);
 
   return (

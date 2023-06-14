@@ -14,7 +14,7 @@ export const AddTweetModal = ({ onClick, onChange, inputValue }) => {
 
   useEffect(() => {
     
-    // console.log(showAlert);
+    // console.log(`AddTweetModal useEffect 的showAlert ${showAlert}`);
   }, [showAlert]);
 
   return (
