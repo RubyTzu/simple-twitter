@@ -10,7 +10,7 @@ export const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [passwordCheck, setPasswordCheck] = useState("");
+  const [checkPassword, setCheckPassword] = useState("");
   const navigate = useNavigate();
 
   const handleRegister = async () => {
@@ -18,7 +18,7 @@ export const Register = () => {
     if (name.length === 0) return;
     if (email.length === 0) return;
     if (password.length === 0) return;
-    if (passwordCheck.length === 0) return;
+    if (checkPassword.length === 0) return;
 
     try {
       const success = await register({
@@ -26,7 +26,7 @@ export const Register = () => {
         name,
         email,
         password,
-        passwordCheck,
+        checkPassword,
       });
       console.log(success);
       if (success) {
@@ -89,8 +89,8 @@ export const Register = () => {
       <div className={styles.inputContainer}>
         <AuthInput
           type="password"
-          value={passwordCheck}
-          onChange={(e) => setPasswordCheck(e.target.value)}
+          value={checkPassword}
+          onChange={(e) => setCheckPassword(e.target.value)}
           label="密碼確認"
           placeholder="請再次輸入密碼"
           onKeyDown={handleRegister}

@@ -7,13 +7,18 @@ import { Link, useNavigate } from "react-router-dom";
 // import { useState } from "react";
 // import { AddReplyModal } from "./modals/AddReplyModal";
 // import { createReplyTweet } from "../api/tweet";
-
+import { useClickLike } from "context/clickLikeContext";
+// import { getTweets } from "api/tweet";
+import { useState } from "react";
+const id = localStorage.getItem("id");
 const getId = () => {
-  const id = localStorage.getItem("id");
   return Number(id);
 };
 
-export const Tweet = ({ value, onClick }) => {
+export const Tweet = ({ value }) => {
+  const [likesCount, setLikesCount] = useState(value.likesCount);
+  const [isLiked, setIsLiked] = useState(value.isLiked);
+  const { clickLike } = useClickLike();
   let navigate = useNavigate();
   //TODO:要處理AddReplyModal時將下面四個comment打開
   // const [selectTweetId, setSelectTweetId] = useState(104);
@@ -150,10 +155,15 @@ export const Tweet = ({ value, onClick }) => {
                 alt="LikeSVG"
                 className={styles.likeIcon}
                 data-id={value.id}
-                onClick={(e) => onClick(e, value.isLiked)}
+                onClick={async (e) => {
+                  const res = await clickLike(e, isLiked);
+                  setLikesCount(likesCount + res);
+                  setIsLiked(!isLiked);
+                  console.log(likesCount);
+                }}
               />
 
-              <p className={styles.counts}>{value.likesCount}</p>
+              <p className={styles.counts}>{likesCount}</p>
             </Link>
           </footer>
         </div>
@@ -161,7 +171,6 @@ export const Tweet = ({ value, onClick }) => {
     </div>
   );
 };
-
 
 export const UserTweets = ({ value }) => {
   return (

@@ -20,14 +20,14 @@ export const register = async ({
   name,
   email,
   password,
-  passwordCheck,
+  checkPassword,
 }) => {
   const { data } = await axios.post(`${baseUrl}/api/users`, {
     account,
     name,
     email,
     password,
-    passwordCheck,
+    checkPassword,
   });
   const status = data.status;
   if (status === "success") {
