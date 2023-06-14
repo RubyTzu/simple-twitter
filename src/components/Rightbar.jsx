@@ -60,7 +60,8 @@ export const Rightbar = () => {
     };
 
     showPopular();
-    // console.log(`inside useEffect ${idFromButtonClick}`);
+
+    // console.log(`Rightbar useEffect idFromButtonClick ${idFromButtonClick}`);
   }, [token, idFromButtonClick]);
 
   return (

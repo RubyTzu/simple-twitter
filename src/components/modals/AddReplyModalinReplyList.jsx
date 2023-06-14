@@ -19,12 +19,14 @@ export const AddReplyModalinReplyList = ({ onClick, onChange, inputValue }) => {
   useEffect(() => {
     const showPage = async () => {
       setSingleTweet(await getSingleTweet(tweetId));
+      // console.log(`AddReplyModalinReplyList useEffect 的showAlert ${tweetId}`);
     };
     showPage();
   }, [tweetId]);
 
   useEffect(() => {
-    console.log(showAlert);
+    // console.log(showAlert);
+    // console.log(`AddReplyModalinReplyList useEffect 的showAlert ${showAlert}`);
   }, [showAlert]);
 
   return (

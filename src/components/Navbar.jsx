@@ -49,6 +49,7 @@ export const Navbar = () => {
 
   useEffect(() => {
     setActivePage(location.pathname);
+    // console.log(`Navbar useEffect的location:${location.pathname}`);
   }, [location]);
 
   const handleStyleChange = () => {
