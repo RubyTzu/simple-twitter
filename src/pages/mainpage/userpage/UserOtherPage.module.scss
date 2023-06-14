@@ -102,18 +102,31 @@
   }
 }
 
-.isFollowingBtn {
-  margin: 0;
-  width: 96px;
+.toNotFollowButton {
+    width: 96px;
   height: 40px;
+  margin: auto 0px;
   border-radius: 50px;
   background-color: var(--major);
-  border: 1px solid var(--major);
+  border: none;
   color: var(--white);
   font-size: 16px;
-  line-height: 40px;
   cursor: pointer;
 }
+
+.toFollowButton {
+  width: 64px;
+  height: 40px;
+  margin: auto 0px auto 0px;
+  border-radius: 50px;
+  background-color: var(--white);
+  border: 1px solid var(--major);
+  color: var(--major);
+  font-size: 16px;
+  cursor: pointer;
+}
+
+
 
 .userinfo {
   font-family: "Noto Sans TC", sans-serif;
