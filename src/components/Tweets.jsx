@@ -160,6 +160,7 @@ export const Tweet = ({ value }) => {
                   setLikesCount(likesCount + res);
                   setIsLiked(!isLiked);
                   console.log(likesCount);
+                  console.log(isLiked);
                 }}
               />
 

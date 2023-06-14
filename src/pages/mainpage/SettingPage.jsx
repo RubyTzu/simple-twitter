@@ -17,6 +17,10 @@ export const SettingPage = () => {
       alert("請確認兩次密碼輸入一致");
       return;
     }
+    if (user.name.length > 50) {
+      alert("名稱超過50字元");
+      return;
+    }
     console.log(user);
     const res = await updateProfile(user);
     console.log(res);
@@ -58,6 +62,10 @@ export const SettingPage = () => {
               });
             }}
           />
+          <span className={styles.limit}>
+            <p>字數超出上限!</p>
+            <p>0/50</p>
+          </span>
         </div>
         <div className={styles.inputContainer}>
           <AuthInput
