@@ -5,13 +5,9 @@ import LikePress from "assets/LikePress.svg";
 import styles from "./Tweets.module.scss";
 import { Link, useNavigate } from "react-router-dom";
 //TODO:要處理AddReplyModal時將下面三個comment打開
-<<<<<<< HEAD
+
 import { useState } from "react";
-=======
 
-import { useRef, useState } from "react";
-
->>>>>>> 4599cfc510f475617a825c1bdf2c717cc3dee936
 import { AddReplyModal } from "./modals/AddReplyModal";
 import { createReplyTweet } from "../api/tweet";
 import { useClickLike } from "context/clickLikeContext";
@@ -128,13 +124,9 @@ export const Tweet = ({ value }) => {
                 console.log(value.id);
                 //TODO:要處理AddReplyModal時將下面三個comment打開
                 setSelectTweetId(value.id);
-                const open = () => (isOpen.current = true);
-                await open();
-<<<<<<< HEAD
-=======
+
                 setShowModal(true);
                 // setIsOpen(true);
->>>>>>> 4599cfc510f475617a825c1bdf2c717cc3dee936
 
                 console.log(`comment button :${selectTweetId}`);
               }}
