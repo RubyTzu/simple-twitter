@@ -39,7 +39,15 @@
   border-bottom: 2px solid #657786;
   border-radius: 2px;
 }
-
+.limit {
+  display: flex;
+  justify-content: space-between;
+  p {
+    display: none;
+    color: #fc5a5a;
+    font-size: 12px;
+  }
+}
 .btn {
   width: 88px;
   height: 46px;

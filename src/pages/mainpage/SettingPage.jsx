@@ -9,12 +9,26 @@ export const SettingPage = () => {
   useEffect(() => {
     const showPage = async () => setUser(await getProfile(id));
     showPage();
+    console.log("3600 test from setting page");
   }, []);
 
   const handleSave = async () => {
-    await updateProfile(user);
-    const refresh = () => window.location.reload(true);
-    refresh();
+    if (user.password !== user.checkPassword) {
+      alert("請確認兩次密碼輸入一致");
+      return;
+    }
+    if (user.name.length > 50) {
+      alert("名稱超過50字元");
+      return;
+    }
+    console.log(user);
+    const res = await updateProfile(user);
+    console.log(res);
+    if (res) {
+      alert("已成功更新");
+      const refresh = () => window.location.reload(true);
+      refresh();
+    }
   };
   return (
     <>
@@ -48,6 +62,10 @@ export const SettingPage = () => {
               });
             }}
           />
+          <span className={styles.limit}>
+            <p>字數超出上限!</p>
+            <p>0/50</p>
+          </span>
         </div>
         <div className={styles.inputContainer}>
           <AuthInput
@@ -68,12 +86,12 @@ export const SettingPage = () => {
             label="密碼"
             value=""
             placeholder="請設定密碼"
-            // onChange={(e) => {
-            //   setUser({
-            //     ...user,
-            //     password: e.target.value,
-            //   });
-            // }}
+            onChange={(e) => {
+              setUser({
+                ...user,
+                password: e.target.value,
+              });
+            }}
           />
         </div>
         <div className={styles.inputContainer}>
@@ -82,12 +100,12 @@ export const SettingPage = () => {
             label="密碼再確認"
             value=""
             placeholder="請再次輸入密碼"
-            // onChange={(e) => {
-            //   setUser({
-            //     ...user,
-            //     passwordCheck: e.target.value,
-            //   });
-            // }}
+            onChange={(e) => {
+              setUser({
+                ...user,
+                checkPassword: e.target.value,
+              });
+            }}
           />
         </div>
         <button className={styles.btn} onClick={handleSave}>

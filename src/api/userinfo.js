@@ -40,10 +40,12 @@ export const updateProfile = async (user) => {
         account: user.account,
         name: user.name,
         email: user.email,
-        password: "12345678",
-        passwordCheck: "12345678",
+        // password: user.password,
+        // passwordCheck: user.passwordCheck,
+        password: user.password,
+        checkPassword: user.checkPassword,
         introduction: user.introduction,
-        avatar: null,
+        // avatar: null,
       },
       {
         headers: {

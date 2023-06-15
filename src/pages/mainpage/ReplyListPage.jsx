@@ -1,11 +1,15 @@
 import { ReactComponent as GreyIconSVG } from "assets/GreyIcon.svg";
 import { ReactComponent as BackSVG } from "assets/Back.svg";
 import { ReactComponent as CommentSVG } from "assets/Comment.svg";
-import { ReactComponent as LikeSVG } from "assets/Like.svg";
+// import { ReactComponent as LikeSVG } from "assets/Like.svg";
+import LikeSVG from "assets/Like.svg";
+
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { TweetReadOnly } from "components/TweetsReadOnly";
 import styles from "./ReplyListPage.module.scss";
 import { AddReplyModalinReplyList } from "components/modals/AddReplyModalinReplyList";
+import { useClickLike } from "context/clickLikeContext";
+
 import {
   getSingleTweet,
   getSingleTweetReplies,
@@ -20,6 +24,7 @@ export const ReplyListPage = () => {
   const [replies, setReplies] = useState([]);
   const { tweetId } = useParams();
   const [inputValue, setInputValue] = useState("");
+  const { clickLike } = useClickLike();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -55,7 +60,7 @@ export const ReplyListPage = () => {
       hour: "2-digit",
       minute: "2-digit",
     });
-    
+
     return `${formattedTime}・${formattedDate}`;
   };
 
@@ -113,7 +118,18 @@ export const ReplyListPage = () => {
               />
 
               <Link href="/">
-                <LikeSVG className={styles.feedbackButton} />
+                <img
+                  src={LikeSVG}
+                  alt="Likebtn"
+                  className={styles.feedbackButton}
+                  data-id={singleTweet.id}
+                  //等後端補tweet中的isLiked
+                  onClick={async (e) => {
+                    console.log(singleTweet.isLiked);
+                    const res = await clickLike(e, singleTweet.isLiked);
+                    console.log(res);
+                  }}
+                />
               </Link>
             </div>
           </div>

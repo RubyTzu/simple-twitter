@@ -4,7 +4,7 @@ import { Tweet } from "components/Tweets";
 import styles from "./HomePage.module.scss";
 import { useEffect, useRef, useState } from "react";
 
-import { getTweets, tweetLike, tweetUnLike, createTweet } from "api/tweet";
+import { getTweets, createTweet } from "api/tweet";
 import { getProfile } from "api/userinfo";
 import { useAuth } from "context/authContext";
 import { useNavigate } from "react-router-dom";
@@ -30,15 +30,10 @@ export const HomePage = () => {
       userAvatar.current = avatar;
     };
     const showTweets = async () => setTweets(await getTweets(id));
+    console.log("3600 test from HomePage");
     showUserAvatar();
     showTweets();
   }, [userAvatar]);
-
-  const handleClickLike = async (e, isLiked) => {
-    const tweetId = e.target.dataset.id;
-    isLiked ? await tweetUnLike(tweetId) : await tweetLike(tweetId);
-    setTweets(await getTweets(id));
-  };
 
   useEffect(() => {
     // console.log(showAlert);
@@ -107,9 +102,7 @@ export const HomePage = () => {
           </div>
         </div>
         {tweets.map((tweet) => {
-          return (
-            <Tweet key={tweet.id} value={tweet} onClick={handleClickLike} />
-          );
+          return <Tweet key={tweet.id} value={tweet} />;
         })}
       </div>
     </>

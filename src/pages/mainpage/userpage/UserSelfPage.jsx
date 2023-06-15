@@ -18,7 +18,6 @@ export const UserSelfPage = () => {
   const { userId } = useParams();
   const navigate = useNavigate();
 
-
   useEffect(() => {
     const showPage = async () => {
       setProfile(await getProfile(userId));
@@ -27,6 +26,7 @@ export const UserSelfPage = () => {
       setReplies(await getUserReplies(userId));
       setLikedTweets(await getUserLikedTweets(userId));
     };
+    console.log("3600 test from UserSelfPage");
     showPage();
   }, [userId]);
 
