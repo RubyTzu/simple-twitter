@@ -6,6 +6,7 @@ import { getTweets, createTweet } from "api/tweet";
 import { useAuth } from "context/authContext";
 import { useNavigate } from "react-router-dom";
 import { getProfile } from "api/userinfo";
+import { useCurrentUser } from "context/currentUserContext";
 
 export const HomePage = () => {
   const [tweets, setTweets] = useState([]);
@@ -15,7 +16,7 @@ export const HomePage = () => {
   const [avatar, setAvatar] = useState("");
   const id = localStorage.getItem("id");
   const navigate = useNavigate();
-
+  // const { currentUser } = useCurrentUser();
   useEffect(() => {
     if (!isAuthenticated) {
       navigate("/login");
@@ -31,6 +32,7 @@ export const HomePage = () => {
     const showTweets = async () => setTweets(await getTweets(id));
     showAvatar();
     showTweets();
+    // console.log(currentUser.avatar === avatar);
   }, [id]);
 
   useEffect(() => {
