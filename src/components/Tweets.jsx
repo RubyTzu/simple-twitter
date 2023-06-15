@@ -105,7 +105,7 @@ export const Tweet = ({ value }) => {
           <header className={styles.tweetHeader}>
             <p className={styles.userName}>{value.name}</p>
             <p className={styles.userNickName}>{`@${
-              value.name
+              value.account
             }・${formatTimestamp(value.createdAt)}`}</p>
           </header>
           <p className={styles.comment}>{value.description}</p>

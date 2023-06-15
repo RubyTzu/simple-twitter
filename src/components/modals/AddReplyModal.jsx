@@ -22,6 +22,38 @@ export const AddReplyModal = ({
     e.target.style.height = `${e.target.scrollHeight}px`;
   };
 
+const formatTimestamp = (timestamp) => {
+  const now = new Date();
+  const timestampDate = new Date(timestamp);
+  const timeDifference = now - timestampDate;
+  const hours = Math.floor(timeDifference / 3600000);
+  const minutes = Math.floor(timeDifference / 60000);
+
+  // 檢查是否剛剛發布
+  if (timeDifference < 60000) {
+    // 60000 毫秒 = 1 分鐘
+    return "剛才";
+  } else if (timeDifference < 3600000) {
+    // 3600000 毫秒 = 1 小時
+    return minutes + "分鐘";
+  } else if (timeDifference < 86400000) {
+    // 86400000 毫秒 = 24 小時
+    return hours + "小時";
+  }
+
+  const formattedDate = timestampDate.toLocaleDateString("zh-TW", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+
+  return formattedDate;
+  // 範例使用
+  // const timestamp = "2023-06-13T06:07:56.000Z";
+  // const formattedTimestamp = formatTimestamp(timestamp);
+  // console.log(formattedTimestamp);
+};
+
   useEffect(() => {
     const showPage = async () => {
       await tweetId;
@@ -79,7 +111,7 @@ export const AddReplyModal = ({
                     <Link className={styles.userNickName}>
                       @{singleTweet.account}
                     </Link>
-                    ・3 小時(時間還要改)
+                    ・{formatTimestamp(singleTweet.createdAt)}
                   </p>
                 </header>
                 <p className={styles.comment}>{singleTweet.description}</p>
