@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/simple-twitter/static/css/main.ca377312.chunk.css",
-    "main.js": "/simple-twitter/static/js/main.13cb4bfd.chunk.js",
-    "main.js.map": "/simple-twitter/static/js/main.13cb4bfd.chunk.js.map",
+    "main.css": "/simple-twitter/static/css/main.b74225c3.chunk.css",
+    "main.js": "/simple-twitter/static/js/main.6d1d73bb.chunk.js",
+    "main.js.map": "/simple-twitter/static/js/main.6d1d73bb.chunk.js.map",
     "runtime-main.js": "/simple-twitter/static/js/runtime-main.f3c3839a.js",
     "runtime-main.js.map": "/simple-twitter/static/js/runtime-main.f3c3839a.js.map",
     "static/js/2.42ec0ac0.chunk.js": "/simple-twitter/static/js/2.42ec0ac0.chunk.js",
@@ -10,7 +10,7 @@
     "static/js/3.3ea0572d.chunk.js": "/simple-twitter/static/js/3.3ea0572d.chunk.js",
     "static/js/3.3ea0572d.chunk.js.map": "/simple-twitter/static/js/3.3ea0572d.chunk.js.map",
     "index.html": "/simple-twitter/index.html",
-    "static/css/main.ca377312.chunk.css.map": "/simple-twitter/static/css/main.ca377312.chunk.css.map",
+    "static/css/main.b74225c3.chunk.css.map": "/simple-twitter/static/css/main.b74225c3.chunk.css.map",
     "static/js/2.42ec0ac0.chunk.js.LICENSE.txt": "/simple-twitter/static/js/2.42ec0ac0.chunk.js.LICENSE.txt",
     "static/media/BGPhoto.e99b902a.png": "/simple-twitter/static/media/BGPhoto.e99b902a.png",
     "static/media/Back.771ebd02.svg": "/simple-twitter/static/media/Back.771ebd02.svg",
@@ -22,7 +22,6 @@
     "static/media/Home.1ca3cb75.svg": "/simple-twitter/static/media/Home.1ca3cb75.svg",
     "static/media/Icon.f00c543a.svg": "/simple-twitter/static/media/Icon.f00c543a.svg",
     "static/media/Like.9965b72d.svg": "/simple-twitter/static/media/Like.9965b72d.svg",
-    "static/media/LikePress.5617c9f5.svg": "/simple-twitter/static/media/LikePress.5617c9f5.svg",
     "static/media/LogOut.e7050f39.svg": "/simple-twitter/static/media/LogOut.e7050f39.svg",
     "static/media/Photo.c9d0d6dc.png": "/simple-twitter/static/media/Photo.c9d0d6dc.png",
     "static/media/ReviewIcon.b81f6066.svg": "/simple-twitter/static/media/ReviewIcon.b81f6066.svg",
@@ -35,7 +34,7 @@
   "entrypoints": [
     "static/js/runtime-main.f3c3839a.js",
     "static/js/2.42ec0ac0.chunk.js",
-    "static/css/main.ca377312.chunk.css",
-    "static/js/main.13cb4bfd.chunk.js"
+    "static/css/main.b74225c3.chunk.css",
+    "static/js/main.6d1d73bb.chunk.js"
   ]
 }
