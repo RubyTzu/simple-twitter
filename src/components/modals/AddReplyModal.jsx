@@ -4,15 +4,15 @@ import initialAvatar from "assets/GreyIcon.svg";
 // import avatar from "assets/Photo.png";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import {
-  getSingleTweet,
-} from "api/tweet";
+import { getSingleTweet } from "api/tweet";
 
 export const AddReplyModal = ({
+  show,
+  onClose,
   tweetId,
   onClick,
   onChange,
-  inputValue
+  inputValue,
 }) => {
   const [showAlert, setShowAlert] = useState(false);
   const [singleTweet, setSingleTweet] = useState({});
@@ -22,37 +22,37 @@ export const AddReplyModal = ({
     e.target.style.height = `${e.target.scrollHeight}px`;
   };
 
-const formatTimestamp = (timestamp) => {
-  const now = new Date();
-  const timestampDate = new Date(timestamp);
-  const timeDifference = now - timestampDate;
-  const hours = Math.floor(timeDifference / 3600000);
-  const minutes = Math.floor(timeDifference / 60000);
+  const formatTimestamp = (timestamp) => {
+    const now = new Date();
+    const timestampDate = new Date(timestamp);
+    const timeDifference = now - timestampDate;
+    const hours = Math.floor(timeDifference / 3600000);
+    const minutes = Math.floor(timeDifference / 60000);
 
-  // 檢查是否剛剛發布
-  if (timeDifference < 60000) {
-    // 60000 毫秒 = 1 分鐘
-    return "剛才";
-  } else if (timeDifference < 3600000) {
-    // 3600000 毫秒 = 1 小時
-    return minutes + "分鐘";
-  } else if (timeDifference < 86400000) {
-    // 86400000 毫秒 = 24 小時
-    return hours + "小時";
-  }
+    // 檢查是否剛剛發布
+    if (timeDifference < 60000) {
+      // 60000 毫秒 = 1 分鐘
+      return "剛才";
+    } else if (timeDifference < 3600000) {
+      // 3600000 毫秒 = 1 小時
+      return minutes + "分鐘";
+    } else if (timeDifference < 86400000) {
+      // 86400000 毫秒 = 24 小時
+      return hours + "小時";
+    }
 
-  const formattedDate = timestampDate.toLocaleDateString("zh-TW", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
+    const formattedDate = timestampDate.toLocaleDateString("zh-TW", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
 
-  return formattedDate;
-  // 範例使用
-  // const timestamp = "2023-06-13T06:07:56.000Z";
-  // const formattedTimestamp = formatTimestamp(timestamp);
-  // console.log(formattedTimestamp);
-};
+    return formattedDate;
+    // 範例使用
+    // const timestamp = "2023-06-13T06:07:56.000Z";
+    // const formattedTimestamp = formatTimestamp(timestamp);
+    // console.log(formattedTimestamp);
+  };
 
   useEffect(() => {
     const showPage = async () => {
@@ -60,14 +60,20 @@ const formatTimestamp = (timestamp) => {
       setSingleTweet(await getSingleTweet(tweetId));
     };
     console.log(`AddReplyModal useEffect 的showAlert ${tweetId}`);
-    showPage();
-  }, [tweetId]);
+    if (show) {
+      showPage();
+    }
+  }, [tweetId, show]);
 
   useEffect(() => {
     // console.log(showAlert);
     console.log(`AddReplyModal useEffect 的showAlert ${showAlert}`);
   }, [showAlert]);
 
+  if (!show) {
+    return null;
+  } else {
+  }
   return (
     <div
       className="modal fade"
@@ -89,6 +95,7 @@ const formatTimestamp = (timestamp) => {
               className={`position-absolute ${styles.closeButton}`}
               data-bs-dismiss="modal"
               aria-label="Close"
+              onClose={onClose}
             >
               <CloseSVG />
             </Link>
@@ -119,7 +126,8 @@ const formatTimestamp = (timestamp) => {
                   回覆給
                   <Link className={styles.replyNickNameLink}>
                     <span className={styles.replyNickName}>
-                      @{singleTweet.name}
+                      {" "}
+                      @{singleTweet.account}
                     </span>
                   </Link>
                 </p>
@@ -154,6 +162,7 @@ const formatTimestamp = (timestamp) => {
             <button
               type="button"
               className={styles.tweetButton}
+              onClose={onClose}
               onClick={() => {
                 if (inputValue.length === 0 || inputValue.length > 140) {
                   setShowAlert(true);

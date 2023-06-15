@@ -32,11 +32,9 @@ export const HomePage = () => {
       if (data) {
         setTweets(data);
       }
-      // console.log(data);
     };
     showAvatar();
     showTweets();
-    // console.log(currentUser.avatar === avatar);
   }, [id]);
 
   useEffect(() => {

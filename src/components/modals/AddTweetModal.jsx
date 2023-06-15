@@ -1,11 +1,14 @@
+import { getProfile } from "api/userinfo";
 import styles from "./AddTweetModal.module.scss";
 import { ReactComponent as CloseSVG } from "assets/Close.svg";
-import avatar from "assets/Photo.png";
+import initialAvatar from "assets/GreyIcon.svg";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+const id = localStorage.getItem("id");
 
 export const AddTweetModal = ({ onClick, onChange, inputValue }) => {
   const [showAlert, setShowAlert] = useState(false);
+  const [profile, setProfile] = useState([]);
 
   const handleAddTweetHeight = (e) => {
     e.target.style.height = "inherit";
@@ -13,9 +16,15 @@ export const AddTweetModal = ({ onClick, onChange, inputValue }) => {
   };
 
   useEffect(() => {
-    
-    // console.log(`AddTweetModal useEffect 的showAlert ${showAlert}`);
-  }, [showAlert]);
+    const showPage = async () => {
+      setProfile(await getProfile(id))
+    };
+    showPage();
+  }, []);
+
+    useEffect(() => {
+      // console.log(`AddTweetModal useEffect 的showAlert ${showAlert}`);
+    }, [showAlert]);
 
   return (
     <div
@@ -45,7 +54,7 @@ export const AddTweetModal = ({ onClick, onChange, inputValue }) => {
           <div className={`modal-body ${styles.modalBody}`}>
             <img
               className={styles.addTweetAvatar}
-              src={avatar}
+              src={profile.avatar === null ? initialAvatar : profile.avatar}
               alt="avatar"
             ></img>
             <textarea
