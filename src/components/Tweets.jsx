@@ -5,7 +5,7 @@ import LikePress from "assets/LikePress.svg";
 import styles from "./Tweets.module.scss";
 import { Link, useNavigate } from "react-router-dom";
 //TODO:要處理AddReplyModal時將下面三個comment打開
-import {  useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { AddReplyModal } from "./modals/AddReplyModal";
 import { createReplyTweet } from "../api/tweet";
 import { useClickLike } from "context/clickLikeContext";
@@ -71,7 +71,6 @@ export const Tweet = ({ value }) => {
     // console.log(formattedTimestamp);
   };
 
-
   return (
     <div
       className={styles.openReplyList}
@@ -123,9 +122,9 @@ export const Tweet = ({ value }) => {
                 console.log(value.id);
                 //TODO:要處理AddReplyModal時將下面三個comment打開
                 setSelectTweetId(value.id);
-                const open = ()=> isOpen.current = true;
-                await open()
-                
+                const open = () => (isOpen.current = true);
+                await open();
+
                 console.log(`comment button :${selectTweetId}`);
               }}
             >
@@ -155,7 +154,7 @@ export const Tweet = ({ value }) => {
               }}
             >
               <img
-                src={value.isLiked ? LikePress : LikeSVG}
+                src={isLiked ? LikePress : LikeSVG}
                 alt="LikeSVG"
                 className={styles.likeIcon}
                 data-id={value.id}

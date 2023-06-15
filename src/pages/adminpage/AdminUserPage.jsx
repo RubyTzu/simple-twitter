@@ -2,9 +2,20 @@ import { useEffect, useState } from "react";
 import styles from "./AdminUserPage.module.scss";
 import { UserCard } from "components/UserCard";
 import { getUsers } from "api/admin";
+import { useNavigate } from "react-router";
+import { useAuth } from "context/authContext";
 
 export const AdminUserPage = () => {
   const [users, setUsers] = useState([]);
+  const { isAuthenticated } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate("/admin/login");
+    } else return;
+  }, [navigate, isAuthenticated]);
+
   useEffect(() => {
     const showUsersTweet = async () => setUsers(await getUsers());
     showUsersTweet();

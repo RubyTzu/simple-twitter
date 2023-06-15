@@ -8,6 +8,7 @@ import { InfoEditModal } from "components/modals/InfoEditModal";
 import { useEffect, useState } from "react";
 import { getUserLikedTweets, getUserReplies, getUserTweets } from "api/tweet";
 import { getFollowCounts, getProfile } from "api/userinfo";
+import { useAuth } from "context/authContext";
 
 export const UserSelfPage = () => {
   const [profile, setProfile] = useState([]);
@@ -16,7 +17,15 @@ export const UserSelfPage = () => {
   const [replies, setReplies] = useState([]);
   const [likedTweets, setLikedTweets] = useState([]);
   const { userId } = useParams();
+  const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate("/login");
+      return;
+    } else return;
+  }, [isAuthenticated, navigate]);
 
   useEffect(() => {
     const showPage = async () => {

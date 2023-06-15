@@ -15,6 +15,20 @@ export const login = async ({ account, password }) => {
   }
 };
 
+export const adminLogin = async ({ account, password }) => {
+  const { data } = await axios.post(`${baseUrl}/api/signin?from=back`, {
+    account,
+    password,
+  });
+  const authToken = data.token;
+  console.log("api 成功");
+  if (authToken) {
+    return { success: true, ...data };
+  } else {
+    return { success: false, ...data };
+  }
+};
+
 export const register = async ({
   account,
   name,
