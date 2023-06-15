@@ -117,8 +117,10 @@ const formatTimestamp = (timestamp) => {
                 <p className={styles.comment}>{singleTweet.description}</p>
                 <p className={styles.replyTo}>
                   回覆給
-                  <Link className={styles.replyNickName}>
-                    @{singleTweet.account}
+                  <Link className={styles.replyNickNameLink}>
+                    <span className={styles.replyNickName}>
+                      @{singleTweet.name}
+                    </span>
                   </Link>
                 </p>
               </div>
@@ -127,7 +129,11 @@ const formatTimestamp = (timestamp) => {
             <div className={styles.yourReply}>
               <img
                 className={styles.replyTweetAvatar}
-                src={avatar}
+                src={
+                  singleTweet.userAvatar !== null
+                    ? singleTweet.userAvatar
+                    : initialAvatar
+                }
                 alt="avatar"
               ></img>
               <textarea

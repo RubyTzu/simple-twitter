@@ -113,9 +113,9 @@ export const ReplyListPage = () => {
           </div>
           <p className={styles.tweetMain}>{singleTweet.description}</p>
           <div className={styles.tweetFooter}>
-            <p className={styles.time}>
+            <span className={styles.time}>
               <span>{formatTimestamp(singleTweet.createdAt)}</span>
-            </p>
+            </span>
             <p className={styles.feedbackCounts}>
               <span>
                 <b className={styles.commentCounts}>

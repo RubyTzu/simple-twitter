@@ -101,7 +101,7 @@ export const AddReplyModalinReplyList = ({ onClick, onChange, inputValue }) => {
                   <p className={styles.userName}>{singleTweet.name}</p>
                   <p className={styles.nickNameTime}>
                     <Link className={styles.userNickName}>
-                      @{singleTweet.name}
+                      @{singleTweet.account}
                     </Link>
                     ・{formatTimestamp(singleTweet.createdAt)}
                   </p>
@@ -109,8 +109,10 @@ export const AddReplyModalinReplyList = ({ onClick, onChange, inputValue }) => {
                 <p className={styles.comment}>{singleTweet.description}</p>
                 <p className={styles.replyTo}>
                   回覆給
-                  <Link className={styles.replyNickName}>
-                    @{singleTweet.name}
+                  <Link className={styles.replyNickNameLink}>
+                    <span className={styles.replyNickName}>
+                      @{singleTweet.name}
+                    </span>
                   </Link>
                 </p>
               </div>

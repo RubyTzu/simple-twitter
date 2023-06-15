@@ -5,7 +5,7 @@ import initialAvatar from "assets/GreyIcon.svg";
 import initialSelfBcg from "assets/BGPhoto.png";
 import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
-import { updateInfo } from "api/infoEdit";
+import { removeCoverPhoto, updateInfo } from "api/infoEdit";
 import { getProfile } from "api/userinfo";
 
 const id = localStorage.getItem("id");
@@ -55,16 +55,20 @@ export const InfoEditModal = () => {
       formData.append("avatar", avatarFile, "avatar.png");
     }
 
-    if (bgImageFile) {
+    if (bgImageFile && bgImageFile !== "null") {
       formData.append("coverPhoto", bgImageFile, "bg.png");
-    } else if (bgImageFile === null) {
-      formData.append("coverPhoto", "null");
-    }
+    } 
 
     await updateInfo({ formData, id });
+    
+     if (bgImageFile === "null") {
+    await removeCoverPhoto(id);
+  }
     const reload = () => window.location.reload();
     reload();
   };
+
+
 
   const handleBgImageChange = (e) => {
     const file = e.target.files[0];
@@ -83,7 +87,7 @@ export const InfoEditModal = () => {
 
   const handleRemoveBgImage = () => {
     setBgImagePreview(initialSelfBcg);
-    setBgImageFile(null);
+    setBgImageFile("null");
     console.log(bgImageFile);
   };
 
@@ -180,7 +184,7 @@ export const InfoEditModal = () => {
                   src={bgImagePreview || user.coverPhoto}
                   alt="Background"
                 /> */}
-                {bgImagePreview ? (
+                {bgImagePreview !== "null" && bgImagePreview !== null ? (
                   <img
                     className={styles.userBcgImage}
                     src={bgImagePreview || user.coverPhoto}
