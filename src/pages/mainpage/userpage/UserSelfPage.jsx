@@ -74,6 +74,7 @@ export const UserSelfPage = () => {
             data-bs-target="#infoEditModal"
             onClick={(e) => {
               e.stopPropagation();
+              console.log(profile)
             }}
           >
             編輯個人資料

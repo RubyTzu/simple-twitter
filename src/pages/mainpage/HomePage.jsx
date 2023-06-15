@@ -35,6 +35,9 @@ export const HomePage = () => {
       // console.log(data);
     };
     showAvatar();
+    const showTweets = async () => {
+      setTweets(await getTweets(id))
+    };
     showTweets();
     // console.log(currentUser.avatar === avatar);
   }, [id]);
