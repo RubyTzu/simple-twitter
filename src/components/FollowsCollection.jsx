@@ -13,7 +13,7 @@ const types = [
 
 export const FollowCollection = ({ clicked }) => {
   let typeInfos = types;
-  const [activeLink, setActiveLink] = useState(clicked);
+  const [activeLink, setActiveLink] = useState(clicked || "追隨者");
   const handleClick = (e) => {
     setActiveLink(e.target.innerText);
   };

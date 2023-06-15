@@ -2,10 +2,22 @@ import { useEffect, useState } from "react";
 import styles from "./SettingPage.module.scss";
 import { AuthInput } from "components/AuthInput";
 import { getProfile, updateProfile } from "api/userinfo";
+import { useAuth } from "context/authContext";
+import { useNavigate } from "react-router";
 const id = localStorage.getItem("id");
 
 export const SettingPage = () => {
   const [user, setUser] = useState({});
+  const { isAuthenticated } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate("/login");
+      return;
+    } else return;
+  }, [isAuthenticated, navigate]);
+
   useEffect(() => {
     const showPage = async () => setUser(await getProfile(id));
     showPage();
