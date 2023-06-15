@@ -1,23 +1,20 @@
-// import avatar from "assets/Photo.png";
 import initialAvatar from "assets/GreyIcon.svg";
 import { Tweet } from "components/Tweets";
 import styles from "./HomePage.module.scss";
 import { useEffect, useState } from "react";
-
 import { getTweets, createTweet } from "api/tweet";
-import { getProfile } from "api/userinfo";
 import { useAuth } from "context/authContext";
 import { useNavigate } from "react-router-dom";
-const id = localStorage.getItem("id");
 
 export const HomePage = () => {
-  // const userAvatar = useRef("");
   const [tweets, setTweets] = useState([]);
-  const [avatar, setAvatar] = useState(null);
   const [inputValue, setInputValue] = useState("");
   const [showAlert, setShowAlert] = useState(false);
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, payload } = useAuth();
+  const avatar = payload.avatar;
+  const id = localStorage.getItem("id");
   const navigate = useNavigate();
+
   useEffect(() => {
     if (!isAuthenticated) {
       navigate("/login");
@@ -26,16 +23,9 @@ export const HomePage = () => {
   }, [isAuthenticated, navigate]);
 
   useEffect(() => {
-    const showUserAvatar = async () => {
-      const { avatar } = await getProfile(id);
-      // userAvatar.current = avatar;
-      setAvatar(avatar);
-    };
     const showTweets = async () => setTweets(await getTweets(id));
-
-    showUserAvatar();
     showTweets();
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     console.log(showAlert);

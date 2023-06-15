@@ -1,9 +1,10 @@
 import { login, register } from "api/auth";
 import { createContext, useContext, useEffect, useState } from "react";
-// import * as jwt from "jsonwebtoken";
+import * as jwt from "jsonwebtoken";
+import { useLocation } from "react-router";
 const defaultAuthContext = {
   isAuthenticated: null,
-  currentUserId: "",
+  // currentUserId: "",
   currentUser: null,
   register: null,
   login: null,
@@ -15,7 +16,8 @@ export const useAuth = () => useContext(AuthContext);
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [payload, setPayload] = useState(null);
-  const [currentUserId, setCurrentUserId] = useState("");
+  const pathname = useLocation();
+
   useEffect(() => {
     const checkTokenExist = () => {
       const token = localStorage.getItem("authToken");
@@ -25,47 +27,17 @@ export const AuthProvider = ({ children }) => {
         return;
       } else {
         setIsAuthenticated(true);
+        const tempPayload = jwt.decode(token);
+        setPayload(tempPayload);
+        return;
       }
-      // else {
-      //   const tempPayload = jwt.decode(token);
-      //   if (tempPayload) {
-      //     setIsAuthenticated(true);
-      //     setPayload(tempPayload);
-      //   } else {
-      //     setIsAuthenticated(false);
-      //     setPayload(null);
-      //   }
-      // }
     };
     checkTokenExist();
-  }, []);
+  }, [pathname]);
 
   const value = {
     isAuthenticated: isAuthenticated,
     payload: payload,
-    currentUserId: currentUserId,
-    // login: async (data) => {
-    //   const result = await login({
-    //     account: data.account,
-    //     password: data.password,
-    //   });
-    //   const tempPayload = jwt.decode(result.token);
-
-    //   console.log(tempPayload);
-    //   if (tempPayload) {
-    //     setIsAuthenticated(true);
-    //     setPayload(tempPayload);
-    //     setCurrentUserId(tempPayload.id);
-    //     localStorage.setItem("authToken", result.token);
-    //     localStorage.setItem("id", result.id);
-    //   } else {
-    //     setPayload(null);
-    //     setIsAuthenticated(false);
-    //     setCurrentUserId("");
-    //   }
-    //   return result.success;
-    // },
-
     login: async (data) => {
       const result = await login({
         account: data.account,
@@ -74,7 +46,6 @@ export const AuthProvider = ({ children }) => {
       if (result.success) {
         setIsAuthenticated(true);
         setPayload(result.userData);
-        setCurrentUserId(result.userData.id);
         localStorage.setItem("id", result.userData.id);
         localStorage.setItem("authToken", result.token);
       }
