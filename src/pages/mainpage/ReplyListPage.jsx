@@ -3,6 +3,7 @@ import { ReactComponent as BackSVG } from "assets/Back.svg";
 import { ReactComponent as CommentSVG } from "assets/Comment.svg";
 // import { ReactComponent as LikeSVG } from "assets/Like.svg";
 import LikeSVG from "assets/Like.svg";
+import LikePress from "assets/LikePress.svg";
 
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { TweetReadOnly } from "components/TweetsReadOnly";
@@ -29,6 +30,8 @@ export const ReplyListPage = () => {
   const [replies, setReplies] = useState([]);
   const { tweetId } = useParams();
   const [inputValue, setInputValue] = useState("");
+  const [isLiked, setIsLiked] = useState(singleTweet.isLiked);
+
   const { clickLike } = useClickLike();
   const navigate = useNavigate();
 
@@ -38,7 +41,7 @@ export const ReplyListPage = () => {
       setReplies(await getSingleTweetReplies(tweetId));
     };
     showPage();
-  }, [tweetId]);
+  }, [tweetId, isLiked]);
 
   const handleAddTweet = async () => {
     if (inputValue.length === 0 || inputValue.length > 140) {
@@ -147,15 +150,14 @@ export const ReplyListPage = () => {
 
               <Link href="/">
                 <img
-                  src={LikeSVG}
+                  src={singleTweet.isLiked ? LikePress : LikeSVG}
                   alt="Likebtn"
                   className={styles.feedbackButton}
                   data-id={singleTweet.id}
                   //等後端補tweet中的isLiked
                   onClick={async (e) => {
-                    console.log(singleTweet.isLiked);
-                    const res = await clickLike(e, singleTweet.isLiked);
-                    console.log(res);
+                    await clickLike(e, singleTweet.isLiked);
+                    setIsLiked(singleTweet.isLiked);
                   }}
                 />
               </Link>
