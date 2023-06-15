@@ -1,8 +1,10 @@
 import { ReactComponent as GreyIconSVG } from "assets/GreyIcon.svg";
 import styles from "./Followings.module.scss";
 import { deleteFollow } from "api/follow";
+import { useState } from "react";
 
-export const Following = ({ value }) => {
+export const Following = ({ value, setActiveLink }) => {
+  const [isFollowing, setIsFollowing] = useState(true);
   return (
     <div className={styles.followContainer}>
       <GreyIconSVG className={`${styles.userAvatar} cursorPointer`} />
@@ -10,16 +12,16 @@ export const Following = ({ value }) => {
         <header className={styles.followHeader}>
           <p className={styles.userName}>{value.name}</p>
           <button
-            className={styles.toNotFollowButton}
+            className={
+              isFollowing ? styles.toNotFollowButton : styles.toFollowButton
+            }
             onClick={async () => {
-              const reload = () => window.location.reload;
-              await deleteFollow(value.id);
-              reload();
+              await deleteFollow(value.followingId);
+              setIsFollowing(!isFollowing);
             }}
           >
-            正在跟隨
+            {isFollowing ? "正在跟隨" : "跟隨"}
           </button>
-          {console.log(value.Followship.followingId)}
         </header>
         <p className={styles.comment}>{value.introduction}</p>
       </div>
