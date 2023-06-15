@@ -18,7 +18,6 @@ export const UserSelfPage = () => {
   const { userId } = useParams();
   const navigate = useNavigate();
 
-
   useEffect(() => {
     const showPage = async () => {
       setProfile(await getProfile(userId));
@@ -71,7 +70,7 @@ export const UserSelfPage = () => {
             <span>
               <b>{profile.name}</b>
             </span>
-            <span className={styles.nickName}>@{profile.name}</span>
+            <span className={styles.nickName}>@{profile.account}</span>
             <span className={styles.description}>
               {profile.introduction === null
                 ? "*使用者無簡介*"

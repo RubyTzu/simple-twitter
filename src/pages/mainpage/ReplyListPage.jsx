@@ -1,4 +1,4 @@
-import { ReactComponent as GreyIconSVG } from "assets/GreyIcon.svg";
+import initialAvatar from "assets/GreyIcon.svg";
 import { ReactComponent as BackSVG } from "assets/Back.svg";
 import { ReactComponent as CommentSVG } from "assets/Comment.svg";
 import { ReactComponent as LikeSVG } from "assets/Like.svg";
@@ -14,6 +14,11 @@ import {
 import { useEffect, useState } from "react";
 // import { TweetsReadOnly } from "components/TweetsReadOnly";
 // import moment from "moment/moment";
+
+const getId = () => {
+  const id = localStorage.getItem("id");
+  return Number(id);
+};
 
 export const ReplyListPage = () => {
   const [singleTweet, setSingleTweet] = useState({});
@@ -55,7 +60,7 @@ export const ReplyListPage = () => {
       hour: "2-digit",
       minute: "2-digit",
     });
-    
+
     return `${formattedTime}・${formattedDate}`;
   };
 
@@ -70,18 +75,41 @@ export const ReplyListPage = () => {
         </header>
         <div className={styles.tweetSection}>
           <div className={styles.tweetHeader}>
-            <GreyIconSVG className={`${styles.tweetAvatar} cursorPointer`} />
+            {getId() === singleTweet.UserId ? (
+              <Link to={`/userself/${singleTweet.UserId}`}>
+                <img
+                  className={`${styles.tweetAvatar} cursorPointer`}
+                  src={
+                    singleTweet.avatar !== null
+                      ? singleTweet.avatar
+                      : initialAvatar
+                  }
+                  alt="avatar"
+                ></img>
+              </Link>
+            ) : (
+              <Link to={`/userother/${singleTweet.UserId}`}>
+                <img
+                  className={`${styles.tweetAvatar} cursorPointer`}
+                  src={
+                    singleTweet.avatar !== null
+                      ? singleTweet.avatar
+                      : initialAvatar
+                  }
+                  alt="avatar"
+                ></img>
+              </Link>
+            )}
+
             <div className={styles.userInfos}>
               <p className={styles.userName}>{singleTweet.name}</p>
-              <p className={styles.userNickName}>@{singleTweet.name}</p>
+              <p className={styles.userNickName}>@{singleTweet.account}</p>
             </div>
           </div>
           <p className={styles.tweetMain}>{singleTweet.description}</p>
           <div className={styles.tweetFooter}>
             <p className={styles.time}>
-              {/* <span>上午 10:05(時間還要改)</span> */}
               <span>{formatTimestamp(singleTweet.createdAt)}</span>
-              {/* <span>・2021年11月10日(時間還要改)</span> */}
             </p>
             <p className={styles.feedbackCounts}>
               <span>

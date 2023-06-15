@@ -9,7 +9,7 @@ import { UserTweetsCollection } from "components/UserTweetsCollection";
 import { useEffect, useState } from "react";
 import { getUserLikedTweets, getUserReplies, getUserTweets } from "api/tweet";
 import { getFollowCounts, getProfile } from "api/userinfo";
-// import { addFollow, deleteFollow } from "api/follow";
+import { addFollow, deleteFollow } from "api/follow";
 
 export const UserOtherPage = () => {
   const [profile, setProfile] = useState([]);
@@ -19,7 +19,33 @@ export const UserOtherPage = () => {
   const [likedTweets, setLikedTweets] = useState([]);
   const { userId } = useParams();
   const navigate = useNavigate();
-  // const [idFromButtonClick, setIdFromButtonClick] = useState(null);
+  const [idFromButtonClick, setIdFromButtonClick] = useState(null);
+
+  const handleAddFollowing = async (userId) => {
+    console.log(`add following ${userId}`);
+    try {
+      await addFollow(userId);
+      setIdFromButtonClick(userId);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleCancelFollowing = async (userId) => {
+    console.log(`cancel following ${userId}`);
+    try {
+      await deleteFollow(userId);
+      setIdFromButtonClick(userId);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleClick = async (id) => {
+    setIdFromButtonClick(Date.now());
+    // console.log(`inside handleClick ${id}`);
+    //  console.log(`inside handleClick 2 ${idFromButtonClick}`);
+  };
 
   useEffect(() => {
     const showPage = async () => {
@@ -28,35 +54,10 @@ export const UserOtherPage = () => {
       setTweets(await getUserTweets(userId));
       setReplies(await getUserReplies(userId));
       setLikedTweets(await getUserLikedTweets(userId));
+      console.log(idFromButtonClick);
     };
     showPage();
-  }, [userId]);
-
-  //  const handleAddFollowing = async (userId) => {
-  //    console.log(`add following ${userId}`);
-  //    try {
-  //      await addFollow(userId);
-  //      setIdFromButtonClick(userId);
-  //    } catch (error) {
-  //      console.error(error);
-  //    }
-  //  };
-
-  //  const handleCancelFollowing = async (userId) => {
-  //    console.log(`cancel following ${userId}`);
-  //    try {
-  //      await deleteFollow(userId);
-  //      setIdFromButtonClick(userId);
-  //    } catch (error) {
-  //      console.error(error);
-  //    }
-  //  };
-
-  //    const handleClick = async (id) => {
-  //      setIdFromButtonClick(Date.now());
-  //      // console.log(`inside handleClick ${id}`);
-  //      //  console.log(`inside handleClick 2 ${idFromButtonClick}`);
-  //    };
+  }, [userId, idFromButtonClick]);
 
   return (
     <>
@@ -92,7 +93,28 @@ export const UserOtherPage = () => {
             <div className={styles.userinfoBtn}>
               <NotifIcon className={styles.icon} />
             </div>
-            <button className={styles.toNotFollowButton}>正在跟隨</button>
+            {/* <button className={styles.toNotFollowButton}>正在跟隨</button> */}
+            <button
+              className={
+                profile.isFollowing
+                  ? styles.toNotFollowButton
+                  : styles.toFollowButton
+              }
+              onClick={async () => {
+                const reload = () => window.location.reload();
+                if (!profile.isFollowing) {
+                  await handleAddFollowing(profile.id);
+                  reload();
+                } else {
+                  await handleCancelFollowing(profile.id);
+                  reload();
+                }
+                await handleClick(profile.id);
+                reload();
+              }}
+            >
+              {profile.isFollowing ? "正在跟隨" : "跟隨"}
+            </button>
           </div>
           <div className={styles.userinfo}>
             <span>

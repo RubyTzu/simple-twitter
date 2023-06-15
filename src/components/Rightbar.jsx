@@ -1,7 +1,7 @@
 import initialAvatar from "assets/GreyIcon.svg";
 import styles from "./Rightbar.module.scss";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { addFollow, deleteFollow } from "api/follow";
 
@@ -38,7 +38,7 @@ export const Rightbar = () => {
   };
 
   const handleClick = async (id) => {
-    setIdFromButtonClick(Date.now());
+    await setIdFromButtonClick(Date.now());
     // console.log(`inside handleClick ${id}`);
     //  console.log(`inside handleClick 2 ${idFromButtonClick}`);
   };
@@ -52,7 +52,8 @@ export const Rightbar = () => {
           },
         });
         setPopularList(data);
-
+       
+console.log(idFromButtonClick);
         // console.log(data.data);
       } catch (error) {
         console.error(error);
@@ -72,53 +73,65 @@ export const Rightbar = () => {
         <div className={styles.popularUserCollection}>
           {popularList.map((popular) => {
             return (
-              <div className={styles.popularUser} key={popular.id}>
-                {getId() === popular.id ? (
-                  <Link to={`/userself/${popular.id}`}>
-                    <img
-                      className={`${styles.popularUserAvatar} cursorPointer`}
-                      src={
-                        popular.avatar !== null ? popular.avatar : initialAvatar
-                      }
-                      alt="avatar"
-                    ></img>
-                  </Link>
-                ) : (
-                  <Link to={`/userother/${popular.id}`}>
-                    <img
-                      className={`${styles.popularUserAvatar} cursorPointer`}
-                      src={
-                        popular.avatar !== null ? popular.avatar : initialAvatar
-                      }
-                      alt="avatar"
-                    ></img>
-                  </Link>
-                )}
+              <Fragment key={popular.id}>
+                {getId() !== popular.id && (
+                  <div className={styles.popularUser}>
+                    {getId() === popular.id ? (
+                      <Link to={`/userself/${popular.id}`}>
+                        <img
+                          className={`${styles.popularUserAvatar} cursorPointer`}
+                          src={
+                            popular.avatar !== null
+                              ? popular.avatar
+                              : initialAvatar
+                          }
+                          alt="avatar"
+                        ></img>
+                      </Link>
+                    ) : (
+                      <Link to={`/userother/${popular.id}`}>
+                        <img
+                          className={`${styles.popularUserAvatar} cursorPointer`}
+                          src={
+                            popular.avatar !== null
+                              ? popular.avatar
+                              : initialAvatar
+                          }
+                          alt="avatar"
+                        ></img>
+                      </Link>
+                    )}
 
-                <div className={styles.userInfos}>
-                  <p className={styles.popularUserName}>{popular.name}</p>
-                  <Link className={styles.popularUserNickName} to="#">
-                    {`@${popular.name}`}
-                  </Link>
-                </div>
-                <button
-                  className={
-                    popular.isFollowing
-                      ? styles.toNotFollowButton
-                      : styles.toFollowButton
-                  }
-                  onClick={() => {
-                    if (!popular.isFollowing) {
-                      handleAddFollowing(popular.id);
-                    } else {
-                      handleCancelFollowing(popular.id);
-                    }
-                    handleClick(popular.id);
-                  }}
-                >
-                  {popular.isFollowing ? "正在跟隨" : "跟隨"}
-                </button>
-              </div>
+                    <div className={styles.userInfos}>
+                      <p className={styles.popularUserName}>{popular.name}</p>
+                      <Link className={styles.popularUserNickName} to="#">
+                        {`@${popular.account}`}
+                      </Link>
+                    </div>
+                    <button
+                      className={
+                        popular.isFollowing
+                          ? styles.toNotFollowButton
+                          : styles.toFollowButton
+                      }
+                      onClick={async() => {
+                          const reload = () => window.location.reload();
+                        if (!popular.isFollowing) {
+                          await handleAddFollowing(popular.id);
+                          reload()
+                        } else {
+                          await handleCancelFollowing(popular.id);
+                          reload();
+                        }
+                        handleClick(popular.id);
+                        reload();
+                      }}
+                    >
+                      {popular.isFollowing ? "正在跟隨" : "跟隨"}
+                    </button>
+                  </div>
+                )}
+              </Fragment>
             );
           })}
         </div>
