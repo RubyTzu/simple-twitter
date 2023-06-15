@@ -1,13 +1,13 @@
-import { login, register } from "api/auth";
+import { login, register, adminLogin } from "api/auth";
 import { createContext, useContext, useEffect, useState } from "react";
 import * as jwt from "jsonwebtoken";
 import { useLocation } from "react-router";
 const defaultAuthContext = {
   isAuthenticated: null,
-  // currentUserId: "",
-  currentUser: null,
+  payload: null,
   register: null,
   login: null,
+  adminLogin: null,
   logout: null,
 };
 
@@ -27,8 +27,6 @@ export const AuthProvider = ({ children }) => {
         return;
       } else {
         setIsAuthenticated(true);
-        const tempPayload = jwt.decode(token);
-        setPayload(tempPayload);
         return;
       }
     };
@@ -45,7 +43,23 @@ export const AuthProvider = ({ children }) => {
       });
       if (result.success) {
         setIsAuthenticated(true);
-        setPayload(result.userData);
+        const tempPayload = jwt.decode(result.token);
+        setPayload(tempPayload);
+        localStorage.setItem("id", result.userData.id);
+        localStorage.setItem("authToken", result.token);
+      }
+      return result.success;
+    },
+    adminLogin: async (data) => {
+      const result = await adminLogin({
+        account: data.account,
+        password: data.password,
+      });
+      if (result.success) {
+        console.log("context 成功");
+        setIsAuthenticated(true);
+        const tempPayload = jwt.decode(result.token);
+        setPayload(tempPayload);
         localStorage.setItem("id", result.userData.id);
         localStorage.setItem("authToken", result.token);
       }

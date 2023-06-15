@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { getUserLikedTweets, getUserReplies, getUserTweets } from "api/tweet";
 import { getFollowCounts, getProfile } from "api/userinfo";
 import { addFollow, deleteFollow } from "api/follow";
+import { useAuth } from "context/authContext";
 
 export const UserOtherPage = () => {
   const [profile, setProfile] = useState([]);
@@ -19,7 +20,15 @@ export const UserOtherPage = () => {
   const [likedTweets, setLikedTweets] = useState([]);
   const { userId } = useParams();
   const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
   const [idFromButtonClick, setIdFromButtonClick] = useState(null);
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate("/login");
+      return;
+    } else return;
+  }, [isAuthenticated, navigate]);
 
   const handleAddFollowing = async (userId) => {
     console.log(`add following ${userId}`);

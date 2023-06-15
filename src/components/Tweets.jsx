@@ -5,7 +5,9 @@ import LikePress from "assets/LikePress.svg";
 import styles from "./Tweets.module.scss";
 import { Link, useNavigate } from "react-router-dom";
 //TODO:要處理AddReplyModal時將下面三個comment打開
+
 import { useState } from "react";
+
 import { AddReplyModal } from "./modals/AddReplyModal";
 import { createReplyTweet } from "../api/tweet";
 import { useClickLike } from "context/clickLikeContext";
@@ -23,7 +25,7 @@ export const Tweet = ({ value }) => {
   //TODO:要處理AddReplyModal時將下面四個comment打開
   const [selectTweetId, setSelectTweetId] = useState(104);
   const [inputValue, setInputValue] = useState("");
- const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const handleAddTweet = async () => {
     if (inputValue.length === 0 || inputValue.length > 140) {
@@ -70,7 +72,6 @@ export const Tweet = ({ value }) => {
     // const formattedTimestamp = formatTimestamp(timestamp);
     // console.log(formattedTimestamp);
   };
-
 
   return (
     <div
@@ -123,8 +124,10 @@ export const Tweet = ({ value }) => {
                 console.log(value.id);
                 //TODO:要處理AddReplyModal時將下面三個comment打開
                 setSelectTweetId(value.id);
+
                 setShowModal(true);
                 // setIsOpen(true);
+
                 console.log(`comment button :${selectTweetId}`);
               }}
             >
@@ -143,7 +146,7 @@ export const Tweet = ({ value }) => {
               }}
             >
               <img
-                src={value.isLiked ? LikePress : LikeSVG}
+                src={isLiked ? LikePress : LikeSVG}
                 alt="LikeSVG"
                 className={styles.likeIcon}
                 data-id={value.id}
@@ -161,18 +164,20 @@ export const Tweet = ({ value }) => {
           </footer>
           {/* TODO:要處理AddReplyModal時將下面一個comment打開 */}
 
-            {showModal && <AddReplyModal
-            show={showModal}
-            onClose={() => setShowModal(false)}
-            onClick={() => {
-              handleAddTweet();
-            }}
-            onChange={(value) => {
-              setInputValue(value);
-            }}
-            inputValue={inputValue}
-            tweetId={value.id}
-          />}
+          {showModal && (
+            <AddReplyModal
+              show={showModal}
+              onClose={() => setShowModal(false)}
+              onClick={() => {
+                handleAddTweet();
+              }}
+              onChange={(value) => {
+                setInputValue(value);
+              }}
+              inputValue={inputValue}
+              tweetId={value.id}
+            />
+          )}
         </div>
       </div>
     </div>
