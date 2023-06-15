@@ -108,10 +108,10 @@ export const AddReplyModalinReplyList = ({ onClick, onChange, inputValue }) => {
                 </header>
                 <p className={styles.comment}>{singleTweet.description}</p>
                 <p className={styles.replyTo}>
-                  回覆給
+                  回覆給 
                   <Link className={styles.replyNickNameLink}>
                     <span className={styles.replyNickName}>
-                      @{singleTweet.name}
+                      {" "}@{singleTweet.account}
                     </span>
                   </Link>
                 </p>
