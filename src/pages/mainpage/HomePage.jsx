@@ -27,7 +27,13 @@ export const HomePage = () => {
       const profile = await getProfile(id);
       setAvatar(profile.avatar);
     };
-    const showTweets = async () => setTweets(await getTweets(id));
+    const showTweets = async () => {
+      const data = await getTweets(id);
+      if (data) {
+        setTweets(data);
+      }
+      // console.log(data);
+    };
     showAvatar();
     showTweets();
     // console.log(currentUser.avatar === avatar);

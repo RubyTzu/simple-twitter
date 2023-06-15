@@ -52,8 +52,7 @@ export const Rightbar = () => {
           },
         });
         setPopularList(data);
-       
-console.log(idFromButtonClick);
+
         // console.log(data.data);
       } catch (error) {
         console.error(error);
@@ -114,11 +113,11 @@ console.log(idFromButtonClick);
                           ? styles.toNotFollowButton
                           : styles.toFollowButton
                       }
-                      onClick={async() => {
-                          const reload = () => window.location.reload();
+                      onClick={async () => {
+                        const reload = () => window.location.reload();
                         if (!popular.isFollowing) {
                           await handleAddFollowing(popular.id);
-                          reload()
+                          reload();
                         } else {
                           await handleCancelFollowing(popular.id);
                           reload();

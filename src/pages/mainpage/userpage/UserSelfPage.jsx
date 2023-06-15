@@ -35,7 +35,6 @@ export const UserSelfPage = () => {
       setReplies(await getUserReplies(userId));
       setLikedTweets(await getUserLikedTweets(userId));
     };
-    console.log("3600 test from UserSelfPage");
     showPage();
   }, [userId]);
 
