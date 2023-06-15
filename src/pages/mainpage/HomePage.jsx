@@ -2,7 +2,7 @@
 import initialAvatar from "assets/GreyIcon.svg";
 import { Tweet } from "components/Tweets";
 import styles from "./HomePage.module.scss";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { getTweets, createTweet } from "api/tweet";
 import { getProfile } from "api/userinfo";
@@ -11,8 +11,9 @@ import { useNavigate } from "react-router-dom";
 const id = localStorage.getItem("id");
 
 export const HomePage = () => {
-  const userAvatar = useRef("");
+  // const userAvatar = useRef("");
   const [tweets, setTweets] = useState([]);
+  const [avatar, setAvatar] = useState(null);
   const [inputValue, setInputValue] = useState("");
   const [showAlert, setShowAlert] = useState(false);
   const { isAuthenticated } = useAuth();
@@ -27,13 +28,14 @@ export const HomePage = () => {
   useEffect(() => {
     const showUserAvatar = async () => {
       const { avatar } = await getProfile(id);
-      userAvatar.current = avatar;
+      // userAvatar.current = avatar;
+      setAvatar(avatar);
     };
     const showTweets = async () => setTweets(await getTweets(id));
-    console.log("3600 test from HomePage");
+
     showUserAvatar();
     showTweets();
-  }, [userAvatar]);
+  }, []);
 
   useEffect(() => {
     // console.log(showAlert);
@@ -66,9 +68,7 @@ export const HomePage = () => {
         <div className={styles.addTweetSection}>
           <img
             className={styles.addTweetAvatar}
-            src={
-              userAvatar.current === null ? initialAvatar : userAvatar.current
-            }
+            src={avatar === null ? initialAvatar : avatar}
             alt="avatar"
           ></img>
           <div className={styles.addTweetSpace}>

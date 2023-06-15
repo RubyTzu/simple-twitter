@@ -1,6 +1,7 @@
 import userInitialAvatar from "assets/GreyIcon.svg";
 import CommentSVG from "assets/Comment.svg";
 import LikeSVG from "assets/Like.svg";
+import LikePress from "assets/LikePress.svg";
 import styles from "./Tweets.module.scss";
 import { Link, useNavigate } from "react-router-dom";
 //TODO:要處理AddReplyModal時將下面三個comment打開
@@ -151,7 +152,7 @@ export const Tweet = ({ value }) => {
               }}
             >
               <img
-                src={LikeSVG}
+                src={value.isLiked ? LikePress : LikeSVG}
                 alt="LikeSVG"
                 className={styles.likeIcon}
                 data-id={value.id}
