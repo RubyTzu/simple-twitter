@@ -47,7 +47,11 @@ export const UserSelfPage = () => {
         <div className={styles.userinfoContainer}>
           <img
             className={styles.userBcgImage}
-            src={profile.coverPhoto === null ? userselfBcg : profile.coverPhoto}
+            src={
+              profile.coverPhoto === null || profile.coverPhoto === "null"
+                ? userselfBcg
+                : profile.coverPhoto
+            }
             alt=""
           />
           <img
@@ -68,16 +72,19 @@ export const UserSelfPage = () => {
           </button>
           <InfoEditModal />
           <div className={styles.userinfo}>
-            <span>
+            <div>
               <b>{profile.name}</b>
-            </span>
-            <span className={styles.nickName}>@{profile.account}</span>
-            <span className={styles.description}>
+            </div>
+
+            <div className={styles.nickName}>@{profile.account}</div>
+
+            <div className={styles.description}>
               {profile.introduction === null
                 ? "*使用者無簡介*"
                 : profile.introduction}
-            </span>
-            <span className={styles.follow}>
+            </div>
+
+            <div className={styles.follow}>
               <Link
                 to="/followlist"
                 state={"正在追隨"}
@@ -98,7 +105,7 @@ export const UserSelfPage = () => {
                 </span>
                 <span>跟隨者</span>
               </Link>
-            </span>
+            </div>
           </div>
         </div>
         <UserTweetsCollection

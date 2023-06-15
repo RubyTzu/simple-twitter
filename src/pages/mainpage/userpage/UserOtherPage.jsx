@@ -77,7 +77,9 @@ export const UserOtherPage = () => {
           <img
             className={styles.userBcgImage}
             src={
-              profile.coverPhoto === null ? userotherBcg : profile.coverPhoto
+              profile.coverPhoto === null || profile.coverPhoto === "null"
+                ? userotherBcg
+                : profile.coverPhoto
             }
             alt=""
           />
@@ -117,16 +119,16 @@ export const UserOtherPage = () => {
             </button>
           </div>
           <div className={styles.userinfo}>
-            <span>
+            <div>
               <b>{profile.name}</b>
-            </span>
-            <span className={styles.nickName}>@{profile.name}</span>
-            <span className={styles.description}>
+            </div>
+            <div className={styles.nickName}>@{profile.account}</div>
+            <div className={styles.description}>
               {profile.introduction === null
                 ? "沒內容欸"
                 : profile.introduction}
-            </span>
-            <span className={styles.follow}>
+            </div>
+            <div className={styles.follow}>
               <Link to="/followlist" className={styles.followerInfoBtn}>
                 <span className={styles.followNum}>
                   {followCounts.followingCount} 個
@@ -139,7 +141,7 @@ export const UserOtherPage = () => {
                 </span>
                 <span>跟隨者</span>
               </Link>
-            </span>
+            </div>
           </div>
         </div>
         <UserTweetsCollection

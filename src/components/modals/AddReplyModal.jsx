@@ -1,7 +1,7 @@
 import styles from "./AddReplyModal.module.scss";
 import { ReactComponent as CloseSVG } from "assets/Close.svg";
 import initialAvatar from "assets/GreyIcon.svg";
-import avatar from "assets/Photo.png";
+// import avatar from "assets/Photo.png";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import {
@@ -12,7 +12,7 @@ export const AddReplyModal = ({
   tweetId,
   onClick,
   onChange,
-  inputValue,
+  inputValue
 }) => {
   const [showAlert, setShowAlert] = useState(false);
   const [singleTweet, setSingleTweet] = useState({});
@@ -117,8 +117,10 @@ const formatTimestamp = (timestamp) => {
                 <p className={styles.comment}>{singleTweet.description}</p>
                 <p className={styles.replyTo}>
                   回覆給
-                  <Link className={styles.replyNickName}>
-                    @{singleTweet.account}
+                  <Link className={styles.replyNickNameLink}>
+                    <span className={styles.replyNickName}>
+                      @{singleTweet.name}
+                    </span>
                   </Link>
                 </p>
               </div>
@@ -127,7 +129,11 @@ const formatTimestamp = (timestamp) => {
             <div className={styles.yourReply}>
               <img
                 className={styles.replyTweetAvatar}
-                src={avatar}
+                src={
+                  singleTweet.userAvatar !== null
+                    ? singleTweet.userAvatar
+                    : initialAvatar
+                }
                 alt="avatar"
               ></img>
               <textarea

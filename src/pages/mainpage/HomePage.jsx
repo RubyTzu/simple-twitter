@@ -38,7 +38,7 @@ export const HomePage = () => {
   }, []);
 
   useEffect(() => {
-    // console.log(showAlert);
+    console.log(showAlert);
   }, [showAlert]);
 
   const handleAddTweetHeight = (e) => {
