@@ -1,7 +1,7 @@
 import styles from "./AddReplyModal.module.scss";
 import { ReactComponent as CloseSVG } from "assets/Close.svg";
 import initialAvatar from "assets/GreyIcon.svg";
-import avatar from "assets/Photo.png";
+// import avatar from "assets/Photo.png";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import {
@@ -12,7 +12,7 @@ export const AddReplyModal = ({
   tweetId,
   onClick,
   onChange,
-  inputValue,
+  inputValue
 }) => {
   const [showAlert, setShowAlert] = useState(false);
   const [singleTweet, setSingleTweet] = useState({});

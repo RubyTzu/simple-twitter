@@ -4,12 +4,11 @@ import LikeSVG from "assets/Like.svg";
 import styles from "./Tweets.module.scss";
 import { Link, useNavigate } from "react-router-dom";
 //TODO:要處理AddReplyModal時將下面三個comment打開
-// import { useState } from "react";
-// import { AddReplyModal } from "./modals/AddReplyModal";
-// import { createReplyTweet } from "../api/tweet";
+import {  useRef, useState } from "react";
+import { AddReplyModal } from "./modals/AddReplyModal";
+import { createReplyTweet } from "../api/tweet";
 import { useClickLike } from "context/clickLikeContext";
 // import { getTweets } from "api/tweet";
-import { useState } from "react";
 const id = localStorage.getItem("id");
 const getId = () => {
   return Number(id);
@@ -21,23 +20,23 @@ export const Tweet = ({ value }) => {
   const { clickLike } = useClickLike();
   let navigate = useNavigate();
   //TODO:要處理AddReplyModal時將下面四個comment打開
-  // const [selectTweetId, setSelectTweetId] = useState(104);
-  // const [inputValue, setInputValue] = useState("");
-  // const [isOpen, setIsOpen] = useState(false);
+  const [selectTweetId, setSelectTweetId] = useState(104);
+  const [inputValue, setInputValue] = useState("");
+  const isOpen = useRef(false);
 
-  // const handleAddTweet = async () => {
-  //   if (inputValue.length === 0 || inputValue.length > 140) {
-  //     return;
-  //   } else {
-  //     await createReplyTweet({
-  //       comment: inputValue,
-  //       id: selectTweetId,
-  //     });
+  const handleAddTweet = async () => {
+    if (inputValue.length === 0 || inputValue.length > 140) {
+      return;
+    } else {
+      await createReplyTweet({
+        comment: inputValue,
+        id: selectTweetId,
+      });
 
-  //     const reload = () => window.location.reload();
-  //     reload();
-  //   }
-  // };
+      const reload = () => window.location.reload();
+      reload();
+    }
+  };
 
   const formatTimestamp = (timestamp) => {
     const now = new Date();
@@ -70,6 +69,8 @@ export const Tweet = ({ value }) => {
     // const formattedTimestamp = formatTimestamp(timestamp);
     // console.log(formattedTimestamp);
   };
+
+
   return (
     <div
       className={styles.openReplyList}
@@ -114,15 +115,17 @@ export const Tweet = ({ value }) => {
               type="Link"
               className={`${styles.replyButton}`}
               //TODO:要處理AddReplyModal時將下面兩個comment打開
-              // data-bs-toggle="modal"
-              // data-bs-target={`#addReplyModal${value.id}`}
-              onClick={(e) => {
+              data-bs-toggle="modal"
+              data-bs-target={`#addReplyModal${value.id}`}
+              onClick={async (e) => {
                 e.stopPropagation();
                 console.log(value.id);
                 //TODO:要處理AddReplyModal時將下面三個comment打開
-                // setSelectTweetId(value.id);
-                // setIsOpen(true);
-                // console.log(`comment button :${selectTweetId}`);
+                setSelectTweetId(value.id);
+                const open = ()=> isOpen.current = true;
+                await open()
+                
+                console.log(`comment button :${selectTweetId}`);
               }}
             >
               <img
@@ -133,7 +136,7 @@ export const Tweet = ({ value }) => {
               <p className={styles.counts}>{value.repliesCount}</p>
             </Link>
             {/* TODO:要處理AddReplyModal時將下面一個comment打開 */}
-            {/* {isOpen && (
+            {isOpen.current && (
               <AddReplyModal
                 onClick={handleAddTweet}
                 onChange={(value) => {
@@ -142,7 +145,7 @@ export const Tweet = ({ value }) => {
                 inputValue={inputValue}
                 tweetId={value.id}
               />
-            )} */}
+            )}
             <Link
               className={styles.likeButton}
               href="/"
