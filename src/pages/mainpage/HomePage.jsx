@@ -23,7 +23,9 @@ export const HomePage = () => {
   }, [isAuthenticated, navigate]);
 
   useEffect(() => {
-    const showTweets = async () => setTweets(await getTweets(id));
+    const showTweets = async () => {
+      setTweets(await getTweets(id))
+    };
     showTweets();
   }, [id]);
 

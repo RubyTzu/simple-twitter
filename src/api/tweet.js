@@ -4,15 +4,20 @@ const token = localStorage.getItem("authToken");
 
 //homepage tweets
 export const getTweets = async (id) => {
-  const { data } = await axios.get(
-    `${baseUrl}/api/users/${id}/tweets?follows=true`,
-    {
-      headers: {
-        Authorization: "Bearer " + token,
-      },
-    }
-  );
-  return data;
+  try {
+    const { data } = await axios.get(
+      `${baseUrl}/api/users/${id}/tweets?follows=true`,
+      {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      }
+    );
+    return data;
+  } catch (error) {
+    console.error("getTweets failed " + error);
+  }
+  
 };
 
 //推文tab

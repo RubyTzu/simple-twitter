@@ -25,6 +25,10 @@ export const InfoEditModal = () => {
   useEffect(() => {
     const showPage = async () => {
       const userData = await getProfile(id);
+      if (userData.introduction === null ){
+        setUser({ ...userData, introduction: "" });
+      } 
+      
       setUser(
         userData || {
           name: "null",
@@ -159,8 +163,8 @@ export const InfoEditModal = () => {
               type="button"
               className={styles.saveButton}
               data-bs-dismiss={
-                Number(user.name.length) <= 50 &&
-                Number(user.introduction.length) <= 160 &&
+                (Number(user.name.length) <= 50 &&
+                Number(user.introduction.length) <= 160)  &&
                 "modal"
               }
               onClick={() => {
@@ -184,7 +188,7 @@ export const InfoEditModal = () => {
                   src={bgImagePreview || user.coverPhoto}
                   alt="Background"
                 /> */}
-                {bgImagePreview !== "null" && bgImagePreview !== null ? (
+                {bgImagePreview ? (
                   <img
                     className={styles.userBcgImage}
                     src={bgImagePreview || user.coverPhoto}
