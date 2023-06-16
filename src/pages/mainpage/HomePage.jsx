@@ -1,11 +1,12 @@
 import initialAvatar from "assets/GreyIcon.svg";
 import { Tweet } from "components/Tweets";
 import styles from "./HomePage.module.scss";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useAuth } from "context/authContext";
 import { useTweet } from "context/tweetContext";
 import { useNavigate } from "react-router-dom";
 import { useCurrentUser } from "context/userInfoContext";
+import { getProfile } from "api/userinfo";
 
 export const HomePage = () => {
   const { isAuthenticated } = useAuth();
@@ -18,8 +19,8 @@ export const HomePage = () => {
     onInput,
     onAddTweetClick,
   } = useTweet();
-  const { currentUser } = useCurrentUser();
-  const [avatar, setAvatar] = useState("");
+  const { profile, setProfile } = useCurrentUser();
+  // const [avatar, setAvatar] = useState("");
   const id = localStorage.getItem("id");
   const navigate = useNavigate();
 
@@ -32,12 +33,13 @@ export const HomePage = () => {
 
   useEffect(() => {
     const showAvatar = async () => {
-      setAvatar(currentUser.avatar);
+      const data = await getProfile(id);
+      setProfile(data);
+      // setAvatar(data.avatar);
     };
     showAvatar();
     console.log("hello from useEffect-HomePage");
-  }, [id, currentUser.avatar]);
-
+  }, [id, setProfile]);
 
   return (
     <>
@@ -46,7 +48,7 @@ export const HomePage = () => {
         <div className={styles.addTweetSection}>
           <img
             className={styles.addTweetAvatar}
-            src={avatar === null ? initialAvatar : avatar}
+            src={profile.avatar === null ? initialAvatar : profile.avatar}
             alt="avatar"
           ></img>
           <div className={styles.addTweetSpace}>

@@ -12,14 +12,15 @@ import { getFollowCounts, getProfile } from "api/userinfo";
 import { addFollow, deleteFollow } from "api/follow";
 import { useAuth } from "context/authContext";
 import { useTweet } from "context/tweetContext";
+import { useCurrentUser } from "context/userInfoContext";
 
 export const UserOtherPage = () => {
-  const [profile, setProfile] = useState([]);
-  const [followCounts, setFollowCounts] = useState([]);
   const { setUserTweets, setUserReplies, setUserLikedTweets } = useTweet();
+  const { profile, setProfile, followCounts, setFollowCounts } =
+    useCurrentUser();
+  const { isAuthenticated } = useAuth();
   const { userId } = useParams();
   const navigate = useNavigate();
-  const { isAuthenticated } = useAuth();
   const [idFromButtonClick, setIdFromButtonClick] = useState(null);
 
   useEffect(() => {
@@ -72,6 +73,8 @@ export const UserOtherPage = () => {
     setUserLikedTweets,
     setUserReplies,
     setUserTweets,
+    setFollowCounts,
+    setProfile,
   ]);
 
   return (
