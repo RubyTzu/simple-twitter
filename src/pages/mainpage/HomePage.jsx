@@ -5,13 +5,14 @@ import { useEffect, useState } from "react";
 import { getTweets, createTweet } from "api/tweet";
 import { useAuth } from "context/authContext";
 import { useNavigate } from "react-router-dom";
-import { getProfile } from "api/userinfo";
+import { useCurrentUser } from "context/userInfoContext";
 
 export const HomePage = () => {
   const [tweets, setTweets] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [showAlert, setShowAlert] = useState(false);
   const { isAuthenticated } = useAuth();
+  const { currentUser } = useCurrentUser();
   const [avatar, setAvatar] = useState("");
   const id = localStorage.getItem("id");
   const navigate = useNavigate();
@@ -24,8 +25,7 @@ export const HomePage = () => {
 
   useEffect(() => {
     const showAvatar = async () => {
-      const profile = await getProfile(id);
-      setAvatar(profile.avatar);
+      setAvatar(currentUser.avatar);
     };
     const showTweets = async () => {
       const data = await getTweets(id);
@@ -36,7 +36,7 @@ export const HomePage = () => {
     showAvatar();
     showTweets();
     console.log("hello from useEffect-HomePage");
-  }, [id]);
+  }, [id, currentUser.avatar]);
 
   useEffect(() => {
     console.log(showAlert);

@@ -43,6 +43,14 @@
   display: flex;
   justify-content: space-between;
   p {
+    color: #fc5a5a;
+    font-size: 12px;
+  }
+}
+.noLimit {
+  display: flex;
+  justify-content: space-between;
+  p {
     display: none;
     color: #fc5a5a;
     font-size: 12px;
