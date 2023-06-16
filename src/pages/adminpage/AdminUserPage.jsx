@@ -7,14 +7,14 @@ import { useAuth } from "context/authContext";
 
 export const AdminUserPage = () => {
   const [users, setUsers] = useState([]);
-  const { isAuthenticated } = useAuth();
+  const { admIsAuthenticated } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!isAuthenticated) {
+    if (!admIsAuthenticated) {
       navigate("/admin/login");
     } else return;
-  }, [navigate, isAuthenticated]);
+  }, [navigate, admIsAuthenticated]);
 
   useEffect(() => {
     const showUsersTweet = async () => setUsers(await getUsers());

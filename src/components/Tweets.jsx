@@ -153,8 +153,6 @@ export const Tweet = ({ value }) => {
                   const res = await clickLike(e, isLiked);
                   setLikesCount(likesCount + res);
                   setIsLiked(!isLiked);
-                  console.log(likesCount);
-                  console.log(isLiked);
                 }}
               />
 

@@ -10,14 +10,14 @@ import { useAuth } from "context/authContext";
 export const AdminLoginPage = () => {
   const [account, setAccount] = useState("");
   const [password, setPassword] = useState("");
-  const { isAuthenticated, adminLogin } = useAuth();
+  const { admIsAuthenticated, adminLogin } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (admIsAuthenticated) {
       navigate("/admin/tweetslist");
     } else return;
-  }, [navigate, isAuthenticated]);
+  }, [navigate, admIsAuthenticated]);
 
   const handleAdminLogin = async () => {
     if (account.length === 0) return;

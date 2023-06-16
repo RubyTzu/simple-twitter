@@ -17,7 +17,9 @@ import { SettingPage } from "pages/mainpage/SettingPage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "context/authContext";
 import { ClickLikeProvider } from "context/clickLikeContext";
+
 import { TweetContextProvider } from "context/tweetContext";
+import { CurrentUserProvider } from "context/userInfoContext";
 
 const basename = process.env.PUBLIC_URL;
 
@@ -26,6 +28,7 @@ function App() {
     <div className="App">
       <BrowserRouter basename={basename}>
         <AuthProvider>
+          <CurrentUserProvider>
           <TweetContextProvider>
             <ClickLikeProvider>
               <Routes>
@@ -96,6 +99,7 @@ function App() {
               </Routes>
             </ClickLikeProvider>
           </TweetContextProvider>
+          </CurrentUserProvider>
         </AuthProvider>
       </BrowserRouter>
     </div>

@@ -1,7 +1,6 @@
 import styles from "./UserCard.module.scss";
 import userselfBcg from "assets/userselfBcg.svg";
 import AClogo from "assets/GreyIcon.svg";
-import { Link } from "react-router-dom";
 import { ReactComponent as LikeSVG } from "assets/Like.svg";
 import { ReactComponent as ReviewIcon } from "assets/ReviewIcon.svg";
 
@@ -23,14 +22,14 @@ export const UserCard = ({ value }) => {
         <span className={styles.username}>{value.name}</span>
         <span className={styles.userNickname}>@{value.name}</span>
         <div className={styles.userActivity}>
-          <Link className={styles.review} to="/">
+          <div className={styles.review}>
             <ReviewIcon className={styles.icon} />
             <p>{value.tweetsCount}</p>
-          </Link>
-          <Link className={styles.heart} to="/">
+          </div>
+          <div className={styles.heart}>
             <LikeSVG className={styles.icon} />
             <p>{value.likesCount}</p>
-          </Link>
+          </div>
         </div>
 
         <div className={styles.follow}>

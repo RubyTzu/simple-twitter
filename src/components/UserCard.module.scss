@@ -49,17 +49,24 @@
     display: flex;
     align-items: center;
     margin-right: 8px;
+    p {
+      margin: auto;
+    }
   }
   .heart {
     display: flex;
     align-items: center;
     justify-content: space-around;
     margin-left: 8px;
+    p {
+      margin: auto;
+    }
   }
   .icon {
     width: 23.87px;
     height: 21.6px;
     margin-right: 8px;
+    color: #6c757d;
   }
 }
 

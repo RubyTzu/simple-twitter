@@ -75,6 +75,7 @@ export const Rightbar = () => {
               <Fragment key={popular.id}>
                 {getId() !== popular.id && (
                   <div className={styles.popularUser}>
+                    {/* 以下不會有自己, 所以Link userself不會成立 */}
                     {getId() === popular.id ? (
                       <Link to={`/userself/${popular.id}`}>
                         <img

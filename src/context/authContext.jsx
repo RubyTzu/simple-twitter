@@ -3,6 +3,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import * as jwt from "jsonwebtoken";
 import { useLocation } from "react-router";
 const defaultAuthContext = {
+  admIsAuthenticated: null,
   isAuthenticated: null,
   payload: null,
   register: null,
@@ -15,6 +16,7 @@ const AuthContext = createContext(defaultAuthContext);
 export const useAuth = () => useContext(AuthContext);
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [admIsAuthenticated, setAdmIsAuthenticated] = useState(false);
   const [payload, setPayload] = useState(null);
   const pathname = useLocation();
 
@@ -23,10 +25,16 @@ export const AuthProvider = ({ children }) => {
       const token = localStorage.getItem("authToken");
       if (!token) {
         setIsAuthenticated(false);
+        setAdmIsAuthenticated(false);
         setPayload(null);
         return;
       } else {
-        setIsAuthenticated(true);
+        const { role } = jwt.decode(token);
+        if (role === "admin") {
+          setAdmIsAuthenticated(true);
+        } else {
+          setIsAuthenticated(true);
+        }
         return;
       }
     };
@@ -34,6 +42,7 @@ export const AuthProvider = ({ children }) => {
   }, [pathname]);
 
   const value = {
+    admIsAuthenticated: admIsAuthenticated,
     isAuthenticated: isAuthenticated,
     payload: payload,
     login: async (data) => {
@@ -56,8 +65,7 @@ export const AuthProvider = ({ children }) => {
         password: data.password,
       });
       if (result.success) {
-        console.log("context 成功");
-        setIsAuthenticated(true);
+        setAdmIsAuthenticated(true);
         const tempPayload = jwt.decode(result.token);
         setPayload(tempPayload);
         localStorage.setItem("id", result.userData.id);
@@ -81,6 +89,7 @@ export const AuthProvider = ({ children }) => {
     },
     logout: () => {
       setIsAuthenticated(false);
+      setAdmIsAuthenticated(false);
       setPayload(null);
       localStorage.removeItem("authToken");
       localStorage.removeItem("id");

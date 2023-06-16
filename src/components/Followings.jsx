@@ -2,11 +2,8 @@ import { ReactComponent as GreyIconSVG } from "assets/GreyIcon.svg";
 import styles from "./Followings.module.scss";
 import { deleteFollow } from "api/follow";
 import { useState } from "react";
-import { useNavigate } from "react-router";
 
 export const Following = ({ value }) => {
-  const navigate = useNavigate();
-
   const [isFollowing, setIsFollowing] = useState(true);
   return (
     <div className={styles.followContainer}>
@@ -21,7 +18,6 @@ export const Following = ({ value }) => {
               setIsFollowing(!isFollowing);
               const reload = () => window.location.reload();
               reload();
-              navigate("/followlist");
             }}
           >
             正在跟隨
