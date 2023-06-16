@@ -3,7 +3,7 @@ import { ReactComponent as CloseSVG } from "assets/Close.svg";
 import { ReactComponent as CameraSVG } from "assets/Camera.svg";
 import initialAvatar from "assets/GreyIcon.svg";
 import initialSelfBcg from "assets/BGPhoto.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { removeCoverPhoto, updateInfo } from "api/infoEdit";
 import { getProfile } from "api/userinfo";
@@ -21,6 +21,8 @@ export const InfoEditModal = () => {
   const [avatarPreview, setAvatarPreview] = useState(null);
   const [bgImageFile, setBgImageFile] = useState(null);
   const [avatarFile, setAvatarFile] = useState(null);
+const navigate = useNavigate()
+
 
   useEffect(() => {
     const showPage = async () => {
@@ -69,8 +71,8 @@ export const InfoEditModal = () => {
     if (bgImageFile === "null") {
       await removeCoverPhoto(id);
     }
-    const reload = () => window.location.reload();
-    reload();
+    // const reload = () => window.location.reload();
+    // reload();
   };
 
   const handleBgImageChange = (e) => {
@@ -115,6 +117,9 @@ export const InfoEditModal = () => {
     console.log(avatarFile);
     // const reload = () => window.location.reload();
     //   reload();
+    // refresh
+    navigate(0);
+    // navigate(`/userself/${id}`);
     // 在此處執行其他需要在按下儲存後立即執行的動作
     // 例如關閉彈出視窗、重新導向等等
   };
@@ -150,6 +155,7 @@ export const InfoEditModal = () => {
             className={`modal-header position-relative ${styles.modalHeader}`}
           >
             <Link
+              to={`/userself/${id}`}
               type="button"
               className={`position-absolute ${styles.closeButton}`}
               data-bs-dismiss="modal"
@@ -166,7 +172,8 @@ export const InfoEditModal = () => {
                 Number(user.introduction.length) <= 160 &&
                 "modal"
               }
-              onClick={() => {
+              onClick={(e) => {
+                e.stopPropagation();
                 if (
                   Number(user.name.length) <= 50 &&
                   Number(user.introduction.length) <= 160
@@ -213,7 +220,9 @@ export const InfoEditModal = () => {
                 />
                 <button
                   className={styles.removeButton}
-                  onClick={handleRemoveBgImage}
+                  onClick={e=>{
+                    e.stopPropagation()
+                    handleRemoveBgImage()}}
                 >
                   del
                 </button>

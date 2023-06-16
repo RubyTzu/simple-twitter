@@ -4,7 +4,7 @@ import initialAvatar from "assets/GreyIcon.svg";
 // import avatar from "assets/Photo.png";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { getSingleTweet } from "api/tweet";
+// import { getSingleTweet } from "api/tweet";
 
 export const AddReplyModal = ({
   show,
@@ -55,18 +55,17 @@ export const AddReplyModal = ({
   };
 
   useEffect(() => {
-    const showPage = async () => {
-      await tweetId;
-      setSingleTweet(await getSingleTweet(tweetId));
-    };
+    // const showPage = async () => {
+    //   await tweetId;
+    //   setSingleTweet(await getSingleTweet(tweetId));
+    // };
     console.log(`AddReplyModal useEffect 的showAlert ${tweetId}`);
-    if (show) {
-      showPage();
-    }
-  }, [tweetId, show]);
+      // showPage();
+
+  }, [tweetId]);
 
   useEffect(() => {
-    // console.log(showAlert);
+    console.log(showAlert);
     console.log(`AddReplyModal useEffect 的showAlert ${showAlert}`);
   }, [showAlert]);
 
