@@ -25,6 +25,7 @@ export const FollowPage = () => {
       setUserData(userData);
     };
     showData();
+    console.log("hello from useEffect-FollowPage");
   }, [id]);
   return (
     <>

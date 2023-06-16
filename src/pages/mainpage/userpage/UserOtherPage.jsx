@@ -66,6 +66,7 @@ export const UserOtherPage = () => {
       console.log(idFromButtonClick);
     };
     showPage();
+    console.log("hello from useEffect-UserOtherPage");
   }, [userId, idFromButtonClick]);
 
   return (

@@ -185,6 +185,7 @@ export const Tweet = ({ value }) => {
 };
 
 export const UserTweets = ({ value }) => {
+  if (!value) return;
   return (
     <div className={styles.tweetsCollection}>
       {value.map((tweet) => {
@@ -195,6 +196,8 @@ export const UserTweets = ({ value }) => {
 };
 
 export const UserLikeTweets = ({ value }) => {
+  if (!value) return;
+
   return (
     <div className={styles.tweetsCollection}>
       {value.map((tweet) => {

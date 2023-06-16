@@ -19,6 +19,7 @@ export const AdminUserPage = () => {
   useEffect(() => {
     const showUsersTweet = async () => setUsers(await getUsers());
     showUsersTweet();
+    console.log("hello from useEffect-AdminUserPage");
   }, []);
   return (
     <>
