@@ -9,6 +9,7 @@ import { useState } from "react";
 // import { AddReplyModal } from "./modals/AddReplyModal";
 // import { createReplyTweet } from "../api/tweet";
 import { useClickLike } from "context/clickLikeContext";
+import { useTweet } from "context/tweetContext";
 // import { getTweets } from "api/tweet";
 const id = localStorage.getItem("id");
 const getId = () => {
@@ -182,23 +183,27 @@ export const Tweet = ({ value }) => {
   );
 };
 
-export const UserTweets = ({ value }) => {
-  if (!value) return;
+export const UserTweets = () => {
+const { userTweets } = useTweet()
+
+  if (!userTweets) return;
   return (
     <div className={styles.tweetsCollection}>
-      {value.map((tweet) => {
+      {userTweets.map((tweet) => {
         return <Tweet key={tweet.id} value={tweet} />;
       })}
     </div>
   );
 };
 
-export const UserLikeTweets = ({ value }) => {
-  if (!value) return;
+export const UserLikeTweets = () => {
+const { userLikedTweets } = useTweet();
+
+  if (!userLikedTweets) return;
 
   return (
     <div className={styles.tweetsCollection}>
-      {value.map((tweet) => {
+      {userLikedTweets.map((tweet) => {
         return <Tweet key={tweet.id} value={tweet} />;
       })}
     </div>

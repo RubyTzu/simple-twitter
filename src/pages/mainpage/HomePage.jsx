@@ -2,19 +2,27 @@ import initialAvatar from "assets/GreyIcon.svg";
 import { Tweet } from "components/Tweets";
 import styles from "./HomePage.module.scss";
 import { useEffect, useState } from "react";
-import { getTweets, createTweet } from "api/tweet";
 import { useAuth } from "context/authContext";
+import { useTweet } from "context/tweetContext";
 import { useNavigate } from "react-router-dom";
 import { getProfile } from "api/userinfo";
 
 export const HomePage = () => {
-  const [tweets, setTweets] = useState([]);
-  const [inputValue, setInputValue] = useState("");
-  const [showAlert, setShowAlert] = useState(false);
   const { isAuthenticated } = useAuth();
+  const {
+    allTweets,
+    inputValue,
+    setInputValue,
+    showAlert,
+    setShowAlert,
+    onInput,
+    onAddTweetClick,
+  } = useTweet();
+
   const [avatar, setAvatar] = useState("");
   const id = localStorage.getItem("id");
   const navigate = useNavigate();
+
   useEffect(() => {
     if (!isAuthenticated) {
       navigate("/login");
@@ -27,40 +35,10 @@ export const HomePage = () => {
       const profile = await getProfile(id);
       setAvatar(profile.avatar);
     };
-    const showTweets = async () => {
-      const data = await getTweets(id);
-      if (data) {
-        setTweets(data);
-      }
-    };
     showAvatar();
-    showTweets();
     console.log("hello from useEffect-HomePage");
   }, [id]);
 
-  useEffect(() => {
-    console.log(showAlert);
-  }, [showAlert]);
-
-  const handleAddTweetHeight = (e) => {
-    e.target.style.height = "inherit";
-    e.target.style.height = `${e.target.scrollHeight}px`;
-  };
-
-  const handleAddTweet = async () => {
-    if (inputValue.length === 0) {
-      return;
-    }
-
-    await createTweet({
-      description: inputValue,
-      likable: 1,
-      commendable: 1,
-    });
-
-    const reload = () => window.location.reload();
-    reload();
-  };
 
   return (
     <>
@@ -76,7 +54,7 @@ export const HomePage = () => {
             <textarea
               className={styles.addTweetTextarea}
               placeholder="有什麼新鮮事？"
-              onInput={handleAddTweetHeight}
+              onInput={onInput}
               onChange={(e) => {
                 setInputValue(e.target.value);
               }}
@@ -93,7 +71,7 @@ export const HomePage = () => {
                   if (inputValue.length === 0 || inputValue.length > 140) {
                     setShowAlert(true);
                   } else {
-                    handleAddTweet();
+                    onAddTweetClick();
                   }
                 }}
               >
@@ -102,7 +80,7 @@ export const HomePage = () => {
             </div>
           </div>
         </div>
-        {tweets.map((tweet) => {
+        {allTweets.map((tweet) => {
           return <Tweet key={tweet.id} value={tweet} />;
         })}
       </div>

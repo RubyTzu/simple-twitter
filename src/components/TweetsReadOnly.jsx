@@ -1,6 +1,7 @@
 import userInitialAvatar from "assets/GreyIcon.svg";
 import styles from "./TweetsReadOnly.module.scss";
 import { Link } from "react-router-dom";
+import { useTweet } from "context/tweetContext";
 
 const getId = () => {
   const id = localStorage.getItem("id");
@@ -44,7 +45,12 @@ export const TweetReadOnly = ({ value }) => {
   return (
     <div className={styles.tweetContainer}>
       {getId() === value.UserId ? (
-        <Link to={`/userself/${value.UserId}`}>
+        <Link
+          to={`/userself/${value.UserId}`}
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+        >
           <img
             data-id={value.UserId}
             className={`${styles.userAvatar} cursorPointer`}
@@ -54,13 +60,15 @@ export const TweetReadOnly = ({ value }) => {
                 : value.repliedUserAvatar
             }
             alt="userAvatar"
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
           />
         </Link>
       ) : (
-        <Link to={`/userother/${value.UserId}`}>
+        <Link
+          to={`/userother/${value.UserId}`}
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+        >
           <img
             data-id={value.UserId}
             className={`${styles.userAvatar} cursorPointer`}
@@ -70,9 +78,6 @@ export const TweetReadOnly = ({ value }) => {
                 : value.repliedUserAvatar
             }
             alt="userAvatar"
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
           />
         </Link>
       )}
@@ -108,11 +113,13 @@ export const TweetsReadOnly = ({ value }) => {
   );
 };
 
-export const UserReplyTweets = ({ value }) => {
-  if (!value) return;
+export const UserReplyTweets = () => {
+  const { userReplies } = useTweet();
+  
+  if (!userReplies) return;
   return (
     <div className={styles.tweetsCollection}>
-      {value.map((tweet, i) => {
+      {userReplies.map((tweet, i) => {
         return <TweetReadOnly value={tweet} key={i} />;
       })}
     </div>

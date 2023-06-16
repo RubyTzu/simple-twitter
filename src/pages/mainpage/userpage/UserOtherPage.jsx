@@ -11,13 +11,12 @@ import { getUserLikedTweets, getUserReplies, getUserTweets } from "api/tweet";
 import { getFollowCounts, getProfile } from "api/userinfo";
 import { addFollow, deleteFollow } from "api/follow";
 import { useAuth } from "context/authContext";
+import { useTweet } from "context/tweetContext";
 
 export const UserOtherPage = () => {
   const [profile, setProfile] = useState([]);
   const [followCounts, setFollowCounts] = useState([]);
-  const [tweets, setTweets] = useState([]);
-  const [replies, setReplies] = useState([]);
-  const [likedTweets, setLikedTweets] = useState([]);
+  const { setUserTweets, setUserReplies, setUserLikedTweets } = useTweet();
   const { userId } = useParams();
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
@@ -60,14 +59,20 @@ export const UserOtherPage = () => {
     const showPage = async () => {
       setProfile(await getProfile(userId));
       setFollowCounts(await getFollowCounts(userId));
-      setTweets(await getUserTweets(userId));
-      setReplies(await getUserReplies(userId));
-      setLikedTweets(await getUserLikedTweets(userId));
+      setUserTweets(await getUserTweets(userId));
+      setUserReplies(await getUserReplies(userId));
+      setUserLikedTweets(await getUserLikedTweets(userId));
       console.log(idFromButtonClick);
     };
     showPage();
     console.log("hello from useEffect-UserOtherPage");
-  }, [userId, idFromButtonClick]);
+  }, [
+    userId,
+    idFromButtonClick,
+    setUserLikedTweets,
+    setUserReplies,
+    setUserTweets,
+  ]);
 
   return (
     <>
@@ -154,13 +159,7 @@ export const UserOtherPage = () => {
             </div>
           </div>
         </div>
-        <UserTweetsCollection
-          tweetsCollection={{
-            tweets: tweets,
-            replies: replies,
-            liked: likedTweets,
-          }}
-        />
+        <UserTweetsCollection />
       </div>
     </>
   );

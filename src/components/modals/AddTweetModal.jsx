@@ -4,27 +4,28 @@ import { ReactComponent as CloseSVG } from "assets/Close.svg";
 import initialAvatar from "assets/GreyIcon.svg";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-const id = localStorage.getItem("id");
+import { useTweet } from "context/tweetContext";
 
-export const AddTweetModal = ({ onClick, onChange, inputValue }) => {
-  const [showAlert, setShowAlert] = useState(false);
+export const AddTweetModal = () => {
+  const {
+    id,
+    inputValue,
+    setInputValue,
+    showAlert,
+    setShowAlert,
+    onInput,
+    onAddTweetClick,
+  } = useTweet();
+
   const [profile, setProfile] = useState([]);
-
-  const handleAddTweetHeight = (e) => {
-    e.target.style.height = "inherit";
-    e.target.style.height = `${e.target.scrollHeight}px`;
-  };
 
   useEffect(() => {
     const showPage = async () => {
-      setProfile(await getProfile(id))
+      setProfile(await getProfile(id));
     };
     showPage();
-  }, []);
-
-    useEffect(() => {
-      // console.log(`AddTweetModal useEffect 的showAlert ${showAlert}`);
-    }, [showAlert]);
+    console.log(`hello from useEffect-AddTweetModal id: ${id}`);
+  }, [id]);
 
   return (
     <div
@@ -60,9 +61,9 @@ export const AddTweetModal = ({ onClick, onChange, inputValue }) => {
             <textarea
               className={styles.addTweetTextarea}
               placeholder="有什麼新鮮事？"
-              onInput={handleAddTweetHeight}
+              onInput={onInput}
               onChange={(e) => {
-                onChange(e.target.value);
+                setInputValue(e.target.value);
               }}
             />
           </div>
@@ -78,7 +79,7 @@ export const AddTweetModal = ({ onClick, onChange, inputValue }) => {
                 if (inputValue.length === 0 || inputValue.length > 140) {
                   setShowAlert(true);
                 } else {
-                  onClick();
+                  onAddTweetClick();
                 }
               }}
               data-bs-dismiss={

@@ -9,7 +9,6 @@ import styles from "./Navbar.module.scss";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useAuth } from "context/authContext";
-import { createTweet } from "../api/tweet";
 
 const getId = () => {
   const id = localStorage.getItem("id");
@@ -38,7 +37,6 @@ export const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [activePage, setActivePage] = useState(location.pathname);
-  const [inputValue, setInputValue] = useState("");
   let typeInfos = types;
 
   const handleLogout = () => {
@@ -54,21 +52,6 @@ export const Navbar = () => {
 
   const handleStyleChange = () => {
     setActivePage(location.pathname);
-  };
-
-  const handleAddTweet = async () => {
-    if (inputValue.length === 0 || inputValue.length > 140) {
-      return;
-    } else {
-      await createTweet({
-        description: inputValue,
-        likable: 1,
-        commendable: 1,
-      });
-
-      const reload = () => window.location.reload();
-      reload();
-    }
   };
 
   return (
@@ -115,13 +98,7 @@ export const Navbar = () => {
         >
           推文
         </button>
-        <AddTweetModal
-          onClick={handleAddTweet}
-          onChange={(value) => {
-            setInputValue(value);
-          }}
-          inputValue={inputValue}
-        />
+        <AddTweetModal />
       </div>
       <button className={styles.navbarButton} onClick={handleLogout}>
         <LogOutSVG className={styles.navbarIcon} />

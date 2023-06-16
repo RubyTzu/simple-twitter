@@ -71,6 +71,7 @@ const navigate = useNavigate()
     if (bgImageFile === "null") {
       await removeCoverPhoto(id);
     }
+     navigate(`/userself/${id}`);
     // const reload = () => window.location.reload();
     // reload();
   };
@@ -117,8 +118,7 @@ const navigate = useNavigate()
     console.log(avatarFile);
     // const reload = () => window.location.reload();
     //   reload();
-    // refresh
-    navigate(0);
+   
     // navigate(`/userself/${id}`);
     // 在此處執行其他需要在按下儲存後立即執行的動作
     // 例如關閉彈出視窗、重新導向等等

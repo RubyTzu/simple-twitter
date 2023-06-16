@@ -9,13 +9,12 @@ import { useEffect, useState } from "react";
 import { getUserLikedTweets, getUserReplies, getUserTweets } from "api/tweet";
 import { getFollowCounts, getProfile } from "api/userinfo";
 import { useAuth } from "context/authContext";
+import { useTweet } from "context/tweetContext";
 
 export const UserSelfPage = () => {
   const [profile, setProfile] = useState([]);
   const [followCounts, setFollowCounts] = useState([]);
-  const [tweets, setTweets] = useState([]);
-  const [replies, setReplies] = useState([]);
-  const [likedTweets, setLikedTweets] = useState([]);
+  const { setUserTweets, setUserReplies, setUserLikedTweets } = useTweet();
   const { userId } = useParams();
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
@@ -31,13 +30,13 @@ export const UserSelfPage = () => {
     const showPage = async () => {
       setProfile(await getProfile(userId));
       setFollowCounts(await getFollowCounts(userId));
-      setTweets(await getUserTweets(userId));
-      setReplies(await getUserReplies(userId));
-      setLikedTweets(await getUserLikedTweets(userId));
+      setUserTweets(await getUserTweets(userId));
+      setUserReplies(await getUserReplies(userId));
+      setUserLikedTweets(await getUserLikedTweets(userId));
     };
     showPage();
     console.log("hello from useEffect-UserSelfPage");
-  }, [userId]);
+  }, [userId,setUserLikedTweets, setUserReplies, setUserTweets]);
 
   return (
     <>
@@ -118,13 +117,7 @@ export const UserSelfPage = () => {
             </div>
           </div>
         </div>
-        <UserTweetsCollection
-          tweetsCollection={{
-            tweets: tweets,
-            replies: replies,
-            liked: likedTweets,
-          }}
-        />
+        <UserTweetsCollection />
       </div>
     </>
   );

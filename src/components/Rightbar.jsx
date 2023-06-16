@@ -114,16 +114,16 @@ export const Rightbar = () => {
                           : styles.toFollowButton
                       }
                       onClick={async () => {
-                        const reload = () => window.location.reload();
+                        // const reload = () => window.location.reload();
                         if (!popular.isFollowing) {
                           await handleAddFollowing(popular.id);
-                          reload();
+                          // reload();
                         } else {
                           await handleCancelFollowing(popular.id);
-                          reload();
+                          // reload();
                         }
                         handleClick(popular.id);
-                        reload();
+                        // reload();
                       }}
                     >
                       {popular.isFollowing ? "正在跟隨" : "跟隨"}

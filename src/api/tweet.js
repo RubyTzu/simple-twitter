@@ -5,14 +5,11 @@ const token = localStorage.getItem("authToken");
 //homepage tweets
 export const getTweets = async (id) => {
   try {
-    const { data } = await axios.get(
-      `${baseUrl}/api/users/${id}/tweets?follows=true`,
-      {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      }
-    );
+    const { data } = await axios.get(`${baseUrl}/api/tweets`, {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    });
     return data;
   } catch (error) {
     return false;
