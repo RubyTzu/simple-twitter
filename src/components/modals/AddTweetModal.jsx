@@ -62,6 +62,7 @@ export const AddTweetModal = () => {
               className={styles.addTweetTextarea}
               placeholder="有什麼新鮮事？"
               onInput={onInput}
+              value={inputValue}
               onChange={(e) => {
                 setInputValue(e.target.value);
               }}

@@ -13,12 +13,12 @@ import { useCurrentUser } from "context/userInfoContext";
 import { getFollowCounts, getProfile } from "api/userinfo";
 
 export const UserSelfPage = () => {
-  const { setUserTweets, setUserReplies, setUserLikedTweets } = useTweet();
   const { profile, setProfile, followCounts, setFollowCounts } =
     useCurrentUser();
-  const { isAuthenticated } = useAuth();
-
+const { setUserTweets, setUserReplies, setUserLikedTweets, addTweetRefresh } =
+    useTweet();
   const { userId } = useParams();
+  const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -43,6 +43,7 @@ export const UserSelfPage = () => {
     setUserLikedTweets,
     setUserReplies,
     setUserTweets,
+    addTweetRefresh,
     setProfile,
     setFollowCounts,
   ]);

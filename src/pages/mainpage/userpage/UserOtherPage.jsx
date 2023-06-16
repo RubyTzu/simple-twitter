@@ -6,7 +6,7 @@ import userotherBcg from "assets/userselfBcg.svg";
 import styles from "./UserOtherPage.module.scss";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { UserTweetsCollection } from "components/UserTweetsCollection";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { getUserLikedTweets, getUserReplies, getUserTweets } from "api/tweet";
 import { getFollowCounts, getProfile } from "api/userinfo";
 import { addFollow, deleteFollow } from "api/follow";
@@ -15,13 +15,13 @@ import { useTweet } from "context/tweetContext";
 import { useCurrentUser } from "context/userInfoContext";
 
 export const UserOtherPage = () => {
-  const { setUserTweets, setUserReplies, setUserLikedTweets } = useTweet();
-  const { profile, setProfile, followCounts, setFollowCounts } =
-    useCurrentUser();
-  const { isAuthenticated } = useAuth();
+  const { setUserTweets, setUserReplies, setUserLikedTweets, addTweetRefresh } =
+    useTweet();
   const { userId } = useParams();
   const navigate = useNavigate();
-  const [idFromButtonClick, setIdFromButtonClick] = useState(null);
+  const { isAuthenticated } = useAuth();
+  const { profile, setProfile, followCounts, setFollowCounts } =
+    useCurrentUser();
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -34,7 +34,6 @@ export const UserOtherPage = () => {
     console.log(`add following ${userId}`);
     try {
       await addFollow(userId);
-      setIdFromButtonClick(userId);
     } catch (error) {
       console.error(error);
     }
@@ -44,17 +43,12 @@ export const UserOtherPage = () => {
     console.log(`cancel following ${userId}`);
     try {
       await deleteFollow(userId);
-      setIdFromButtonClick(userId);
     } catch (error) {
       console.error(error);
     }
   };
 
-  const handleClick = async (id) => {
-    setIdFromButtonClick(Date.now());
-    // console.log(`inside handleClick ${id}`);
-    //  console.log(`inside handleClick 2 ${idFromButtonClick}`);
-  };
+
 
   useEffect(() => {
     const showPage = async () => {
@@ -63,16 +57,15 @@ export const UserOtherPage = () => {
       setUserTweets(await getUserTweets(userId));
       setUserReplies(await getUserReplies(userId));
       setUserLikedTweets(await getUserLikedTweets(userId));
-      console.log(idFromButtonClick);
     };
     showPage();
     console.log("hello from useEffect-UserOtherPage");
   }, [
     userId,
-    idFromButtonClick,
     setUserLikedTweets,
     setUserReplies,
     setUserTweets,
+    addTweetRefresh,
     setFollowCounts,
     setProfile,
   ]);
@@ -129,7 +122,6 @@ export const UserOtherPage = () => {
                   await handleCancelFollowing(profile.id);
                   reload();
                 }
-                await handleClick(profile.id);
                 reload();
               }}
             >

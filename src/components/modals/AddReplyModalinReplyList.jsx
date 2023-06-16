@@ -4,9 +4,18 @@ import initialAvatar from "assets/GreyIcon.svg";
 import { Link, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getSingleTweet } from "api/tweet";
+import { useTweet } from "context/tweetContext";
+import { createReplyTweet } from "api/tweet";
 
-export const AddReplyModalinReplyList = ({ onClick, onChange, inputValue }) => {
-  const [showAlert, setShowAlert] = useState(false);
+export const AddReplyModalinReplyList = () => {
+  const {
+    replyInputValue,
+    setReplyInputValue,
+    showReplyAlert,
+    setShowReplyAlert,
+    onRefresh,
+  } = useTweet();
+
   const [singleTweet, setSingleTweet] = useState({});
   const { tweetId } = useParams();
 
@@ -50,15 +59,32 @@ export const AddReplyModalinReplyList = ({ onClick, onChange, inputValue }) => {
   useEffect(() => {
     const showPage = async () => {
       setSingleTweet(await getSingleTweet(tweetId));
-      // console.log(`AddReplyModalinReplyList useEffect 的showAlert ${tweetId}`);
+      console.log(`AddReplyModalinReplyList useEffect 的showAlert ${tweetId}`);
     };
     showPage();
   }, [tweetId]);
 
   useEffect(() => {
-    // console.log(showAlert);
-    // console.log(`AddReplyModalinReplyList useEffect 的showAlert ${showAlert}`);
-  }, [showAlert]);
+    console.log(
+      `AddReplyModalinReplyList useEffect 的showAlert ${showReplyAlert}`
+    );
+  }, [showReplyAlert]);
+
+  const handleAddReplyTweet = async () => {
+    if (replyInputValue.length === 0 || replyInputValue.length > 140) {
+      return;
+    } else {
+      await createReplyTweet({
+        comment: replyInputValue,
+        id: tweetId,
+      });
+      setShowReplyAlert(false);
+      setReplyInputValue('')
+      onRefresh();
+      // const reload = () => window.location.reload();
+      // reload();
+    }
+  };
 
   return (
     <div
@@ -108,10 +134,11 @@ export const AddReplyModalinReplyList = ({ onClick, onChange, inputValue }) => {
                 </header>
                 <p className={styles.comment}>{singleTweet.description}</p>
                 <p className={styles.replyTo}>
-                  回覆給 
+                  回覆給
                   <Link className={styles.replyNickNameLink}>
                     <span className={styles.replyNickName}>
-                      {" "}@{singleTweet.account}
+                      {" "}
+                      @{singleTweet.account}
                     </span>
                   </Link>
                 </p>
@@ -132,27 +159,39 @@ export const AddReplyModalinReplyList = ({ onClick, onChange, inputValue }) => {
                 className={styles.replyTweetTextarea}
                 placeholder="推你的回覆"
                 onInput={handleAddTweetHeight}
+                value={replyInputValue}
                 onChange={(e) => {
-                  onChange(e.target.value);
+                  setReplyInputValue(e.target.value);
                 }}
               />
             </div>
           </div>
           <div className={`modal-footer ${styles.modalFooter}`}>
             <p className={styles.wordLimitHint}>
-              {showAlert && inputValue.length === 0 && "內容不可空白"}
-              {showAlert && inputValue.length > 140 && "字數不可超過 140 字"}
+              {showReplyAlert && replyInputValue.length === 0 && "內容不可空白"}
+              {showReplyAlert &&
+                replyInputValue.length > 140 &&
+                "字數不可超過 140 字"}
             </p>
             <button
               type="button"
               className={styles.tweetButton}
               onClick={() => {
-                if (inputValue.length === 0 || inputValue.length > 140) {
-                  setShowAlert(true);
+                if (
+                  replyInputValue.length === 0 ||
+                  replyInputValue.length > 140
+                ) {
+                  setShowReplyAlert(true);
+                  return;
                 } else {
-                  onClick();
+                  handleAddReplyTweet();
                 }
               }}
+              data-bs-dismiss={
+                replyInputValue.length > 0 &&
+                replyInputValue.length <= 140 &&
+                "modal"
+              }
             >
               回覆
             </button>
