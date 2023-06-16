@@ -8,6 +8,7 @@ const id = localStorage.getItem("id");
 
 export const SettingPage = () => {
   const [user, setUser] = useState({});
+  const [nameLength, setNameLength] = useState("");
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
@@ -21,6 +22,7 @@ export const SettingPage = () => {
   useEffect(() => {
     const showPage = async () => setUser(await getProfile(id));
     showPage();
+    // setNameLength(user.name.length);
     console.log("3600 test from setting page");
   }, []);
 
@@ -68,6 +70,7 @@ export const SettingPage = () => {
             label="名稱"
             value={user.name}
             onChange={(e) => {
+              setNameLength(e.target.value.length);
               setUser({
                 ...user,
                 name: e.target.value,
@@ -76,7 +79,7 @@ export const SettingPage = () => {
           />
           <span className={styles.limit}>
             <p>字數超出上限!</p>
-            <p>0/50</p>
+            <p>{nameLength}/50</p>
           </span>
         </div>
         <div className={styles.inputContainer}>
