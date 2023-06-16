@@ -7,16 +7,21 @@ import { UserTweetsCollection } from "components/UserTweetsCollection";
 import { InfoEditModal } from "components/modals/InfoEditModal";
 import { useEffect, useState } from "react";
 import { getUserLikedTweets, getUserReplies, getUserTweets } from "api/tweet";
-import { getFollowCounts, getProfile } from "api/userinfo";
 import { useAuth } from "context/authContext";
+
 import { useTweet } from "context/tweetContext";
+import { useCurrentUser } from "context/userInfoContext";
 
 export const UserSelfPage = () => {
-  const [profile, setProfile] = useState([]);
-  const [followCounts, setFollowCounts] = useState([]);
-  const { setUserTweets, setUserReplies, setUserLikedTweets } = useTweet();
+ 
+  
+
+  const [profile, setProfile] = useState({});
+  const [followCounts, setFollowCounts] = useState({});
+ const { setUserTweets, setUserReplies, setUserLikedTweets } = useTweet();
   const { userId } = useParams();
   const { isAuthenticated } = useAuth();
+  const { currentUser, followNumber } = useCurrentUser();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -28,15 +33,17 @@ export const UserSelfPage = () => {
 
   useEffect(() => {
     const showPage = async () => {
-      setProfile(await getProfile(userId));
-      setFollowCounts(await getFollowCounts(userId));
+      setProfile(currentUser);
+      setFollowCounts(followNumber);
+      //等Ruby context資料
       setUserTweets(await getUserTweets(userId));
       setUserReplies(await getUserReplies(userId));
       setUserLikedTweets(await getUserLikedTweets(userId));
     };
     showPage();
     console.log("hello from useEffect-UserSelfPage");
-  }, [userId,setUserLikedTweets, setUserReplies, setUserTweets]);
+  }, [userId, currentUser, followNumber,setUserLikedTweets, setUserReplies, setUserTweets]);
+
 
   return (
     <>

@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react";
 import styles from "./SettingPage.module.scss";
 import { AuthInput } from "components/AuthInput";
-import { getProfile, updateProfile } from "api/userinfo";
+import { updateProfile } from "api/userinfo";
 import { useAuth } from "context/authContext";
 import { useNavigate } from "react-router";
-const id = localStorage.getItem("id");
+import { useCurrentUser } from "context/userInfoContext";
+import clsx from "clsx";
 
 export const SettingPage = () => {
   const [user, setUser] = useState({});
+  const [nameLength, setNameLength] = useState("");
   const { isAuthenticated } = useAuth();
+  const { currentUser } = useCurrentUser();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -19,17 +22,20 @@ export const SettingPage = () => {
   }, [isAuthenticated, navigate]);
 
   useEffect(() => {
-    const showPage = async () => setUser(await getProfile(id));
+    const showPage = async () => {
+      setUser(currentUser);
+      setNameLength(currentUser.name.length);
+    };
     showPage();
     console.log("3600 test from setting page");
-  }, []);
+  }, [currentUser]);
 
   const handleSave = async () => {
     if (user.password !== user.checkPassword) {
       alert("請確認兩次密碼輸入一致");
       return;
     }
-    if (user.name.length > 50) {
+    if (nameLength > 50) {
       alert("名稱超過50字元");
       return;
     }
@@ -68,15 +74,21 @@ export const SettingPage = () => {
             label="名稱"
             value={user.name}
             onChange={(e) => {
+              setNameLength(e.target.value.length);
               setUser({
                 ...user,
                 name: e.target.value,
               });
             }}
           />
-          <span className={styles.limit}>
+          <span
+            className={clsx("", {
+              [styles.limit]: nameLength > 50,
+              [styles.noLimit]: nameLength <= 50,
+            })}
+          >
             <p>字數超出上限!</p>
-            <p>0/50</p>
+            <p>{nameLength}/50</p>
           </span>
         </div>
         <div className={styles.inputContainer}>
