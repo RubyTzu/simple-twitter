@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import styles from "./SettingPage.module.scss";
 import { AuthInput } from "components/AuthInput";
-import { updateProfile } from "api/userinfo";
+import { getProfile, updateProfile } from "api/userinfo";
 import { useAuth } from "context/authContext";
 import { useNavigate } from "react-router";
 import { useCurrentUser } from "context/userInfoContext";
@@ -11,9 +11,9 @@ export const SettingPage = () => {
   const [user, setUser] = useState({});
   const [nameLength, setNameLength] = useState("");
   const { isAuthenticated } = useAuth();
-  const { currentUser } = useCurrentUser();
+  const { profile, setProfile } = useCurrentUser();
   const navigate = useNavigate();
-
+  const id = localStorage.getItem("id");
   useEffect(() => {
     if (!isAuthenticated) {
       navigate("/login");
@@ -23,14 +23,27 @@ export const SettingPage = () => {
 
   useEffect(() => {
     const showPage = async () => {
-      setUser(currentUser);
-      setNameLength(currentUser.name.length);
+      setProfile(await getProfile(id));
+      // setNameLength(profile.name.length);
     };
     showPage();
+    console.log(profile.name);
     console.log("3600 test from setting page");
-  }, [currentUser]);
+  }, [id, setProfile, profile.name]);
 
   const handleSave = async () => {
+    if (user.account === "") {
+      alert("帳號不得為空");
+      return;
+    }
+    if (user.name === "") {
+      alert("名稱不得為空");
+      return;
+    }
+    if (user.email === "") {
+      alert("Email不得為空");
+      return;
+    }
     if (user.password !== user.checkPassword) {
       alert("請確認兩次密碼輸入一致");
       return;
@@ -59,7 +72,7 @@ export const SettingPage = () => {
           <AuthInput
             type="text"
             label="帳號"
-            value={user.account}
+            value={profile.account}
             onChange={(e) => {
               setUser({
                 ...user,
@@ -72,7 +85,7 @@ export const SettingPage = () => {
           <AuthInput
             type="text"
             label="名稱"
-            value={user.name}
+            value={profile.name}
             onChange={(e) => {
               setNameLength(e.target.value.length);
               setUser({
@@ -95,7 +108,7 @@ export const SettingPage = () => {
           <AuthInput
             type="text"
             label="Email"
-            value={user.email}
+            value={profile.email}
             onChange={(e) => {
               setUser({
                 ...user,
