@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
 import styles from "./SettingPage.module.scss";
 import { AuthInput } from "components/AuthInput";
-import { getProfile, updateProfile } from "api/userinfo";
+import { updateProfile } from "api/userinfo";
 import { useAuth } from "context/authContext";
 import { useNavigate } from "react-router";
 import { useCurrentUser } from "context/userInfoContext";
 import clsx from "clsx";
-const id = localStorage.getItem("id");
 
 export const SettingPage = () => {
   const [user, setUser] = useState({});
