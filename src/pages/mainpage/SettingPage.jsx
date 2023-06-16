@@ -4,12 +4,14 @@ import { AuthInput } from "components/AuthInput";
 import { getProfile, updateProfile } from "api/userinfo";
 import { useAuth } from "context/authContext";
 import { useNavigate } from "react-router";
+import { useCurrentUser } from "context/userInfoContext";
 const id = localStorage.getItem("id");
 
 export const SettingPage = () => {
   const [user, setUser] = useState({});
   const [nameLength, setNameLength] = useState("");
   const { isAuthenticated } = useAuth();
+  const { currentUser } = useCurrentUser();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -20,11 +22,12 @@ export const SettingPage = () => {
   }, [isAuthenticated, navigate]);
 
   useEffect(() => {
-    const showPage = async () => setUser(await getProfile(id));
+    const showPage = async () => {
+      setUser(currentUser);
+    };
     showPage();
-    // setNameLength(user.name.length);
     console.log("3600 test from setting page");
-  }, []);
+  }, [currentUser]);
 
   const handleSave = async () => {
     if (user.password !== user.checkPassword) {
