@@ -3,14 +3,13 @@ import { UserReplyTweets } from "components/TweetsReadOnly";
 import styles from "./UserTweetsCollection.module.scss";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-
 const types = [
   { dataType: "tweets", name: "推文" },
   { dataType: "reply-tweets", name: "回覆" },
   { dataType: "like-tweets", name: "喜歡的內容" },
 ];
 
-export const UserTweetsCollection = ({ tweetsCollection }) => {
+export const UserTweetsCollection = () => {
   let typeInfos = types;
   const [activeLink, setActiveLink] = useState("推文");
   const handleClick = (e) => {
@@ -37,23 +36,11 @@ export const UserTweetsCollection = ({ tweetsCollection }) => {
       <section className={styles.tweetListContainer}>
         {typeInfos.map((info) => {
           if (info.name === "推文" && activeLink === info.name) {
-            return (
-              <UserTweets key={info.dataType} value={tweetsCollection.tweets} />
-            );
+            return <UserTweets key={info.dataType} />;
           } else if (activeLink === "回覆" && activeLink === info.name) {
-            return (
-              <UserReplyTweets
-                key={info.dataType}
-                value={tweetsCollection.replies}
-              />
-            );
+            return <UserReplyTweets key={info.dataType} />;
           } else if (activeLink === "喜歡的內容" && activeLink === info.name) {
-            return (
-              <UserLikeTweets
-                key={info.dataType}
-                value={tweetsCollection.liked}
-              />
-            );
+            return <UserLikeTweets key={info.dataType} />;
           }
           return null;
         })}
