@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { getUserLikedTweets, getUserReplies, getUserTweets } from "api/tweet";
 import { getFollowCounts, getProfile } from "api/userinfo";
 import { useAuth } from "context/authContext";
+import { useCurrentUser } from "context/currentUserContext";
 
 export const UserSelfPage = () => {
   const [profile, setProfile] = useState([]);
@@ -19,6 +20,7 @@ export const UserSelfPage = () => {
   const { userId } = useParams();
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
+  const { currentUser } = useCurrentUser();
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -28,6 +30,7 @@ export const UserSelfPage = () => {
   }, [isAuthenticated, navigate]);
 
   useEffect(() => {
+    console.log(currentUser);
     const showPage = async () => {
       setProfile(await getProfile(userId));
       setFollowCounts(await getFollowCounts(userId));
@@ -37,7 +40,7 @@ export const UserSelfPage = () => {
     };
     showPage();
     console.log("hello from useEffect-UserSelfPage");
-  }, [userId]);
+  }, [userId, currentUser]);
 
   return (
     <>

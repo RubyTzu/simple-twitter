@@ -17,6 +17,7 @@ import { SettingPage } from "pages/mainpage/SettingPage";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "context/authContext";
 import { ClickLikeProvider } from "context/clickLikeContext";
+import { CurrentUserProvider } from "context/currentUserContext";
 
 const basename = process.env.PUBLIC_URL;
 
@@ -25,6 +26,7 @@ function App() {
     <div className="App">
       <BrowserRouter basename={basename}>
         <AuthProvider>
+          {/* <CurrentUserProvider> */}
           <ClickLikeProvider>
             <Routes>
               <Route path="/admin/login" element={<AdminLoginPage />} />
@@ -85,6 +87,7 @@ function App() {
               <Route path="*" element={<LoginPage />} /> {/* 暫定 */}
             </Routes>
           </ClickLikeProvider>
+          {/* </CurrentUserProvider> */}
         </AuthProvider>
       </BrowserRouter>
     </div>
