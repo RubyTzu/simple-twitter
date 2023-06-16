@@ -5,21 +5,21 @@ import styles from "./UserSelfPage.module.scss";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { UserTweetsCollection } from "components/UserTweetsCollection";
 import { InfoEditModal } from "components/modals/InfoEditModal";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { getUserLikedTweets, getUserReplies, getUserTweets } from "api/tweet";
 import { useAuth } from "context/authContext";
 import { useTweet } from "context/tweetContext";
 import { useCurrentUser } from "context/userInfoContext";
+import { getFollowCounts, getProfile } from "api/userinfo";
 
 export const UserSelfPage = () => {
-  const [profile, setProfile] = useState({});
-  const [followCounts, setFollowCounts] = useState({});
   const { setUserTweets, setUserReplies, setUserLikedTweets, addTweetRefresh } =
     useTweet();
+  const { profile, setProfile, followCounts, setFollowCounts } =
+    useCurrentUser();
+  const { isAuthenticated } = useAuth();
 
   const { userId } = useParams();
-  const { isAuthenticated } = useAuth();
-  const { currentUser, followNumber } = useCurrentUser();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -31,9 +31,8 @@ export const UserSelfPage = () => {
 
   useEffect(() => {
     const showPage = async () => {
-      setProfile(currentUser);
-      setFollowCounts(followNumber);
-      //等Ruby context資料
+      setProfile(await getProfile(userId));
+      setFollowCounts(await getFollowCounts(userId));
       setUserTweets(await getUserTweets(userId));
       setUserReplies(await getUserReplies(userId));
       setUserLikedTweets(await getUserLikedTweets(userId));
@@ -42,14 +41,13 @@ export const UserSelfPage = () => {
     console.log("hello from useEffect-UserSelfPage");
   }, [
     userId,
-    currentUser,
-    followNumber,
     setUserLikedTweets,
     setUserReplies,
     setUserTweets,
+    setProfile,
+    setFollowCounts,
     addTweetRefresh,
   ]);
-
 
   return (
     <>

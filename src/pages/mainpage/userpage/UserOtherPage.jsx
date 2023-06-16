@@ -12,6 +12,7 @@ import { getFollowCounts, getProfile } from "api/userinfo";
 import { addFollow, deleteFollow } from "api/follow";
 import { useAuth } from "context/authContext";
 import { useTweet } from "context/tweetContext";
+import { useCurrentUser } from "context/userInfoContext";
 
 export const UserOtherPage = () => {
   const [profile, setProfile] = useState([]);
@@ -21,6 +22,8 @@ export const UserOtherPage = () => {
   const { userId } = useParams();
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
+  const { profile, setProfile, followCounts, setFollowCounts } =
+    useCurrentUser();
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -64,7 +67,9 @@ export const UserOtherPage = () => {
     setUserLikedTweets,
     setUserReplies,
     setUserTweets,
-    addTweetRefresh
+    addTweetRefresh,
+    setFollowCounts,
+    setProfile,
   ]);
 
   return (
