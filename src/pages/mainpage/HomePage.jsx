@@ -1,7 +1,7 @@
 import initialAvatar from "assets/GreyIcon.svg";
 import { Tweet } from "components/Tweets";
 import styles from "./HomePage.module.scss";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useAuth } from "context/authContext";
 import { useTweet } from "context/tweetContext";
 import { useNavigate } from "react-router-dom";
