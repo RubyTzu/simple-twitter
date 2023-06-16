@@ -14,9 +14,9 @@ import { useClickLike } from "context/clickLikeContext";
 import {
   getSingleTweet,
   getSingleTweetReplies,
-  createReplyTweet,
 } from "api/tweet";
 import { useEffect, useState } from "react";
+import { useTweet } from "context/tweetContext";
 // import { TweetsReadOnly } from "components/TweetsReadOnly";
 // import moment from "moment/moment";
 
@@ -26,10 +26,15 @@ const getId = () => {
 };
 
 export const ReplyListPage = () => {
-  const [singleTweet, setSingleTweet] = useState({});
-  const [replies, setReplies] = useState([]);
+  const {
+    singleTweet,
+    setSingleTweet,
+    replyListReplies,
+    setReplyListReplies,
+    addTweetRefresh,
+  } = useTweet();
+
   const { tweetId } = useParams();
-  const [inputValue, setInputValue] = useState("");
   const [isLiked, setIsLiked] = useState(singleTweet.isLiked);
 
   const { clickLike } = useClickLike();
@@ -38,25 +43,13 @@ export const ReplyListPage = () => {
   useEffect(() => {
     const showPage = async () => {
       setSingleTweet(await getSingleTweet(tweetId));
-      setReplies(await getSingleTweetReplies(tweetId));
+      setReplyListReplies(await getSingleTweetReplies(tweetId));
     };
     showPage();
     console.log("hello from useEffect-ReplyListPage");
-  }, [tweetId, isLiked]);
+  }, [tweetId, isLiked, setReplyListReplies, setSingleTweet, addTweetRefresh]);
 
-  const handleAddTweet = async () => {
-    if (inputValue.length === 0 || inputValue.length > 140) {
-      return;
-    } else {
-      await createReplyTweet({
-        comment: inputValue,
-        id: tweetId,
-      });
 
-      const reload = () => window.location.reload();
-      reload();
-    }
-  };
   const formatTimestamp = (timestamp) => {
     const timestampDate = new Date(timestamp);
     const formattedDate = timestampDate.toLocaleDateString("zh-TW", {
@@ -141,13 +134,7 @@ export const ReplyListPage = () => {
               >
                 <CommentSVG className={styles.feedbackButton} />
               </Link>
-              <AddReplyModalinReplyList
-                onClick={handleAddTweet}
-                onChange={(value) => {
-                  setInputValue(value);
-                }}
-                inputValue={inputValue}
-              />
+              <AddReplyModalinReplyList />
 
               <Link href="/">
                 <img
@@ -167,7 +154,7 @@ export const ReplyListPage = () => {
         </div>
         {/* {console.log(replies)} */}
         {/* <TweetsReadOnly value={replies} /> */}
-        {replies.map((reply) => {
+        { replyListReplies.map((reply) => {
           return <TweetReadOnly key={reply.id} value={reply} />;
         })}
         {/* {replies.current.map((reply) => {

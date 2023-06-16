@@ -103,15 +103,15 @@ export const TweetReadOnly = ({ value }) => {
   );
 };
 
-export const TweetsReadOnly = ({ value }) => {
-  return (
-    <div className={styles.replyTweetsCollection}>
-      {value.map((reply) => {
-        return <TweetReadOnly key={reply.id} value={reply} />;
-      })}
-    </div>
-  );
-};
+// export const TweetsReadOnly = ({ value }) => {
+//   return (
+//     <div className={styles.replyTweetsCollection}>
+//       {value.map((reply) => {
+//         return <TweetReadOnly key={reply.id} value={reply} />;
+//       })}
+//     </div>
+//   );
+// };
 
 export const UserReplyTweets = () => {
   const { userReplies } = useTweet();

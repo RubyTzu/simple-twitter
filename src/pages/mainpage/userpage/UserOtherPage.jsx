@@ -16,11 +16,11 @@ import { useTweet } from "context/tweetContext";
 export const UserOtherPage = () => {
   const [profile, setProfile] = useState([]);
   const [followCounts, setFollowCounts] = useState([]);
-  const { setUserTweets, setUserReplies, setUserLikedTweets } = useTweet();
+  const { setUserTweets, setUserReplies, setUserLikedTweets, addTweetRefresh } =
+    useTweet();
   const { userId } = useParams();
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
-  const [idFromButtonClick, setIdFromButtonClick] = useState(null);
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -33,7 +33,6 @@ export const UserOtherPage = () => {
     console.log(`add following ${userId}`);
     try {
       await addFollow(userId);
-      setIdFromButtonClick(userId);
     } catch (error) {
       console.error(error);
     }
@@ -43,17 +42,12 @@ export const UserOtherPage = () => {
     console.log(`cancel following ${userId}`);
     try {
       await deleteFollow(userId);
-      setIdFromButtonClick(userId);
     } catch (error) {
       console.error(error);
     }
   };
 
-  const handleClick = async (id) => {
-    setIdFromButtonClick(Date.now());
-    // console.log(`inside handleClick ${id}`);
-    //  console.log(`inside handleClick 2 ${idFromButtonClick}`);
-  };
+
 
   useEffect(() => {
     const showPage = async () => {
@@ -62,16 +56,15 @@ export const UserOtherPage = () => {
       setUserTweets(await getUserTweets(userId));
       setUserReplies(await getUserReplies(userId));
       setUserLikedTweets(await getUserLikedTweets(userId));
-      console.log(idFromButtonClick);
     };
     showPage();
     console.log("hello from useEffect-UserOtherPage");
   }, [
     userId,
-    idFromButtonClick,
     setUserLikedTweets,
     setUserReplies,
     setUserTweets,
+    addTweetRefresh
   ]);
 
   return (
@@ -126,7 +119,6 @@ export const UserOtherPage = () => {
                   await handleCancelFollowing(profile.id);
                   reload();
                 }
-                await handleClick(profile.id);
                 reload();
               }}
             >

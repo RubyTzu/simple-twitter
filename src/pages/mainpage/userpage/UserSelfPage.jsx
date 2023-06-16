@@ -14,7 +14,8 @@ import { useCurrentUser } from "context/userInfoContext";
 export const UserSelfPage = () => {
   const [profile, setProfile] = useState({});
   const [followCounts, setFollowCounts] = useState({});
-  const { setUserTweets, setUserReplies, setUserLikedTweets } = useTweet();
+  const { setUserTweets, setUserReplies, setUserLikedTweets, addTweetRefresh } =
+    useTweet();
 
   const { userId } = useParams();
   const { isAuthenticated } = useAuth();
@@ -33,13 +34,21 @@ export const UserSelfPage = () => {
       setProfile(currentUser);
       setFollowCounts(followNumber);
       //等Ruby context資料
-     setUserTweets(await getUserTweets(userId));
+      setUserTweets(await getUserTweets(userId));
       setUserReplies(await getUserReplies(userId));
       setUserLikedTweets(await getUserLikedTweets(userId));
     };
     showPage();
     console.log("hello from useEffect-UserSelfPage");
-  }, [userId, currentUser, followNumber,setUserLikedTweets, setUserReplies, setUserTweets]);
+  }, [
+    userId,
+    currentUser,
+    followNumber,
+    setUserLikedTweets,
+    setUserReplies,
+    setUserTweets,
+    addTweetRefresh,
+  ]);
 
 
   return (

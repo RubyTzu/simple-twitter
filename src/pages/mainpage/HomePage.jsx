@@ -53,6 +53,7 @@ export const HomePage = () => {
             <textarea
               className={styles.addTweetTextarea}
               placeholder="有什麼新鮮事？"
+              value={inputValue}
               onInput={onInput}
               onChange={(e) => {
                 setInputValue(e.target.value);
@@ -71,6 +72,7 @@ export const HomePage = () => {
                     setShowAlert(true);
                   } else {
                     onAddTweetClick();
+                    // navigate(0);
                   }
                 }}
               >

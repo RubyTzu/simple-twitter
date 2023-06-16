@@ -18,8 +18,13 @@ export const TweetContextProvider = ({ children }) => {
   const [userTweets, setUserTweets] = useState([]);
   const [userReplies, setUserReplies] = useState([]);
   const [userLikedTweets, setUserLikedTweets] = useState([]);
+  const [singleTweet, setSingleTweet] = useState({});
+  const [replyListReplies, setReplyListReplies] = useState([]);
   const [inputValue, setInputValue] = useState("");
+  const [replyInputValue, setReplyInputValue] = useState("");
   const [showAlert, setShowAlert] = useState(false);
+  const [showReplyAlert, setShowReplyAlert] = useState(false);
+  const [addTweetRefresh, setAddTweetRefresh] = useState(null);
 
   //useEffect hook
   useEffect(() => {
@@ -31,12 +36,11 @@ export const TweetContextProvider = ({ children }) => {
     };
     showHomePageTweets();
     console.log(`hello from useEffect-TweetContext id :${id}`);
-  }, [id]);
+  }, [id, addTweetRefresh]);
 
   useEffect(() => {
     console.log(`hello from useEffect-TweetContext showAlert :${showAlert}`);
   }, [showAlert]);
-
 
   //event handler
   const handleAddTweetHeight = (e) => {
@@ -45,7 +49,6 @@ export const TweetContextProvider = ({ children }) => {
   };
 
   const handleAddTweet = async () => {
-    
     if (inputValue.length === 0) {
       return;
     }
@@ -55,9 +58,16 @@ export const TweetContextProvider = ({ children }) => {
       likable: 1,
       commendable: 1,
     });
+    console.log(`createTweet success`);
+    setInputValue("");
+    handleClick();
+    console.log(`setClick${addTweetRefresh}`);
+    // const reload = () => window.location.reload();
+    // reload();
+  };
 
-    const reload = () => window.location.reload();
-    reload();
+  const handleClick = () => {
+    setAddTweetRefresh(Date.now());
   };
 
   //TweetContext.Provider value
@@ -71,13 +81,23 @@ export const TweetContextProvider = ({ children }) => {
     setUserReplies,
     userLikedTweets,
     setUserLikedTweets,
+    singleTweet,
+    setSingleTweet,
+    replyListReplies,
+    setReplyListReplies,
     inputValue,
     setInputValue,
+    replyInputValue,
+    setReplyInputValue,
     showAlert,
     setShowAlert,
+    showReplyAlert,
+    setShowReplyAlert,
+    addTweetRefresh,
     //event handler
     onInput: handleAddTweetHeight,
     onAddTweetClick: handleAddTweet,
+    onRefresh: handleClick,
   };
 
   return (
@@ -86,4 +106,3 @@ export const TweetContextProvider = ({ children }) => {
     </TweetContext.Provider>
   );
 };
-

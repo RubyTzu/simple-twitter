@@ -61,7 +61,7 @@ export const Rightbar = () => {
 
     showPopular();
 
-    // console.log(`Rightbar useEffect idFromButtonClick ${idFromButtonClick}`);
+    console.log(`Rightbar useEffect idFromButtonClick ${idFromButtonClick}`);
   }, [token, idFromButtonClick]);
 
   return (

@@ -3,7 +3,7 @@ import { ReactComponent as CloseSVG } from "assets/Close.svg";
 import { ReactComponent as CameraSVG } from "assets/Camera.svg";
 import initialAvatar from "assets/GreyIcon.svg";
 import initialSelfBcg from "assets/BGPhoto.png";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { removeCoverPhoto, updateInfo } from "api/infoEdit";
 import { getProfile } from "api/userinfo";
@@ -21,7 +21,7 @@ export const InfoEditModal = () => {
   const [avatarPreview, setAvatarPreview] = useState(null);
   const [bgImageFile, setBgImageFile] = useState(null);
   const [avatarFile, setAvatarFile] = useState(null);
-const navigate = useNavigate()
+
 
 
   useEffect(() => {
@@ -71,9 +71,9 @@ const navigate = useNavigate()
     if (bgImageFile === "null") {
       await removeCoverPhoto(id);
     }
-     navigate(`/userself/${id}`);
-    // const reload = () => window.location.reload();
-    // reload();
+    //  navigate(`/userself/${id}`);
+    const reload = () => window.location.reload();
+    reload();
   };
 
   const handleBgImageChange = (e) => {
@@ -116,10 +116,7 @@ const navigate = useNavigate()
     handleUpdateInfo();
     console.log(bgImageFile);
     console.log(avatarFile);
-    // const reload = () => window.location.reload();
-    //   reload();
    
-    // navigate(`/userself/${id}`);
     // 在此處執行其他需要在按下儲存後立即執行的動作
     // 例如關閉彈出視窗、重新導向等等
   };
