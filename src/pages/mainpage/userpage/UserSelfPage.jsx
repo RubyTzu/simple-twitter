@@ -36,6 +36,7 @@ export const UserSelfPage = () => {
       setLikedTweets(await getUserLikedTweets(userId));
     };
     showPage();
+    console.log("hello from useEffect-UserSelfPage");
   }, [userId]);
 
   return (
@@ -74,7 +75,7 @@ export const UserSelfPage = () => {
             data-bs-target="#infoEditModal"
             onClick={(e) => {
               e.stopPropagation();
-              console.log(profile)
+              console.log(profile);
             }}
           >
             編輯個人資料

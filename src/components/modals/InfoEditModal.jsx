@@ -25,18 +25,18 @@ export const InfoEditModal = () => {
   useEffect(() => {
     const showPage = async () => {
       const userData = await getProfile(id);
-      if (userData.introduction === null ){
+      if (userData.introduction === null) {
         setUser({ ...userData, introduction: "" });
-      } 
-      
-      setUser(
-        userData || {
-          name: "null",
-          introduction: "null",
-          avatar: null,
-          coverPhoto: null,
-        }
-      );
+      } else {
+        setUser(
+          userData || {
+            name: "null",
+            introduction: "null",
+            avatar: null,
+            coverPhoto: null,
+          }
+        );
+      }
 
       if (userData && userData.coverPhoto) {
         setBgImagePreview(userData.coverPhoto);
@@ -47,6 +47,7 @@ export const InfoEditModal = () => {
       }
     };
     showPage();
+    console.log("hello from useEffect-InfoEditModal");
   }, []);
 
   const handleUpdateInfo = async () => {
@@ -61,18 +62,16 @@ export const InfoEditModal = () => {
 
     if (bgImageFile && bgImageFile !== "null") {
       formData.append("coverPhoto", bgImageFile, "bg.png");
-    } 
+    }
 
     await updateInfo({ formData, id });
-    
-     if (bgImageFile === "null") {
-    await removeCoverPhoto(id);
-  }
+
+    if (bgImageFile === "null") {
+      await removeCoverPhoto(id);
+    }
     const reload = () => window.location.reload();
     reload();
   };
-
-
 
   const handleBgImageChange = (e) => {
     const file = e.target.files[0];
@@ -163,8 +162,8 @@ export const InfoEditModal = () => {
               type="button"
               className={styles.saveButton}
               data-bs-dismiss={
-                (Number(user.name.length) <= 50 &&
-                Number(user.introduction.length) <= 160)  &&
+                Number(user.name.length) <= 50 &&
+                Number(user.introduction.length) <= 160 &&
                 "modal"
               }
               onClick={() => {

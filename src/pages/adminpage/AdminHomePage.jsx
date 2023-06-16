@@ -17,6 +17,7 @@ export const AdminHomePage = () => {
   useEffect(() => {
     const showTweets = async () => setTweets(await getTweets());
     showTweets();
+    console.log("hello from useEffect-AdminHomePage");
   }, []);
   const handleDelete = async (e) => {
     const id = e.target.dataset.id;

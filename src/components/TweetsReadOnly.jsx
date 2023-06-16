@@ -109,6 +109,7 @@ export const TweetsReadOnly = ({ value }) => {
 };
 
 export const UserReplyTweets = ({ value }) => {
+  if (!value) return;
   return (
     <div className={styles.tweetsCollection}>
       {value.map((tweet, i) => {

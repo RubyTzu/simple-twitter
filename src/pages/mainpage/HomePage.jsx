@@ -35,6 +35,7 @@ export const HomePage = () => {
     };
     showAvatar();
     showTweets();
+    console.log("hello from useEffect-HomePage");
   }, [id]);
 
   useEffect(() => {

@@ -41,6 +41,7 @@ export const ReplyListPage = () => {
       setReplies(await getSingleTweetReplies(tweetId));
     };
     showPage();
+    console.log("hello from useEffect-ReplyListPage");
   }, [tweetId, isLiked]);
 
   const handleAddTweet = async () => {
