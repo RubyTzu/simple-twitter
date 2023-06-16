@@ -72,7 +72,7 @@ export const HomePage = () => {
                     setShowAlert(true);
                   } else {
                     onAddTweetClick();
-                    // navigate(0);
+                    navigate(0);
                   }
                 }}
               >
