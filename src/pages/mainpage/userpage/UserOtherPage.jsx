@@ -6,7 +6,7 @@ import userotherBcg from "assets/userselfBcg.svg";
 import styles from "./UserOtherPage.module.scss";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { UserTweetsCollection } from "components/UserTweetsCollection";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { getUserLikedTweets, getUserReplies, getUserTweets } from "api/tweet";
 import { getFollowCounts, getProfile } from "api/userinfo";
 import { addFollow, deleteFollow } from "api/follow";
@@ -14,8 +14,6 @@ import { useAuth } from "context/authContext";
 import { useTweet } from "context/tweetContext";
 
 export const UserOtherPage = () => {
-  const [profile, setProfile] = useState([]);
-  const [followCounts, setFollowCounts] = useState([]);
   const { setUserTweets, setUserReplies, setUserLikedTweets, addTweetRefresh } =
     useTweet();
   const { userId } = useParams();
