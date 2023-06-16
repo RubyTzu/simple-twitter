@@ -9,15 +9,16 @@ import { useEffect } from "react";
 import { getUserLikedTweets, getUserReplies, getUserTweets } from "api/tweet";
 import { useAuth } from "context/authContext";
 import { useTweet } from "context/tweetContext";
-
+import { useCurrentUser } from "context/userInfoContext";
+import { getFollowCounts, getProfile } from "api/userinfo";
 
 export const UserSelfPage = () => {
-  const { setUserTweets, setUserReplies, setUserLikedTweets, addTweetRefresh } =
+  const { profile, setProfile, followCounts, setFollowCounts } =
+    useCurrentUser();
+const { setUserTweets, setUserReplies, setUserLikedTweets, addTweetRefresh } =
     useTweet();
-
   const { userId } = useParams();
   const { isAuthenticated } = useAuth();
-
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -29,6 +30,8 @@ export const UserSelfPage = () => {
 
   useEffect(() => {
     const showPage = async () => {
+      setProfile(await getProfile(userId));
+      setFollowCounts(await getFollowCounts(userId));
       setUserTweets(await getUserTweets(userId));
       setUserReplies(await getUserReplies(userId));
       setUserLikedTweets(await getUserLikedTweets(userId));
@@ -41,8 +44,9 @@ export const UserSelfPage = () => {
     setUserReplies,
     setUserTweets,
     addTweetRefresh,
+    setProfile,
+    setFollowCounts,
   ]);
-
 
   return (
     <>
