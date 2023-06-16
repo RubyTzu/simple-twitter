@@ -4,6 +4,7 @@ import { AuthInput } from "components/AuthInput";
 import { getProfile, updateProfile } from "api/userinfo";
 import { useAuth } from "context/authContext";
 import { useNavigate } from "react-router";
+import clsx from "clsx";
 const id = localStorage.getItem("id");
 
 export const SettingPage = () => {
@@ -20,9 +21,12 @@ export const SettingPage = () => {
   }, [isAuthenticated, navigate]);
 
   useEffect(() => {
-    const showPage = async () => setUser(await getProfile(id));
+    const showPage = async () => {
+      const profile = await getProfile(id);
+      setUser(profile);
+      setNameLength(profile.name.length);
+    };
     showPage();
-    // setNameLength(user.name.length);
     console.log("3600 test from setting page");
   }, []);
 
@@ -31,7 +35,7 @@ export const SettingPage = () => {
       alert("請確認兩次密碼輸入一致");
       return;
     }
-    if (user.name.length > 50) {
+    if (nameLength > 50) {
       alert("名稱超過50字元");
       return;
     }
@@ -77,7 +81,12 @@ export const SettingPage = () => {
               });
             }}
           />
-          <span className={styles.limit}>
+          <span
+            className={clsx("", {
+              [styles.limit]: nameLength > 50,
+              [styles.noLimit]: nameLength <= 50,
+            })}
+          >
             <p>字數超出上限!</p>
             <p>{nameLength}/50</p>
           </span>
