@@ -56,11 +56,11 @@ export const AuthProvider = ({ children }) => {
         setPayload(tempPayload);
         localStorage.setItem("id", result.userData.id);
         localStorage.setItem("authToken", result.token);
-         return result;
-      } else if(!result.success) {
+        return result;
+      } else if (!result.success) {
         return result.message;
-      } return
-     
+      }
+      return;
     },
     adminLogin: async (data) => {
       const result = await adminLogin({
@@ -73,8 +73,11 @@ export const AuthProvider = ({ children }) => {
         setPayload(tempPayload);
         localStorage.setItem("id", result.userData.id);
         localStorage.setItem("authToken", result.token);
+        return result;
+      } else if (!result.success) {
+        return result.message;
       }
-      return result.success;
+      return;
     },
 
     register: async (data) => {
@@ -88,7 +91,7 @@ export const AuthProvider = ({ children }) => {
       if (result.success) {
         console.log("success in authContext");
         return { success: result.success, message: result.message };
-      } 
+      }
     },
     logout: () => {
       setIsAuthenticated(false);

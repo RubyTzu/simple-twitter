@@ -4,6 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import styles from "pages/LoginRegister.module.scss";
 import { useEffect, useState } from "react";
 import { useAuth } from "context/authContext";
+import clsx from "clsx";
+import Swal from "sweetalert2";
 // import { adminLogin } from "api/admin";
 // import { adminLogin } from "context/authContext";
 
@@ -11,6 +13,8 @@ export const AdminLoginPage = () => {
   const [account, setAccount] = useState("");
   const [password, setPassword] = useState("");
   const { admIsAuthenticated, adminLogin } = useAuth();
+  const [accountPassed, setAccountPassed] = useState(true);
+  const [pwdPassed, setPwdPassed] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -22,17 +26,41 @@ export const AdminLoginPage = () => {
   const handleAdminLogin = async () => {
     if (account.length === 0) return;
     if (password.length === 0) return;
-    try {
-      const success = await adminLogin({ account, password });
-      if (success) {
-        // localStorage.setItem("authToken", res.token);
-        // localStorage.setItem("id", res.userData.id);
-        alert("登入成功");
-        navigate("/admin/tweetslist");
-        return;
-      }
-    } catch (error) {
-      alert("登入失敗");
+
+    const res = await adminLogin({ account, password });
+    // console.log(res);
+    if (res.success) {
+      setAccountPassed(true);
+      Swal.fire({
+        title: "登入成功!",
+        icon: "success",
+        iconColor: "#82C43C",
+        showConfirmButton: false,
+        timer: 1000,
+        position: "top",
+      });
+      navigate("/admin/tweetslist");
+      return;
+    } else if (res.response.data === "Account incorrect") {
+      console.log(res.response.data);
+      setAccountPassed(false);
+      Swal.fire({
+        title: "登入失敗!",
+        icon: "error",
+        showConfirmButton: false,
+        timer: 1000,
+        position: "top",
+      });
+      return;
+    } else if (res.response.data === "Password incorrect") {
+      setPwdPassed(false);
+      Swal.fire({
+        title: "登入失敗!",
+        icon: "error",
+        showConfirmButton: false,
+        timer: 1000,
+        position: "top",
+      });
       return;
     }
   };
@@ -46,21 +74,45 @@ export const AdminLoginPage = () => {
         <AuthInput
           type="text"
           value={account}
-          onChange={(e) => setAccount(e.target.value)}
+          accountPassed={accountPassed}
+          onChange={(e) => {
+            setAccount(e.target.value);
+            setAccountPassed(true);
+          }}
           label="帳號"
           placeholder="請輸入帳號"
           onKeyDown={handleAdminLogin}
         />
+        <span
+          className={clsx("", {
+            [styles.limit]: !accountPassed,
+            [styles.noLimit]: accountPassed,
+          })}
+        >
+          帳號不存在!
+        </span>
       </div>
       <div className={styles.inputContainer}>
         <AuthInput
           type="password"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          pwdPassed={pwdPassed}
+          onChange={(e) => {
+            setPassword(e.target.value);
+            setPwdPassed(true);
+          }}
           label="密碼"
           placeholder="請輸入密碼"
           onKeyDown={handleAdminLogin}
         />
+        <span
+          className={clsx("", {
+            [styles.limit]: !pwdPassed,
+            [styles.noLimit]: pwdPassed,
+          })}
+        >
+          密碼不正確!
+        </span>
       </div>
 
       <button className={styles.loginButton} onClick={handleAdminLogin}>
