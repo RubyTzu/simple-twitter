@@ -2,14 +2,14 @@ import initialAvatar from "assets/GreyIcon.svg";
 import { Tweet } from "components/Tweets";
 import styles from "./HomePage.module.scss";
 import { useEffect } from "react";
-import { useAuth } from "context/authContext";
+// import { useAuth } from "context/authContext";
 import { useTweet } from "context/tweetContext";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { useCurrentUser } from "context/userInfoContext";
 import { getProfile } from "api/userinfo";
 
 export const HomePage = () => {
-  const { isAuthenticated } = useAuth();
+  // const { isAuthenticated } = useAuth();
   const {
     allTweets,
     inputValue,
@@ -22,7 +22,7 @@ export const HomePage = () => {
   const { profile, setProfile } = useCurrentUser();
   // const [avatar, setAvatar] = useState("");
   const id = localStorage.getItem("id");
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   // useEffect(() => {
   //   if (!isAuthenticated) {

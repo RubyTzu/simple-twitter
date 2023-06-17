@@ -10,7 +10,7 @@ import { useEffect } from "react";
 import { getUserLikedTweets, getUserReplies, getUserTweets } from "api/tweet";
 import { getFollowCounts, getProfile } from "api/userinfo";
 import { addFollow, deleteFollow } from "api/follow";
-import { useAuth } from "context/authContext";
+// import { useAuth } from "context/authContext";
 import { useTweet } from "context/tweetContext";
 import { useCurrentUser } from "context/userInfoContext";
 
@@ -19,7 +19,7 @@ export const UserOtherPage = () => {
     useTweet();
   const { userId } = useParams();
   const navigate = useNavigate();
-  const { isAuthenticated } = useAuth();
+  // const { isAuthenticated } = useAuth();
   const { profile, setProfile, followCounts, setFollowCounts } =
     useCurrentUser();
 

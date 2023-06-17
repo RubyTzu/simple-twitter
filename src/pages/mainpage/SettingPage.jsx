@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import styles from "./SettingPage.module.scss";
 import { AuthInput } from "components/AuthInput";
 import { getProfile, updateProfile } from "api/userinfo";
-import { useAuth } from "context/authContext";
-import { useNavigate } from "react-router";
+// import { useAuth } from "context/authContext";
+// import { useNavigate } from "react-router";
 import { useCurrentUser } from "context/userInfoContext";
 import clsx from "clsx";
 
@@ -13,9 +13,9 @@ export const SettingPage = () => {
   const [pwdPassed, setPwdPassed] = useState(true);
   const [user, setUser] = useState({});
   const [nameLength, setNameLength] = useState("");
-  const { isAuthenticated } = useAuth();
+  // const { isAuthenticated } = useAuth();
   const { profile, setProfile } = useCurrentUser();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const id = localStorage.getItem("id");
   // useEffect(() => {
   //   if (!isAuthenticated) {

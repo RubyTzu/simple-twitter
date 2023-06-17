@@ -7,7 +7,7 @@ import { UserTweetsCollection } from "components/UserTweetsCollection";
 import { InfoEditModal } from "components/modals/InfoEditModal";
 import { useEffect } from "react";
 import { getUserLikedTweets, getUserReplies, getUserTweets } from "api/tweet";
-import { useAuth } from "context/authContext";
+// import { useAuth } from "context/authContext";
 import { useTweet } from "context/tweetContext";
 import { useCurrentUser } from "context/userInfoContext";
 import { getFollowCounts, getProfile } from "api/userinfo";
@@ -18,7 +18,7 @@ export const UserSelfPage = () => {
   const { setUserTweets, setUserReplies, setUserLikedTweets, addTweetRefresh } =
     useTweet();
   const { userId } = useParams();
-  const { isAuthenticated } = useAuth();
+  // const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
   // useEffect(() => {

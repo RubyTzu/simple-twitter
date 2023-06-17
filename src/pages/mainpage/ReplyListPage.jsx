@@ -14,7 +14,7 @@ import { useClickLike } from "context/clickLikeContext";
 import { getSingleTweet, getSingleTweetReplies } from "api/tweet";
 import { useEffect, useState } from "react";
 import { useTweet } from "context/tweetContext";
-import { useCurrentUser } from "context/userInfoContext";
+// import { useCurrentUser } from "context/userInfoContext";
 
 const getId = () => {
   const id = localStorage.getItem("id");
