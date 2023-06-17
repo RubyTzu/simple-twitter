@@ -10,6 +10,7 @@ import clsx from "clsx";
 export const SettingPage = () => {
   const [accountPassed, setAccountPassed] = useState(true);
   const [emailPassed, setEmailPassed] = useState(true);
+  const [pwdPassed, setPwdPassed] = useState(true);
   const [user, setUser] = useState({});
   const [nameLength, setNameLength] = useState("");
   const { isAuthenticated } = useAuth();
@@ -47,6 +48,7 @@ export const SettingPage = () => {
     }
     if (user.password !== user.checkPassword) {
       alert("請確認兩次密碼輸入一致");
+      setPwdPassed(false);
       return;
     }
     if (nameLength > 50) {
@@ -73,6 +75,7 @@ export const SettingPage = () => {
       } else return;
     }
   };
+
   return (
     <>
       <div className={styles.mainbarContainer}>
@@ -85,6 +88,7 @@ export const SettingPage = () => {
             type="text"
             label="帳號"
             value={profile.account}
+            accountPassed={accountPassed}
             onChange={(e) => {
               setAccountPassed(true);
               setUser({
@@ -130,6 +134,7 @@ export const SettingPage = () => {
             type="text"
             label="Email"
             value={profile.email}
+            emailPassed={emailPassed}
             onChange={(e) => {
               setEmailPassed(true);
               setUser({
@@ -152,6 +157,7 @@ export const SettingPage = () => {
             type="password"
             label="密碼"
             value=""
+            pwdPassed={pwdPassed}
             placeholder="請設定密碼"
             onChange={(e) => {
               setUser({
@@ -160,12 +166,21 @@ export const SettingPage = () => {
               });
             }}
           />
+          <span
+            className={clsx("", {
+              [styles.limit]: !pwdPassed,
+              [styles.noLimit]: pwdPassed,
+            })}
+          >
+            <p>密碼不一致!</p>
+          </span>
         </div>
         <div className={styles.inputContainer}>
           <AuthInput
             type="password"
             label="密碼再確認"
             value=""
+            pwdPassed={pwdPassed}
             placeholder="請再次輸入密碼"
             onChange={(e) => {
               setUser({
@@ -174,6 +189,14 @@ export const SettingPage = () => {
               });
             }}
           />
+          <span
+            className={clsx("", {
+              [styles.limit]: !pwdPassed,
+              [styles.noLimit]: pwdPassed,
+            })}
+          >
+            <p>密碼不一致!</p>
+          </span>
         </div>
         <button className={styles.btn} onClick={handleSave}>
           儲存

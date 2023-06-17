@@ -8,14 +8,14 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import clsx from "clsx";
 
-
 export const LoginPage = () => {
   const [account, setAccount] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const { login, isAuthenticated } = useAuth();
   const id = localStorage.getItem("id");
-  const [haveAccount, setHaveAccount] = useState(true)
+  const [accountPassed, setAccountPassed] = useState(true);
+  const [pwdPassed, setPwdPassed] = useState(true);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -27,26 +27,32 @@ export const LoginPage = () => {
     if (account.length === 0) return;
     if (password.length === 0) return;
 
-    try {
-      const res = await login({ account, password });
-      if (res.success) {
-        setHaveAccount(true);
-        Swal.fire({
-          title: "登入成功!",
-          icon: "success",
-          iconColor: "#82C43C",
-          showConfirmButton: false,
-          timer: 1000,
-          position: "top",
-        });
-        navigate("/home");
-        return;
-      } else if (res.response.data === "Account incorrect") {
-        console.log(res.response.data);
-        setHaveAccount(false)
-        return;
-      }
-    } catch (error) {
+    const res = await login({ account, password });
+    if (res.success) {
+      setAccountPassed(true);
+      Swal.fire({
+        title: "登入成功!",
+        icon: "success",
+        iconColor: "#82C43C",
+        showConfirmButton: false,
+        timer: 1000,
+        position: "top",
+      });
+      navigate("/home");
+      return;
+    } else if (res.response.data === "Account incorrect") {
+      console.log(res.response.data);
+      setAccountPassed(false);
+      Swal.fire({
+        title: "登入失敗!",
+        icon: "error",
+        showConfirmButton: false,
+        timer: 1000,
+        position: "top",
+      });
+      return;
+    } else if (res.response.data === "Password incorrect") {
+      setPwdPassed(false);
       Swal.fire({
         title: "登入失敗!",
         icon: "error",
@@ -58,10 +64,6 @@ export const LoginPage = () => {
     }
   };
 
-
-
-
-  
   return (
     <div className={styles.authContainer}>
       <div>
@@ -72,18 +74,22 @@ export const LoginPage = () => {
         <AuthInput
           type="text"
           value={account}
+          accountPassed={accountPassed}
           label="帳號"
           placeholder="請輸入帳號"
-          onChange={(e) => setAccount(e.target.value)}
+          onChange={(e) => {
+            setAccount(e.target.value);
+            setAccountPassed(true);
+          }}
           onKeyDown={handleLogin}
         />
         <span
           className={clsx("", {
-            [styles.limit]: !haveAccount,
-            [styles.noLimit]: haveAccount,
+            [styles.limit]: !accountPassed,
+            [styles.noLimit]: accountPassed,
           })}
         >
-          帳號不存在！
+          帳號不存在!
         </span>
       </div>
       <div className={styles.inputContainer}>
@@ -92,10 +98,21 @@ export const LoginPage = () => {
           label="密碼"
           value={password}
           placeholder="請輸入密碼"
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e) => {
+            setPassword(e.target.value);
+            setPwdPassed(true);
+          }}
+          pwdPassed={pwdPassed}
           onKeyDown={handleLogin}
-          haveAccount={haveAccount}
         />
+        <span
+          className={clsx("", {
+            [styles.limit]: !pwdPassed,
+            [styles.noLimit]: pwdPassed,
+          })}
+        >
+          密碼不正確!
+        </span>
       </div>
       <button className={styles.loginButton} onClick={handleLogin}>
         登入
