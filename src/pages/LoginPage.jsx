@@ -20,8 +20,10 @@ export const LoginPage = () => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigate(`/userself/${id}`);
-    } else return;
+      navigate("/home");
+    } else {
+      navigate("/login");
+    }
   }, [navigate, isAuthenticated, id]);
 
   const handleLogin = async () => {
