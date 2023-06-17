@@ -48,3 +48,18 @@
   font-size: 16px;
   font-weight: 400;
 }
+
+.limit {
+  display: flex;
+  justify-content: space-between;
+    color: #fc5a5a;
+    font-size: 12px;
+}
+
+.noLimit {
+  display: flex;
+  justify-content: space-between;
+    display: none;
+    color: #fc5a5a;
+    font-size: 12px;
+}

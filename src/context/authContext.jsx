@@ -56,8 +56,11 @@ export const AuthProvider = ({ children }) => {
         setPayload(tempPayload);
         localStorage.setItem("id", result.userData.id);
         localStorage.setItem("authToken", result.token);
-      }
-      return result.success;
+         return result;
+      } else if(!result.success) {
+        return result.message;
+      } return
+     
     },
     adminLogin: async (data) => {
       const result = await adminLogin({
@@ -82,10 +85,10 @@ export const AuthProvider = ({ children }) => {
         password: data.password,
         passwordCheck: data.passwordCheck,
       });
-      if (result.success === "success") {
+      if (result.success) {
         console.log("success in authContext");
-        return { success: true };
-      }
+        return { success: result.success, message: result.message };
+      } 
     },
     logout: () => {
       setIsAuthenticated(false);
