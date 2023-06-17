@@ -96,6 +96,7 @@ export const Register = () => {
           label="帳號"
           placeholder="請輸入帳號"
           onKeyDown={handleRegister}
+          accountPassed={true}
         />
       </div>
       <div className={styles.inputContainer}>
@@ -116,6 +117,7 @@ export const Register = () => {
           label="Email"
           placeholder="請輸入Email"
           onKeyDown={handleRegister}
+          emailPassed={true}
         />
       </div>
       <div className={styles.inputContainer}>
@@ -126,6 +128,7 @@ export const Register = () => {
           label="密碼"
           placeholder="請設定密碼"
           onKeyDown={handleRegister}
+          pwdPassed={true}
         />
       </div>
       <div className={styles.inputContainer}>
@@ -136,6 +139,7 @@ export const Register = () => {
           label="密碼確認"
           placeholder="請再次輸入密碼"
           onKeyDown={handleRegister}
+          pwdPassed={true}
         />
       </div>
 

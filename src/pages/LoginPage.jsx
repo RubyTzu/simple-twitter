@@ -16,6 +16,7 @@ export const LoginPage = () => {
   const id = localStorage.getItem("id");
   const [accountPassed, setAccountPassed] = useState(true);
   const [pwdPassed, setPwdPassed] = useState(true);
+  
 
   useEffect(() => {
     if (isAuthenticated) {
