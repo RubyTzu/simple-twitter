@@ -8,6 +8,9 @@ import { useCurrentUser } from "context/userInfoContext";
 import clsx from "clsx";
 
 export const SettingPage = () => {
+  const [accountPassed, setAccountPassed] = useState(true);
+  const [emailPassed, setEmailPassed] = useState(true);
+  const [pwdPassed, setPwdPassed] = useState(true);
   const [user, setUser] = useState({});
   const [nameLength, setNameLength] = useState("");
   const { isAuthenticated } = useAuth();
@@ -27,9 +30,8 @@ export const SettingPage = () => {
       // setNameLength(profile.name.length);
     };
     showPage();
-    console.log(profile.name);
     console.log("3600 test from setting page");
-  }, [id, setProfile, profile.name]);
+  }, [id, setProfile]);
 
   const handleSave = async () => {
     if (user.account === "") {
@@ -46,21 +48,34 @@ export const SettingPage = () => {
     }
     if (user.password !== user.checkPassword) {
       alert("請確認兩次密碼輸入一致");
+      setPwdPassed(false);
       return;
     }
     if (nameLength > 50) {
       alert("名稱超過50字元");
       return;
     }
-    console.log(user);
-    const res = await updateProfile(user);
-    console.log(res);
-    if (res) {
+    const { success, data } = await updateProfile(user);
+    console.log(success);
+
+    if (success) {
       alert("已成功更新");
-      const refresh = () => window.location.reload(true);
-      refresh();
+      console.log(data);
+      const reload = () => window.location.reload(true);
+      reload();
+    } else {
+      if (data.response.data === "This account has been used!") {
+        alert("帳號已被使用");
+        setAccountPassed(false);
+        return;
+      } else if (data.response.data === "This email has been used!") {
+        alert("Email已被使用");
+        setEmailPassed(false);
+        return;
+      } else return;
     }
   };
+
   return (
     <>
       <div className={styles.mainbarContainer}>
@@ -73,13 +88,23 @@ export const SettingPage = () => {
             type="text"
             label="帳號"
             value={profile.account}
+            accountPassed={accountPassed}
             onChange={(e) => {
+              setAccountPassed(true);
               setUser({
                 ...user,
                 account: e.target.value,
               });
             }}
           />
+          <span
+            className={clsx("", {
+              [styles.limit]: !accountPassed,
+              [styles.noLimit]: accountPassed,
+            })}
+          >
+            <p>帳號已被使用!</p>
+          </span>
         </div>
         <div className={styles.inputContainer}>
           <AuthInput
@@ -109,19 +134,30 @@ export const SettingPage = () => {
             type="text"
             label="Email"
             value={profile.email}
+            emailPassed={emailPassed}
             onChange={(e) => {
+              setEmailPassed(true);
               setUser({
                 ...user,
                 email: e.target.value,
               });
             }}
           />
+          <span
+            className={clsx("", {
+              [styles.limit]: !emailPassed,
+              [styles.noLimit]: emailPassed,
+            })}
+          >
+            <p>Email已被使用!</p>
+          </span>
         </div>
         <div className={styles.inputContainer}>
           <AuthInput
             type="password"
             label="密碼"
             value=""
+            pwdPassed={pwdPassed}
             placeholder="請設定密碼"
             onChange={(e) => {
               setUser({
@@ -130,12 +166,21 @@ export const SettingPage = () => {
               });
             }}
           />
+          <span
+            className={clsx("", {
+              [styles.limit]: !pwdPassed,
+              [styles.noLimit]: pwdPassed,
+            })}
+          >
+            <p>密碼不一致!</p>
+          </span>
         </div>
         <div className={styles.inputContainer}>
           <AuthInput
             type="password"
             label="密碼再確認"
             value=""
+            pwdPassed={pwdPassed}
             placeholder="請再次輸入密碼"
             onChange={(e) => {
               setUser({
@@ -144,6 +189,14 @@ export const SettingPage = () => {
               });
             }}
           />
+          <span
+            className={clsx("", {
+              [styles.limit]: !pwdPassed,
+              [styles.noLimit]: pwdPassed,
+            })}
+          >
+            <p>密碼不一致!</p>
+          </span>
         </div>
         <button className={styles.btn} onClick={handleSave}>
           儲存

@@ -8,30 +8,26 @@ export const login = async ({ account, password }) => {
       password,
     });
     const authToken = data.token;
-    // console.log(data.token);
     if (authToken) {
       return { success: true, ...data };
     }
-    
-    // if (data === "Account incorrect") {
-    //   return { success: false, message: data };
-    // }
   } catch (error) {
     return { success: false, message: error };
   }
 };
 
 export const adminLogin = async ({ account, password }) => {
-  const { data } = await axios.post(`${baseUrl}/api/signin?from=back`, {
-    account,
-    password,
-  });
-  const authToken = data.token;
-  console.log("api 成功");
-  if (authToken) {
-    return { success: true, ...data };
-  } else {
-    return { success: false, ...data };
+  try {
+    const { data } = await axios.post(`${baseUrl}/api/signin?from=back`, {
+      account,
+      password,
+    });
+    const authToken = data.token;
+    if (authToken) {
+      return { success: true, ...data };
+    }
+  } catch (error) {
+    return { success: false, message: error };
   }
 };
 

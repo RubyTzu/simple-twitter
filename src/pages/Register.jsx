@@ -15,20 +15,20 @@ export const Register = () => {
   const [password, setPassword] = useState("");
   const [checkPassword, setCheckPassword] = useState("");
   const [showAlert, setShowAlert] = useState(false);
-   const [alertWord, setAlertWord] = useState("");
-  
+  const [alertWord, setAlertWord] = useState("");
+
   const navigate = useNavigate();
 
-useEffect(() => {
-  if (showAlert) {
-    const timeout = setTimeout(() => {
-      setShowAlert(false);
-      setAlertWord("");
-    }, 1500);
-    console.log('register useEffect')
-    return () => clearTimeout(timeout); // cleanup function
-  }
-}, [showAlert]);
+  useEffect(() => {
+    if (showAlert) {
+      const timeout = setTimeout(() => {
+        setShowAlert(false);
+        setAlertWord("");
+      }, 3000);
+      console.log("register useEffect");
+      return () => clearTimeout(timeout); // cleanup function
+    }
+  }, [showAlert]);
 
   const handleRegister = async () => {
     if (account.length === 0) return;
@@ -45,7 +45,9 @@ useEffect(() => {
         password,
         checkPassword,
       });
-      console.log(`success: ${res.success} message:${res.message} 在register裏`);
+      console.log(
+        `success: ${res.success} message:${res.message} 在register裏`
+      );
       if (res.message === "Create success") {
         Swal.fire({
           title: "登入成功!",
@@ -57,13 +59,12 @@ useEffect(() => {
         });
         navigate("/login");
         return;
-      } else if(res.message === "Email already exists!") {
+      } else if (res.message === "Email already exists!") {
         // alert("Email 已重覆註冊")
         setShowAlert(true);
         setAlertWord("Email 已重覆註冊");
         return;
-      }
-      else if (res.message === "Account already exists!") {
+      } else if (res.message === "Account already exists!") {
         // alert("Account  已重覆註冊");
         setShowAlert(true);
         setAlertWord("帳號已重覆註冊");
