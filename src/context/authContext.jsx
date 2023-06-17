@@ -56,6 +56,9 @@ export const AuthProvider = ({ children }) => {
         setPayload(tempPayload);
         localStorage.setItem("id", result.userData.id);
         localStorage.setItem("authToken", result.token);
+        // setTimeout(() => {
+        //   console.log("loading");
+        // }, 1000);
         return result;
       } else if (!result.success) {
         return result.message;

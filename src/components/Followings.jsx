@@ -1,13 +1,28 @@
-import { ReactComponent as GreyIconSVG } from "assets/GreyIcon.svg";
+// import { ReactComponent as GreyIconSVG } from "assets/GreyIcon.svg";
+import GreyIconSVG from "assets/GreyIcon.svg";
+
 import styles from "./Followings.module.scss";
 import { deleteFollow } from "api/follow";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export const Following = ({ value }) => {
   const [isFollowing, setIsFollowing] = useState(true);
   return (
     <div className={styles.followContainer}>
-      <GreyIconSVG className={`${styles.userAvatar} cursorPointer`} />
+      <Link
+        to={`/userother/${value.followingId}`}
+        onClick={(e) => {
+          e.stopPropagation();
+        }}
+      >
+        <img
+          src={value.avatar ? value.avatar : GreyIconSVG}
+          alt="avatar"
+          className={`${styles.userAvatar} cursorPointer`}
+        />
+      </Link>
+      {/* <GreyIconSVG className={`${styles.userAvatar} cursorPointer`} /> */}
       <div className={styles.followTextContainer}>
         <header className={styles.followHeader}>
           <p className={styles.userName}>{value.name}</p>

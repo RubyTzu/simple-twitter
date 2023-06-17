@@ -11,14 +11,10 @@ import styles from "./ReplyListPage.module.scss";
 import { AddReplyModalinReplyList } from "components/modals/AddReplyModalinReplyList";
 import { useClickLike } from "context/clickLikeContext";
 
-import {
-  getSingleTweet,
-  getSingleTweetReplies,
-} from "api/tweet";
+import { getSingleTweet, getSingleTweetReplies } from "api/tweet";
 import { useEffect, useState } from "react";
 import { useTweet } from "context/tweetContext";
-// import { TweetsReadOnly } from "components/TweetsReadOnly";
-// import moment from "moment/moment";
+import { useCurrentUser } from "context/userInfoContext";
 
 const getId = () => {
   const id = localStorage.getItem("id");
@@ -36,9 +32,16 @@ export const ReplyListPage = () => {
 
   const { tweetId } = useParams();
   const [isLiked, setIsLiked] = useState(singleTweet.isLiked);
-
+  // const { isAuthenticated } = useCurrentUser();
   const { clickLike } = useClickLike();
   const navigate = useNavigate();
+
+  // useEffect(() => {
+  //   if (!isAuthenticated) {
+  //     navigate("/login");
+  //     return;
+  //   } else return;
+  // }, [isAuthenticated, navigate]);
 
   useEffect(() => {
     const showPage = async () => {
@@ -48,7 +51,6 @@ export const ReplyListPage = () => {
     showPage();
     console.log("hello from useEffect-ReplyListPage");
   }, [tweetId, isLiked, setReplyListReplies, setSingleTweet, addTweetRefresh]);
-
 
   const formatTimestamp = (timestamp) => {
     const timestampDate = new Date(timestamp);
@@ -154,7 +156,7 @@ export const ReplyListPage = () => {
         </div>
         {/* {console.log(replies)} */}
         {/* <TweetsReadOnly value={replies} /> */}
-        { replyListReplies.map((reply) => {
+        {replyListReplies.map((reply) => {
           return <TweetReadOnly key={reply.id} value={reply} />;
         })}
         {/* {replies.current.map((reply) => {

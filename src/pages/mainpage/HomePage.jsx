@@ -24,16 +24,21 @@ export const HomePage = () => {
   const id = localStorage.getItem("id");
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!isAuthenticated) {
-      navigate("/login");
-      return;
-    } else return;
-  }, [isAuthenticated, navigate]);
+  // useEffect(() => {
+  //   if (!isAuthenticated) {
+  //     console.log("is not authenticated? really?");
+  //     navigate("/login");
+  //     return;
+  //   } else {
+  //     navigate("/home");
+  //     return;
+  //   }
+  // }, [isAuthenticated, navigate]);
 
   useEffect(() => {
     const showAvatar = async () => {
       const data = await getProfile(id);
+
       setProfile(data);
       // setAvatar(data.avatar);
     };

@@ -15,18 +15,21 @@ import { getFollowCounts, getProfile } from "api/userinfo";
 export const UserSelfPage = () => {
   const { profile, setProfile, followCounts, setFollowCounts } =
     useCurrentUser();
-const { setUserTweets, setUserReplies, setUserLikedTweets, addTweetRefresh } =
+  const { setUserTweets, setUserReplies, setUserLikedTweets, addTweetRefresh } =
     useTweet();
   const { userId } = useParams();
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!isAuthenticated) {
-      navigate("/login");
-      return;
-    } else return;
-  }, [isAuthenticated, navigate]);
+  // useEffect(() => {
+  //   if (!isAuthenticated) {
+  //     navigate("/login");
+  //     return;
+  //   } else {
+  //     navigate(`/userself/${userId}`);
+  //     return;
+  //   }
+  // }, [isAuthenticated, navigate, userId]);
 
   useEffect(() => {
     const showPage = async () => {

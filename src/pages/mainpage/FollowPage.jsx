@@ -12,12 +12,15 @@ export const FollowPage = () => {
   const navigate = useNavigate();
   let { state } = useLocation();
   const [userData, setUserData] = useState({});
-  useEffect(() => {
-    if (!isAuthenticated) {
-      navigate("/login");
-      return;
-    } else return;
-  }, [isAuthenticated, navigate]);
+  // useEffect(() => {
+  //   if (!isAuthenticated) {
+  //     navigate("/login");
+  //     return;
+  //   } else {
+  //     navigate(`/followlist`);
+  //     return;
+  //   }
+  // }, [isAuthenticated, navigate]);
 
   useEffect(() => {
     const showData = async () => {

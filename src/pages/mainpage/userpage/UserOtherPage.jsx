@@ -23,12 +23,15 @@ export const UserOtherPage = () => {
   const { profile, setProfile, followCounts, setFollowCounts } =
     useCurrentUser();
 
-  useEffect(() => {
-    if (!isAuthenticated) {
-      navigate("/login");
-      return;
-    } else return;
-  }, [isAuthenticated, navigate]);
+  // useEffect(() => {
+  //   if (!isAuthenticated) {
+  //     navigate("/login");
+  //     return;
+  //   } else {
+  //     navigate(`/userother/${userId}`);
+  //     return;
+  //   }
+  // }, [isAuthenticated, navigate, userId]);
 
   const handleAddFollowing = async (userId) => {
     console.log(`add following ${userId}`);
@@ -47,8 +50,6 @@ export const UserOtherPage = () => {
       console.error(error);
     }
   };
-
-
 
   useEffect(() => {
     const showPage = async () => {
@@ -80,7 +81,7 @@ export const UserOtherPage = () => {
           <div className={styles.userPageHeaderText}>
             <p className={styles.userPageTitle}>{profile.name}</p>
             <p className={styles.userPageTweetCounts}>
-              {profile.tweetCounts} 推文
+              {profile.tweetsCounts} 推文
             </p>
           </div>
         </header>
@@ -135,22 +136,26 @@ export const UserOtherPage = () => {
             <div className={styles.nickName}>@{profile.account}</div>
             <div className={styles.description}>
               {profile.introduction === null
-                ? "沒內容欸"
+                ? "使用者無簡介"
                 : profile.introduction}
             </div>
             <div className={styles.follow}>
-              <Link to="/followlist" className={styles.followerInfoBtn}>
+              {/* <Link to="/followlist" className={styles.followerInfoBtn}> */}
+              <div className={styles.followerInfoBtn}>
                 <span className={styles.followNum}>
                   {followCounts.followingCount} 個
                 </span>
                 <span>跟隨中</span>
-              </Link>
-              <Link to="/followlist" className={styles.followingInfoBtn}>
+              </div>
+              {/* </Link> */}
+              {/* <Link to="/followlist" className={styles.followingInfoBtn}> */}
+              <div className={styles.followingInfoBtn}>
                 <span className={styles.followNum}>
                   {followCounts.followerCount} 位
                 </span>
                 <span>跟隨者</span>
-              </Link>
+              </div>
+              {/* </Link> */}
             </div>
           </div>
         </div>

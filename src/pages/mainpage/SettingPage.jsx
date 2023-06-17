@@ -17,12 +17,15 @@ export const SettingPage = () => {
   const { profile, setProfile } = useCurrentUser();
   const navigate = useNavigate();
   const id = localStorage.getItem("id");
-  useEffect(() => {
-    if (!isAuthenticated) {
-      navigate("/login");
-      return;
-    } else return;
-  }, [isAuthenticated, navigate]);
+  // useEffect(() => {
+  //   if (!isAuthenticated) {
+  //     navigate("/login");
+  //     return;
+  //   } else {
+  //     navigate(`/setting`);
+  //     return;
+  //   }
+  // }, [isAuthenticated, navigate]);
 
   useEffect(() => {
     const showPage = async () => {
