@@ -1,7 +1,6 @@
 import axios from "axios";
 const baseUrl = "https://twitter-2023.herokuapp.com";
 const token = localStorage.getItem("authToken");
-
 //homepage tweets
 export const getTweets = async (id) => {
   try {

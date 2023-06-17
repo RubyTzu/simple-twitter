@@ -34,18 +34,15 @@ export const updateProfile = async (user) => {
   const id = localStorage.getItem("id");
   console.log(user);
   try {
-    const data = axios.put(
+    const { data } = await axios.put(
       `${baseUrl}/api/users/${id}?setting=account`,
       {
         account: user.account,
         name: user.name,
         email: user.email,
-        // password: user.password,
-        // passwordCheck: user.passwordCheck,
         password: user.password,
         checkPassword: user.checkPassword,
         introduction: user.introduction,
-        // avatar: null,
       },
       {
         headers: {
@@ -53,10 +50,9 @@ export const updateProfile = async (user) => {
         },
       }
     );
-
-    return data;
+    return { success: true, data: data };
   } catch (error) {
     console.error(error);
-    return error;
+    return { success: false, data: error };
   }
 };

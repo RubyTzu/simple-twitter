@@ -52,7 +52,6 @@ export const TweetContextProvider = ({ children }) => {
     if (inputValue.length === 0) {
       return;
     }
-
     await createTweet({
       description: inputValue,
       likable: 1,
