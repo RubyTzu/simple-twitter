@@ -5,35 +5,63 @@ import styles from "pages/LoginRegister.module.scss";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import clsx from "clsx";
+
+
 export const LoginPage = () => {
   const [account, setAccount] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const { login, isAuthenticated } = useAuth();
+  const id = localStorage.getItem("id");
+  const [haveAccount, setHaveAccount] = useState(true)
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigate("/home");
+      navigate(`/userself/${id}`);
     } else return;
-  }, [navigate, isAuthenticated]);
+  }, [navigate, isAuthenticated, id]);
 
   const handleLogin = async () => {
     if (account.length === 0) return;
     if (password.length === 0) return;
 
     try {
-      const success = await login({ account, password });
-      if (success) {
-        alert("登入成功");
+      const res = await login({ account, password });
+      if (res.success) {
+        setHaveAccount(true);
+        Swal.fire({
+          title: "登入成功!",
+          icon: "success",
+          iconColor: "#82C43C",
+          showConfirmButton: false,
+          timer: 1000,
+          position: "top",
+        });
         navigate("/home");
+        return;
+      } else if (res.response.data === "Account incorrect") {
+        console.log(res.response.data);
+        setHaveAccount(false)
         return;
       }
     } catch (error) {
-      alert("登入失敗");
+      Swal.fire({
+        title: "登入失敗!",
+        icon: "error",
+        showConfirmButton: false,
+        timer: 1000,
+        position: "top",
+      });
       return;
     }
   };
 
+
+
+
+  
   return (
     <div className={styles.authContainer}>
       <div>
@@ -49,6 +77,14 @@ export const LoginPage = () => {
           onChange={(e) => setAccount(e.target.value)}
           onKeyDown={handleLogin}
         />
+        <span
+          className={clsx("", {
+            [styles.limit]: !haveAccount,
+            [styles.noLimit]: haveAccount,
+          })}
+        >
+          帳號不存在！
+        </span>
       </div>
       <div className={styles.inputContainer}>
         <AuthInput
@@ -58,9 +94,9 @@ export const LoginPage = () => {
           placeholder="請輸入密碼"
           onChange={(e) => setPassword(e.target.value)}
           onKeyDown={handleLogin}
+          haveAccount={haveAccount}
         />
       </div>
-
       <button className={styles.loginButton} onClick={handleLogin}>
         登入
       </button>
