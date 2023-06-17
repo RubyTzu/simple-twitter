@@ -55,7 +55,7 @@ export const AddTweetModal = () => {
           <div className={`modal-body ${styles.modalBody}`}>
             <img
               className={styles.addTweetAvatar}
-              src={profile.avatar === null ? initialAvatar : profile.avatar}
+              src={profile.avatar ? profile.avatar : initialAvatar}
               alt="avatar"
             ></img>
             <textarea
