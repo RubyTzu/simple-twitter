@@ -22,21 +22,22 @@ export const HomePage = () => {
   const { profile, setProfile } = useCurrentUser();
   // const [avatar, setAvatar] = useState("");
   const id = localStorage.getItem("id");
+  // const { currentUser } = useAuth();
   // const navigate = useNavigate();
 
   // useEffect(() => {
-  //   if (!isAuthenticated) {
-  //     console.log("is not authenticated? really?");
+  //   if (!id) {
   //     navigate("/login");
   //     return;
   //   } else {
   //     navigate("/home");
   //     return;
   //   }
-  // }, [isAuthenticated, navigate]);
+  // }, [id, navigate]);
 
   useEffect(() => {
     const showAvatar = async () => {
+      // console.log(currentUser.id);
       const data = await getProfile(id);
 
       setProfile(data);
@@ -44,7 +45,7 @@ export const HomePage = () => {
     };
     showAvatar();
     console.log("hello from useEffect-HomePage");
-  }, [id, setProfile]);
+  }, [setProfile, id]);
 
   return (
     <>

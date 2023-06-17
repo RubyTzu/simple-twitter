@@ -24,7 +24,7 @@ export const AdminTweet = ({ value, onDelete }) => {
         <header className={styles.tweetHeader}>
           <p className={styles.userName}>{value.name}</p>
           <p className={styles.userNickName}>
-            @{value.name}・{value.lastUpdated}
+            @{value.account}・{value.lastUpdated}
           </p>
           <img
             data-id={value.id}

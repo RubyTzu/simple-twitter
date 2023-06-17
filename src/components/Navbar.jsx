@@ -42,7 +42,9 @@ export const Navbar = () => {
   const handleLogout = () => {
     logout();
     navigate("/login");
-    alert("已登出");
+    setTimeout(() => {
+      alert("已登出");
+    }, 500);
   };
 
   useEffect(() => {

@@ -44,7 +44,7 @@ export const AuthProvider = ({ children }) => {
   const value = {
     admIsAuthenticated: admIsAuthenticated,
     isAuthenticated: isAuthenticated,
-    payload: payload,
+    currentUser: payload,
     login: async (data) => {
       const result = await login({
         account: data.account,
@@ -53,12 +53,10 @@ export const AuthProvider = ({ children }) => {
       if (result.success) {
         setIsAuthenticated(true);
         const tempPayload = jwt.decode(result.token);
+        console.log(tempPayload);
         setPayload(tempPayload);
         localStorage.setItem("id", result.userData.id);
         localStorage.setItem("authToken", result.token);
-        // setTimeout(() => {
-        //   console.log("loading");
-        // }, 1000);
         return result;
       } else if (!result.success) {
         return result.message;
