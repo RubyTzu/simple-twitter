@@ -56,6 +56,7 @@ export const AdminLoginPage = () => {
       setAccountPassed(false);
       Swal.fire({
         title: "登入失敗!",
+        text: "帳號不存在!",
         icon: "error",
         showConfirmButton: false,
         timer: 1000,
@@ -66,6 +67,21 @@ export const AdminLoginPage = () => {
       setPwdPassed(false);
       Swal.fire({
         title: "登入失敗!",
+        text: "密碼不正確!",
+        icon: "error",
+        showConfirmButton: false,
+        timer: 1000,
+        position: "top",
+      });
+      return;
+    } else if (
+      res.response.data ===
+      "I'm sorry, but access to the backstage area is restricted."
+    ) {
+      setAccountPassed(false);
+      Swal.fire({
+        title: "登入失敗!",
+        text: "帳號不存在!",
         icon: "error",
         showConfirmButton: false,
         timer: 1000,

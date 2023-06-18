@@ -72,7 +72,7 @@ export const Register = () => {
       }
     } catch (error) {
       Swal.fire({
-        title: "登入失敗!",
+        title: "註冊失敗!",
         icon: "error",
         showConfirmButton: false,
         timer: 1000,
