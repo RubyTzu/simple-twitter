@@ -118,13 +118,13 @@ export const Rightbar = () => {
                         // const reload = () => window.location.reload();
                         if (!popular.isFollowing) {
                           await handleAddFollowing(popular.id);
-                          // reload();
+                          window.location.reload();
                         } else {
                           await handleCancelFollowing(popular.id);
-                          // reload();
+                          window.location.reload();
                         }
                         handleClick(popular.id);
-                        // reload();
+                        window.location.reload();
                       }}
                     >
                       {popular.isFollowing ? "正在跟隨" : "跟隨"}
