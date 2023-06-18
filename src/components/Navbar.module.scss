@@ -61,6 +61,12 @@
     margin: 0 16px;
     color: var(--darkGray);
   }
+&:hover {
+  color: var(--major);
+  .navbarIcon {
+    color: var(--major);
+  }
+}
 }
 .chooseButton {
   color: var(--major);

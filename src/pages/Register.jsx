@@ -85,7 +85,7 @@ export const Register = () => {
       } else if (res.message === "Password do not match!") {
         // alert("Password do not match!");
         setShowAlert(true);
-        setAlertWord("密碼不一致");
+        setAlertWord("請確認兩次密碼輸入一致");
         setPwdPassed(false);
         return;
       }
