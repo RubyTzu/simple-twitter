@@ -8,7 +8,6 @@ export const ClickLikeProvider = ({ children }) => {
     clickLike: async (e, isLiked) => {
       console.log("hello from context");
       const tweetId = e.target.dataset.id;
-      //   isLiked ? await tweetUnLike(tweetId) :  await tweetLike(tweetId);
       if (isLiked) {
         await tweetUnLike(tweetId);
         return -1;
@@ -16,8 +15,6 @@ export const ClickLikeProvider = ({ children }) => {
         await tweetLike(tweetId);
         return 1;
       }
-      //   const refresh = () => window.location.reload(true);
-      //   refresh();
     },
   };
 

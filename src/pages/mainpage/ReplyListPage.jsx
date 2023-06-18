@@ -36,13 +36,6 @@ export const ReplyListPage = () => {
   const { clickLike } = useClickLike();
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   if (!isAuthenticated) {
-  //     navigate("/login");
-  //     return;
-  //   } else return;
-  // }, [isAuthenticated, navigate]);
-
   useEffect(() => {
     const showPage = async () => {
       setSingleTweet(await getSingleTweet(tweetId));
@@ -144,10 +137,9 @@ export const ReplyListPage = () => {
                   alt="Likebtn"
                   className={styles.feedbackButton}
                   data-id={singleTweet.id}
-                  //等後端補tweet中的isLiked
                   onClick={async (e) => {
-                    await clickLike(e, singleTweet.isLiked);
-                    setIsLiked(singleTweet.isLiked);
+                    await clickLike(e, isLiked);
+                    setIsLiked(!isLiked);
                   }}
                 />
               </Link>

@@ -21,6 +21,7 @@ export const Tweet = ({ value }) => {
   const [isLiked, setIsLiked] = useState(value.isLiked);
   const { clickLike } = useClickLike();
   let navigate = useNavigate();
+
   //TODO:要處理AddReplyModal時將下面四個comment打開
   // const [selectTweetId, setSelectTweetId] = useState(104);
   // const [inputValue, setInputValue] = useState("");
@@ -182,7 +183,7 @@ export const Tweet = ({ value }) => {
 };
 
 export const UserTweets = () => {
-const { userTweets } = useTweet()
+  const { userTweets } = useTweet();
 
   if (!userTweets) return;
   return (
@@ -195,7 +196,7 @@ const { userTweets } = useTweet()
 };
 
 export const UserLikeTweets = () => {
-const { userLikedTweets } = useTweet();
+  const { userLikedTweets } = useTweet();
 
   if (!userLikedTweets) return;
 

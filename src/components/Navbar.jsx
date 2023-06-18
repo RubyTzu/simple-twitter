@@ -53,7 +53,7 @@ export const Navbar = () => {
         navigate("/login");
         return;
       }
-    }, 100);
+    }, 500);
   };
 
   useEffect(() => {
