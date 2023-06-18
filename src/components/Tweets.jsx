@@ -6,8 +6,9 @@ import styles from "./Tweets.module.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 //TODO:要處理AddReplyModal時將下面兩個comment打開
-// import { AddReplyModal } from "./modals/AddReplyModal";
-// import { createReplyTweet } from "../api/tweet";
+import { AddReplyModal } from "./modals/AddReplyModal";
+
+
 import { useTweet } from "context/tweetContext";
 import { clickLike } from "api/like";
 // import { getTweets } from "api/tweet";
@@ -22,23 +23,10 @@ export const Tweet = ({ value }) => {
   let navigate = useNavigate();
 
   //TODO:要處理AddReplyModal時將下面四個comment打開
-  // const [selectTweetId, setSelectTweetId] = useState(104);
-  // const [inputValue, setInputValue] = useState("");
-  // const [showModal, setShowModal] = useState(false);
+  const [selectTweetId, setSelectTweetId] = useState(104);
+  const [showModal, setShowModal] = useState(false);
 
-  // const handleAddTweet = async () => {
-  //   if (inputValue.length === 0 || inputValue.length > 140) {
-  //     return;
-  //   } else {
-  //     await createReplyTweet({
-  //       comment: inputValue,
-  //       id: selectTweetId,
-  //     });
 
-  //     const reload = () => window.location.reload();
-  //     reload();
-  //   }
-  // };
 
   const formatTimestamp = (timestamp) => {
     const now = new Date();
@@ -118,16 +106,15 @@ export const Tweet = ({ value }) => {
               type="Link"
               className={`${styles.replyButton}`}
               //TODO:要處理AddReplyModal時將下面兩個comment打開
-              // data-bs-toggle="modal"
-              // data-bs-target={`#addReplyModal${value.id}`}
+              data-bs-toggle="modal"
+              data-bs-target={`#addReplyModal${value.id}`}
               onClick={async (e) => {
-                // e.stopPropagation();
+                e.stopPropagation();
                 console.log(value.id);
                 //TODO:要處理AddReplyModal時將下面三個comment打開
-                // setSelectTweetId(value.id);
-                // setShowModal(true);
-                // setIsOpen(true);
-                // console.log(`comment button :${selectTweetId}`);
+                setSelectTweetId(value.id);
+                setShowModal(true);
+                console.log(`comment button :${selectTweetId}`);
               }}
             >
               <img
@@ -137,6 +124,12 @@ export const Tweet = ({ value }) => {
               />
               <p className={styles.counts}>{value.repliesCount}</p>
             </Link>
+            {showModal && value.id === selectTweetId && (
+              <AddReplyModal
+                onClose={() => setShowModal(false)}
+                tweetId={value.id}
+              />
+            )}
             <Link
               className={styles.likeButton}
               href="/"
@@ -159,22 +152,6 @@ export const Tweet = ({ value }) => {
               <p className={styles.counts}>{likesCount}</p>
             </Link>
           </footer>
-          {/* TODO:要處理AddReplyModal時將下面一個comment打開 */}
-
-          {/* {showModal && (
-            <AddReplyModal
-              show={showModal}
-              onClose={() => setShowModal(false)}
-              onClick={() => {
-                handleAddTweet();
-              }}
-              onChange={(value) => {
-                setInputValue(value);
-              }}
-              inputValue={inputValue}
-              tweetId={value.id}
-            />
-          )} */}
         </div>
       </div>
     </div>

@@ -19,6 +19,21 @@ export const AddReplyModalinReplyList = () => {
   const [singleTweet, setSingleTweet] = useState({});
   const { tweetId } = useParams();
 
+  const handleAddReplyTweet = async () => {
+    if (replyInputValue.length === 0 || replyInputValue.length > 140) {
+      return;
+    } else {
+      await createReplyTweet({
+        comment: replyInputValue,
+        id: tweetId,
+      });
+      setShowReplyAlert(false);
+      setReplyInputValue("");
+      onRefresh();
+      window.location.reload();
+    }
+  };
+
   const handleAddTweetHeight = (e) => {
     e.target.style.height = "inherit";
     e.target.style.height = `${e.target.scrollHeight}px`;
@@ -70,21 +85,6 @@ export const AddReplyModalinReplyList = () => {
     );
   }, [showReplyAlert]);
 
-  const handleAddReplyTweet = async () => {
-    if (replyInputValue.length === 0 || replyInputValue.length > 140) {
-      return;
-    } else {
-      await createReplyTweet({
-        comment: replyInputValue,
-        id: tweetId,
-      });
-      setShowReplyAlert(false);
-      setReplyInputValue('')
-      onRefresh();
-      // const reload = () => window.location.reload();
-      // reload();
-    }
-  };
 
   return (
     <div
