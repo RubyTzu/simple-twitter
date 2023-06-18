@@ -50,7 +50,7 @@ export const Register = () => {
       );
       if (res.message === "Create success") {
         Swal.fire({
-          title: "登入成功!",
+          title: "註冊成功!",
           icon: "success",
           iconColor: "#82C43C",
           showConfirmButton: false,

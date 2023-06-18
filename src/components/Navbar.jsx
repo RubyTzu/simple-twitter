@@ -14,6 +14,7 @@ const getId = () => {
   const id = localStorage.getItem("id");
   return id;
 };
+const id = localStorage.getItem("id");
 
 export const Navbar = () => {
   const { logout } = useAuth();
@@ -41,10 +42,18 @@ export const Navbar = () => {
 
   const handleLogout = () => {
     logout();
-    navigate("/login");
-    setTimeout(() => {
-      alert("已登出");
-    }, 500);
+    setInterval(() => {
+      if (id) {
+        console.log(id);
+        console.log("reload");
+        window.location.reload();
+      } else {
+        console.log(id);
+        alert("已登出");
+        navigate("/login");
+        return;
+      }
+    }, 100);
   };
 
   useEffect(() => {

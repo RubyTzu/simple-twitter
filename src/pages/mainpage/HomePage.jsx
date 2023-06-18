@@ -9,7 +9,6 @@ import { useCurrentUser } from "context/userInfoContext";
 import { getProfile } from "api/userinfo";
 
 export const HomePage = () => {
-  // const { isAuthenticated } = useAuth();
   const {
     allTweets,
     inputValue,
@@ -23,25 +22,11 @@ export const HomePage = () => {
   // const [avatar, setAvatar] = useState("");
   const id = localStorage.getItem("id");
   // const { currentUser } = useAuth();
-  // const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   if (!id) {
-  //     navigate("/login");
-  //     return;
-  //   } else {
-  //     navigate("/home");
-  //     return;
-  //   }
-  // }, [id, navigate]);
 
   useEffect(() => {
     const showAvatar = async () => {
-      // console.log(currentUser.id);
       const data = await getProfile(id);
-
       setProfile(data);
-      // setAvatar(data.avatar);
     };
     showAvatar();
     console.log("hello from useEffect-HomePage");

@@ -95,11 +95,11 @@ export const AuthProvider = ({ children }) => {
       }
     },
     logout: () => {
+      localStorage.removeItem("authToken");
+      localStorage.removeItem("id");
       setIsAuthenticated(false);
       setAdmIsAuthenticated(false);
       setPayload(null);
-      localStorage.removeItem("authToken");
-      localStorage.removeItem("id");
       return;
     },
   };
