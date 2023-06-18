@@ -4,18 +4,34 @@ import initialAvatar from "assets/GreyIcon.svg";
 // import avatar from "assets/Photo.png";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-// import { getSingleTweet } from "api/tweet";
+import { useTweet } from "context/tweetContext";
+import { createReplyTweet, getSingleTweet } from "../../api/tweet"
 
-export const AddReplyModal = ({
-  show,
-  onClose,
-  tweetId,
-  onClick,
-  onChange,
-  inputValue,
-}) => {
-  const [showAlert, setShowAlert] = useState(false);
+export const AddReplyModal = ({ onClose, tweetId}) => {
+  const {
+    replyInputValue,
+    setReplyInputValue,
+    showReplyAlert,
+    setShowReplyAlert,
+    onRefresh,
+  } = useTweet();
+
   const [singleTweet, setSingleTweet] = useState({});
+
+  const handleAddReplyTweet = async () => {
+    if (replyInputValue.length === 0 || replyInputValue.length > 140) {
+      return;
+    } else {
+      await createReplyTweet({
+        comment: replyInputValue,
+        id: tweetId,
+      });
+      setShowReplyAlert(false);
+      setReplyInputValue("");
+      onRefresh();
+      window.location.reload();
+    }
+  };
 
   const handleAddTweetHeight = (e) => {
     e.target.style.height = "inherit";
@@ -55,24 +71,19 @@ export const AddReplyModal = ({
   };
 
   useEffect(() => {
-    // const showPage = async () => {
-    //   await tweetId;
-    //   setSingleTweet(await getSingleTweet(tweetId));
-    // };
-    console.log(`AddReplyModal useEffect 的showAlert ${tweetId}`);
-      // showPage();
-
+    const showPage = async () => {
+      setSingleTweet(await getSingleTweet(tweetId));
+      console.log(`AddReplyModalinReplyList useEffect 的showAlert ${tweetId}`);
+    };
+    showPage();
   }, [tweetId]);
 
   useEffect(() => {
-    console.log(showAlert);
-    console.log(`AddReplyModal useEffect 的showAlert ${showAlert}`);
-  }, [showAlert]);
+    console.log(
+      `AddReplyModalinReplyList useEffect 的showAlert ${showReplyAlert}`
+    );
+  }, [showReplyAlert]);
 
-  if (!show) {
-    return null;
-  } else {
-  }
   return (
     <div
       className="modal fade"
@@ -83,6 +94,7 @@ export const AddReplyModal = ({
       onClick={(e) => {
         e.stopPropagation();
       }}
+      onClose={onClose}
     >
       <div className={`modal-dialog `}>
         <div className={`modal-content ${styles.modalContainer}`}>
@@ -94,7 +106,6 @@ export const AddReplyModal = ({
               className={`position-absolute ${styles.closeButton}`}
               data-bs-dismiss="modal"
               aria-label="Close"
-              onClose={onClose}
             >
               <CloseSVG />
             </Link>
@@ -147,28 +158,39 @@ export const AddReplyModal = ({
                 className={styles.replyTweetTextarea}
                 placeholder="推你的回覆"
                 onInput={handleAddTweetHeight}
+                value={replyInputValue}
                 onChange={(e) => {
-                  onChange(e.target.value);
+                  setReplyInputValue(e.target.value);
                 }}
               />
             </div>
           </div>
           <div className={`modal-footer ${styles.modalFooter}`}>
             <p className={styles.wordLimitHint}>
-              {showAlert && inputValue.length === 0 && "內容不可空白"}
-              {showAlert && inputValue.length > 140 && "字數不可超過 140 字"}
+              {showReplyAlert && replyInputValue.length === 0 && "內容不可空白"}
+              {showReplyAlert &&
+                replyInputValue.length > 140 &&
+                "字數不可超過 140 字"}
             </p>
             <button
               type="button"
               className={styles.tweetButton}
-              onClose={onClose}
               onClick={() => {
-                if (inputValue.length === 0 || inputValue.length > 140) {
-                  setShowAlert(true);
+                if (
+                  replyInputValue.length === 0 ||
+                  replyInputValue.length > 140
+                ) {
+                  setShowReplyAlert(true);
+                  return;
                 } else {
-                  onClick();
+                  handleAddReplyTweet();
                 }
               }}
+              data-bs-dismiss={
+                replyInputValue.length > 0 &&
+                replyInputValue.length <= 140 &&
+                "modal"
+              }
             >
               回覆
             </button>
