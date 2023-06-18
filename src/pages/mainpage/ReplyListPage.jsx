@@ -9,7 +9,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { TweetReadOnly } from "components/TweetsReadOnly";
 import styles from "./ReplyListPage.module.scss";
 import { AddReplyModalinReplyList } from "components/modals/AddReplyModalinReplyList";
-import { useClickLike } from "context/clickLikeContext";
+import { clickLike } from "api/like";
 
 import { getSingleTweet, getSingleTweetReplies } from "api/tweet";
 import { useEffect, useState } from "react";
@@ -33,15 +33,7 @@ export const ReplyListPage = () => {
   const { tweetId } = useParams();
   const [isLiked, setIsLiked] = useState(singleTweet.isLiked);
   // const { isAuthenticated } = useCurrentUser();
-  const { clickLike } = useClickLike();
   const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   if (!isAuthenticated) {
-  //     navigate("/login");
-  //     return;
-  //   } else return;
-  // }, [isAuthenticated, navigate]);
 
   useEffect(() => {
     const showPage = async () => {
@@ -138,19 +130,16 @@ export const ReplyListPage = () => {
               </Link>
               <AddReplyModalinReplyList />
 
-              <Link href="/">
-                <img
-                  src={singleTweet.isLiked ? LikePress : LikeSVG}
-                  alt="Likebtn"
-                  className={styles.feedbackButton}
-                  data-id={singleTweet.id}
-                  //等後端補tweet中的isLiked
-                  onClick={async (e) => {
-                    await clickLike(e, singleTweet.isLiked);
-                    setIsLiked(singleTweet.isLiked);
-                  }}
-                />
-              </Link>
+              <img
+                src={singleTweet.isLiked ? LikePress : LikeSVG}
+                alt="Likebtn"
+                className={`${styles.feedbackButton} cursorPointer`}
+                data-id={singleTweet.id}
+                onClick={async (e) => {
+                  await clickLike(e, singleTweet.isLiked);
+                  setIsLiked(!singleTweet.isLiked);
+                }}
+              />
             </div>
           </div>
         </div>
