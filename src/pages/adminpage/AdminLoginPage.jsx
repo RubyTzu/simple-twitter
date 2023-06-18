@@ -16,6 +16,7 @@ export const AdminLoginPage = () => {
   const [accountPassed, setAccountPassed] = useState(true);
   const [pwdPassed, setPwdPassed] = useState(true);
   const navigate = useNavigate();
+  const id = localStorage.getItem("id");
 
   useEffect(() => {
     if (admIsAuthenticated) {
@@ -28,7 +29,6 @@ export const AdminLoginPage = () => {
     if (password.length === 0) return;
 
     const res = await adminLogin({ account, password });
-    // console.log(res);
     if (res.success) {
       setAccountPassed(true);
       Swal.fire({
@@ -39,8 +39,18 @@ export const AdminLoginPage = () => {
         timer: 1000,
         position: "top",
       });
-      navigate("/admin/tweetslist");
-      return;
+
+      setInterval(() => {
+        if (!id) {
+          console.log(id);
+          console.log("reload");
+          window.location.reload();
+        } else {
+          console.log(id);
+          navigate("/admin/tweetslist");
+          return;
+        }
+      }, 100);
     } else if (res.response.data === "Account incorrect") {
       console.log(res.response.data);
       setAccountPassed(false);

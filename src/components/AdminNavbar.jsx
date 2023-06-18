@@ -21,7 +21,6 @@ const types = [
   },
 ];
 
-
 export const AdminNavbar = () => {
   const navigate = useNavigate();
   const { logout } = useAuth();
@@ -29,9 +28,12 @@ export const AdminNavbar = () => {
   const activePage = useRef("推文清單");
   //{ current: "推文清單" }
 
-  const handleClick = () => {
+  const handleLogout = () => {
     logout();
     navigate("/admin/login");
+    setTimeout(() => {
+      alert("已登出");
+    }, 500);
   };
 
   const handleStyleChange = (e) => {
@@ -80,7 +82,7 @@ export const AdminNavbar = () => {
         </div>
       </div>
 
-      <button onClick={handleClick} className={styles.navbarButton}>
+      <button onClick={handleLogout} className={styles.navbarButton}>
         <LogOutSVG className={styles.navbarIcon} />
         登出
       </button>

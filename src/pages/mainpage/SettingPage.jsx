@@ -163,6 +163,7 @@ export const SettingPage = () => {
             pwdPassed={pwdPassed}
             placeholder="請設定密碼"
             onChange={(e) => {
+              setPwdPassed(true);
               setUser({
                 ...user,
                 password: e.target.value,
@@ -186,6 +187,7 @@ export const SettingPage = () => {
             pwdPassed={pwdPassed}
             placeholder="請再次輸入密碼"
             onChange={(e) => {
+              setPwdPassed(true);
               setUser({
                 ...user,
                 checkPassword: e.target.value,

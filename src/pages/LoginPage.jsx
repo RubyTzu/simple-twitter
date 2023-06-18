@@ -3,28 +3,22 @@ import { AuthInput } from "components/AuthInput";
 import { ReactComponent as LogoSVG } from "assets/Icon.svg";
 import styles from "pages/LoginRegister.module.scss";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import clsx from "clsx";
+import { Verified } from "./mainpage/verify";
 
 export const LoginPage = () => {
   const [account, setAccount] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const { login, isAuthenticated } = useAuth();
+  const { login } = useAuth();
   const id = localStorage.getItem("id");
   const [accountPassed, setAccountPassed] = useState(true);
   const [pwdPassed, setPwdPassed] = useState(true);
-  
 
-  useEffect(() => {
-    if (isAuthenticated) {
-      navigate("/home");
-    } else {
-      navigate("/login");
-    }
-  }, [navigate, isAuthenticated, id]);
+  Verified();
 
   const handleLogin = async () => {
     if (account.length === 0) return;
@@ -41,8 +35,17 @@ export const LoginPage = () => {
         timer: 1000,
         position: "top",
       });
-      navigate("/home");
-      return;
+      setInterval(() => {
+        if (!id) {
+          console.log(id);
+          console.log("reload");
+          window.location.reload();
+        } else {
+          console.log(id);
+          navigate("/home");
+          return;
+        }
+      }, 500);
     } else if (res.response.data === "Account incorrect") {
       console.log(res.response.data);
       setAccountPassed(false);
