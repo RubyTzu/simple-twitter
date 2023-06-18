@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AlertModal } from "components/modals/AlertModal";
 import Swal from "sweetalert2";
+import clsx from "clsx";
 
 export const Register = () => {
   const [account, setAccount] = useState("");
@@ -16,6 +17,10 @@ export const Register = () => {
   const [checkPassword, setCheckPassword] = useState("");
   const [showAlert, setShowAlert] = useState(false);
   const [alertWord, setAlertWord] = useState("");
+  const [namePassed, setNamePassed] = useState(true);
+  const [accountPassed, setAccountPassed] = useState(true);
+  const [pwdPassed, setPwdPassed] = useState(true);
+  const [emailPassed, setEmailPassed] = useState(true);
 
   const navigate = useNavigate();
 
@@ -59,15 +64,29 @@ export const Register = () => {
         });
         navigate("/login");
         return;
+      } else if (res.message === "Max length 50") {
+        // alert("Max length 50");
+        setShowAlert(true);
+        setAlertWord("字數超過上限50字");
+        setNamePassed(false);
+        return;
       } else if (res.message === "Email already exists!") {
         // alert("Email 已重覆註冊")
         setShowAlert(true);
         setAlertWord("Email 已重覆註冊");
+        setEmailPassed(false);
         return;
       } else if (res.message === "Account already exists!") {
         // alert("Account  已重覆註冊");
         setShowAlert(true);
         setAlertWord("帳號已重覆註冊");
+        setAccountPassed(false);
+        return;
+      } else if (res.message === "Password do not match!") {
+        // alert("Password do not match!");
+        setShowAlert(true);
+        setAlertWord("密碼不一致");
+        setPwdPassed(false);
         return;
       }
     } catch (error) {
@@ -92,55 +111,111 @@ export const Register = () => {
         <AuthInput
           type="text"
           value={account}
-          onChange={(e) => setAccount(e.target.value)}
+          onChange={(e) => {
+            setAccount(e.target.value);
+            setAccountPassed(true);
+          }}
           label="帳號"
           placeholder="請輸入帳號"
           onKeyDown={handleRegister}
-          accountPassed={true}
+          accountPassed={accountPassed}
         />
+        <span
+          className={clsx("", {
+            [styles.limit]: !accountPassed,
+            [styles.noLimit]: accountPassed,
+          })}
+        >
+          帳號已重覆註冊
+        </span>
       </div>
       <div className={styles.inputContainer}>
         <AuthInput
           type="text"
           value={name}
-          onChange={(e) => setName(e.target.value)}
+          onChange={(e) => {
+            setName(e.target.value);
+            setNamePassed(true);
+          }}
           label="名稱"
           placeholder="請輸入使用者名稱"
           onKeyDown={handleRegister}
+          namePassed={namePassed}
         />
+        <span
+          className={clsx("", {
+            [styles.limit]: !namePassed,
+            [styles.noLimit]: namePassed,
+          })}
+        >
+          字數超出上限！
+        </span>
       </div>
       <div className={styles.inputContainer}>
         <AuthInput
           type="text"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => {
+            setEmail(e.target.value);
+            setEmailPassed(true);
+          }}
           label="Email"
           placeholder="請輸入Email"
           onKeyDown={handleRegister}
-          emailPassed={true}
+          emailPassed={emailPassed}
         />
+        <span
+          className={clsx("", {
+            [styles.limit]: !emailPassed,
+            [styles.noLimit]: emailPassed,
+          })}
+        >
+          Email 已重覆註冊
+        </span>
       </div>
       <div className={styles.inputContainer}>
         <AuthInput
           type="password"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e) => {
+            setPassword(e.target.value);
+            setPwdPassed(true);
+          }}
           label="密碼"
           placeholder="請設定密碼"
           onKeyDown={handleRegister}
-          pwdPassed={true}
+          pwdPassed={pwdPassed}
         />
+        <span
+          className={clsx("", {
+            [styles.limit]: !pwdPassed,
+            [styles.noLimit]: pwdPassed,
+          })}
+        >
+          密碼不一致！
+        </span>
       </div>
       <div className={styles.inputContainer}>
         <AuthInput
           type="password"
           value={checkPassword}
-          onChange={(e) => setCheckPassword(e.target.value)}
+          onChange={(e) => {
+            setCheckPassword(e.target.value);
+            setPwdPassed(true);
+          }}
           label="密碼確認"
           placeholder="請再次輸入密碼"
           onKeyDown={handleRegister}
-          pwdPassed={true}
+          pwdPassed={pwdPassed}
         />
+        <span
+          className={clsx("", {
+            [styles.limit]: !pwdPassed,
+            [styles.noLimit]: pwdPassed,
+          })}
+        >
+          密碼不一致！
+        </span>
       </div>
 
       <button
