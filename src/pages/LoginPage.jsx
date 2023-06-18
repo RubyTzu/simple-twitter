@@ -45,12 +45,13 @@ export const LoginPage = () => {
           navigate("/home");
           return;
         }
-      }, 500);
+      }, 1000);
     } else if (res.response.data === "Account incorrect") {
       console.log(res.response.data);
       setAccountPassed(false);
       Swal.fire({
         title: "登入失敗!",
+        text: "帳號不存在!",
         icon: "error",
         showConfirmButton: false,
         timer: 1000,
@@ -61,6 +62,21 @@ export const LoginPage = () => {
       setPwdPassed(false);
       Swal.fire({
         title: "登入失敗!",
+        text: "密碼不正確!",
+        icon: "error",
+        showConfirmButton: false,
+        timer: 1000,
+        position: "top",
+      });
+      return;
+    } else if (
+      res.response.data ===
+      "I'm sorry, but access to the frontstage area is restricted."
+    ) {
+      setAccountPassed(false);
+      Swal.fire({
+        title: "登入失敗!",
+        text: "帳號不存在!",
         icon: "error",
         showConfirmButton: false,
         timer: 1000,

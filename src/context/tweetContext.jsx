@@ -61,8 +61,8 @@ export const TweetContextProvider = ({ children }) => {
     setInputValue("");
     handleClick();
     console.log(`setClick${addTweetRefresh}`);
-    // const reload = () => window.location.reload();
-    // reload();
+    const reload = () => window.location.reload();
+    reload();
   };
 
   const handleClick = () => {
