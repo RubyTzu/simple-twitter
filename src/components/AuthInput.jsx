@@ -10,6 +10,7 @@ export const AuthInput = ({
   accountPassed,
   emailPassed,
   pwdPassed,
+  namePassed,
 }) => {
   let authInput;
   if (label === "帳號") {
@@ -64,6 +65,29 @@ export const AuthInput = ({
         className={clsx("", {
           [styles.input]: pwdPassed,
           [styles.inputNotPassed]: !pwdPassed,
+        })}
+      >
+        <label>{label}</label>
+        <input
+          type={type}
+          defaultValue={value}
+          label={label}
+          placeholder={placeholder}
+          onChange={onChange}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              onKeyDown?.();
+            }
+          }}
+        />
+      </div>
+    );
+  } else if (label === "名稱") {
+    authInput = (
+      <div
+        className={clsx("", {
+          [styles.input]: namePassed,
+          [styles.inputNotPassed]: !namePassed,
         })}
       >
         <label>{label}</label>
