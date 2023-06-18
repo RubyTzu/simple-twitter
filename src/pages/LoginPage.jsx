@@ -3,7 +3,7 @@ import { AuthInput } from "components/AuthInput";
 import { ReactComponent as LogoSVG } from "assets/Icon.svg";
 import styles from "pages/LoginRegister.module.scss";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import clsx from "clsx";
@@ -13,7 +13,7 @@ export const LoginPage = () => {
   const [account, setAccount] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const { login, isAuthenticated } = useAuth();
+  const { login } = useAuth();
   const id = localStorage.getItem("id");
   const [accountPassed, setAccountPassed] = useState(true);
   const [pwdPassed, setPwdPassed] = useState(true);
