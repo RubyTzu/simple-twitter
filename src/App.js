@@ -16,7 +16,6 @@ import { SettingPage } from "pages/mainpage/SettingPage";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "context/authContext";
-import { ClickLikeProvider } from "context/clickLikeContext";
 
 import { TweetContextProvider } from "context/tweetContext";
 import { CurrentUserProvider } from "context/userInfoContext";
@@ -29,8 +28,7 @@ function App() {
       <BrowserRouter basename={basename}>
         <AuthProvider>
           <CurrentUserProvider>
-          <TweetContextProvider>
-            <ClickLikeProvider>
+            <TweetContextProvider>
               <Routes>
                 <Route path="/admin/login" element={<AdminLoginPage />} />
                 <Route
@@ -97,8 +95,7 @@ function App() {
                 />
                 <Route path="*" element={<LoginPage />} /> {/* 暫定 */}
               </Routes>
-            </ClickLikeProvider>
-          </TweetContextProvider>
+            </TweetContextProvider>
           </CurrentUserProvider>
         </AuthProvider>
       </BrowserRouter>

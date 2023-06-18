@@ -8,8 +8,8 @@ import { useState } from "react";
 //TODO:要處理AddReplyModal時將下面兩個comment打開
 // import { AddReplyModal } from "./modals/AddReplyModal";
 // import { createReplyTweet } from "../api/tweet";
-import { useClickLike } from "context/clickLikeContext";
 import { useTweet } from "context/tweetContext";
+import { clickLike } from "api/like";
 // import { getTweets } from "api/tweet";
 const id = localStorage.getItem("id");
 const getId = () => {
@@ -19,7 +19,6 @@ const getId = () => {
 export const Tweet = ({ value }) => {
   const [likesCount, setLikesCount] = useState(value.likesCount);
   const [isLiked, setIsLiked] = useState(value.isLiked);
-  const { clickLike } = useClickLike();
   let navigate = useNavigate();
 
   //TODO:要處理AddReplyModal時將下面四個comment打開
