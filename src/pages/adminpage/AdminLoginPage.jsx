@@ -50,7 +50,7 @@ export const AdminLoginPage = () => {
           navigate("/admin/tweetslist");
           return;
         }
-      }, 100);
+      }, 1000);
     } else if (res.response.data === "Account incorrect") {
       console.log(res.response.data);
       setAccountPassed(false);

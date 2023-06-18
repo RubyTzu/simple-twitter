@@ -26,13 +26,23 @@ export const AdminNavbar = () => {
   const { logout } = useAuth();
   let typeInfos = types;
   const activePage = useRef("推文清單");
+  const id = localStorage.getItem("id");
+
   //{ current: "推文清單" }
 
   const handleLogout = () => {
     logout();
-    navigate("/admin/login");
-    setTimeout(() => {
-      alert("已登出");
+    setInterval(() => {
+      if (id) {
+        console.log(id);
+        console.log("reload");
+        window.location.reload();
+      } else {
+        console.log(id);
+        alert("已登出");
+        navigate("/admin/login");
+        return;
+      }
     }, 500);
   };
 
