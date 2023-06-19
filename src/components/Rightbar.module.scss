@@ -70,6 +70,10 @@
   font-size: 14px;
   color: #92929d;
   padding: 0 0 5px 0;
+  white-space: nowrap;
+  max-width: 80px;
+  overflow: hidden;
+  text-overflow: ellipsis
 }
 
 .toNotFollowButton {
