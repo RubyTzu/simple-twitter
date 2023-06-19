@@ -2,6 +2,9 @@ import { ReactComponent as LogoSVG } from "assets/Icon.svg";
 import { ReactComponent as HomeSVG } from "assets/Home.svg";
 import { ReactComponent as UserSVG } from "assets/User.svg";
 import { ReactComponent as SettingSVG } from "assets/Setting.svg";
+import { ReactComponent as HomeActiveSVG } from "assets/HomeActive.svg";
+import { ReactComponent as UserActiveSVG } from "assets/UserActive.svg";
+import { ReactComponent as SettingActiveSVG } from "assets/SettingActive.svg";
 import { ReactComponent as LogOutSVG } from "assets/LogOut.svg";
 import { AddTweetModal } from "./modals/AddTweetModal";
 
@@ -72,11 +75,17 @@ export const Navbar = () => {
             }`;
 
             const linkIcon = () => {
-              if (info.name === "首頁") {
+              if (info.name === "首頁" && activePage === info.route) {
+                return <HomeActiveSVG className={styles.navbarIcon} />;
+              } else if (info.name === "個人資料" && activePage === info.route) {
+                return <UserActiveSVG className={styles.navbarIcon} />;
+              } else if (info.name === "設定" && activePage === info.route) {
+                return <SettingActiveSVG className={styles.navbarIcon} />;
+              } else if (info.name === "首頁" && activePage !== info.route) {
                 return <HomeSVG className={styles.navbarIcon} />;
-              } else if (info.name === "個人資料") {
+              } else if (info.name === "個人資料" && activePage !== info.route) {
                 return <UserSVG className={styles.navbarIcon} />;
-              } else if (info.name === "設定") {
+              } else if (info.name === "設定" && activePage !== info.route) {
                 return <SettingSVG className={styles.navbarIcon} />;
               }
             };
