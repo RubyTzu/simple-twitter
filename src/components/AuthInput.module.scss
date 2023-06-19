@@ -11,17 +11,6 @@
   
 }
 
-// .inputNotPassed {
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: space-around;
-//   background-color: #f5f8fa;
-//   width: 100%;
-//   height: 54px;
-//   border-bottom: 2px solid #fc5a5a;
-//   border-radius: 2px;
-// }
-
 label {
   position: absolute;
   // left: 10.55px;
@@ -79,9 +68,9 @@ label {
   border: none;
     border-bottom: 2px solid #fc5a5a;
   &:hover{
-    border-bottom: 2px solid #50B5FF;
+    border-bottom: 2px solid #fc5a5a;
   }
   &:focus{
-    border-bottom: 2px solid #50B5FF;
+    border-bottom: 2px solid #fc5a5a;
   }
 }

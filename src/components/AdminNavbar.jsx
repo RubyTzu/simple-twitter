@@ -1,6 +1,8 @@
 import { ReactComponent as LogoSVG } from "assets/Icon.svg";
 import { ReactComponent as HomeSVG } from "assets/Home.svg";
 import { ReactComponent as UserSVG } from "assets/User.svg";
+import { ReactComponent as HomeActiveSVG } from "assets/HomeActive.svg";
+import { ReactComponent as UserActiveSVG } from "assets/UserActive.svg";
 import { ReactComponent as LogOutSVG } from "assets/LogOut.svg";
 
 import styles from "./AdminNavbar.module.scss";
@@ -61,11 +63,27 @@ export const AdminNavbar = () => {
             }`;
 
             const linkIcon = () => {
-              if (info.name === "推文清單") {
+              if (
+                info.name === "推文清單" &&
+                activePage.current === info.name
+              ) {
+                return <HomeActiveSVG className={styles.navbarIcon} />;
+              } else if (
+                info.name === "使用者列表" &&
+                activePage.current === info.name
+              ) {
+                return <UserActiveSVG className={styles.navbarIcon} />;
+              } else if (
+                info.name === "推文清單" &&
+                activePage.current !== info.name
+              ) {
                 return <HomeSVG className={styles.navbarIcon} />;
-              } else if (info.name === "使用者列表") {
+              } else if (
+                info.name === "使用者列表" &&
+                activePage.current !== info.name
+              ) {
                 return <UserSVG className={styles.navbarIcon} />;
-              }
+              } 
             };
 
             return (
