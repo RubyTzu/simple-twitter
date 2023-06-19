@@ -46,14 +46,32 @@
   margin: 0;
   font-size: 16px;
   white-space: nowrap;
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.userNickName {
+.userNickNameCollection {
   height: 80%;
-  margin: 0 0 0 8px;
+  margin: 0 0 0px 8px;
+  display: flex;
   font-family: "Noto Sans TC", sans-serif;
   font-size: 14px;
   color: #92929d;
+}
+.userNickName {
+  display: inline-block;
+  padding-top: 0px;
+  white-space: nowrap;
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.time {
+  display: inline-block;
+  margin: 0px;
+  padding: 0px;
 }
 
 .comment {

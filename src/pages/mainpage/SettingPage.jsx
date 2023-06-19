@@ -15,6 +15,7 @@ export const SettingPage = () => {
    const [namePassed, setNamePassed] = useState(true);
    const [showAlert, setShowAlert] = useState(false);
    const [alertWord, setAlertWord] = useState("");
+   const [alertIcon, setAlertIcon] = useState(false)
 
   const [user, setUser] = useState({});
   const [nameLength, setNameLength] = useState("");
@@ -58,6 +59,7 @@ export const SettingPage = () => {
       // alert("帳號不得為空");
       setShowAlert(true);
       setAlertWord("帳號不得為空");
+      setAlertIcon(false)
       setAccountPassed(false);
       return;
     }
@@ -65,6 +67,7 @@ export const SettingPage = () => {
       // alert("名稱不得為空");
        setShowAlert(true);
        setAlertWord("名稱不得為空");
+       setAlertIcon(false);
        setNamePassed(false);
       return;
     }
@@ -72,6 +75,7 @@ export const SettingPage = () => {
       // alert("Email不得為空");
       setShowAlert(true);
       setAlertWord("Email不得為空");
+      setAlertIcon(false);
       setEmailPassed(false);
       return;
     }
@@ -79,6 +83,7 @@ export const SettingPage = () => {
       // alert("請確認兩次密碼輸入一致");
       setShowAlert(true);
       setAlertWord("請確認兩次密碼輸入一致");
+      setAlertIcon(false);
       setPwdPassed(false);
       return;
     }
@@ -86,6 +91,7 @@ export const SettingPage = () => {
       // alert("名稱超過50字元");
       setShowAlert(true);
       setAlertWord("字數超過上限50字");
+      setAlertIcon(false);
       setNamePassed(false)
       return;
     }
@@ -96,6 +102,7 @@ export const SettingPage = () => {
       // alert("已成功更新");
        setShowAlert(true);
        setAlertWord("已成功更新");
+       setAlertIcon(true);
       console.log(data);
       setTimeout(() => {
         const reload = () => window.location.reload(true);
@@ -107,12 +114,14 @@ export const SettingPage = () => {
         // alert("帳號已被使用");
         setShowAlert(true);
         setAlertWord("帳號已被使用");
+        setAlertIcon(false);
         setAccountPassed(false);
         return;
       } else if (data.response.data === "This email has been used!") {
         // alert("Email已被使用");
         setShowAlert(true);
         setAlertWord("Email已被使用");
+        setAlertIcon(false);
         setEmailPassed(false);
         return;
       } else return;
@@ -257,7 +266,7 @@ export const SettingPage = () => {
         <button className={styles.btn} onClick={handleSave}>
           儲存
         </button>
-        {showAlert && <AlertModal value={alertWord} />}
+        {showAlert && <AlertModal value={alertWord} alertIcon={alertIcon} />}
       </div>
     </>
   );
