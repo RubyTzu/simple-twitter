@@ -50,11 +50,25 @@ Ensure you have node.js and npm installed
 
 ---
 
-## Links
+## Website 
 
 [github page](https://rubytzu.github.io/simple-twitter/)
 
-[Backend repo](https://github.com/Chingsan0722/twitter-api-2020)
+- user test account:
+
+   ` Account: user1
+     Password: 12345678 `
+
+- admin account:
+
+   ` Account: root
+     Password: 12345678 `
+
+---
+
+## Backend Link
+
+[repo](https://github.com/Chingsan0722/twitter-api-2020)
 
 ---
 
