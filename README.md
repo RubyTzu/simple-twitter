@@ -50,10 +50,19 @@ Ensure you have node.js and npm installed
 
 ---
 
+## Links
+
+[github page](https://rubytzu.github.io/simple-twitter/)
+
+[Backend repo](https://github.com/Chingsan0722/twitter-api-2020)
+
+---
+
 ## Contact
 
-(Ruby Chen)[rrubyitzuchen@gmail.com]  
-(Kaijun Huang)[kaijun_huang@outlook.com]
+[Ruby Chen](rrubyitzuchen@gmail.com)
+
+[Kaijun Huang](kaijun_huang@outlook.com)
 
 ---
 
