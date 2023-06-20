@@ -48,21 +48,3 @@ export const UserTweetsCollection = () => {
     </section>
   );
 };
-
-//UserTweetsNavbar
-
-//   <li>
-//     <Link className={`${styles.tweetListButton} ${styles.active}`} href="#">
-//       推文
-//     </Link>
-//   </li>
-//   <li>
-//     <Link className={`${styles.tweetListButton} `} to="#">
-//       回覆
-//     </Link>
-//   </li>
-//   <li>
-//     <Link className={`${styles.tweetListButton} `} to="#">
-//       喜歡的內容
-//     </Link>
-//   </li>

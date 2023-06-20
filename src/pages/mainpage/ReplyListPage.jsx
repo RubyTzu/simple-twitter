@@ -56,8 +56,7 @@ export const ReplyListPage = () => {
       hour: "2-digit",
       minute: "2-digit",
     });
-
-    return `${formattedTime}・${formattedDate}`;
+    return `${formattedTime}・${formattedDate}`
   };
 
   return (
@@ -76,7 +75,7 @@ export const ReplyListPage = () => {
                 <img
                   className={`${styles.tweetAvatar} cursorPointer`}
                   src={
-                    singleTweet.avatar !== null
+                    singleTweet.avatar 
                       ? singleTweet.avatar
                       : initialAvatar
                   }
@@ -88,7 +87,7 @@ export const ReplyListPage = () => {
                 <img
                   className={`${styles.tweetAvatar} cursorPointer`}
                   src={
-                    singleTweet.avatar !== null
+                    singleTweet.avatar 
                       ? singleTweet.avatar
                       : initialAvatar
                   }

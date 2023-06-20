@@ -5,12 +5,14 @@ import LikePress from "assets/LikePress.svg";
 import styles from "./Tweets.module.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-//TODO:要處理AddReplyModal時將下面兩個comment打開
-import { AddReplyModal } from "./modals/AddReplyModal";
 
+//TODO:要處理AddReplyModal時將下面兩個comment打開
+import Button from "react-bootstrap/Button";
+import { AddReplyModal } from "./modals/AddReplyModal";
 
 import { useTweet } from "context/tweetContext";
 import { clickLike } from "api/like";
+
 // import { getTweets } from "api/tweet";
 const id = localStorage.getItem("id");
 const getId = () => {
@@ -22,11 +24,12 @@ export const Tweet = ({ value }) => {
   const [isLiked, setIsLiked] = useState(value.isLiked);
   let navigate = useNavigate();
 
-  //TODO:要處理AddReplyModal時將下面四個comment打開
-  const [selectTweetId, setSelectTweetId] = useState(104);
-  const [showModal, setShowModal] = useState(false);
+  // del
+  const [show, setShow] = useState(false);
 
-
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  // del
 
   const formatTimestamp = (timestamp) => {
     const now = new Date();
@@ -67,13 +70,11 @@ export const Tweet = ({ value }) => {
     >
       <div className={styles.tweetContainer}>
         {getId() === value.UserId ? (
-          <Link
-            to={`/userself/${value.UserId}`}
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
-          >
+          <Link to={`/userself/${value.UserId}`}>
             <img
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
               className={`${styles.userAvatar} cursorPointer`}
               src={value.avatar === null ? userInitialAvatar : value.avatar}
               alt="userAvatar"
@@ -82,11 +83,11 @@ export const Tweet = ({ value }) => {
         ) : (
           <Link
             to={`/userother/${value.UserId}`}
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
           >
             <img
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
               className={`${styles.userAvatar} cursorPointer`}
               src={value.avatar === null ? userInitialAvatar : value.avatar}
               alt="userAvatar"
@@ -102,19 +103,12 @@ export const Tweet = ({ value }) => {
           </header>
           <p className={styles.comment}>{value.description}</p>
           <footer className={styles.tweetFooter}>
-            <Link
-              type="Link"
-              className={`${styles.replyButton}`}
-              //TODO:要處理AddReplyModal時將下面兩個comment打開
-              data-bs-toggle="modal"
-              data-bs-target={`#addReplyModal${value.id}`}
-              onClick={async (e) => {
+            <Button
+              className={styles.replyButton}
+              // variant="primary"
+              onClick={(e) => {
                 e.stopPropagation();
-                console.log(value.id);
-                //TODO:要處理AddReplyModal時將下面三個comment打開
-                setSelectTweetId(value.id);
-                setShowModal(true);
-                console.log(`comment button :${selectTweetId}`);
+                handleShow();
               }}
             >
               <img
@@ -123,13 +117,12 @@ export const Tweet = ({ value }) => {
                 className={styles.commentIcon}
               />
               <p className={styles.counts}>{value.repliesCount}</p>
-            </Link>
-            {showModal && value.id === selectTweetId && (
-              <AddReplyModal
-                onClose={() => setShowModal(false)}
-                tweetId={value.id}
-              />
-            )}
+            </Button>
+            <AddReplyModal
+              handleClose={handleClose}
+              show={show}
+              twtId={value.id}
+            />
             <Link
               className={styles.likeButton}
               href="/"
@@ -184,3 +177,4 @@ export const UserLikeTweets = () => {
     </div>
   );
 };
+
