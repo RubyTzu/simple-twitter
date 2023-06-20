@@ -56,13 +56,17 @@ Ensure you have node.js and npm installed
 
 - user test account:
 
-   ``` Account: user1
-     Password: 12345678 ```
+   ```
+      Account: user1
+      Password: 12345678
+   ```
 
 - admin account:
 
-   ``` Account: root
-     Password: 12345678 ```
+   ```
+      Account: root
+      Password: 12345678
+   ```
 
 ---
 
