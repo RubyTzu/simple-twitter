@@ -37,11 +37,8 @@ export const LoginPage = () => {
       });
       setInterval(() => {
         if (!id) {
-          console.log(id);
-          console.log("reload");
           window.location.reload();
         } else {
-          console.log(id);
           navigate("/home");
           return;
         }

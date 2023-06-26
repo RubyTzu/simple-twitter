@@ -136,7 +136,9 @@ export const ReplyListPage = () => {
                 className={`${styles.feedbackButton} cursorPointer`}
                 data-id={singleTweet.id}
                 onClick={async (e) => {
+                  console.log(singleTweet.isLiked);
                   await clickLike(e, singleTweet.isLiked);
+
                   setIsLiked(!singleTweet.isLiked);
                 }}
               />
