@@ -3,9 +3,8 @@ import { ReactComponent as CloseSVG } from "assets/Close.svg";
 import initialAvatar from "assets/GreyIcon.svg";
 import { Link, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { getSingleTweet } from "api/tweet";
 import { useTweet } from "context/tweetContext";
-import { createReplyTweet } from "api/tweet";
+import { getSingleTweet, createReplyTweet } from "api/tweet";
 
 export const AddReplyModalinReplyList = () => {
   const {
@@ -85,7 +84,6 @@ export const AddReplyModalinReplyList = () => {
     );
   }, [showReplyAlert]);
 
-
   return (
     <div
       className="modal fade"
@@ -115,11 +113,7 @@ export const AddReplyModalinReplyList = () => {
             <div className={styles.othersTweet}>
               <img
                 className={`${styles.tweetAvatar} cursorPointer`}
-                src={
-                  singleTweet.avatar !== null
-                    ? singleTweet.avatar
-                    : initialAvatar
-                }
+                src={singleTweet.avatar ? singleTweet.avatar : initialAvatar}
                 alt="avatar"
               ></img>
               <div className={styles.tweetTextContainer}>
@@ -149,7 +143,7 @@ export const AddReplyModalinReplyList = () => {
               <img
                 className={styles.replyTweetAvatar}
                 src={
-                  singleTweet.userAvatar !== null
+                  singleTweet.userAvatar
                     ? singleTweet.userAvatar
                     : initialAvatar
                 }

@@ -32,10 +32,20 @@
   font-size: 16px;
   color: #171725;
   font-weight: 700;
+  margin: 0 auto;
+  white-space: nowrap;
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .userNickname {
   font-size: 14px;
   color: #6c757d;
+  margin: 0 auto;
+  white-space: nowrap;
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .userActivity {

@@ -15,14 +15,13 @@ export const AuthInput = ({
   let authInput;
   if (label === "帳號") {
     authInput = (
-      <div
-        className={clsx("", {
-          [styles.input]: accountPassed,
-          [styles.inputNotPassed]: !accountPassed,
-        })}
-      >
+      <div className={styles.inputContainer}>
         <label>{label}</label>
         <input
+          className={clsx("", {
+            [styles.input]: accountPassed,
+            [styles.inputNotPassed]: !accountPassed,
+          })}
           type={type}
           defaultValue={value}
           label={label}
@@ -38,14 +37,13 @@ export const AuthInput = ({
     );
   } else if (label === "Email") {
     authInput = (
-      <div
-        className={clsx("", {
-          [styles.input]: emailPassed,
-          [styles.inputNotPassed]: !emailPassed,
-        })}
-      >
+      <div className={styles.inputContainer}>
         <label>{label}</label>
         <input
+          className={clsx("", {
+            [styles.input]: emailPassed,
+            [styles.inputNotPassed]: !emailPassed,
+          })}
           type={type}
           defaultValue={value}
           label={label}
@@ -59,16 +57,15 @@ export const AuthInput = ({
         />
       </div>
     );
-  } else if (label === "密碼" || label === "密碼再確認") {
+  } else if (label === "密碼" || label === "密碼確認") {
     authInput = (
-      <div
-        className={clsx("", {
-          [styles.input]: pwdPassed,
-          [styles.inputNotPassed]: !pwdPassed,
-        })}
-      >
+      <div className={styles.inputContainer}>
         <label>{label}</label>
         <input
+          className={clsx("", {
+            [styles.input]: pwdPassed,
+            [styles.inputNotPassed]: !pwdPassed,
+          })}
           type={type}
           defaultValue={value}
           label={label}
@@ -84,14 +81,13 @@ export const AuthInput = ({
     );
   } else if (label === "名稱") {
     authInput = (
-      <div
-        className={clsx("", {
-          [styles.input]: namePassed,
-          [styles.inputNotPassed]: !namePassed,
-        })}
-      >
+      <div className={styles.inputContainer}>
         <label>{label}</label>
         <input
+          className={clsx("", {
+            [styles.input]: namePassed,
+            [styles.inputNotPassed]: !namePassed,
+          })}
           type={type}
           defaultValue={value}
           label={label}
@@ -107,9 +103,10 @@ export const AuthInput = ({
     );
   } else {
     authInput = (
-      <div className={styles.input}>
+      <div className={styles.inputContainer}>
         <label>{label}</label>
         <input
+          className={styles.input}
           type={type}
           defaultValue={value}
           label={label}

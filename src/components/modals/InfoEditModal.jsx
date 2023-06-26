@@ -217,9 +217,10 @@ export const InfoEditModal = () => {
                 />
                 <button
                   className={styles.removeButton}
-                  onClick={e=>{
-                    e.stopPropagation()
-                    handleRemoveBgImage()}}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleRemoveBgImage();
+                  }}
                 >
                   del
                 </button>
@@ -254,15 +255,14 @@ export const InfoEditModal = () => {
             <div className={styles.textContainer}>
               <div className={styles.inputContainer}>
                 <div
-                  className={
-                    Number(user.name.length) <= 50
-                      ? `${styles.inputs}`
-                      : `${styles.inputsExceedWordLimitHint}`
-                  }
-                >
+                  className={styles.inputs}>
                   <label className={styles.inputLabel}>名稱</label>
                   <input
-                    className={styles.input}
+                    className={
+                      Number(user.name.length) <= 50
+                        ? `${styles.input}`
+                        : `${styles.inputExceedWordLimitHint}`
+                    }
                     type="text"
                     value={user.name}
                     onChange={handleNameChange}

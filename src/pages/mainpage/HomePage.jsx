@@ -39,7 +39,7 @@ export const HomePage = () => {
         <div className={styles.addTweetSection}>
           <img
             className={styles.addTweetAvatar}
-            src={profile.avatar === null ? initialAvatar : profile.avatar}
+            src={profile.avatar ? profile.avatar : initialAvatar}
             alt="avatar"
           ></img>
           <div className={styles.addTweetSpace}>

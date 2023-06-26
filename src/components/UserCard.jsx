@@ -20,7 +20,7 @@ export const UserCard = ({ value }) => {
 
       <div className={styles.userinfo}>
         <span className={styles.username}>{value.name}</span>
-        <span className={styles.userNickname}>@{value.name}</span>
+        <span className={styles.userNickname}>@{value.account}</span>
         <div className={styles.userActivity}>
           <div className={styles.review}>
             <ReviewIcon className={styles.icon} />

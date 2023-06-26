@@ -126,7 +126,6 @@
   color: var(--white);
 }
 
-
 .uploadAvatarSection {
   width: 140px;
   height: 140px;
@@ -208,30 +207,64 @@
   width: 100%;
   height: 54px;
   font-size: 14px;
-  border-bottom: 2px solid #657786;
+  border: none;
   border-radius: 2px;
 }
 
-.inputsExceedWordLimitHint {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  background-color: #f5f8fa;
-  width: 100%;
-  height: 54px;
-  font-size: 14px;
-  border-bottom: 2px solid red;
-  border-radius: 2px;
-}
+// .inputsExceedWordLimitHint {
+//   position: relative;
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: space-around;
+//   background-color: #f5f8fa;
+//   width: 100%;
+//   height: 54px;
+//   font-size: 14px;
+//   border-bottom: 2px solid red;
+//   border-radius: 2px;
+// }
 
 .input {
-  width: 585px;
+  width: 602px;
+  margin-top: 0px;
+  margin-left: 0px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-bottom: 5px;
+  border: none;
+  outline: none;
+  background-color: #f5f8fa;
+  border-bottom: 2px solid #657786;
+  &:hover {
+    border-bottom: 2px solid #50b5ff;
+  }
+  &:focus {
+    border-bottom: 2px solid #50b5ff;
+  }
+}
+
+.inputExceedWordLimitHint {
+  width: 602px;
+  margin-top: 0px;
+  margin-left: 0px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-bottom: 5px;
+  border: none;
+  outline: none;
+  background-color: #f5f8fa;
+  border-bottom: 2px solid #fc5a5a;
+  &:hover {
+   border-bottom: 2px solid #fc5a5a;
+  }
+  &:focus {
+   border-bottom: 2px solid #fc5a5a;
+  }
 }
 
 .inputLabel {
   position: relative;
-  top: -13px;
+  top: 0px;
   left: 0px;
   width: 8%;
   font-size: 14px;
@@ -248,7 +281,7 @@
 .wordLimitHint {
   position: absolute;
   left: 0px;
-  color: red;
+  color: #fc5a5a;
 }
 
 //
@@ -275,6 +308,12 @@
   background-color: #f5f8fa;
   border-bottom: 2px solid #657786;
   border-radius: 2px;
+  &:hover {
+    border-bottom: 2px solid #50b5ff;
+  }
+  &:focus {
+    border-bottom: 2px solid #50b5ff;
+  }
 }
 .exceedWordLimit {
   display: flex;
@@ -284,8 +323,14 @@
   height: 145px;
   font-size: 14px;
   background-color: #f5f8fa;
-  border-bottom: 2px solid red;
+ border-bottom: 2px solid #fc5a5a;
   border-radius: 2px;
+  &:hover {
+  border-bottom: 2px solid #fc5a5a;
+  }
+  &:focus {
+   border-bottom: 2px solid #fc5a5a;
+  }
 }
 
 .textareaLabel {
@@ -316,4 +361,3 @@
     color: #6c757d;
   }
 }
-

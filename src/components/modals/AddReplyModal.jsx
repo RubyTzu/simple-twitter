@@ -1,13 +1,15 @@
+import { useState, useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
+import Modal from "react-bootstrap/Modal";
+
 import styles from "./AddReplyModal.module.scss";
 import { ReactComponent as CloseSVG } from "assets/Close.svg";
 import initialAvatar from "assets/GreyIcon.svg";
-// import avatar from "assets/Photo.png";
-import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { useTweet } from "context/tweetContext";
-import { createReplyTweet, getSingleTweet } from "../../api/tweet"
 
-export const AddReplyModal = ({ onClose, tweetId}) => {
+import { getSingleTweet, createReplyTweet } from "api/tweet";
+import { useTweet } from "context/tweetContext";
+
+export const AddReplyModal = ({ handleClose, show, twtId }) => {
   const {
     replyInputValue,
     setReplyInputValue,
@@ -16,6 +18,7 @@ export const AddReplyModal = ({ onClose, tweetId}) => {
     onRefresh,
   } = useTweet();
 
+  const tweetId = useRef(twtId);
   const [singleTweet, setSingleTweet] = useState({});
 
   const handleAddReplyTweet = async () => {
@@ -24,7 +27,7 @@ export const AddReplyModal = ({ onClose, tweetId}) => {
     } else {
       await createReplyTweet({
         comment: replyInputValue,
-        id: tweetId,
+        id: tweetId.current,
       });
       setShowReplyAlert(false);
       setReplyInputValue("");
@@ -70,133 +73,117 @@ export const AddReplyModal = ({ onClose, tweetId}) => {
     // console.log(formattedTimestamp);
   };
 
-  useEffect(() => {
-    const showPage = async () => {
-      setSingleTweet(await getSingleTweet(tweetId));
-      console.log(`AddReplyModalinReplyList useEffect 的showAlert ${tweetId}`);
-    };
-    showPage();
-  }, [tweetId]);
+  const showPage = async () => {
+    setSingleTweet(await getSingleTweet(tweetId.current));
+    console.log(
+      `AddReplyModalinReplyList useEffect 的showAlert ${tweetId.current}`
+    );
+  };
 
   useEffect(() => {
-    console.log(
-      `AddReplyModalinReplyList useEffect 的showAlert ${showReplyAlert}`
-    );
-  }, [showReplyAlert]);
+    if (show) {
+      showPage();
+    }
+  }, [show, showReplyAlert]);
 
   return (
-    <div
-      className="modal fade"
-      id={`addReplyModal${tweetId}`}
-      tabIndex="-1"
-      aria-labelledby={`addReplyModal${tweetId}Label`}
-      aria-hidden="true"
-      onClick={(e) => {
-        e.stopPropagation();
-      }}
-      onClose={onClose}
-    >
-      <div className={`modal-dialog `}>
-        <div className={`modal-content ${styles.modalContainer}`}>
-          <div
-            className={`modal-header position-relative ${styles.modalHeader}`}
+    <div onClick={(e) => e.stopPropagation()}>
+      <Modal
+        show={show}
+        onHide={handleClose}
+        className={styles.modalContainer}
+        contentClassName={styles.customDialog}
+      >
+        <Modal.Header className={styles.modalHeader}>
+          <Link
+            onClick={handleClose}
+            //   type="button"
+            className={`position-absolute ${styles.closeButton}`}
           >
-            <Link
-              type="button"
-              className={`position-absolute ${styles.closeButton}`}
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            >
-              <CloseSVG />
-            </Link>
-          </div>
-          <div className={`modal-body ${styles.modalBody}`}>
-            <div className={styles.othersTweet}>
-              <img
-                className={`${styles.tweetAvatar} cursorPointer`}
-                src={
-                  singleTweet.avatar !== null
-                    ? singleTweet.avatar
-                    : initialAvatar
-                }
-                alt="avatar"
-              ></img>
-              <div className={styles.tweetTextContainer}>
-                <header className={styles.tweetHeader}>
-                  <p className={styles.userName}>{singleTweet.name}</p>
-                  <p className={styles.nickNameTime}>
-                    <Link className={styles.userNickName}>
-                      @{singleTweet.account}
-                    </Link>
-                    ・{formatTimestamp(singleTweet.createdAt)}
-                  </p>
-                </header>
-                <p className={styles.comment}>{singleTweet.description}</p>
-                <p className={styles.replyTo}>
-                  回覆給
-                  <Link className={styles.replyNickNameLink}>
-                    <span className={styles.replyNickName}>
-                      {" "}
-                      @{singleTweet.account}
-                    </span>
+            <CloseSVG />
+          </Link>
+        </Modal.Header>
+        <Modal.Body className={styles.modalBody}>
+          {" "}
+          <div className={styles.othersTweet}>
+            <img
+              className={`${styles.tweetAvatar} cursorPointer`}
+              src={singleTweet.avatar ? singleTweet.avatar : initialAvatar}
+              alt="avatar"
+            ></img>
+            <div className={styles.tweetTextContainer}>
+              <header className={styles.tweetHeader}>
+                <p className={styles.userName}>{singleTweet.name}</p>
+                <p className={styles.nickNameTime}>
+                  <Link className={styles.userNickName}>
+                    @{singleTweet.account}
                   </Link>
+                  ・{formatTimestamp(singleTweet.createdAt)}
                 </p>
-              </div>
-            </div>
-            <span className={styles.avatarLine}></span>
-            <div className={styles.yourReply}>
-              <img
-                className={styles.replyTweetAvatar}
-                src={
-                  singleTweet.userAvatar !== null
-                    ? singleTweet.userAvatar
-                    : initialAvatar
-                }
-                alt="avatar"
-              ></img>
-              <textarea
-                className={styles.replyTweetTextarea}
-                placeholder="推你的回覆"
-                onInput={handleAddTweetHeight}
-                value={replyInputValue}
-                onChange={(e) => {
-                  setReplyInputValue(e.target.value);
-                }}
-              />
+              </header>
+              <p className={styles.comment}>{singleTweet.description}</p>
+              <p className={styles.replyTo}>
+                回覆給
+                <Link className={styles.replyNickNameLink}>
+                  <span className={styles.replyNickName}>
+                    {" "}
+                    @{singleTweet.account}
+                  </span>
+                </Link>
+              </p>
             </div>
           </div>
-          <div className={`modal-footer ${styles.modalFooter}`}>
-            <p className={styles.wordLimitHint}>
-              {showReplyAlert && replyInputValue.length === 0 && "內容不可空白"}
-              {showReplyAlert &&
-                replyInputValue.length > 140 &&
-                "字數不可超過 140 字"}
-            </p>
-            <button
-              type="button"
-              className={styles.tweetButton}
-              onClick={() => {
-                if (
-                  replyInputValue.length === 0 ||
-                  replyInputValue.length > 140
-                ) {
-                  setShowReplyAlert(true);
-                  return;
-                } else {
-                  handleAddReplyTweet();
-                }
-              }}
-              data-bs-dismiss={
-                replyInputValue.length > 0 &&
-                replyInputValue.length <= 140 &&
-                "modal"
+          <span className={styles.avatarLine}></span>
+          <div className={styles.yourReply}>
+            <img
+              className={styles.replyTweetAvatar}
+              src={
+                singleTweet.userAvatar ? singleTweet.userAvatar : initialAvatar
               }
-            >
-              回覆
-            </button>
+              alt="avatar"
+            ></img>
+            <textarea
+              className={styles.replyTweetTextarea}
+              placeholder="推你的回覆"
+              onInput={handleAddTweetHeight}
+              value={replyInputValue}
+              onChange={(e) => {
+                setReplyInputValue(e.target.value);
+              }}
+            />
           </div>
-        </div>
-      </div>
+        </Modal.Body>
+        <Modal.Footer className={styles.modalFooter}>
+          <p className={styles.wordLimitHint}>
+            {showReplyAlert && replyInputValue.length === 0 && "內容不可空白"}
+            {showReplyAlert &&
+              replyInputValue.length > 140 &&
+              "字數不可超過 140 字"}
+          </p>
+          <button
+            type="button"
+            className={styles.tweetButton}
+            onClick={() => {
+              if (
+                replyInputValue.length === 0 ||
+                replyInputValue.length > 140
+              ) {
+                setShowReplyAlert(true);
+                return;
+              } else {
+                handleAddReplyTweet();
+              }
+            }}
+            data-bs-dismiss={
+              replyInputValue.length > 0 &&
+              replyInputValue.length <= 140 &&
+              "modal"
+            }
+          >
+            回覆
+          </button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };
