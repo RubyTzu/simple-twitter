@@ -19,9 +19,7 @@ export const AdminLoginPage = () => {
   const id = localStorage.getItem("id");
 
   useEffect(() => {
-    if (admIsAuthenticated) {
-      navigate("/admin/tweetslist");
-    } else return;
+    if (admIsAuthenticated) navigate("/admin/tweetslist");
   }, [navigate, admIsAuthenticated]);
 
   const handleAdminLogin = async () => {

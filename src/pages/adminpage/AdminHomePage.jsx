@@ -2,17 +2,8 @@ import styles from "./AdminHomePage.module.scss";
 import { AdminTweet } from "components/AdminTweet";
 import { useEffect, useState } from "react";
 import { deleteTweet, getTweets } from "api/admin";
-import { useNavigate } from "react-router";
-import { useAuth } from "context/authContext";
 export const AdminHomePage = () => {
   const [tweets, setTweets] = useState([]);
-  const navigate = useNavigate();
-  const { admIsAuthenticated } = useAuth();
-  useEffect(() => {
-    if (!admIsAuthenticated) {
-      navigate("/admin/login");
-    } else return;
-  }, [navigate, admIsAuthenticated]);
 
   useEffect(() => {
     const showTweets = async () => setTweets(await getTweets());
