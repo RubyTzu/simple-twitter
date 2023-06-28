@@ -81,9 +81,7 @@ export const Tweet = ({ value }) => {
             />
           </Link>
         ) : (
-          <Link
-            to={`/userother/${value.UserId}`}
-          >
+          <Link to={`/userother/${value.UserId}`}>
             <img
               onClick={(e) => {
                 e.stopPropagation();
@@ -123,9 +121,8 @@ export const Tweet = ({ value }) => {
               show={show}
               twtId={value.id}
             />
-            <Link
+            <div
               className={styles.likeButton}
-              href="/"
               onClick={(e) => {
                 e.stopPropagation();
               }}
@@ -134,16 +131,14 @@ export const Tweet = ({ value }) => {
                 src={isLiked ? LikePress : LikeSVG}
                 alt="LikeSVG"
                 className={styles.likeIcon}
-                data-id={value.id}
-                onClick={async (e) => {
-                  const res = await clickLike(e, isLiked);
-                  setLikesCount(likesCount + res);
-                  setIsLiked(!isLiked);
+                onClick={async () => {
+                  const res = await clickLike(value.id, isLiked);
+                  setLikesCount(res.likesCount);
+                  setIsLiked(res.isLiked);
                 }}
               />
-
               <p className={styles.counts}>{likesCount}</p>
-            </Link>
+            </div>
           </footer>
         </div>
       </div>
@@ -177,4 +172,3 @@ export const UserLikeTweets = () => {
     </div>
   );
 };
-

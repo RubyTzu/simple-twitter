@@ -81,7 +81,6 @@ export const AddTweetModal = () => {
                   setShowAlert(true);
                 } else {
                   onAddTweetClick();
-                  
                 }
               }}
               data-bs-dismiss={
