@@ -7,7 +7,7 @@ import { useAuth } from "context/authContext";
 export const AdminHomePage = () => {
   const [tweets, setTweets] = useState([]);
   const navigate = useNavigate();
-  const { admIsAuthenticated } = useAuth();
+  const { admIsAuthenticated, currentUser } = useAuth();
   useEffect(() => {
     if (!admIsAuthenticated) {
       navigate("/admin/login");
@@ -17,8 +17,8 @@ export const AdminHomePage = () => {
   useEffect(() => {
     const showTweets = async () => setTweets(await getTweets());
     showTweets();
-    console.log("hello from useEffect-AdminHomePage");
-  }, []);
+    console.log(currentUser);
+  }, [currentUser]);
   // useEffect(() => {
   //   console.log("tweets has changed");
   // }, [tweets]);
