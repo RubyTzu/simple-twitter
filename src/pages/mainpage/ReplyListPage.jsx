@@ -11,7 +11,11 @@ import styles from "./ReplyListPage.module.scss";
 import { AddReplyModalinReplyList } from "components/modals/AddReplyModalinReplyList";
 import { clickLike } from "api/like";
 
-import { getSingleTweet, getSingleTweetReplies } from "api/tweet";
+import {
+  getSingleTweet,
+  setSingleTweet,
+  getSingleTweetReplies,
+} from "api/tweet";
 import { useEffect, useState } from "react";
 import { useTweet } from "context/tweetContext";
 // import { useCurrentUser } from "context/userInfoContext";
@@ -31,7 +35,6 @@ export const ReplyListPage = () => {
   } = useTweet();
 
   const { tweetId } = useParams();
-  const [isLiked, setIsLiked] = useState(singleTweet.isLiked);
   // const { isAuthenticated } = useCurrentUser();
   const navigate = useNavigate();
 
@@ -42,7 +45,7 @@ export const ReplyListPage = () => {
     };
     showPage();
     console.log("hello from useEffect-ReplyListPage");
-  }, [tweetId, isLiked, setReplyListReplies, setSingleTweet, addTweetRefresh]);
+  }, [tweetId, setReplyListReplies, setSingleTweet, addTweetRefresh]);
 
   const formatTimestamp = (timestamp) => {
     const timestampDate = new Date(timestamp);
@@ -56,7 +59,7 @@ export const ReplyListPage = () => {
       hour: "2-digit",
       minute: "2-digit",
     });
-    return `${formattedTime}・${formattedDate}`
+    return `${formattedTime}・${formattedDate}`;
   };
 
   return (
@@ -74,11 +77,7 @@ export const ReplyListPage = () => {
               <Link to={`/userself/${singleTweet.UserId}`}>
                 <img
                   className={`${styles.tweetAvatar} cursorPointer`}
-                  src={
-                    singleTweet.avatar 
-                      ? singleTweet.avatar
-                      : initialAvatar
-                  }
+                  src={singleTweet.avatar ? singleTweet.avatar : initialAvatar}
                   alt="avatar"
                 ></img>
               </Link>
@@ -86,11 +85,7 @@ export const ReplyListPage = () => {
               <Link to={`/userother/${singleTweet.UserId}`}>
                 <img
                   className={`${styles.tweetAvatar} cursorPointer`}
-                  src={
-                    singleTweet.avatar 
-                      ? singleTweet.avatar
-                      : initialAvatar
-                  }
+                  src={singleTweet.avatar ? singleTweet.avatar : initialAvatar}
                   alt="avatar"
                 ></img>
               </Link>
@@ -133,12 +128,9 @@ export const ReplyListPage = () => {
                 src={singleTweet.isLiked ? LikePress : LikeSVG}
                 alt="Likebtn"
                 className={`${styles.feedbackButton} cursorPointer`}
-                data-id={singleTweet.id}
-                onClick={async (e) => {
-                  console.log(singleTweet.isLiked);
-                  await clickLike(e, singleTweet.isLiked);
-
-                  setIsLiked(!singleTweet.isLiked);
+                onClick={async () => {
+                  const res = await clickLike(tweetId, singleTweet.isLiked);
+                  setSingleTweet(res);
                 }}
               />
             </div>
