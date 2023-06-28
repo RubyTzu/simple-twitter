@@ -7,7 +7,7 @@ import { useAuth } from "context/authContext";
 
 export const AdminUserPage = () => {
   const [users, setUsers] = useState([]);
-  const { admIsAuthenticated } = useAuth();
+  const { admIsAuthenticated, currentUser } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -19,7 +19,7 @@ export const AdminUserPage = () => {
   useEffect(() => {
     const showUsersTweet = async () => setUsers(await getUsers());
     showUsersTweet();
-    console.log("hello from useEffect-AdminUserPage");
+    console.log(currentUser);
   }, []);
   return (
     <>

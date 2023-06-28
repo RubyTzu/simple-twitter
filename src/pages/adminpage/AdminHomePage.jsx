@@ -7,7 +7,7 @@ import { useAuth } from "context/authContext";
 export const AdminHomePage = () => {
   const [tweets, setTweets] = useState([]);
   const navigate = useNavigate();
-  const { admIsAuthenticated, currentUser } = useAuth();
+  const { admIsAuthenticated } = useAuth();
   useEffect(() => {
     if (!admIsAuthenticated) {
       navigate("/admin/login");
@@ -17,11 +17,7 @@ export const AdminHomePage = () => {
   useEffect(() => {
     const showTweets = async () => setTweets(await getTweets());
     showTweets();
-    console.log(currentUser);
-  }, [currentUser]);
-  // useEffect(() => {
-  //   console.log("tweets has changed");
-  // }, [tweets]);
+  }, []);
 
   const handleDelete = async (e) => {
     const id = e.target.dataset.id;
