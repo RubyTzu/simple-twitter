@@ -27,7 +27,7 @@ export const AddReplyModal = ({ handleClose, show, twtId }) => {
     } else {
       await createReplyTweet({
         comment: replyInputValue,
-        id: tweetId.current,
+        id: tweetId.current, //可以直接帶twtId就好?
       });
       setShowReplyAlert(false);
       setReplyInputValue("");
