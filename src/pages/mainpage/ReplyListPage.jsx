@@ -11,12 +11,8 @@ import styles from "./ReplyListPage.module.scss";
 import { AddReplyModalinReplyList } from "components/modals/AddReplyModalinReplyList";
 import { clickLike } from "api/like";
 
-import {
-  getSingleTweet,
-  setSingleTweet,
-  getSingleTweetReplies,
-} from "api/tweet";
-import { useEffect, useState } from "react";
+import { getSingleTweet, getSingleTweetReplies } from "api/tweet";
+import { useEffect } from "react";
 import { useTweet } from "context/tweetContext";
 // import { useCurrentUser } from "context/userInfoContext";
 
