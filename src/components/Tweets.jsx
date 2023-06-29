@@ -11,7 +11,7 @@ import Button from "react-bootstrap/Button";
 import { AddReplyModal } from "./modals/AddReplyModal";
 
 import { useTweet } from "context/tweetContext";
-import { clickLike } from "api/like";
+import { getSingleTweet, tweetLike, tweetUnLike } from "api/tweet";
 
 // import { getTweets } from "api/tweet";
 const id = localStorage.getItem("id");
@@ -132,7 +132,11 @@ export const Tweet = ({ value }) => {
                 alt="LikeSVG"
                 className={styles.likeIcon}
                 onClick={async () => {
-                  const res = await clickLike(value.id, isLiked);
+                  isLiked
+                    ? await tweetUnLike(value.id)
+                    : await tweetLike(value.id);
+                  const res = await getSingleTweet(value.id);
+                  //value是在homepage打api取得後傳下來的, 在tweet裡無法即時更新, 因此在裡面設自己的state來更新comp
                   setLikesCount(res.likesCount);
                   setIsLiked(res.isLiked);
                 }}
