@@ -132,11 +132,6 @@ export const ReplyListPage = () => {
                   singleTweet.isLiked
                     ? await tweetUnLike(singleTweet.id)
                     : await tweetLike(singleTweet.id);
-                  // if (singleTweet.isLiked) {
-                  //   await tweetUnLike(singleTweet.id);
-                  // } else {
-                  //   await tweetLike(singleTweet.id);
-                  // }
                   const res = await getSingleTweet(singleTweet.id);
                   //因為singleTweet是直接從context傳下來的, setSingleTweet會使context更新, 傳下來的資料也會是最新的
                   setSingleTweet(res);
