@@ -9,9 +9,13 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { TweetReadOnly } from "components/TweetsReadOnly";
 import styles from "./ReplyListPage.module.scss";
 import { AddReplyModalinReplyList } from "components/modals/AddReplyModalinReplyList";
-import { clickLike } from "api/like";
 
-import { getSingleTweet, getSingleTweetReplies } from "api/tweet";
+import {
+  getSingleTweet,
+  getSingleTweetReplies,
+  tweetLike,
+  tweetUnLike,
+} from "api/tweet";
 import { useEffect } from "react";
 import { useTweet } from "context/tweetContext";
 // import { useCurrentUser } from "context/userInfoContext";
@@ -125,7 +129,11 @@ export const ReplyListPage = () => {
                 alt="Likebtn"
                 className={`${styles.feedbackButton} cursorPointer`}
                 onClick={async () => {
-                  const res = await clickLike(tweetId, singleTweet.isLiked);
+                  singleTweet.isLiked
+                    ? await tweetUnLike(singleTweet.id)
+                    : await tweetLike(singleTweet.id);
+                  const res = await getSingleTweet(singleTweet.id);
+                  //因為singleTweet是直接從context傳下來的, setSingleTweet會使context更新, 傳下來的資料也會是最新的
                   setSingleTweet(res);
                 }}
               />
