@@ -1,20 +1,4 @@
-import axios from "axios";
-const baseUrl = "https://twitter-2023.herokuapp.com";
-const axiosInstance = axios.create({ baseURL: baseUrl });
-
-//使用axiosInstance在打api時插入authToken, 就不用每一個都加
-axiosInstance.interceptors.request.use(
-  (config) => {
-    const token = localStorage.getItem("authToken");
-    if (token) {
-      config.headers["Authorization"] = `Bearer ${token}`;
-    }
-    return config;
-  },
-  (error) => {
-    console.error(error);
-  }
-);
+import axiosInstance from "./axiosInstance";
 
 //全部推文
 export const getTweets = async () => {
@@ -22,6 +6,7 @@ export const getTweets = async () => {
     const { data } = await axiosInstance.get("/api/tweets");
     return data;
   } catch (error) {
+    console.error(error);
     return false;
   }
 };
@@ -32,6 +17,7 @@ export const getUserTweets = async (id) => {
     const { data } = await axiosInstance.get(`/api/users/${id}/tweets`);
     return data;
   } catch (error) {
+    console.error(error);
     return false;
   }
 };
@@ -42,6 +28,7 @@ export const getUserReplies = async (id) => {
     const { data } = await axiosInstance.get(`/api/users/${id}/replied_tweets`);
     return data;
   } catch (error) {
+    console.error(error);
     return false;
   }
 };
@@ -54,6 +41,7 @@ export const getUserLikedTweets = async (id) => {
     );
     return data;
   } catch (error) {
+    console.error(error);
     return false;
   }
 };
@@ -64,6 +52,7 @@ export const getSingleTweet = async (id) => {
     const { data } = await axiosInstance.get(`/api/tweets/${id}`);
     return data;
   } catch (error) {
+    console.error(error);
     return error;
   }
 };
@@ -74,6 +63,7 @@ export const getSingleTweetReplies = async (id) => {
     const { data } = await axiosInstance.get(`/api/tweets/${id}/replies`);
     return data;
   } catch (error) {
+    console.error(error);
     return error;
   }
 };
@@ -84,6 +74,7 @@ export const tweetLike = async (tweetId) => {
     const { data } = await axiosInstance.post(`/api/tweets/${tweetId}/like`);
     return data;
   } catch (error) {
+    console.error(error);
     return error;
   }
 };
@@ -93,6 +84,7 @@ export const tweetUnLike = async (tweetId) => {
     const { data } = await axiosInstance.post(`/api/tweets/${tweetId}/unlike`);
     return data;
   } catch (error) {
+    console.error(error);
     return error;
   }
 };
@@ -108,6 +100,7 @@ export const createTweet = async (payload) => {
     });
     return res;
   } catch (error) {
+    console.error(error);
     return error;
   }
 };
@@ -121,6 +114,7 @@ export const createReplyTweet = async (payload) => {
     });
     return res;
   } catch (error) {
+    console.error(error);
     return error;
   }
 };

@@ -9,15 +9,9 @@ import { useState } from "react";
 //TODO:要處理AddReplyModal時將下面兩個comment打開
 import Button from "react-bootstrap/Button";
 import { AddReplyModal } from "./modals/AddReplyModal";
-
 import { useTweet } from "context/tweetContext";
 import { getSingleTweet, tweetLike, tweetUnLike } from "api/tweet";
-
-// import { getTweets } from "api/tweet";
 const id = localStorage.getItem("id");
-const getId = () => {
-  return Number(id);
-};
 
 export const Tweet = ({ value }) => {
   const [likesCount, setLikesCount] = useState(value.likesCount);
@@ -69,7 +63,7 @@ export const Tweet = ({ value }) => {
       onClick={() => navigate(`/replylist/${value.id}`)}
     >
       <div className={styles.tweetContainer}>
-        {getId() === value.UserId ? (
+        {Number(id) === value.UserId ? (
           <Link to={`/userself/${value.UserId}`}>
             <img
               onClick={(e) => {
@@ -152,7 +146,6 @@ export const Tweet = ({ value }) => {
 
 export const UserTweets = () => {
   const { userTweets } = useTweet();
-
   if (!userTweets) return;
   return (
     <div className={styles.tweetsCollection}>
@@ -165,9 +158,7 @@ export const UserTweets = () => {
 
 export const UserLikeTweets = () => {
   const { userLikedTweets } = useTweet();
-
   if (!userLikedTweets) return;
-
   return (
     <div className={styles.tweetsCollection}>
       {userLikedTweets.map((tweet) => {

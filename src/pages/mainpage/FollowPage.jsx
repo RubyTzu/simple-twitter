@@ -4,32 +4,16 @@ import styles from "./FollowPage.module.scss";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
-// import { useAuth } from "context/authContext";
 import { getProfile } from "api/userinfo";
+const id = localStorage.getItem("id");
+
 export const FollowPage = () => {
-  // const { isAuthenticated } = useAuth();
-  const id = localStorage.getItem("id");
-  // const navigate = useNavigate();
   let { state } = useLocation();
   const [userData, setUserData] = useState({});
-  // useEffect(() => {
-  //   if (!isAuthenticated) {
-  //     navigate("/login");
-  //     return;
-  //   } else {
-  //     navigate(`/followlist`);
-  //     return;
-  //   }
-  // }, [isAuthenticated, navigate]);
 
   useEffect(() => {
-    const showData = async () => {
-      const userData = await getProfile(id);
-      setUserData(userData);
-    };
-    showData();
-    console.log("hello from useEffect-FollowPage");
-  }, [id]);
+    (async () => setUserData(await getProfile(id)))();
+  }, []);
   return (
     <>
       <div className={styles.mainbarContainer}>

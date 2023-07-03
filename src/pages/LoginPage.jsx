@@ -7,25 +7,23 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import clsx from "clsx";
+const id = localStorage.getItem("id");
 
 export const LoginPage = () => {
   const [account, setAccount] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
-  const { login } = useAuth();
-  const id = localStorage.getItem("id");
   const [accountPassed, setAccountPassed] = useState(true);
   const [pwdPassed, setPwdPassed] = useState(true);
   const { isAuthenticated } = useAuth();
+  const { login } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (isAuthenticated) navigate("/home");
   }, [isAuthenticated, navigate]);
 
   const handleLogin = async () => {
-    if (account.length === 0) return;
-    if (password.length === 0) return;
-
+    if (account.length === 0 || password.length === 0) return;
     const res = await login({ account, password });
     if (res.success) {
       setAccountPassed(true);

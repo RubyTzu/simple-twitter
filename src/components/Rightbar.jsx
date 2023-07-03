@@ -6,11 +6,7 @@ import { Link } from "react-router-dom";
 import { addFollow, deleteFollow } from "api/follow";
 
 const baseUrl = "https://twitter-2023.herokuapp.com";
-
-const getId = () => {
-  const id = localStorage.getItem("id");
-  return Number(id);
-};
+const id = localStorage.getItem("id");
 
 export const Rightbar = () => {
   const [idFromButtonClick, setIdFromButtonClick] = useState(null);
@@ -18,29 +14,17 @@ export const Rightbar = () => {
   const token = localStorage.getItem("authToken");
 
   const handleAddFollowing = async (userId) => {
-    console.log(`add following ${userId}`);
-    try {
-      await addFollow(userId);
-      setIdFromButtonClick(userId);
-    } catch (error) {
-      console.error(error);
-    }
+    await addFollow(userId);
+    setIdFromButtonClick(userId);
   };
 
   const handleCancelFollowing = async (userId) => {
-    console.log(`cancel following ${userId}`);
-    try {
-      await deleteFollow(userId);
-      setIdFromButtonClick(userId);
-    } catch (error) {
-      console.error(error);
-    }
+    await deleteFollow(userId);
+    setIdFromButtonClick(userId);
   };
 
   const handleClick = async (id) => {
     await setIdFromButtonClick(Date.now());
-    // console.log(`inside handleClick ${id}`);
-    //  console.log(`inside handleClick 2 ${idFromButtonClick}`);
   };
 
   useEffect(() => {
@@ -52,8 +36,6 @@ export const Rightbar = () => {
           },
         });
         setPopularList(data);
-
-        // console.log(data.data);
       } catch (error) {
         console.error(error);
       }
@@ -73,10 +55,10 @@ export const Rightbar = () => {
           {popularList.map((popular) => {
             return (
               <Fragment key={popular.id}>
-                {getId() !== popular.id && (
+                {Number(id) !== popular.id && (
                   <div className={styles.popularUser}>
                     {/* 以下不會有自己, 所以Link userself不會成立 */}
-                    {getId() === popular.id ? (
+                    {Number(id) === popular.id ? (
                       <Link to={`/userself/${popular.id}`}>
                         <img
                           className={`${styles.popularUserAvatar} cursorPointer`}
@@ -115,7 +97,6 @@ export const Rightbar = () => {
                           : styles.toFollowButton
                       }
                       onClick={async () => {
-                        // const reload = () => window.location.reload();
                         if (!popular.isFollowing) {
                           await handleAddFollowing(popular.id);
                           window.location.reload();

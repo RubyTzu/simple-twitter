@@ -3,45 +3,25 @@ import styles from "./SettingPage.module.scss";
 import { AlertModal } from "components/modals/AlertModal";
 import { AuthInput } from "components/AuthInput";
 import { getProfile, updateProfile } from "api/userinfo";
-// import { useAuth } from "context/authContext";
-// import { useNavigate } from "react-router";
 import { useCurrentUser } from "context/userInfoContext";
 import clsx from "clsx";
+const id = localStorage.getItem("id");
 
 export const SettingPage = () => {
   const [accountPassed, setAccountPassed] = useState(true);
   const [emailPassed, setEmailPassed] = useState(true);
   const [pwdPassed, setPwdPassed] = useState(true);
-   const [namePassed, setNamePassed] = useState(true);
-   const [showAlert, setShowAlert] = useState(false);
-   const [alertWord, setAlertWord] = useState("");
-   const [alertIcon, setAlertIcon] = useState(false)
-
+  const [namePassed, setNamePassed] = useState(true);
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertWord, setAlertWord] = useState("");
+  const [alertIcon, setAlertIcon] = useState(false);
   const [user, setUser] = useState({});
   const [nameLength, setNameLength] = useState("");
-  // const { isAuthenticated } = useAuth();
   const { profile, setProfile } = useCurrentUser();
-  // const navigate = useNavigate();
-  const id = localStorage.getItem("id");
-  // useEffect(() => {
-  //   if (!isAuthenticated) {
-  //     navigate("/login");
-  //     return;
-  //   } else {
-  //     navigate(`/setting`);
-  //     return;
-  //   }
-  // }, [isAuthenticated, navigate]);
 
   useEffect(() => {
-    const showPage = async () => {
-      setProfile(await getProfile(id));
-      // setNameLength(profile.name.length);
-    };
-    showPage();
-    console.log("3600 test from setting page");
-  }, [id, setProfile]);
-
+    (async () => setProfile(await getProfile(id)))();
+  }, [setProfile]);
 
   useEffect(() => {
     if (showAlert) {
@@ -49,30 +29,26 @@ export const SettingPage = () => {
         setShowAlert(false);
         setAlertWord("");
       }, 3000);
-      console.log("register useEffect");
       return () => clearTimeout(timeout); // cleanup function
     }
   }, [showAlert]);
 
   const handleSave = async () => {
     if (user.account === "") {
-      // alert("帳號不得為空");
       setShowAlert(true);
       setAlertWord("帳號不得為空");
-      setAlertIcon(false)
+      setAlertIcon(false);
       setAccountPassed(false);
       return;
     }
     if (user.name === "") {
-      // alert("名稱不得為空");
-       setShowAlert(true);
-       setAlertWord("名稱不得為空");
-       setAlertIcon(false);
-       setNamePassed(false);
+      setShowAlert(true);
+      setAlertWord("名稱不得為空");
+      setAlertIcon(false);
+      setNamePassed(false);
       return;
     }
     if (user.email === "") {
-      // alert("Email不得為空");
       setShowAlert(true);
       setAlertWord("Email不得為空");
       setAlertIcon(false);
@@ -80,7 +56,6 @@ export const SettingPage = () => {
       return;
     }
     if (user.password !== user.checkPassword) {
-      // alert("請確認兩次密碼輸入一致");
       setShowAlert(true);
       setAlertWord("請確認兩次密碼輸入一致");
       setAlertIcon(false);
@@ -88,37 +63,29 @@ export const SettingPage = () => {
       return;
     }
     if (nameLength > 50) {
-      // alert("名稱超過50字元");
       setShowAlert(true);
       setAlertWord("字數超過上限50字");
       setAlertIcon(false);
-      setNamePassed(false)
+      setNamePassed(false);
       return;
     }
     const { success, data } = await updateProfile(user);
-    console.log(success);
-
     if (success) {
-      // alert("已成功更新");
-       setShowAlert(true);
-       setAlertWord("已成功更新");
-       setAlertIcon(true);
-      console.log(data);
+      setShowAlert(true);
+      setAlertWord("已成功更新");
+      setAlertIcon(true);
       setTimeout(() => {
         const reload = () => window.location.reload(true);
         reload();
-      },1000)
-      
+      }, 1000);
     } else {
       if (data.response.data === "This account has been used!") {
-        // alert("帳號已被使用");
         setShowAlert(true);
         setAlertWord("帳號已被使用");
         setAlertIcon(false);
         setAccountPassed(false);
         return;
       } else if (data.response.data === "This email has been used!") {
-        // alert("Email已被使用");
         setShowAlert(true);
         setAlertWord("Email已被使用");
         setAlertIcon(false);

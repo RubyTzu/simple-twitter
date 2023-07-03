@@ -4,7 +4,6 @@ import { ReactComponent as UserSVG } from "assets/User.svg";
 import { ReactComponent as HomeActiveSVG } from "assets/HomeActive.svg";
 import { ReactComponent as UserActiveSVG } from "assets/UserActive.svg";
 import { ReactComponent as LogOutSVG } from "assets/LogOut.svg";
-
 import styles from "./AdminNavbar.module.scss";
 import { useNavigate, Link } from "react-router-dom";
 import { useRef } from "react";
@@ -29,8 +28,6 @@ export const AdminNavbar = () => {
   let typeInfos = types;
   const activePage = useRef("推文清單");
   const id = localStorage.getItem("id");
-
-  //{ current: "推文清單" }
 
   const handleLogout = () => {
     logout();
@@ -83,7 +80,7 @@ export const AdminNavbar = () => {
                 activePage.current !== info.name
               ) {
                 return <UserSVG className={styles.navbarIcon} />;
-              } 
+              }
             };
 
             return (
@@ -98,15 +95,6 @@ export const AdminNavbar = () => {
               </Link>
             );
           })}
-
-          {/* <button className={`${styles.navbarButton} ${styles.chooseButton}`}>
-            <HomeSVG className={styles.navbarIcon} />
-            推文清單
-          </button>
-          <button className={styles.navbarButton}>
-            <UserSVG className={styles.navbarIcon} />
-            使用者列表
-          </button> */}
         </div>
       </div>
 

@@ -1,28 +1,37 @@
-import axios from "axios";
-const baseUrl = "https://twitter-2023.herokuapp.com";
-const token = localStorage.getItem("authToken");
+import axiosInstance from "./axiosInstance";
 
-
-//add follow
 export const addFollow = async (id) => {
-  const res = await axios.post(
-    `${baseUrl}/api/followships`,
-    {id},
-    {
-      headers: {
-        Authorization: "Bearer " + token,
-      },
-    }
-  );
-  return res;
+  try {
+    const res = await axiosInstance.post(`/api/followships`, { id });
+    return res;
+  } catch (error) {
+    console.error(error);
+  }
 };
 
-//delete follow
 export const deleteFollow = async (id) => {
-  const res = await axios.delete(
-    `${baseUrl}/api/followships/${id}`, {
-        headers: {
-          Authorization: "Bearer " + token,
-        },      });
-  return res;
+  try {
+    const res = await axiosInstance.delete(`/api/followships/${id}`);
+    return res;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const showFollowers = async (id) => {
+  try {
+    const { data } = await axiosInstance.get(`/api/users/${id}/followers`);
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const showFollowings = async (id) => {
+  try {
+    const { data } = await axiosInstance.get(`/api/users/${id}/followings`);
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
 };

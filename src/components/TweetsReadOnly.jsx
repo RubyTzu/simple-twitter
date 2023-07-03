@@ -2,11 +2,7 @@ import userInitialAvatar from "assets/GreyIcon.svg";
 import styles from "./TweetsReadOnly.module.scss";
 import { Link } from "react-router-dom";
 import { useTweet } from "context/tweetContext";
-
-const getId = () => {
-  const id = localStorage.getItem("id");
-  return Number(id);
-};
+const id = localStorage.getItem("id");
 
 export const TweetReadOnly = ({ value }) => {
   const formatTimestamp = (timestamp) => {
@@ -44,7 +40,7 @@ export const TweetReadOnly = ({ value }) => {
 
   return (
     <div className={styles.tweetContainer}>
-      {getId() === value.UserId ? (
+      {Number(id) === value.UserId ? (
         <Link
           to={`/userself/${value.UserId}`}
           onClick={(e) => {
@@ -115,7 +111,6 @@ export const TweetReadOnly = ({ value }) => {
 
 export const UserReplyTweets = () => {
   const { userReplies } = useTweet();
-  
   if (!userReplies) return;
   return (
     <div className={styles.tweetsCollection}>
