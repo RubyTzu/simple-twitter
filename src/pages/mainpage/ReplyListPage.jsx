@@ -30,11 +30,10 @@ export const ReplyListPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const showPage = async () => {
+    (async () => {
       setSingleTweet(await getSingleTweet(tweetId));
       setReplyListReplies(await getSingleTweetReplies(tweetId));
-    };
-    showPage();
+    })();
   }, [tweetId, setReplyListReplies, setSingleTweet, addTweetRefresh]);
 
   const formatTimestamp = (timestamp) => {

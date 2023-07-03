@@ -20,8 +20,7 @@ export const SettingPage = () => {
   const { profile, setProfile } = useCurrentUser();
 
   useEffect(() => {
-    const showPage = async () => setProfile(await getProfile(id));
-    showPage();
+    (async () => setProfile(await getProfile(id)))();
   }, [setProfile]);
 
   useEffect(() => {

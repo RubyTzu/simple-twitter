@@ -26,9 +26,7 @@ export const TweetContextProvider = ({ children }) => {
   useEffect(() => {
     const showHomePageTweets = async () => {
       const data = await getTweets(id);
-      if (data) {
-        setAllTweets(data);
-      }
+      if (data) setAllTweets(data);
     };
     showHomePageTweets();
     console.log(`hello from useEffect-TweetContext id :${id}`);

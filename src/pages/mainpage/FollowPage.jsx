@@ -6,13 +6,13 @@ import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getProfile } from "api/userinfo";
 const id = localStorage.getItem("id");
+
 export const FollowPage = () => {
   let { state } = useLocation();
   const [userData, setUserData] = useState({});
 
   useEffect(() => {
-    const showData = async () => setUserData(await getProfile(id));
-    showData();
+    (async () => setUserData(await getProfile(id)))();
   }, []);
   return (
     <>

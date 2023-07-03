@@ -20,8 +20,7 @@ export const HomePage = () => {
   const { profile, setProfile } = useCurrentUser();
 
   useEffect(() => {
-    const showAvatar = async () => setProfile(await getProfile(id));
-    showAvatar();
+    (async () => setProfile(await getProfile(id)))();
   }, [setProfile]);
 
   return (

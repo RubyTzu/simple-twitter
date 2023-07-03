@@ -25,14 +25,13 @@ export const UserOtherPage = () => {
   const handleCancelFollowing = async (userId) => await deleteFollow(userId);
 
   useEffect(() => {
-    const showPage = async () => {
+    (async () => {
       setProfile(await getProfile(userId));
       setFollowCounts(await getFollowCounts(userId));
       setUserTweets(await getUserTweets(userId));
       setUserReplies(await getUserReplies(userId));
       setUserLikedTweets(await getUserLikedTweets(userId));
-    };
-    showPage();
+    })();
   }, [
     userId,
     setUserLikedTweets,

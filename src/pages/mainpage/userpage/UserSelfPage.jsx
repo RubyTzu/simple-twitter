@@ -20,14 +20,13 @@ export const UserSelfPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const showPage = async () => {
+    (async () => {
       setProfile(await getProfile(userId));
       setFollowCounts(await getFollowCounts(userId));
       setUserTweets(await getUserTweets(userId));
       setUserReplies(await getUserReplies(userId));
       setUserLikedTweets(await getUserLikedTweets(userId));
-    };
-    showPage();
+    })();
   }, [
     userId,
     setUserLikedTweets,
