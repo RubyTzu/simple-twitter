@@ -1,20 +1,4 @@
-import axios from "axios";
-const baseUrl = "https://twitter-2023.herokuapp.com";
-const axiosInstance = axios.create({ baseURL: baseUrl });
-
-//使用axiosInstance在打api時插入authToken, 就不用每一個都加
-axiosInstance.interceptors.request.use(
-  (config) => {
-    const token = localStorage.getItem("authToken");
-    if (token) {
-      config.headers["Authorization"] = `Bearer ${token}`;
-    }
-    return config;
-  },
-  (error) => {
-    console.error(error);
-  }
-);
+import axiosInstance from "./axiosInstance";
 
 //全部推文
 export const getTweets = async () => {

@@ -1,28 +1,11 @@
-import axios from "axios";
-const baseUrl = "https://twitter-2023.herokuapp.com";
-const token = localStorage.getItem("authToken");
+import axiosInstance from "./axiosInstance";
 
-
-//add follow
 export const addFollow = async (id) => {
-  const res = await axios.post(
-    `${baseUrl}/api/followships`,
-    {id},
-    {
-      headers: {
-        Authorization: "Bearer " + token,
-      },
-    }
-  );
+  const res = await axiosInstance.post(`/api/followships`, { id });
   return res;
 };
 
-//delete follow
 export const deleteFollow = async (id) => {
-  const res = await axios.delete(
-    `${baseUrl}/api/followships/${id}`, {
-        headers: {
-          Authorization: "Bearer " + token,
-        },      });
+  const res = await axiosInstance.delete(`/api/followships/${id}`);
   return res;
 };

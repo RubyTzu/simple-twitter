@@ -1,13 +1,8 @@
-import axios from "axios";
-const token = localStorage.getItem("authToken");
-const baseUrl = "https://twitter-2023.herokuapp.com";
+import axiosInstance from "./axiosInstance";
+
 export const getProfile = async (id) => {
   try {
-    const { data } = await axios.get(`${baseUrl}/api/users/${id}`, {
-      headers: {
-        Authorization: "Bearer " + token,
-      },
-    });
+    const { data } = await axiosInstance.get(`/api/users/${id}`);
     return data;
   } catch (error) {
     console.error(error);
@@ -16,14 +11,7 @@ export const getProfile = async (id) => {
 
 export const getFollowCounts = async (id) => {
   try {
-    const { data } = await axios.get(
-      `${baseUrl}/api/users/${id}/follow_counts`,
-      {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      }
-    );
+    const { data } = await axiosInstance.get(`/api/users/${id}/follow_counts`);
     return data;
   } catch (error) {
     console.error(error);
@@ -34,8 +22,8 @@ export const updateProfile = async (user) => {
   const id = localStorage.getItem("id");
   console.log(user);
   try {
-    const { data } = await axios.put(
-      `${baseUrl}/api/users/${id}?setting=account`,
+    const { data } = await axiosInstance.put(
+      `/api/users/${id}?setting=account`,
       {
         account: user.account,
         name: user.name,
@@ -43,11 +31,6 @@ export const updateProfile = async (user) => {
         password: user.password,
         checkPassword: user.checkPassword,
         introduction: user.introduction,
-      },
-      {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
       }
     );
     return { success: true, data: data };

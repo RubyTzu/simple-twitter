@@ -46,7 +46,6 @@ export const register = async ({
       password,
       checkPassword,
     });
-    // console.log(`${data} 在auth裏`);
     if (data) {
       return { success: true, message: data };
     }
