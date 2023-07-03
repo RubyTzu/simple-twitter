@@ -78,7 +78,6 @@ export const UserOtherPage = () => {
             <div className={styles.userinfoBtn}>
               <NotifIcon className={styles.icon} />
             </div>
-            {/* <button className={styles.toNotFollowButton}>正在跟隨</button> */}
             <button
               className={
                 profile.isFollowing
