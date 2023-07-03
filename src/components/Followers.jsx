@@ -1,4 +1,3 @@
-// import { ReactComponent as GreyIconSVG } from "assets/GreyIcon.svg";
 import GreyIconSVG from "assets/GreyIcon.svg";
 
 import styles from "./Followers.module.scss";
@@ -31,6 +30,7 @@ export const Follower = ({ value }) => {
               isFollowing ? styles.toNotFollowButton : styles.toFollowButton
             }
             onClick={async () => {
+              //待改, 不可以用reload()
               if (isFollowing) {
                 const res = await deleteFollow(value.followerId);
                 console.log(res);

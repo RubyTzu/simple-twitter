@@ -21,7 +21,6 @@ export const Register = () => {
   const [accountPassed, setAccountPassed] = useState(true);
   const [pwdPassed, setPwdPassed] = useState(true);
   const [emailPassed, setEmailPassed] = useState(true);
-
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -30,7 +29,6 @@ export const Register = () => {
         setShowAlert(false);
         setAlertWord("");
       }, 3000);
-      console.log("register useEffect");
       return () => clearTimeout(timeout); // cleanup function
     }
   }, [showAlert]);
@@ -42,18 +40,16 @@ export const Register = () => {
     if (password.length === 0) return;
     if (checkPassword.length === 0) return;
 
-    try {
-      const res = await register({
-        account,
-        name,
-        email,
-        password,
-        checkPassword,
-      });
-      console.log(
-        `success: ${res.success} message:${res.message} 在register裏`
-      );
-      if (res.message === "Create success") {
+    const res = await register({
+      account,
+      name,
+      email,
+      password,
+      checkPassword,
+    });
+    console.log(`success: ${res.success} message:${res.message} 在register裏`);
+    switch (res.message) {
+      case "Create success":
         Swal.fire({
           title: "註冊成功!",
           icon: "success",
@@ -63,41 +59,36 @@ export const Register = () => {
           position: "top",
         });
         navigate("/login");
-        return;
-      } else if (res.message === "Max length 50") {
-        // alert("Max length 50");
+        break;
+      case "Max length 50":
         setShowAlert(true);
-        setAlertWord("字數超過上限50字");
         setNamePassed(false);
-        return;
-      } else if (res.message === "Email already exists!") {
-        // alert("Email 已重覆註冊")
+        setAlertWord("字數超過上限50字");
+        break;
+      case "Email already exists!":
         setShowAlert(true);
-        setAlertWord("Email 已重覆註冊");
         setEmailPassed(false);
-        return;
-      } else if (res.message === "Account already exists!") {
-        // alert("Account  已重覆註冊");
+        setAlertWord("Email 已重覆註冊");
+        break;
+      case "Account already exists!":
         setShowAlert(true);
-        setAlertWord("帳號已重覆註冊");
         setAccountPassed(false);
-        return;
-      } else if (res.message === "Password do not match!") {
-        // alert("Password do not match!");
+        setAlertWord("帳號已重覆註冊");
+        break;
+      case "Password do not match!":
         setShowAlert(true);
-        setAlertWord("請確認兩次密碼輸入一致");
         setPwdPassed(false);
-        return;
-      }
-    } catch (error) {
-      Swal.fire({
-        title: "註冊失敗!",
-        icon: "error",
-        showConfirmButton: false,
-        timer: 1000,
-        position: "top",
-      });
-      return;
+        setAlertWord("請確認兩次密碼輸入一致");
+        break;
+      default:
+        Swal.fire({
+          title: "註冊失敗!",
+          icon: "error",
+          showConfirmButton: false,
+          timer: 1000,
+          position: "top",
+        });
+        break;
     }
   };
 

@@ -1,18 +1,14 @@
 //import react tools
 import { createContext, useContext, useEffect, useState } from "react";
-// import { useParams } from "react-router-dom";
 //import api
 import { getTweets, createTweet } from "api/tweet";
-
 //export useContext: create Tweet Context and export useContext
 const TweetContext = createContext();
 export const useTweet = () => useContext(TweetContext);
-
 //export contextProvider
 export const TweetContextProvider = ({ children }) => {
   //current user id
   const id = localStorage.getItem("id");
-
   //useState hook
   const [allTweets, setAllTweets] = useState([]);
   const [userTweets, setUserTweets] = useState([]);
@@ -49,9 +45,7 @@ export const TweetContextProvider = ({ children }) => {
   };
 
   const handleAddTweet = async () => {
-    if (inputValue.length === 0) {
-      return;
-    }
+    if (inputValue.length === 0) return;
     await createTweet({
       description: inputValue,
       likable: 1,
@@ -61,8 +55,7 @@ export const TweetContextProvider = ({ children }) => {
     setInputValue("");
     handleClick();
     console.log(`setClick${addTweetRefresh}`);
-    const reload = () => window.location.reload();
-    reload();
+    window.location.reload();
   };
 
   const handleClick = () => {

@@ -7,12 +7,10 @@ import { ReactComponent as UserActiveSVG } from "assets/UserActive.svg";
 import { ReactComponent as SettingActiveSVG } from "assets/SettingActive.svg";
 import { ReactComponent as LogOutSVG } from "assets/LogOut.svg";
 import { AddTweetModal } from "./modals/AddTweetModal";
-
 import styles from "./Navbar.module.scss";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useAuth } from "context/authContext";
-
 const id = localStorage.getItem("id");
 
 export const Navbar = () => {
@@ -43,11 +41,8 @@ export const Navbar = () => {
     logout();
     setInterval(() => {
       if (id) {
-        console.log(id);
-        console.log("reload");
         window.location.reload();
       } else {
-        console.log(id);
         alert("已登出");
         navigate("/login");
         return;
@@ -57,12 +52,7 @@ export const Navbar = () => {
 
   useEffect(() => {
     setActivePage(location.pathname);
-    console.log(`Navbar useEffect的location:${location.pathname}`);
   }, [location]);
-
-  const handleStyleChange = () => {
-    setActivePage(location.pathname);
-  };
 
   return (
     <div className={styles.navbarContainer}>
@@ -77,13 +67,19 @@ export const Navbar = () => {
             const linkIcon = () => {
               if (info.name === "首頁" && activePage === info.route) {
                 return <HomeActiveSVG className={styles.navbarIcon} />;
-              } else if (info.name === "個人資料" && activePage === info.route) {
+              } else if (
+                info.name === "個人資料" &&
+                activePage === info.route
+              ) {
                 return <UserActiveSVG className={styles.navbarIcon} />;
               } else if (info.name === "設定" && activePage === info.route) {
                 return <SettingActiveSVG className={styles.navbarIcon} />;
               } else if (info.name === "首頁" && activePage !== info.route) {
                 return <HomeSVG className={styles.navbarIcon} />;
-              } else if (info.name === "個人資料" && activePage !== info.route) {
+              } else if (
+                info.name === "個人資料" &&
+                activePage !== info.route
+              ) {
                 return <UserSVG className={styles.navbarIcon} />;
               } else if (info.name === "設定" && activePage !== info.route) {
                 return <SettingSVG className={styles.navbarIcon} />;
@@ -95,7 +91,7 @@ export const Navbar = () => {
                 key={info.dataType}
                 to={info.route}
                 className={linkClassName}
-                onClick={handleStyleChange}
+                onClick={() => setActivePage(location.pathname)}
               >
                 {linkIcon()}
                 {info.name}

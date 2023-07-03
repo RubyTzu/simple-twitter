@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Followers } from "./Followers";
 import { Followings } from "./Followings";
-import axios from "axios";
-const baseUrl = "https://twitter-2023.herokuapp.com";
+import { showFollowers, showFollowings } from "api/follow";
+const id = localStorage.getItem("id");
 
 const types = [
   { dataType: "followers", name: "追隨者" },
@@ -17,34 +17,15 @@ export const FollowCollection = ({ clicked }) => {
   const handleClick = (e) => {
     setActiveLink(e.target.innerText);
   };
-  const id = localStorage.getItem("id");
-  const token = localStorage.getItem("authToken");
   const [followers, setFollowers] = useState([]);
   const [followings, setFollowings] = useState([]);
 
   useEffect(() => {
-    const showFollower = async () => {
-      const { data } = await axios.get(`${baseUrl}/api/users/${id}/followers`, {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      });
-      setFollowers(data);
-    };
-    const showFollowings = async () => {
-      const { data } = await axios.get(
-        `${baseUrl}/api/users/${id}/followings`,
-        {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        }
-      );
-      setFollowings(data);
-    };
-    showFollower();
-    showFollowings();
-  }, [id, token]);
+    (async () => {
+      setFollowers(await showFollowers(id));
+      setFollowings(await showFollowings(id));
+    })();
+  }, []);
 
   return (
     <section className={styles.followListsContainer} data-type="1">

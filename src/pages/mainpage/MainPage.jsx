@@ -9,6 +9,7 @@ export const MainPage = ({ middleContent, page }) => {
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth();
 
+  //如果用id來判斷, 就不會回首頁?
   useEffect(() => {
     if (!isAuthenticated) navigate("/login");
   }, [isAuthenticated, navigate]);

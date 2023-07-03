@@ -1,15 +1,12 @@
 import initialAvatar from "assets/GreyIcon.svg";
 import { ReactComponent as BackSVG } from "assets/Back.svg";
 import { ReactComponent as CommentSVG } from "assets/Comment.svg";
-// import { ReactComponent as LikeSVG } from "assets/Like.svg";
 import LikeSVG from "assets/Like.svg";
 import LikePress from "assets/LikePress.svg";
-
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { TweetReadOnly } from "components/TweetsReadOnly";
 import styles from "./ReplyListPage.module.scss";
 import { AddReplyModalinReplyList } from "components/modals/AddReplyModalinReplyList";
-
 import {
   getSingleTweet,
   getSingleTweetReplies,
@@ -18,12 +15,7 @@ import {
 } from "api/tweet";
 import { useEffect } from "react";
 import { useTweet } from "context/tweetContext";
-// import { useCurrentUser } from "context/userInfoContext";
-
-const getId = () => {
-  const id = localStorage.getItem("id");
-  return Number(id);
-};
+const id = localStorage.getItem("id");
 
 export const ReplyListPage = () => {
   const {
@@ -35,7 +27,6 @@ export const ReplyListPage = () => {
   } = useTweet();
 
   const { tweetId } = useParams();
-  // const { isAuthenticated } = useCurrentUser();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -44,7 +35,6 @@ export const ReplyListPage = () => {
       setReplyListReplies(await getSingleTweetReplies(tweetId));
     };
     showPage();
-    console.log("hello from useEffect-ReplyListPage");
   }, [tweetId, setReplyListReplies, setSingleTweet, addTweetRefresh]);
 
   const formatTimestamp = (timestamp) => {
@@ -73,7 +63,7 @@ export const ReplyListPage = () => {
         </header>
         <div className={styles.tweetSection}>
           <div className={styles.tweetHeader}>
-            {getId() === singleTweet.UserId ? (
+            {Number(id) === singleTweet.UserId ? (
               <Link to={`/userself/${singleTweet.UserId}`}>
                 <img
                   className={`${styles.tweetAvatar} cursorPointer`}
@@ -140,14 +130,9 @@ export const ReplyListPage = () => {
             </div>
           </div>
         </div>
-        {/* {console.log(replies)} */}
-        {/* <TweetsReadOnly value={replies} /> */}
         {replyListReplies.map((reply) => {
           return <TweetReadOnly key={reply.id} value={reply} />;
         })}
-        {/* {replies.current.map((reply) => {
-          return <TweetReadOnly key={reply.id} value={reply} />;
-        })} */}
       </div>
     </>
   );

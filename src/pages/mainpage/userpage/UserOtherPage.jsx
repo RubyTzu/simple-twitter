@@ -10,7 +10,6 @@ import { useEffect } from "react";
 import { getUserLikedTweets, getUserReplies, getUserTweets } from "api/tweet";
 import { getFollowCounts, getProfile } from "api/userinfo";
 import { addFollow, deleteFollow } from "api/follow";
-// import { useAuth } from "context/authContext";
 import { useTweet } from "context/tweetContext";
 import { useCurrentUser } from "context/userInfoContext";
 
@@ -19,37 +18,11 @@ export const UserOtherPage = () => {
     useTweet();
   const { userId } = useParams();
   const navigate = useNavigate();
-  // const { isAuthenticated } = useAuth();
   const { profile, setProfile, followCounts, setFollowCounts } =
     useCurrentUser();
 
-  // useEffect(() => {
-  //   if (!isAuthenticated) {
-  //     navigate("/login");
-  //     return;
-  //   } else {
-  //     navigate(`/userother/${userId}`);
-  //     return;
-  //   }
-  // }, [isAuthenticated, navigate, userId]);
-
-  const handleAddFollowing = async (userId) => {
-    console.log(`add following ${userId}`);
-    try {
-      await addFollow(userId);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const handleCancelFollowing = async (userId) => {
-    console.log(`cancel following ${userId}`);
-    try {
-      await deleteFollow(userId);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const handleAddFollowing = async (userId) => await addFollow(userId);
+  const handleCancelFollowing = async (userId) => await deleteFollow(userId);
 
   useEffect(() => {
     const showPage = async () => {
@@ -60,7 +33,6 @@ export const UserOtherPage = () => {
       setUserLikedTweets(await getUserLikedTweets(userId));
     };
     showPage();
-    console.log("hello from useEffect-UserOtherPage");
   }, [
     userId,
     setUserLikedTweets,

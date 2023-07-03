@@ -1,6 +1,4 @@
-// import { ReactComponent as GreyIconSVG } from "assets/GreyIcon.svg";
 import GreyIconSVG from "assets/GreyIcon.svg";
-
 import DeleteIcon from "assets/DeleteIcon.svg";
 import styles from "./AdminTweet.module.scss";
 

@@ -1,6 +1,4 @@
-// import { ReactComponent as GreyIconSVG } from "assets/GreyIcon.svg";
 import GreyIconSVG from "assets/GreyIcon.svg";
-
 import styles from "./Followings.module.scss";
 import { deleteFollow } from "api/follow";
 import { useState } from "react";
@@ -22,7 +20,6 @@ export const Following = ({ value }) => {
           className={`${styles.userAvatar} cursorPointer`}
         />
       </Link>
-      {/* <GreyIconSVG className={`${styles.userAvatar} cursorPointer`} /> */}
       <div className={styles.followTextContainer}>
         <header className={styles.followHeader}>
           <p className={styles.userName}>{value.name}</p>

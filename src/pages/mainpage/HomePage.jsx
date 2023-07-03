@@ -2,11 +2,10 @@ import initialAvatar from "assets/GreyIcon.svg";
 import { Tweet } from "components/Tweets";
 import styles from "./HomePage.module.scss";
 import { useEffect } from "react";
-// import { useAuth } from "context/authContext";
 import { useTweet } from "context/tweetContext";
-// import { useNavigate } from "react-router-dom";
 import { useCurrentUser } from "context/userInfoContext";
 import { getProfile } from "api/userinfo";
+const id = localStorage.getItem("id");
 
 export const HomePage = () => {
   const {
@@ -19,18 +18,11 @@ export const HomePage = () => {
     onAddTweetClick,
   } = useTweet();
   const { profile, setProfile } = useCurrentUser();
-  // const [avatar, setAvatar] = useState("");
-  const id = localStorage.getItem("id");
-  // const { currentUser } = useAuth();
 
   useEffect(() => {
-    const showAvatar = async () => {
-      const data = await getProfile(id);
-      setProfile(data);
-    };
+    const showAvatar = async () => setProfile(await getProfile(id));
     showAvatar();
-    console.log("hello from useEffect-HomePage");
-  }, [setProfile, id]);
+  }, [setProfile]);
 
   return (
     <>
