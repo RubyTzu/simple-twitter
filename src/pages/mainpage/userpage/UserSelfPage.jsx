@@ -94,7 +94,7 @@ export const UserSelfPage = () => {
 
             <div className={styles.follow}>
               <Link
-                to="/followlist"
+                to={`/followlist/${userId}`}
                 state={"正在追隨"}
                 className={styles.followerInfoBtn}
               >
@@ -104,7 +104,7 @@ export const UserSelfPage = () => {
                 <span>跟隨中</span>
               </Link>
               <Link
-                to="/followlist"
+                to={`/followlist/${userId}`}
                 state={"追隨者"}
                 className={styles.followingInfoBtn}
               >

@@ -82,7 +82,7 @@ function App() {
                   }
                 />
                 <Route
-                  path="/followlist"
+                  path="/followlist/:userId"
                   element={
                     <MainPage middleContent={<FollowPage />} page="追蹤清單" />
                   }
