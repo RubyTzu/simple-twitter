@@ -27,7 +27,7 @@ export const FollowCollection = ({ clicked }) => {
       setFollowers(await showFollowers(userId));
       setFollowings(await showFollowings(userId));
     })();
-  }, []);
+  }, [userId]);
 
   return (
     <section className={styles.followListsContainer} data-type="1">
