@@ -1,10 +1,10 @@
 import styles from "./FollowsCollection.module.scss";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Followers } from "./Followers";
 import { Followings } from "./Followings";
 import { showFollowers, showFollowings } from "api/follow";
-const id = localStorage.getItem("id");
+// const id = localStorage.getItem("id");
 
 const types = [
   { dataType: "followers", name: "追隨者" },
@@ -12,6 +12,8 @@ const types = [
 ];
 
 export const FollowCollection = ({ clicked }) => {
+  const { userId } = useParams();
+
   let typeInfos = types;
   const [activeLink, setActiveLink] = useState(clicked || "追隨者");
   const handleClick = (e) => {
@@ -22,10 +24,10 @@ export const FollowCollection = ({ clicked }) => {
 
   useEffect(() => {
     (async () => {
-      setFollowers(await showFollowers(id));
-      setFollowings(await showFollowings(id));
+      setFollowers(await showFollowers(userId));
+      setFollowings(await showFollowings(userId));
     })();
-  }, []);
+  }, [userId]);
 
   return (
     <section className={styles.followListsContainer} data-type="1">

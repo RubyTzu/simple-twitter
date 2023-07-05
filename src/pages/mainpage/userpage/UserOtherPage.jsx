@@ -78,7 +78,6 @@ export const UserOtherPage = () => {
             <div className={styles.userinfoBtn}>
               <NotifIcon className={styles.icon} />
             </div>
-            {/* <button className={styles.toNotFollowButton}>正在跟隨</button> */}
             <button
               className={
                 profile.isFollowing
@@ -111,22 +110,26 @@ export const UserOtherPage = () => {
                 : profile.introduction}
             </div>
             <div className={styles.follow}>
-              {/* <Link to="/followlist" className={styles.followerInfoBtn}> */}
-              <div className={styles.followerInfoBtn}>
+              <Link
+                state={"正在追隨"}
+                to={`/followlist/${userId}`}
+                className={styles.followerInfoBtn}
+              >
                 <span className={styles.followNum}>
                   {followCounts.followingCount} 個
                 </span>
                 <span>跟隨中</span>
-              </div>
-              {/* </Link> */}
-              {/* <Link to="/followlist" className={styles.followingInfoBtn}> */}
-              <div className={styles.followingInfoBtn}>
+              </Link>
+              <Link
+                to={`/followlist/${userId}`}
+                state={"追隨者"}
+                className={styles.followingInfoBtn}
+              >
                 <span className={styles.followNum}>
                   {followCounts.followerCount} 位
                 </span>
                 <span>跟隨者</span>
-              </div>
-              {/* </Link> */}
+              </Link>
             </div>
           </div>
         </div>
