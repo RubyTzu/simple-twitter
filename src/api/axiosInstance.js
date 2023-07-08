@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseUrl = "https://twitter-2023.herokuapp.com";
+const baseUrl = "https://twitter-api-2023.onrender.com";
 const axiosInstance = axios.create({ baseURL: baseUrl });
 
 axiosInstance.interceptors.request.use(

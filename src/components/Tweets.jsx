@@ -17,7 +17,6 @@ export const Tweet = ({ value }) => {
   const [likesCount, setLikesCount] = useState(value.likesCount);
   const [isLiked, setIsLiked] = useState(value.isLiked);
   let navigate = useNavigate();
-
   // del
   const [show, setShow] = useState(false);
 
@@ -130,7 +129,6 @@ export const Tweet = ({ value }) => {
                     ? await tweetUnLike(value.id)
                     : await tweetLike(value.id);
                   const res = await getSingleTweet(value.id);
-                  //value是在homepage打api取得後傳下來的, 在tweet裡無法即時更新, 因此在裡面設自己的state來更新comp
                   setLikesCount(res.likesCount);
                   setIsLiked(res.isLiked);
                 }}

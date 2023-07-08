@@ -65,6 +65,7 @@ export const TweetContextProvider = ({ children }) => {
     id,
     //useState hook
     allTweets,
+    setAllTweets,
     userTweets,
     setUserTweets,
     userReplies,

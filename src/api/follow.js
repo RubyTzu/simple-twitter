@@ -35,3 +35,12 @@ export const showFollowings = async (id) => {
     console.error(error);
   }
 };
+
+export const showPopular = async () => {
+  try {
+    const { data } = await axiosInstance.get(`/api/users/top`);
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+};

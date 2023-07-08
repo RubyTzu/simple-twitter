@@ -1,3 +1,4 @@
+import axios from "axios";
 import axiosInstance from "./axiosInstance";
 
 export const getProfile = async (id) => {
@@ -37,5 +38,16 @@ export const updateProfile = async (user) => {
   } catch (error) {
     console.error(error);
     return { success: false, data: error };
+  }
+};
+
+export const getWord = async () => {
+  try {
+    const res = await axios.get(
+      "https://api.dictionaryapi.dev/api/v2/entries/en/hello"
+    );
+    return res;
+  } catch (error) {
+    console.error("error from this api" + error);
   }
 };

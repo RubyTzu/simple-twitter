@@ -7,11 +7,13 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import clsx from "clsx";
+import { smsVerify } from "api/smsVerify";
 const id = localStorage.getItem("id");
 
 export const LoginPage = () => {
   const [account, setAccount] = useState("");
   const [password, setPassword] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [accountPassed, setAccountPassed] = useState(true);
   const [pwdPassed, setPwdPassed] = useState(true);
   const { isAuthenticated } = useAuth();
@@ -25,26 +27,33 @@ export const LoginPage = () => {
   const handleLogin = async () => {
     if (account.length === 0 || password.length === 0) return;
     const res = await login({ account, password });
+    //登入驗證後進行簡訊驗證
     if (res.success) {
-      setAccountPassed(true);
-      Swal.fire({
-        title: "登入成功!",
-        icon: "success",
-        iconColor: "#82C43C",
-        showConfirmButton: false,
-        timer: 1000,
-        position: "top",
-      });
-      setInterval(() => {
-        if (!id) {
-          window.location.reload();
-        } else {
-          navigate("/home");
-          return;
-        }
-      }, 1000);
+      const pin = Math.floor(Math.random() * 10000);
+      const { status } = await smsVerify({ phoneNumber, pin });
+      if (status === 200) {
+        setAccountPassed(true);
+        Swal.fire({
+          title: "登入成功!",
+          icon: "success",
+          iconColor: "#82C43C",
+          showConfirmButton: false,
+          timer: 1000,
+          position: "top",
+        });
+        setInterval(() => {
+          if (!id) {
+            window.location.reload();
+          } else {
+            navigate("/home");
+            return;
+          }
+        }, 500);
+      } else {
+        console.log("驗證碼不正確");
+        return;
+      }
     } else if (res.response.data === "Account incorrect") {
-      console.log(res.response.data);
       setAccountPassed(false);
       Swal.fire({
         title: "登入失敗!",
@@ -132,6 +141,16 @@ export const LoginPage = () => {
         >
           密碼不正確!
         </span>
+      </div>
+      <div className={styles.inputContainer}>
+        <AuthInput
+          type="text"
+          label="電話號碼"
+          value={phoneNumber}
+          placeholder="請輸入電話號碼"
+          onChange={(e) => setPhoneNumber(e.target.value)}
+          onKeyDown={handleLogin}
+        />
       </div>
       <button className={styles.loginButton} onClick={handleLogin}>
         登入
