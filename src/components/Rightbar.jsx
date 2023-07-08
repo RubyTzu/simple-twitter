@@ -1,17 +1,13 @@
 import initialAvatar from "assets/GreyIcon.svg";
 import styles from "./Rightbar.module.scss";
-import axios from "axios";
 import { Fragment, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { addFollow, deleteFollow } from "api/follow";
-
-const baseUrl = "https://twitter-2023.herokuapp.com";
+import { addFollow, deleteFollow, showPopular } from "api/follow";
 const id = localStorage.getItem("id");
 
 export const Rightbar = () => {
   const [idFromButtonClick, setIdFromButtonClick] = useState(null);
   const [popularList, setPopularList] = useState([]);
-  const token = localStorage.getItem("authToken");
 
   const handleAddFollowing = async (userId) => {
     await addFollow(userId);
@@ -28,23 +24,8 @@ export const Rightbar = () => {
   };
 
   useEffect(() => {
-    const showPopular = async () => {
-      try {
-        const { data } = await axios.get(`${baseUrl}/api/users/top`, {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        });
-        setPopularList(data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    showPopular();
-
-    console.log(`Rightbar useEffect idFromButtonClick ${idFromButtonClick}`);
-  }, [token, idFromButtonClick]);
+    (async () => setPopularList(await showPopular()))();
+  }, [idFromButtonClick]);
 
   return (
     <div className={styles.rightbarContainer}>

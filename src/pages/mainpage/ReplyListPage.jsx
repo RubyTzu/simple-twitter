@@ -18,13 +18,8 @@ import { useTweet } from "context/tweetContext";
 const id = localStorage.getItem("id");
 
 export const ReplyListPage = () => {
-  const {
-    singleTweet,
-    setSingleTweet,
-    replyListReplies,
-    setReplyListReplies,
-    addTweetRefresh,
-  } = useTweet();
+  const { singleTweet, setSingleTweet, replyListReplies, setReplyListReplies } =
+    useTweet();
 
   const { tweetId } = useParams();
   const navigate = useNavigate();
@@ -34,7 +29,7 @@ export const ReplyListPage = () => {
       setSingleTweet(await getSingleTweet(tweetId));
       setReplyListReplies(await getSingleTweetReplies(tweetId));
     })();
-  }, [tweetId, setReplyListReplies, setSingleTweet, addTweetRefresh]);
+  }, [tweetId, setReplyListReplies, setSingleTweet]);
 
   const formatTimestamp = (timestamp) => {
     const timestampDate = new Date(timestamp);
@@ -55,7 +50,14 @@ export const ReplyListPage = () => {
     <>
       <div className={styles.mainbarContainer}>
         <header className={styles.replyListHeader}>
-          <Link className={styles.link} onClick={() => navigate(-1)}>
+          <Link
+            className={styles.link}
+            onClick={() => {
+              navigate(-1);
+              setSingleTweet({});
+              setReplyListReplies([]);
+            }}
+          >
             <BackSVG className={styles.logo} />
           </Link>
           <h1 className={styles.replyListPageTitle}>推文</h1>
@@ -122,7 +124,6 @@ export const ReplyListPage = () => {
                     ? await tweetUnLike(singleTweet.id)
                     : await tweetLike(singleTweet.id);
                   const res = await getSingleTweet(singleTweet.id);
-                  //因為singleTweet是直接從context傳下來的, setSingleTweet會使context更新, 傳下來的資料也會是最新的
                   setSingleTweet(res);
                 }}
               />
