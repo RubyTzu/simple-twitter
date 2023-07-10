@@ -27,7 +27,7 @@ export const LoginPage = () => {
   const handleLogin = async () => {
     if (account.length === 0 || password.length === 0) return;
     const res = await login({ account, password });
-    //登入驗證後進行簡訊驗證
+    // 登入驗證後進行簡訊驗證
     if (res.success) {
       const pin = Math.floor(Math.random() * 10000);
       const { status } = await smsVerify({ phoneNumber, pin });
@@ -41,6 +41,7 @@ export const LoginPage = () => {
           timer: 1000,
           position: "top",
         });
+
         setInterval(() => {
           if (!id) {
             window.location.reload();
