@@ -3,16 +3,14 @@ import { Rightbar } from "components/Rightbar";
 import styles from "./MainPage.module.scss";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
-import { useAuth } from "context/authContext";
 
 export const MainPage = ({ middleContent, page }) => {
   const navigate = useNavigate();
-  const { isAuthenticated } = useAuth();
-
-  //如果用id來判斷, 就不會回首頁?
+  const id = localStorage.getItem("id");
+  //如果用isAuthenticated判斷, 重整會authContext裡的初始值是false, 就直接導回login頁然後又導回home
   useEffect(() => {
-    if (!isAuthenticated) navigate("/login");
-  }, [isAuthenticated, navigate]);
+    if (!id) navigate("/login");
+  }, [id, navigate]);
 
   return (
     <div className={styles.mainPageContainer}>

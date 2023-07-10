@@ -1,5 +1,6 @@
 import axios from "axios";
 const smsBaseUrl = "https://k3wm88.api.infobip.com/sms/2/text/advanced";
+const emailBaseUrl = "https://k3wm88.api.infobip.com/email/3/send";
 
 export const smsVerify = async ({ phoneNumber, pin }) => {
   try {
@@ -24,15 +25,31 @@ export const smsVerify = async ({ phoneNumber, pin }) => {
           password: "Kaijun0908!",
         },
       }
-      //   {
-      //     headers: {
-      //         API_KEY:
-      //         "Bearer e91cc7a038c084fca33981591a6cf49f-e96aab2a-b435-405f-9e16-10fccbbbb434",
-      //     },
-      //   }
     );
+    console.log(result);
     return result;
   } catch (error) {
     console.error("2FA" + error);
+  }
+};
+
+export const emailConfirmation = async () => {
+  const data = new FormData();
+  data.append("from", "chun19970810@gmail.com");
+  data.append("to", "kaijun_huang@outlook.com");
+  data.append("subject", "Mail subject text and placeholder ph1");
+  data.append("text", "Dear KKK, this is mail body text");
+  try {
+    const result = await axios.post(`${emailBaseUrl}`, data, {
+      auth: {
+        username: "kaijun",
+        password: "Kaijun0908!",
+      },
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+    console.log(result);
+    return result;
+  } catch (error) {
+    console.error(error);
   }
 };
