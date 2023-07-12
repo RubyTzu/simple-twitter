@@ -40,7 +40,7 @@
   font-weight: 800;
   font-size: 16px;
   white-space: nowrap;
-  max-width: 300px;
+  max-width: 150px;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -52,10 +52,23 @@
   font-size: 14px;
   color: #92929d;
 }
-
-.userNickName {
+.userNickNameLink {
+  position: relative;
   text-decoration: none;
   color: #92929d;
+}
+.userNickName {
+  display: inline-block;
+  white-space: nowrap;
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.userTime {
+  position: relative;
+  top: -4.5px;
+  display: inline-block;
 }
 
 .replyTo {
@@ -66,9 +79,19 @@
   color: #92929d;
 }
 
-.replyNickName {
+.replyNickNameLink {
   text-decoration: none;
   color: var(--major);
+}
+
+.replyNickName {
+    position: relative;
+  top: 3.5px;
+  display: inline-block;
+  white-space: nowrap;
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis; 
 }
 
 .comment {

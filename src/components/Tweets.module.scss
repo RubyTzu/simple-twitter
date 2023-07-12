@@ -2,7 +2,7 @@
   position: relative;
   width: 638px;
   height: 100vh;
-   overflow: scroll;
+  overflow: scroll;
   &::-webkit-scrollbar {
     display: none;
   }
@@ -51,7 +51,7 @@
   font-size: 16px;
   white-space: nowrap;
   color: #000;
-  max-width: 300px;
+  max-width: 150px;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -59,6 +59,18 @@
 .userNickName {
   height: 75%;
   margin: 0 0 0 8px;
+  font-family: "Noto Sans TC", sans-serif;
+  font-size: 14px;
+  color: #92929d;
+   white-space: nowrap;
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.userTime {
+  height: 75%;
+  margin: 0px;
   font-family: "Noto Sans TC", sans-serif;
   font-size: 14px;
   color: #92929d;
@@ -104,12 +116,12 @@
   color: #6c757d;
   background-color: rgb(255, 255, 255);
   &:hover {
-    color:#6c757d;
+    color: #6c757d;
     background-color: rgb(255, 255, 255);
   }
   &:active {
-    color:#6c757d!important;
-    background-color: rgb(255, 255, 255)!important;
+    color: #6c757d !important;
+    background-color: rgb(255, 255, 255) !important;
   }
   .commentIcon {
     margin: 0;
@@ -119,7 +131,6 @@
     line-height: 16px;
   }
 }
-
 
 .likeButton {
   position: relative;

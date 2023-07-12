@@ -8,6 +8,8 @@ import initialAvatar from "assets/GreyIcon.svg";
 
 import { getSingleTweet, createReplyTweet } from "api/tweet";
 import { useTweet } from "context/tweetContext";
+import clsx from "clsx";
+import { LoadingDots } from "components/loadingItems/LoadingDots";
 
 export const AddReplyModal = ({ handleClose, show, twtId }) => {
   const {
@@ -103,36 +105,61 @@ export const AddReplyModal = ({ handleClose, show, twtId }) => {
             <CloseSVG />
           </Link>
         </Modal.Header>
+
         <Modal.Body className={styles.modalBody}>
-          {" "}
-          <div className={styles.othersTweet}>
-            <img
-              className={`${styles.tweetAvatar} cursorPointer`}
-              src={singleTweet.avatar ? singleTweet.avatar : initialAvatar}
-              alt="avatar"
-            ></img>
-            <div className={styles.tweetTextContainer}>
-              <header className={styles.tweetHeader}>
-                <p className={styles.userName}>{singleTweet.name}</p>
-                <p className={styles.nickNameTime}>
-                  <Link className={styles.userNickName}>
-                    @{singleTweet.account}
+          {Number(tweetId.current) === singleTweet.id ? (
+            <div className={styles.othersTweet}>
+              <img
+                className={`${styles.tweetAvatar} cursorPointer`}
+                src={singleTweet.avatar ? singleTweet.avatar : initialAvatar}
+                alt="avatar"
+              ></img>
+              <div className={styles.tweetTextContainer}>
+                <header className={styles.tweetHeader}>
+                  <p className={styles.userName}>{singleTweet.name}</p>
+                  <p className={styles.nickNameTime}>
+                    <Link className={styles.userNickName}>
+                      @{singleTweet.account}
+                    </Link>
+                    <> ・{formatTimestamp(singleTweet.createdAt)}</>
+                  </p>
+                </header>
+                <p className={styles.comment}>{singleTweet.description}</p>
+                <p className={styles.replyTo}>
+                  回覆給
+                  <Link className={styles.replyNickNameLink}>
+                    <span className={styles.replyNickName}>
+                      {" "}
+                      @{singleTweet.account}
+                    </span>
                   </Link>
-                  ・{formatTimestamp(singleTweet.createdAt)}
                 </p>
-              </header>
-              <p className={styles.comment}>{singleTweet.description}</p>
-              <p className={styles.replyTo}>
-                回覆給
-                <Link className={styles.replyNickNameLink}>
-                  <span className={styles.replyNickName}>
-                    {" "}
-                    @{singleTweet.account}
-                  </span>
-                </Link>
-              </p>
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className={styles.othersTweet}>
+              <img
+                className={`${styles.tweetAvatar} cursorPointer`}
+                src={initialAvatar}
+                alt="avatar"
+              ></img>
+              <div className={styles.tweetTextContainer}>
+                <header className={styles.tweetHeader}>
+                  <p className={styles.userName}>loading...</p>
+                  <p className={styles.nickNameTime}>
+                    <Link className={styles.userNickName}>@loading...</Link>
+                    <>・載入中</>
+                  </p>
+                </header>
+                <div className={styles.comment}>
+                  <span className={styles.Loading}>
+                    <LoadingDots />
+                  </span>
+                </div>
+              </div>
+            </div>
+          )}
+
           <span className={styles.avatarLine}></span>
           <div className={styles.yourReply}>
             <img
@@ -154,6 +181,14 @@ export const AddReplyModal = ({ handleClose, show, twtId }) => {
           </div>
         </Modal.Body>
         <Modal.Footer className={styles.modalFooter}>
+          <p
+            className={clsx("", {
+              [styles.wordHint]: replyInputValue.length <= 140,
+              [styles.wordHintOver]: replyInputValue.length > 140,
+            })}
+          >
+            {replyInputValue.length}/140
+          </p>
           <p className={styles.wordLimitHint}>
             {showReplyAlert && replyInputValue.length === 0 && "內容不可空白"}
             {showReplyAlert &&

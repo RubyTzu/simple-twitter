@@ -65,6 +65,27 @@
 .addTweetSpacefooter {
   position: relative;
 }
+.wordHint {
+  position: absolute;
+  top: 22px;
+  left: -460px;
+  margin-right: 16px;
+  font-family: "Noto Sans TC", sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  color: #6c757d;
+}
+
+.wordHintOver {
+  position: absolute;
+  top: 22px;
+  left: -460px;
+  margin-right: 16px;
+  font-family: "Noto Sans TC", sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  color: red;
+}
 
 .wordLimitHint {
   position: absolute;
@@ -77,6 +98,7 @@
   font-size: 15px;
   color: red;
 }
+
 
 .tweetButton {
   width: 64.5px;

@@ -16,6 +16,7 @@ export const SettingPage = () => {
   const [alertWord, setAlertWord] = useState("");
   const [alertIcon, setAlertIcon] = useState(false);
   const [user, setUser] = useState({});
+  const [accountLength, setAccountLength] = useState("");
   const [nameLength, setNameLength] = useState("");
   const { profile, setProfile } = useCurrentUser();
 
@@ -60,6 +61,13 @@ export const SettingPage = () => {
       setAlertWord("請確認兩次密碼輸入一致");
       setAlertIcon(false);
       setPwdPassed(false);
+      return;
+    }
+    if (accountLength > 50) {
+      setShowAlert(true);
+      setAlertWord("字數超過上限50字");
+      setAlertIcon(false);
+      setAccountPassed(false);
       return;
     }
     if (nameLength > 50) {
@@ -110,6 +118,7 @@ export const SettingPage = () => {
             accountPassed={accountPassed}
             onChange={(e) => {
               setAccountPassed(true);
+              setAccountLength(e.target.value.length);
               setUser({
                 ...user,
                 account: e.target.value,
@@ -123,6 +132,15 @@ export const SettingPage = () => {
             })}
           >
             <p>請再次輸入帳號!</p>
+          </span>
+          <span
+            className={clsx("", {
+              [styles.limit]: accountLength > 50,
+              [styles.noLimit]: accountLength <= 50,
+            })}
+          >
+            <p>字數超出上限!</p>
+            <p>{accountLength}/50</p>
           </span>
         </div>
         <div className={styles.inputContainer}>

@@ -16,7 +16,7 @@
   left: 16px;
   width: 24px;
   height: 24px;
-    color: var(--major);
+  color: var(--major);
 }
 
 .modalBody {
@@ -50,8 +50,30 @@
 }
 
 .modalFooter {
+  position: relative;
   border: none;
   height: 72px;
+}
+.wordHint {
+  position: absolute;
+  top: 22px;
+  left: 28px;
+  margin-right: 16px;
+  font-family: "Noto Sans TC", sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  color: #6c757d;
+}
+
+.wordHintOver {
+  position: absolute;
+  top: 22px;
+  left: 28px;
+  margin-right: 16px;
+  font-family: "Noto Sans TC", sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  color: red;
 }
 
 .wordLimitHint {
@@ -71,4 +93,3 @@
   color: var(--white);
   background-color: var(--major);
 }
-

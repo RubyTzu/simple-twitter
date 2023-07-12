@@ -1,7 +1,7 @@
 .modalContainer {
   top: 25px;
-  right: 99px;
-  width: 634px;
+  right: 103px;
+  width: 650px;
   min-height: 500px;
   margin: 0 auto;
   padding: 0;
@@ -103,6 +103,13 @@
   font-size: 16px;
   color: #000;
    word-break: break-all;
+   .Loading {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    height: 60px;
+   }
 }
 
 .replyTo {
@@ -167,8 +174,30 @@
 }
 
 .modalFooter {
+  position: relative;
   border: none;
   height: 72px;
+}
+.wordHint {
+  position: absolute;
+  top: 22px;
+  left: 28px;
+  margin-right: 16px;
+  font-family: "Noto Sans TC", sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  color: #6c757d;
+}
+
+.wordHintOver {
+  position: absolute;
+  top: 22px;
+  left: 28px;
+  margin-right: 16px;
+  font-family: "Noto Sans TC", sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  color: red;
 }
 
 .wordLimitHint {

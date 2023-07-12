@@ -87,16 +87,22 @@ export const TweetReadOnly = ({ value }) => {
             <header className={styles.tweetHeader}>
               <p className={styles.userName}>{value.repliedUserName}</p>
               <p className={styles.nickNameTime}>
-                <Link className={styles.userNickName}>
-                  @{value.repliedUserAccount}
+                <Link className={styles.userNickNameLink}>
+                  <span className={styles.userNickName}>
+                    @{value.repliedUserAccount}
+                  </span>
+                  <span className={styles.userTime}>
+                    ・{formatTimestamp(value.createdAt)}
+                  </span>
                 </Link>
-                ・{formatTimestamp(value.createdAt)}
               </p>
             </header>
             <p className={styles.replyTo}>
               回覆{" "}
-              <Link className={styles.replyNickName}>
-                @{value.tweetUserAccount}
+              <Link className={styles.replyNickNameLink}>
+                <span className={styles.replyNickName}>
+                  @{value.tweetUserAccount}
+                </span>
               </Link>
             </p>
             <p className={styles.comment}>{value.comment}</p>

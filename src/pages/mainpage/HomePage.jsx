@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import { useTweet } from "context/tweetContext";
 import { useCurrentUser } from "context/userInfoContext";
 import { getProfile } from "api/userinfo";
+import clsx from "clsx";
 
 const id = localStorage.getItem("id");
 
@@ -73,8 +74,17 @@ export const HomePage = () => {
             />
 
             <div className={styles.addTweetSpacefooter}>
+              <p
+                className={clsx("", {
+                  [styles.wordHint]: inputValue.length <= 140,
+                  [styles.wordHintOver]: inputValue.length > 140,
+                })}
+              >
+                {inputValue.length}/140
+              </p>
               <p className={styles.wordLimitHint}>
                 {showAlert && inputValue.length === 0 && "內容不可空白"}
+
                 {showAlert && inputValue.length > 140 && "字數不可超過 140 字"}
               </p>
               <button
