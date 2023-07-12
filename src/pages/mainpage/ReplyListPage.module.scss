@@ -84,6 +84,22 @@
   word-break: break-all;
   text-overflow: ellipsis;
 }
+.tweetMainLoading {
+  margin: 0 45px 0 16px;
+  font-family: "Noto Sans TC", sans-serif;
+  font-size: 24px;
+  text-align: start;
+  width: 600px;
+  word-break: break-all;
+  text-overflow: ellipsis;
+  .Loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 36px;
+    width: 100%;
+  }
+}
 
 .tweetFooter {
   display: flex;

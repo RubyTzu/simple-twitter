@@ -12,15 +12,24 @@ import { getFollowCounts, getProfile } from "api/userinfo";
 import { addFollow, deleteFollow } from "api/follow";
 import { useTweet } from "context/tweetContext";
 import { useCurrentUser } from "context/userInfoContext";
+import { LoadingIcon } from "components/loadingItems/LoadingIcon";
+import { LoadingDots } from "components/loadingItems/LoadingDots";
 
 export const UserOtherPage = () => {
-  const { setUserTweets, setUserReplies, setUserLikedTweets, addTweetRefresh } =
-    useTweet();
+  const {
+    setUserTweets,
+    setUserReplies,
+    setUserLikedTweets,
+    addTweetRefresh,
+    setUserTweetsDataLoaded,
+    setUserRepliesDataLoaded,
+    setUserLikedTweetsDataLoaded,
+  } = useTweet();
   const { userId } = useParams();
   const navigate = useNavigate();
   const { profile, setProfile, followCounts, setFollowCounts } =
     useCurrentUser();
-
+    
   const handleAddFollowing = async (userId) => await addFollow(userId);
   const handleCancelFollowing = async (userId) => await deleteFollow(userId);
 
@@ -31,6 +40,10 @@ export const UserOtherPage = () => {
       setUserTweets(await getUserTweets(userId));
       setUserReplies(await getUserReplies(userId));
       setUserLikedTweets(await getUserLikedTweets(userId));
+      setUserTweetsDataLoaded(true);
+      setUserRepliesDataLoaded(true);
+      setUserLikedTweetsDataLoaded(true);
+      console.log(`useEffect from userotherPage: id: ${userId}`);
     })();
   }, [
     userId,
@@ -40,101 +53,147 @@ export const UserOtherPage = () => {
     addTweetRefresh,
     setFollowCounts,
     setProfile,
+    setUserTweetsDataLoaded,
+    setUserRepliesDataLoaded,
+    setUserLikedTweetsDataLoaded,
   ]);
 
   return (
     <>
-      <div className={styles.mainbarContainer}>
-        <header className={styles.userPageHeader}>
-          <Link onClick={() => navigate(-1)}>
-            <BackSVG className={styles.logo} />
-          </Link>
-          <div className={styles.userPageHeaderText}>
-            <p className={styles.userPageTitle}>{profile.name}</p>
-            <p className={styles.userPageTweetCounts}>
-              {profile.tweetsCounts} 推文
-            </p>
-          </div>
-        </header>
-        <div className={styles.userinfoContainer}>
-          <img
-            className={styles.userBcgImage}
-            src={
-              profile.coverPhoto === null || profile.coverPhoto === "null"
-                ? userotherBcg
-                : profile.coverPhoto
-            }
-            alt=""
-          />
-          <img
-            className={styles.userAvatar}
-            src={profile.avatar === null ? userotherAvatar : profile.avatar}
-            alt=""
-          />
-          <div className={styles.userinfoBtnContainer}>
-            <div className={styles.userinfoBtn}>
-              <LetterIcon className={styles.icon} />
+      {Number(userId) === profile.id ? (
+        <div className={styles.mainbarContainer}>
+          <header className={styles.userPageHeader}>
+            <Link onClick={() => navigate(-1)}>
+              <BackSVG className={styles.logo} />
+            </Link>
+            <div className={styles.userPageHeaderText}>
+              <p className={styles.userPageTitle}>{profile.name}</p>
+              <p className={styles.userPageTweetCounts}>
+                {profile.tweetsCounts} 推文
+              </p>
             </div>
-            <div className={styles.userinfoBtn}>
-              <NotifIcon className={styles.icon} />
-            </div>
-            <button
-              className={
-                profile.isFollowing
-                  ? styles.toNotFollowButton
-                  : styles.toFollowButton
+          </header>
+          <div className={styles.userinfoContainer}>
+            <img
+              className={styles.userBcgImage}
+              src={
+                profile.coverPhoto === null || profile.coverPhoto === "null"
+                  ? userotherBcg
+                  : profile.coverPhoto
               }
-              onClick={async () => {
-                const reload = () => window.location.reload();
-                if (!profile.isFollowing) {
-                  await handleAddFollowing(profile.id);
-                  reload();
-                } else {
-                  await handleCancelFollowing(profile.id);
-                  reload();
+              alt=""
+            />
+            <img
+              className={styles.userAvatar}
+              src={profile.avatar === null ? userotherAvatar : profile.avatar}
+              alt=""
+            />
+            <div className={styles.userinfoBtnContainer}>
+              <div className={styles.userinfoBtn}>
+                <LetterIcon className={styles.icon} />
+              </div>
+              <div className={styles.userinfoBtn}>
+                <NotifIcon className={styles.icon} />
+              </div>
+              <button
+                className={
+                  profile.isFollowing
+                    ? styles.toNotFollowButton
+                    : styles.toFollowButton
                 }
-                reload();
-              }}
-            >
-              {profile.isFollowing ? "正在跟隨" : "跟隨"}
-            </button>
+                onClick={async () => {
+                  const reload = () => window.location.reload();
+                  if (!profile.isFollowing) {
+                    await handleAddFollowing(profile.id);
+                    reload();
+                  } else {
+                    await handleCancelFollowing(profile.id);
+                    reload();
+                  }
+                  reload();
+                }}
+              >
+                {profile.isFollowing ? "正在跟隨" : "跟隨"}
+              </button>
+            </div>
+            <div className={styles.userinfo}>
+              <div>
+                <b>{profile.name}</b>
+              </div>
+              <div className={styles.nickName}>@{profile.account}</div>
+              <div className={styles.description}>
+                {profile.introduction === null
+                  ? "使用者無簡介"
+                  : profile.introduction}
+              </div>
+              <div className={styles.follow}>
+                <Link
+                  state={"正在追隨"}
+                  to={`/followlist/${userId}`}
+                  className={styles.followerInfoBtn}
+                >
+                  <span className={styles.followNum}>
+                    {followCounts.followingCount} 個
+                  </span>
+                  <span>跟隨中</span>
+                </Link>
+                <Link
+                  to={`/followlist/${userId}`}
+                  state={"追隨者"}
+                  className={styles.followingInfoBtn}
+                >
+                  <span className={styles.followNum}>
+                    {followCounts.followerCount} 位
+                  </span>
+                  <span>跟隨者</span>
+                </Link>
+              </div>
+            </div>
           </div>
-          <div className={styles.userinfo}>
-            <div>
-              <b>{profile.name}</b>
+          <UserTweetsCollection />
+        </div>
+      ) : (
+        <div className={styles.mainbarContainer}>
+          <header className={styles.userPageHeader}>
+            <Link onClick={() => navigate(-1)}>
+              <BackSVG className={styles.logo} />
+            </Link>
+            <div className={styles.userPageHeaderText}>
+              <div className={styles.userPageTitleLoading}>
+                <LoadingDots />
+              </div>
+              <p className={styles.userPageTweetCounts}></p>
             </div>
-            <div className={styles.nickName}>@{profile.account}</div>
-            <div className={styles.description}>
-              {profile.introduction === null
-                ? "使用者無簡介"
-                : profile.introduction}
+          </header>
+          <div className={styles.userinfoContainer}>
+            <div className={styles.userBcgImageLoading}>
+              <LoadingDots />
             </div>
-            <div className={styles.follow}>
-              <Link
-                state={"正在追隨"}
-                to={`/followlist/${userId}`}
-                className={styles.followerInfoBtn}
-              >
-                <span className={styles.followNum}>
-                  {followCounts.followingCount} 個
-                </span>
-                <span>跟隨中</span>
-              </Link>
-              <Link
-                to={`/followlist/${userId}`}
-                state={"追隨者"}
-                className={styles.followingInfoBtn}
-              >
-                <span className={styles.followNum}>
-                  {followCounts.followerCount} 位
-                </span>
-                <span>跟隨者</span>
-              </Link>
+            <div className={styles.userAvatarLoading}>
+              <div className={styles.Loading}>
+                <LoadingDots />
+              </div>
             </div>
+            <div className={styles.userinfoBtnContainer}>
+              <div className={styles.userinfoBtn}>
+                <LetterIcon className={styles.icon} />
+              </div>
+              <div className={styles.userinfoBtn}>
+                <NotifIcon className={styles.icon} />
+              </div>
+              <button className={styles.toFollowButton}>載入中</button>
+            </div>
+            <div className={styles.userinfoLoading}>
+              <div className={styles.Loading}>
+                <LoadingDots />
+              </div>
+            </div>
+          </div>
+          <div className={styles.tweetsCollectionLoading}>
+            <LoadingIcon />
           </div>
         </div>
-        <UserTweetsCollection />
-      </div>
+      )}
     </>
   );
 };

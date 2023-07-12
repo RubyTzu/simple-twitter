@@ -15,6 +15,8 @@ import {
 } from "api/tweet";
 import { useEffect } from "react";
 import { useTweet } from "context/tweetContext";
+import { LoadingDots } from "components/loadingItems/LoadingDots";
+import { LoadingIcon } from "components/loadingItems/LoadingIcon";
 const id = localStorage.getItem("id");
 
 export const ReplyListPage = () => {
@@ -62,77 +64,144 @@ export const ReplyListPage = () => {
           </Link>
           <h1 className={styles.replyListPageTitle}>推文</h1>
         </header>
-        <div className={styles.tweetSection}>
-          <div className={styles.tweetHeader}>
-            {Number(id) === singleTweet.UserId ? (
-              <Link to={`/userself/${singleTweet.UserId}`}>
-                <img
-                  className={`${styles.tweetAvatar} cursorPointer`}
-                  src={singleTweet.avatar ? singleTweet.avatar : initialAvatar}
-                  alt="avatar"
-                ></img>
-              </Link>
-            ) : (
-              <Link to={`/userother/${singleTweet.UserId}`}>
-                <img
-                  className={`${styles.tweetAvatar} cursorPointer`}
-                  src={singleTweet.avatar ? singleTweet.avatar : initialAvatar}
-                  alt="avatar"
-                ></img>
-              </Link>
-            )}
+        {Number(tweetId) === singleTweet.id ? (
+          <div className={styles.tweetSection}>
+            <div className={styles.tweetHeader}>
+              {Number(id) === singleTweet.UserId ? (
+                <Link to={`/userself/${singleTweet.UserId}`}>
+                  <img
+                    className={`${styles.tweetAvatar} cursorPointer`}
+                    src={
+                      singleTweet.avatar ? singleTweet.avatar : initialAvatar
+                    }
+                    alt="avatar"
+                  ></img>
+                </Link>
+              ) : (
+                <Link to={`/userother/${singleTweet.UserId}`}>
+                  <img
+                    className={`${styles.tweetAvatar} cursorPointer`}
+                    src={
+                      singleTweet.avatar ? singleTweet.avatar : initialAvatar
+                    }
+                    alt="avatar"
+                  ></img>
+                </Link>
+              )}
 
-            <div className={styles.userInfos}>
-              <p className={styles.userName}>{singleTweet.name}</p>
-              <p className={styles.userNickName}>@{singleTweet.account}</p>
+              <div className={styles.userInfos}>
+                <p className={styles.userName}>{singleTweet.name}</p>
+                <p className={styles.userNickName}>@{singleTweet.account}</p>
+              </div>
+            </div>
+            <p className={styles.tweetMain}>{singleTweet.description}</p>
+            <div className={styles.tweetFooter}>
+              <span className={styles.time}>
+                <span>{formatTimestamp(singleTweet.createdAt)}</span>
+              </span>
+              <p className={styles.feedbackCounts}>
+                <span>
+                  <b className={styles.commentCounts}>
+                    {singleTweet.repliesCount}
+                  </b>{" "}
+                  回覆
+                </span>
+                <span>
+                  <b className={styles.likeCounts}>{singleTweet.likesCount}</b>{" "}
+                  喜歡次數
+                </span>
+              </p>
+              <div className={styles.feedbackButtons}>
+                <Link
+                  type="Link"
+                  className={`${styles.replyButton}`}
+                  data-bs-toggle="modal"
+                  data-bs-target="#addReplyModalinReplyList"
+                >
+                  <CommentSVG className={styles.feedbackButton} />
+                </Link>
+                <AddReplyModalinReplyList />
+
+                <img
+                  src={singleTweet.isLiked ? LikePress : LikeSVG}
+                  alt="Likebtn"
+                  className={`${styles.feedbackButton} cursorPointer`}
+                  onClick={async () => {
+                    singleTweet.isLiked
+                      ? await tweetUnLike(singleTweet.id)
+                      : await tweetLike(singleTweet.id);
+                    const res = await getSingleTweet(singleTweet.id);
+                    setSingleTweet(res);
+                  }}
+                />
+              </div>
             </div>
           </div>
-          <p className={styles.tweetMain}>{singleTweet.description}</p>
-          <div className={styles.tweetFooter}>
-            <span className={styles.time}>
-              <span>{formatTimestamp(singleTweet.createdAt)}</span>
-            </span>
-            <p className={styles.feedbackCounts}>
-              <span>
-                <b className={styles.commentCounts}>
-                  {singleTweet.repliesCount}
-                </b>{" "}
-                回覆
-              </span>
-              <span>
-                <b className={styles.likeCounts}>{singleTweet.likesCount}</b>{" "}
-                喜歡次數
-              </span>
-            </p>
-            <div className={styles.feedbackButtons}>
-              <Link
-                type="Link"
-                className={`${styles.replyButton}`}
-                data-bs-toggle="modal"
-                data-bs-target="#addReplyModalinReplyList"
-              >
-                <CommentSVG className={styles.feedbackButton} />
-              </Link>
-              <AddReplyModalinReplyList />
-
+        ) : (
+          <div className={styles.tweetSection}>
+            <div className={styles.tweetHeader}>
               <img
-                src={singleTweet.isLiked ? LikePress : LikeSVG}
-                alt="Likebtn"
-                className={`${styles.feedbackButton} cursorPointer`}
-                onClick={async () => {
-                  singleTweet.isLiked
-                    ? await tweetUnLike(singleTweet.id)
-                    : await tweetLike(singleTweet.id);
-                  const res = await getSingleTweet(singleTweet.id);
-                  setSingleTweet(res);
-                }}
-              />
+                className={`${styles.tweetAvatar} cursorPointer`}
+                src={initialAvatar}
+                alt="avatar"
+              ></img>
+
+              <div className={styles.userInfos}>
+                <p className={styles.userName}>loading...</p>
+                <p className={styles.userNickName}>@loading...</p>
+              </div>
+            </div>
+            <div className={styles.tweetMainLoading}>
+              <div className={styles.Loading}>
+                <LoadingDots />
+              </div>
+            </div>
+            <div className={styles.tweetFooter}>
+              <span className={styles.time}>
+                <span>推文時間・載入中</span>
+              </span>
+              <p className={styles.feedbackCounts}>
+                <span>
+                  <b className={styles.commentCounts}>0</b> 回覆
+                </span>
+                <span>
+                  <b className={styles.likeCounts}>0</b> 喜歡次數
+                </span>
+              </p>
+              <div className={styles.feedbackButtons}>
+                <Link
+                  className={`${styles.replyButton}`}
+                >
+                  <CommentSVG className={styles.feedbackButton} />
+                </Link>
+
+                <img
+                  src={LikeSVG}
+                  alt="Likebtn"
+                  className={`${styles.feedbackButton} cursorPointer`}
+                />
+              </div>
             </div>
           </div>
-        </div>
-        {replyListReplies.map((reply) => {
-          return <TweetReadOnly key={reply.id} value={reply} />;
-        })}
+        )}
+
+        {replyListReplies.length > 0 ? (
+          <>
+            {Number(tweetId) === replyListReplies[0].TweetId ? (
+              <>
+                {replyListReplies.map((reply) => {
+                  return <TweetReadOnly key={reply.id} value={reply} />;
+                })}
+              </>
+            ) : (
+              <>
+                <LoadingIcon />
+              </>
+            )}
+          </>
+        ) : (
+          <></>
+        )}
       </div>
     </>
   );

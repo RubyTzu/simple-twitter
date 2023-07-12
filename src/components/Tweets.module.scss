@@ -2,6 +2,10 @@
   position: relative;
   width: 638px;
   height: 100vh;
+   overflow: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .openReplyList {
