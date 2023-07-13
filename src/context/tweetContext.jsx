@@ -9,11 +9,20 @@ export const useTweet = () => useContext(TweetContext);
 export const TweetContextProvider = ({ children }) => {
   //current user id
   const id = localStorage.getItem("id");
+  
   //useState hook
+  //get Tweets Data
   const [allTweets, setAllTweets] = useState([]);
   const [userTweets, setUserTweets] = useState([]);
   const [userReplies, setUserReplies] = useState([]);
   const [userLikedTweets, setUserLikedTweets] = useState([]);
+  //Tweet loading check
+  const [allTweetsDataLoaded, setAllTweetsDataLoaded] = useState(false);
+  const [userTweetsDataLoaded, setUserTweetsDataLoaded] = useState(false);
+  const [userRepliesDataLoaded, setUserRepliesDataLoaded] = useState(false);
+  const [userLikedTweetsDataLoaded, setUserLikedTweetsDataLoaded] =
+    useState(false);
+
   const [singleTweet, setSingleTweet] = useState({});
   const [replyListReplies, setReplyListReplies] = useState([]);
   const [inputValue, setInputValue] = useState("");
@@ -25,12 +34,14 @@ export const TweetContextProvider = ({ children }) => {
   //useEffect hook
   useEffect(() => {
     const showHomePageTweets = async () => {
-      const data = await getTweets(id);
-      if (data) setAllTweets(data);
+      const data = await getTweets();
+      if (data) {
+        setAllTweets(data);
+        setAllTweetsDataLoaded(true);
+      }
     };
     showHomePageTweets();
-    console.log(`hello from useEffect-TweetContext id :${id}`);
-  }, [id, addTweetRefresh]);
+  }, [addTweetRefresh]);
 
   useEffect(() => {
     console.log(`hello from useEffect-TweetContext showAlert :${showAlert}`);
@@ -66,12 +77,20 @@ export const TweetContextProvider = ({ children }) => {
     //useState hook
     allTweets,
     setAllTweets,
+    allTweetsDataLoaded,
+    setAllTweetsDataLoaded,
     userTweets,
     setUserTweets,
     userReplies,
     setUserReplies,
     userLikedTweets,
     setUserLikedTweets,
+    userTweetsDataLoaded,
+    setUserTweetsDataLoaded,
+    userRepliesDataLoaded,
+    setUserRepliesDataLoaded,
+    userLikedTweetsDataLoaded,
+    setUserLikedTweetsDataLoaded,
     singleTweet,
     setSingleTweet,
     replyListReplies,

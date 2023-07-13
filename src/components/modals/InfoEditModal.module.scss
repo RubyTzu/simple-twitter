@@ -71,6 +71,7 @@
   left: 0px;
   width: 633px;
   height: 200px;
+  object-fit: cover;
 }
 
 .BGButtons {
@@ -255,10 +256,10 @@
   background-color: #f5f8fa;
   border-bottom: 2px solid #fc5a5a;
   &:hover {
-   border-bottom: 2px solid #fc5a5a;
+    border-bottom: 2px solid #fc5a5a;
   }
   &:focus {
-   border-bottom: 2px solid #fc5a5a;
+    border-bottom: 2px solid #fc5a5a;
   }
 }
 
@@ -323,13 +324,13 @@
   height: 145px;
   font-size: 14px;
   background-color: #f5f8fa;
- border-bottom: 2px solid #fc5a5a;
+  border-bottom: 2px solid #fc5a5a;
   border-radius: 2px;
   &:hover {
-  border-bottom: 2px solid #fc5a5a;
+    border-bottom: 2px solid #fc5a5a;
   }
   &:focus {
-   border-bottom: 2px solid #fc5a5a;
+    border-bottom: 2px solid #fc5a5a;
   }
 }
 

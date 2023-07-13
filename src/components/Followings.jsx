@@ -44,8 +44,8 @@ export const Following = ({ value }) => {
 export const Followings = ({ followings }) => {
   return (
     <div className={styles.followsCollection}>
-      {followings.map((following) => {
-        return <Following key={following.id} value={following} />;
+      {followings.map((following, i) => {
+        return <Following key={i} value={following} />;
       })}
     </div>
   );

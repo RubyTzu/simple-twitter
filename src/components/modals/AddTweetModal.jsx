@@ -5,6 +5,7 @@ import initialAvatar from "assets/GreyIcon.svg";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useTweet } from "context/tweetContext";
+import clsx from "clsx";
 
 export const AddTweetModal = () => {
   const {
@@ -69,6 +70,14 @@ export const AddTweetModal = () => {
             />
           </div>
           <div className={`modal-footer ${styles.modalFooter}`}>
+            <p
+              className={clsx("", {
+                [styles.wordHint]: inputValue.length <= 140,
+                [styles.wordHintOver]: inputValue.length > 140,
+              })}
+            >
+              {inputValue.length}/140
+            </p>
             <p className={styles.wordLimitHint}>
               {showAlert && inputValue.length === 0 && "內容不可空白"}
               {showAlert && inputValue.length > 140 && "字數不可超過 140 字"}

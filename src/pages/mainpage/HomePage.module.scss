@@ -7,10 +7,7 @@
   height: 100vh;
   border-right: 1px solid var(--lightGrayOne);
   border-left: 1px solid var(--lightGrayOne);
-  overflow: scroll;
-  &::-webkit-scrollbar {
-    display: none;
-  }
+  // overflow: auto;
 }
 
 .homePageTitle {
@@ -61,12 +58,33 @@
   font-weight: 800;
   font-size: 18px;
   &::placeholder {
-    color: #6C757D;
+    color: #6c757d;
   }
 }
 
 .addTweetSpacefooter {
   position: relative;
+}
+.wordHint {
+  position: absolute;
+  top: 22px;
+  left: -460px;
+  margin-right: 16px;
+  font-family: "Noto Sans TC", sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  color: #6c757d;
+}
+
+.wordHintOver {
+  position: absolute;
+  top: 22px;
+  left: -460px;
+  margin-right: 16px;
+  font-family: "Noto Sans TC", sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  color: red;
 }
 
 .wordLimitHint {
@@ -80,6 +98,7 @@
   font-size: 15px;
   color: red;
 }
+
 
 .tweetButton {
   width: 64.5px;
@@ -95,6 +114,7 @@
 .tweetsCollection {
   position: relative;
   width: 638px;
-  height: 100vh;
+  // height: 100vh;
   border-top: 10px solid var(--lightGrayOne);
+ overflow: auto;
 }

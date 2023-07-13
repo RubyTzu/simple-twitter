@@ -1,7 +1,11 @@
 import userInitialAvatar from "assets/GreyIcon.svg";
 import styles from "./TweetsReadOnly.module.scss";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useTweet } from "context/tweetContext";
+import VirtualScroller from "../components/loadingItems/VirtualScroller";
+import { LoadingIcon } from "components/loadingItems/LoadingIcon";
+import { useEffect } from "react";
+
 const id = localStorage.getItem("id");
 
 export const TweetReadOnly = ({ value }) => {
@@ -39,84 +43,123 @@ export const TweetReadOnly = ({ value }) => {
   };
 
   return (
-    <div className={styles.tweetContainer}>
-      {Number(id) === value.UserId ? (
-        <Link
-          to={`/userself/${value.UserId}`}
-          onClick={(e) => {
-            e.stopPropagation();
-          }}
-        >
-          <img
-            data-id={value.UserId}
-            className={`${styles.userAvatar} cursorPointer`}
-            src={
-              value.repliedUserAvatar === null
-                ? userInitialAvatar
-                : value.repliedUserAvatar
-            }
-            alt="userAvatar"
-          />
-        </Link>
-      ) : (
-        <Link
-          to={`/userother/${value.UserId}`}
-          onClick={(e) => {
-            e.stopPropagation();
-          }}
-        >
-          <img
-            data-id={value.UserId}
-            className={`${styles.userAvatar} cursorPointer`}
-            src={
-              value.repliedUserAvatar === null
-                ? userInitialAvatar
-                : value.repliedUserAvatar
-            }
-            alt="userAvatar"
-          />
-        </Link>
-      )}
-      <div className={styles.tweetTextContainer}>
-        <header className={styles.tweetHeader}>
-          <p className={styles.userName}>{value.repliedUserName}</p>
-          <p className={styles.nickNameTime}>
-            <Link className={styles.userNickName}>
-              @{value.repliedUserAccount}
+    <>
+      {value.UserId ? (
+        <div className={styles.tweetContainer}>
+          {Number(id) === value.UserId ? (
+            <Link
+              to={`/userself/${value.UserId}`}
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
+            >
+              <img
+                data-id={value.UserId}
+                className={`${styles.userAvatar} cursorPointer`}
+                src={
+                  value.repliedUserAvatar === null
+                    ? userInitialAvatar
+                    : value.repliedUserAvatar
+                }
+                alt="userAvatar"
+              />
             </Link>
-            ・{formatTimestamp(value.createdAt)}
-          </p>
-        </header>
-        <p className={styles.replyTo}>
-          回覆{" "}
-          <Link className={styles.replyNickName}>
-            @{value.tweetUserAccount}
-          </Link>
-        </p>
-        <p className={styles.comment}>{value.comment}</p>
-      </div>
-    </div>
+          ) : (
+            <Link
+              to={`/userother/${value.UserId}`}
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
+            >
+              <img
+                data-id={value.UserId}
+                className={`${styles.userAvatar} cursorPointer`}
+                src={
+                  value.repliedUserAvatar === null
+                    ? userInitialAvatar
+                    : value.repliedUserAvatar
+                }
+                alt="userAvatar"
+              />
+            </Link>
+          )}
+          <div className={styles.tweetTextContainer}>
+            <header className={styles.tweetHeader}>
+              <p className={styles.userName}>{value.repliedUserName}</p>
+              <p className={styles.nickNameTime}>
+                <Link className={styles.userNickNameLink}>
+                  <span className={styles.userNickName}>
+                    @{value.repliedUserAccount}
+                  </span>
+                  <span className={styles.userTime}>
+                    ・{formatTimestamp(value.createdAt)}
+                  </span>
+                </Link>
+              </p>
+            </header>
+            <p className={styles.replyTo}>
+              回覆{" "}
+              <Link className={styles.replyNickNameLink}>
+                <span className={styles.replyNickName}>
+                  @{value.tweetUserAccount}
+                </span>
+              </Link>
+            </p>
+            <p className={styles.comment}>{value.comment}</p>
+          </div>
+        </div>
+      ) : (
+        <LoadingIcon />
+      )}
+    </>
   );
 };
 
-// export const TweetsReadOnly = ({ value }) => {
-//   return (
-//     <div className={styles.replyTweetsCollection}>
-//       {value.map((reply) => {
-//         return <TweetReadOnly key={reply.id} value={reply} />;
-//       })}
-//     </div>
-//   );
-// };
-
 export const UserReplyTweets = () => {
-  const { userReplies } = useTweet();
-  if (!userReplies) return;
+  const { userReplies, userRepliesDataLoaded } = useTweet();
+  const { userId } = useParams();
+
+  useEffect(() => {
+    console.log(`userId in UserTweets ${userId}`);
+  }, [userId]);
+
+  const SETTINGS = {
+    itemHeight: 170, //153px + 16(margin-top) + 1(border-bottom)
+    tolerance: 2,
+    amount: 7, //避免拉視窗拉開沒有render，至少要6個tweet以上
+    minIndex: 0,
+    maxIndex: userReplies.length - 1, //index從0開始所以要減一
+    startIndex: 0,
+  };
+
+  const getData = (offset, limit) => {
+    const start = Math.max(SETTINGS.minIndex, offset);
+    const end = Math.min(offset + limit - 1, SETTINGS.maxIndex);
+    // console.log(
+    //   `request [${offset}..${offset + limit - 1}] -> [${start}..${end}] items`
+    // );
+    const slicedData = userReplies.slice(start, end);
+
+    return slicedData;
+  };
+
+  const TweetInRow = (value) => {
+    return <TweetReadOnly value={value} key={value.id} />;
+  };
+
+  if (!userReplies) return <p>userReplies not found</p>;
   return (
-    <div className={styles.tweetsCollection}>
-      {userReplies.map((tweet, i) => {
-        return <TweetReadOnly value={tweet} key={i} />;
-      })}
-    </div>
+    <>
+      {userRepliesDataLoaded && Number(userId) === userReplies[0].UserId ? (
+        <VirtualScroller
+          className={styles.tweetsCollection}
+          settings={SETTINGS}
+          get={getData}
+          row={TweetInRow}
+        />
+      ) : (
+        <LoadingIcon />
+      )}
+    </>
   );
 };

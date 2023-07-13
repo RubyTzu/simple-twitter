@@ -8,10 +8,13 @@
 .popularbarContainer {
   background-color: var(--lightGrayTwo);
   width: 273px;
-  // min-height: 895px;
+  min-height: 895px;
   border-radius: 16px;
   margin: 16px 25px;
   overflow-y: scroll;
+    &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .RightbarTitle {
@@ -97,4 +100,11 @@
   color: var(--major);
   font-size: 16px;
   cursor: pointer;
+}
+
+.popularUserNameLoading {
+  position: relative;
+  top: 16px;
+  margin: 0;
+  padding: 0;
 }
